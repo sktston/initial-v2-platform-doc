@@ -1,1 +1,21 @@
-site_name: My Docs
+site_name: Initial v2 Platform
+site_author: SKT 주재현
+site_description: Initial v2 Platform
+site_url: https://initial-v2-platform.readthedocs.io/ko/latest/
+
+plugins:
+  - search
+markdown_extensions:
+  - meta
+  - toc:
+      permalink: true
+      baselevel: 1
+  - admonition
+  - footnotes
+
+theme:
+  name: readthedocs
+  highlightjs: true
+
+extra:
+  version: 0.1
