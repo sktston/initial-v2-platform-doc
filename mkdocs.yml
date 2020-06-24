@@ -11,15 +11,6 @@ repo_url: https://github.com/sktston/initial-v2-platform-doc
 nav:
   - Introduction:
       - 'Overview': ''
-      - 'Understanding SDK': ''
-      - 'Release note': ''
-  - Initial v2 APIs:
-      - 'Init/Common API': ''
-      - 'Credential API': ''
-      - 'Connection API': ''
-  - About: about.md
-  - Tutorial : initial_server_demo.md
-
 
 plugins:
   - search
