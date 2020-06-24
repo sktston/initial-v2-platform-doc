@@ -1,9 +1,9 @@
 site_name: Initial v2 Platform
 site_author: SKT 주재현
 site_description: Initial v2 Platform
-site_url: https://initial-and-adt.readthedocs.io/ko/latest/
+site_url:
 copyright:
-google_analytics: ['UA-163860122-1', 'https://initial-and-adt.readthedocs.io/ko/latest/']
+#google_analytics: ['UA-163860122-1', 'https://initial-and-adt.readthedocs.io/ko/latest/']
 
 repo_name: source repository
 repo_url: https://github.com/sktston/initial-v2-platform-doc
