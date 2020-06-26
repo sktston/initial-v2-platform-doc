@@ -1,0 +1,9 @@
+com.evernym.sdk.vcx.connection
+com.evernym.sdk.vcx.credential
+com.evernym.sdk.vcx.credentialDef
+com.evernym.sdk.vcx.issuer
+com.evernym.sdk.vcx.proof
+com.evernym.sdk.vcx.schema
+com.evernym.sdk.vcx.utils
+com.evernym.sdk.vcx.vcx
+com.evernym.sdk.vcx.wallet
