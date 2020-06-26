@@ -10,10 +10,8 @@ repo_url: https://github.com/sktston/initial-v2-platform-doc
 site_name: Initial v2 Platform
 nav:
   - Introduction : index.md
-  - Release note: index.md
+  - Release note: release_note.md
   - JAVA SDK API: java_api/java_api.md
-  - iOS SDK API: java_api/index.html
-
 
 
 

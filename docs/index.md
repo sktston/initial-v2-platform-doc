@@ -1,17 +1,12 @@
-# Welcome to MkDocs
+# Welcome to Initial Platform Service
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+이곳은 Aries Protocol 기반 Initial Platform 개발자를 위한 사이트 입니다. 
 
-## Commands
+## Index
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+* `Introduction` - Platform Architecture 소개 
+* `Release note` - Platform SDK Release note.
+* `Java SDK APIs` - Android/Java SDK API Documents.
+* `iOS SDK APIs` - iOS Native SDK API Documents.
+* `RESTful Credential APIs` - RESTful Credential APIs for Cloud Agent.
+* `RESTful Wallet APIs` - RESTful Wallet APIs for Cloud Agent.
