@@ -12,6 +12,8 @@ nav:
   - Introduction : index.md
   - Release note: release_note.md
   - Agency : agency.md
+  - Web Console: api.md
+  - DID Demo: demo.md
   - JAVA SDK API: java_api/java_api.md
 
 

@@ -6,7 +6,7 @@
 
 * `Introduction` - Platform Architecture 소개 
 * `Release note` - Platform SDK Release note.
+* `Agency` - Initial Agency 소.
 * `Java SDK APIs` - Android/Java SDK API Documents.
-* `iOS SDK APIs` - iOS Native SDK API Documents.
-* `RESTful Credential APIs` - RESTful Credential APIs for Cloud Agent.
-* `RESTful Wallet APIs` - RESTful Wallet APIs for Cloud Agent.
+* `Web Console` - RESTful Credential APIs for Cloud Agent.
+* `Demo` - Reference Demo.
