@@ -13,7 +13,7 @@ more specifically [Mediator Agency](https://github.com/hyperledger/aries-rfcs/bl
 * `Agency` - Initial Platform의 message 전달을 담당하는 Hub.
 * `Agent Entity` - Issuer/Verifier/Holder의 Cloud Agent. Notification을 담당.
 * `Connection Agent Entity` - 각각 Pairwise 연결 담당.
-![workflow](ko/latest/img/agency_workflow_simple.png)
+![workflow](img/agency_workflow_simple.png)
 
 
 ### Entities
