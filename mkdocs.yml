@@ -11,6 +11,7 @@ site_name: Initial v2 Platform
 nav:
   - Introduction : index.md
   - Release note: release_note.md
+  - Agency : agency.md
   - JAVA SDK API: java_api/java_api.md
 
 
