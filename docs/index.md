@@ -1,6 +1,6 @@
 # Welcome to Initial Platform Service
 
-이곳은 Aries Protocol 기반 Initial Platform 개발자를 위한 사이트 입니다. 
+이곳은 Aries Protocol 기반 Initial Platform 기반 개발자를 위한 사이트 입니다. 
 
 ## Index
 
