@@ -1,6 +1,12 @@
-# Running the VCX Java Demo
+# Initial Platform Demo
+이곳은 Aries Protocol 기반 Initial Platform 개발자를 위한 사이트 입니다. 
 
-<https://github.com/sktston/vcx-demo-java>
+## Blockchain Node 설치
+
+## Agency 설치
+
+# Faber - Alice Demo 실행
+# Running the VCX Java Demo
 
 ### Alice/Faber demo
 The alice/faber demo is widely used in the indy-sdk demo. The description of the VCX node demo explains it well, 
