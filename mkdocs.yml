@@ -40,7 +40,10 @@ markdown_extensions:
 
 theme:
   name: readthedocs
-  extra_css: docs/css/theme_extra.css
+  extra_css:
+    - theme_extra.css
+    - theme.css
+
 
 extra:
   version: 0.2
