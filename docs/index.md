@@ -15,7 +15,7 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 * `SDK APIs` - SDK APIs 소개.
 * `기타` - 기타.
 
-![workflow](img/initial platform arch entity.png)
+![workflow](img/initial_platform_arch.png)
 
 
 ## 2. Open Source Contribute
