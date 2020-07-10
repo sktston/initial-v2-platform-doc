@@ -41,8 +41,8 @@ markdown_extensions:
 theme:
   name: readthedocs
   extra_css:
-    - theme_extra.css
-    - theme.css
+    - css/theme_extra.css
+    - css/theme.css
 
 
 extra:

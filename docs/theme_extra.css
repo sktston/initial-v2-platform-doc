@@ -146,5 +146,22 @@ td, th {
     display: block;
     position: relative;
     font-size: 90%;
-    color: #656bfdb8;
+    color: #ffffff;
+}
+
+
+p.caption {
+    height: 32px;
+    display: inline-block;
+    line-height: 32px;
+    padding: 0 1.618em;
+    margin-bottom: 0;
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 80%;
+    white-space: nowrap;
+    background-color: #ffffff4f;
+    text-shadow: 0 0 black;
+    color: #252377;
 }
