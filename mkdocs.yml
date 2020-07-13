@@ -1,10 +1,9 @@
 site_name: Initial v2 Platform
 site_author: SKT 주재현
 site_description: Initial v2 Platform
-site_url: https://initial-v2-platform.readthedocs.io/ko/latest/
-google_analytics: ['UA-171779938-1', 'https://initial-v2-platform.readthedocs.io/ko/latest/']
+site_url: https://initial-v2-platform.readthedocs.io/
+google_analytics: ['UA-171779938-1', 'https://initial-v2-platform.readthedocs.io/']
 
-repo_name: source repository
 repo_url: https://github.com/sktston/initial-v2-platform-doc
 
 site_name: Initial Platform
@@ -20,7 +19,7 @@ nav:
   - 'Web Console' :
       - 'Agent APIs' : 'api.md'
       - 'Wallet APIs' : 'wallet_api.md'
-  - Reference Guide :
+  - Reference :
       - 'DID Demo' : 'demo.md'
   - SDK API :
       - 'Java APIs' : 'java_api/java_api.md'
@@ -40,9 +39,11 @@ markdown_extensions:
 
 theme:
   name: readthedocs
-  extra_css:
-    - css/theme_extra.css
-    - css/theme.css
+  nav_style: dark
+  navigation_depth : 2
+  highlightjs : true
+  hljs_style : github
+  extra_css : css/theme_extra.css
 
 
 extra:
