@@ -17,16 +17,25 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 
 ![platform arch](img/Initial_platform_arch.png)
 
+<br>
 
 ## 2. Open Source Contribute
 
-#### Hyperledger Indy
+- Hyperledger Indy(SDK)
 <https://github.com/hyperledger/indy-sdk>
+- SKT Ston Project(Initial Platform)
+<https://github.com/sktston>
+- Absa Node Agency(Mediator)
+<https://github.com/AbsaOSS/vcxagencynode>
 
+<br>
 
 ## 3. Global Standardization
 
-#### TIoP
-<https://trustoverip.org/>
+- ToIP(Trust over IP)
+<https://trustoverip.org/> <br>
+    - The Trust over IP Foundation is defining a complete architecture for Internet-scale digital trust that combines both cryptographic trust at the machine layer and human trust at the business, legal, and social layers.
 
-#### GSMA
+
+- GSMA Identity group
+<https://www.gsma.com/identity/>
