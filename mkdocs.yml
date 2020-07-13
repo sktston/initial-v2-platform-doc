@@ -43,7 +43,7 @@ theme:
   navigation_depth : 2
   highlightjs : true
   hljs_style : github
-  extra_css : css/theme_extra.css
+  extra_css : theme_extra.css
 
 
 extra:
