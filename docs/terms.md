@@ -1,6 +1,6 @@
 # Definition and Terms
 
-## 1. 기본 용
+## 1. 기본 용어
 ### Issuer
  - VC/증명서등을 발행하는 주체
  
@@ -53,7 +53,7 @@ DID는 수많은 보안 강화를 위해 많은 Key들을 사용한다
  - Ledger 접근하기 위해 Trustee, Steward, Endorser 권한이 있으며, Transaction을 발생할 수 있다
  - 권한이 없는 사용자는 Read만 가능하다.  
  
-## 3. Agency 용
+## 3. Agency 용어
 ### Agency
  - Agent to Agent 메시징 기본 개념은 중개자(Mediator) 및 중계(Relay)의 요소가 존재하고, Peer(Issuer,Verifier,Holder) Agent들 간의 연결 및 Message 중계를 위해 Agency가 존재. 
  - Initial Platform 기반의 DID 메시지 communication은 모두 SKT Agency를 통해서 동작.

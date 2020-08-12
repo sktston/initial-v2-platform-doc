@@ -23,10 +23,13 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 
 - Hyperledger Indy(SDK)
 <https://github.com/hyperledger/indy-sdk>
+- Hyperledger Aries Cloud Agent - Python
+<https://github.com/hyperledger/aries-cloudagent-python>
 - SKT Ston Project(Initial Platform)
 <https://github.com/sktston>
 - Absa Node Agency(Mediator)
 <https://github.com/AbsaOSS/vcxagencynode>
+
 
 <br>
 
