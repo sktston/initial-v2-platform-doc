@@ -4,7 +4,7 @@ An API to issue, manage, and verify self-sovereign identity credentials
 ### Initial Cloud Agent REST APIs
 
 #### Wallet
-> 1. `POST` ```/wallet​/did​/create```        : Local non-Public DID 생성
+> 1. `POST` /wallet​/did​/create : Local non-Public DID 생성
 > 2. `GET`  ```/wallet/did ```              : DID list 출력
 > 3. `POST` ```/wallet/did/public```        : Public DID를 Assign
 > 4. `GET` ```/wallet/did/public```         : 현재 할당된 Public DID 출력
@@ -12,5 +12,21 @@ An API to issue, manage, and verify self-sovereign identity credentials
 > 6. `GET` ```/wallet/set-did-endpoint```   : DID Endpoint 정보 출력
 > 7. `PATCH` ```/wallet/did/local/rotate-keypair```    : Rotate keypair for a local non-public DID
 
+   Method  | Resource | Description 
+  :---: | --- | --- 
+  `POST` | /wallet​/did​/create | Local non-Public DID 생성 
+  `GET` | /wallet/did | DID list 출력 
+  `POST` | /wallet/did/public | Public DID를 Assign 
+  `GET` | /wallet/did/public | 현재 할당된 Public DID 출력 
+  `POST` | /wallet/set-did-endpoint | DID에 Endpoint setting 
+  `GET` | /wallet/set-did-endpoint | DID Endpoint 정보 출력 
+  `PATCH` | /wallet/did/local/rotate-keypair | Rotate keypair for a local non-public DID 
+
 #### Connection
 > 1. `GET` `/connections` 
+
+APM: /apm/l/:packageName.svg
+<https://img.shields.io/badge/license-mit-green.svg"> 
+https://img.shields.io/badge/--.svg 
+
+https://img.shields.io/appveyor/build/aa/aa
