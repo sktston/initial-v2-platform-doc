@@ -18,7 +18,6 @@ nav:
       - 'Protocols' : 'agency_protocol.md'
   - 'Web Console' :
       - 'Agent APIs' : 'api.md'
-      - 'Wallet APIs' : 'wallet_api.md'
   - Reference :
       - 'DID Demo' : 'demo.md'
   - SDK API :
