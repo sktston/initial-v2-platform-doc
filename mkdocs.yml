@@ -17,7 +17,8 @@ nav:
       - 'Initial Agency' : 'agency.md'
       - 'Protocols' : 'agency_protocol.md'
   - 'Web Console' :
-      - 'Agent APIs' : 'api.md'
+      - 'Agent APIs admin site' : 'api.md'
+      - 'API Doc': 'api_doc.md'
   - Reference :
       - 'DID Demo' : 'demo.md'
   - SDK API :

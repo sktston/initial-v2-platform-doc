@@ -1,4 +1,4 @@
-# Initial Platform Console Credentials API
+# Initial Platform Console REST API
 An API to issue, manage, and verify self-sovereign identity credentials
 
 ## Version: v1
