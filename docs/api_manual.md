@@ -1,7 +1,7 @@
 # Cloud Agent 동작 시나리오
 
 #### STEP 1. Faber --> Alice : create invitation & send invitation.
-
+##### create-invitation
 ​`POST` `/connections​/create-invitation` 새로운 초대장 생성
 
 Parameter
@@ -33,6 +33,7 @@ Response (생성된 초대장)
 `invitation`내용이나 `invitation_url` 혹은 url을 `QR code`로 변경하여 Alice에게 전달하여 초대
 
 #### STEP 2. Alice : receive invitation & request connection.
+##### receive-invitation
 
 `POST' '/connections/receive-invitation` 초대장을 받음
 
@@ -42,7 +43,7 @@ Parameter
  --- | --- 
  body | Invitation 내용
  alias | 별칭 (e.g A대학제증명발급처) 
- auto_accept | Faber 초대장 수락 시 자동 connection 설정. 
+ auto_accept | Faber 초대장 수락 시 자동 connection이 active.
 
 Response (초대를 Accept를 하기 위해 생성한 정보)
 ```
@@ -64,9 +65,13 @@ Response (초대를 Accept를 하기 위해 생성한 정보)
 ```
 초대장 받고 연결하기 위한 DID등을 생성 
 
-#### STEP 3. Alice --> Faber : Accept invitation & request connection.
 
-`POST' '/connections/{conn_id}/accept-invitation` 초대를 수
+#### STEP 3. Alice --> Faber : Accept invitation & request connection.
+##### accept-invitation
+
+`POST' '/connections/{conn_id}/accept-invitation` 초대를 수락
+
+> * STEP2  `/connections/receive-invitation` `auto_accept` **`true`** 이면 STEP3 skip 가능 
 
 Parameter
 
@@ -99,7 +104,7 @@ Faber의 초대를 수락
 
 #### STEP 4. Faber --> Faber : accept connection request.
 
-`POST' '/connections/{conn_id}/accept-invitation` 초대를 수
+`POST' '/connections/{conn_id}/accept-invitation` 초대를 수락
 
 Parameter
 
@@ -109,7 +114,7 @@ Parameter
  my_endpoint | My URL endpoint
  my_label | Label for connection
 
-Response (초대를 Accept를 하기 위해 생성한 정보)
+Response (초대를 Accept 하기 위해 생성한 정보)
 ```
 {
   "their_did": "USVn9w6voMEWb6nHuriZ4i", // Faber DID

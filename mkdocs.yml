@@ -18,13 +18,13 @@ nav:
       - 'Protocols' : 'agency_protocol.md'
   - 'Web Console' :
       - 'Agent APIs admin site' : 'api.md'
-      - 'API Doc': 'api_doc.md'
+      - 'API list': 'api_list.md'
       - 'API Manual': 'api_manual.md'
-  - Reference :
+  - 'Demo/Reference' :
       - 'DID VCX Java Demo' : 'demo.md'
       - 'DID VCX NodeJS Demo': 'node_demo.md'
       - 'Cloud Agent REST API Demo' : 'cloud_agent_demo.md'
-  - SDK API :
+  - 'SDK API' :
       - 'Java APIs' : 'java_api/java_api.md'
       - 'iOS APIs' : 'ios_api/ios_api.md'
 
