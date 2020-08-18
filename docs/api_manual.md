@@ -1,4 +1,5 @@
-# Cloud Agent 동작 시나리오
+Cloud Agent 동작 시나리오
+================
 <br>
 
 #### STEP 1. Faber --> Alice : create invitation & send invitation.
@@ -12,74 +13,84 @@
 
      Name | Description 
      --- | --- 
-     alias | Alice에게 전달할 초대장 별칭 (e.g A대학제증명발급처) 
-     auto_accept | Alice가 초대장 수락 시 자동 connection 설정. 
+     alias | Alice에게 전달할 초대장 별칭 (e.g A대학제증명발급처)
+     auto_accept | Alice가 초대장 수락 시 자동 connection 설정
      multi_use | 초대장을 일회성/다회성 사용여부. QR코드등 인쇄시 `true` 설정 필요
-     public | Public DID를 기반으로 초대장 생성
+     public | Public DID를 기반으로 초대장 생성 (현재 미지원)
 
-* Response (생성된 초대장)
+* Example 
 
+    * input <br>
+    `auto_accept` : `false`<br>
+    `multi_use` : `false`<br>
+    `public` : `false`<br>
+
+    * Response (생성된 초대장)
 ```
     {
-      "connection_id": "09d617ee-f6e0-4191-a786-ff8ca325d400",
+      "connection_id": "e56d0930-8bf6-4ceb-a1e5-8749f65bf553",
       "invitation": {
         "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
-        "@id": "b84b4861-d511-4655-a803-9768e9af888b",
+        "@id": "e7ee00e9-16a3-432e-b878-cea93ef67c05",
         "recipientKeys": [
-          "4VLDEQesd8qT5VAG3o9EwzS37225ZkN1LnieDidGjw7V"
+          "Fzz8mQSYUzmvRyjQkVwXpZTJE1RDZR6SbkEsEKeCryLd"
         ],
         "serviceEndpoint": "http://host.docker.internal:8020",
         "label": "faber.agent"
       },
-      "invitation_url": "http://host.docker.internal:8020?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiYjg0YjQ4NjEtZDUxMS00NjU1LWE4MDMtOTc2OGU5YWY4ODhiIiwgInJlY2lwaWVudEtleXMiOiBbIjRWTERFUWVzZDhxVDVWQUczbzlFd3pTMzcyMjVaa04xTG5pZURpZEdqdzdWIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cDovL2hvc3QuZG9ja2VyLmludGVybmFsOjgwMjAiLCAibGFiZWwiOiAiZmFiZXIuYWdlbnQifQ==",
+      "invitation_url": "http://host.docker.internal:8020?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiZTdlZTAwZTktMTZhMy00MzJlLWI4NzgtY2VhOTNlZjY3YzA1IiwgInJlY2lwaWVudEtleXMiOiBbIkZ6ejhtUVNZVXptdlJ5alFrVndYcFpUSkUxUkRaUjZTYmtFc0VLZUNyeUxkIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cDovL2hvc3QuZG9ja2VyLmludGVybmFsOjgwMjAiLCAibGFiZWwiOiAiZmFiZXIuYWdlbnQifQ==",
       "alias": "create_invitation"
     }
  
 ```
-  
+
+    * State
+    
+    현재 상태에서 `get` `/connections​/{conn_id}` connection state를 확인하면 **`invitation`**
+
+```
+{
+  "results": [
+    {
+      "state": "invitation",
+      "routing_state": "none",
+      "accept": "manual",
+      "initiator": "self",
+      "invitation_key": "Fzz8mQSYUzmvRyjQkVwXpZTJE1RDZR6SbkEsEKeCryLd",
+      "updated_at": "2020-08-18 05:24:06.092740Z",
+      "alias": "create_invitation",
+      "connection_id": "e56d0930-8bf6-4ceb-a1e5-8749f65bf553",
+      "created_at": "2020-08-18 05:24:06.092740Z",
+      "invitation_mode": "once"
+    }
+  ]
+}
+```
 * Next Step
     
     **invitation**내용이나 `invitation_url` 혹은 url을 **QR code**로 변경하여 Alice에게 전달하여 초대.
 
-* State
 
-    현재 상태에서 `get` `/connections​/{conn_id}` connection state를 확인하면 **`invitation`**
-
-```
-    {
-      "results": [
-        {
-          "connection_id": "adb2d50a-b668-49a9-97d0-f3b1fdbd90c0",
-          "invitation_mode": "once",
-          "alias": "create_invitation",
-          "initiator": "self",
-          "invitation_key": "7Juhmgmk711MVo5MybfUQFuwpfa9XQU7n6dEk9piWznh",
-          "accept": "auto",
-          "routing_state": "none",
-          "created_at": "2020-08-18 04:25:15.779615Z",
-          "updated_at": "2020-08-18 04:25:15.779615Z",
-          "state": "invitation"
-        }
-      ]
-    }
-```
 <br>
 <br>
 
 #### STEP 2. Alice : receive invitation & request connection.
 
-`POST` `/connections/receive-invitation` 초대장을 받음
+* Method and Resource
 
-Parameter
+    `POST` `/connections/receive-invitation` 초대장을 받음
+
+* Parameter
 
  Name | Description 
  --- | --- 
  body | Invitation 내용
  alias | 별칭 (e.g A대학제증명발급처) 
- auto_accept | Faber 초대장 수락 시 자동 connection이 active.
+ auto_accept | Faber 초대장 수락 시 connection이 자동 active.
  
- * invitation body example from STEP1
- ```
+
+* invitation body example from STEP1
+```
 {
         "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
         "@id": "9f5e5240-f897-4104-a682-7fb091eeedcb",
@@ -90,32 +101,59 @@ Parameter
         ]
       }
 ```
-
 <br>
-Response (초대를 Accept를 하기 위해 생성한 정보)
+
+* Response (초대를 Accept를 하기 위해 생성한 정보)
+
 ```
 {
-  "state": "request",
-  "invitation_key": "HPGKSgw2nL7Y6EztMnXDwiBFimCFbP6FpmgACAGyKy4Y",
-  "routing_state": "none",
-  "alias": "receive_invitation",
-  "created_at": "2020-08-18 03:51:47.086454Z",
-  "my_did": "SoqF5oYpjjGUF4KZQZkVB9",
-  "invitation_mode": "once",
-  "their_label": "faber.agent",
-  "updated_at": "2020-08-18 03:51:47.112529Z",
+  "invitation_key": "Fzz8mQSYUzmvRyjQkVwXpZTJE1RDZR6SbkEsEKeCryLd",
+  "state": "invitation",
   "initiator": "external",
-  "request_id": "16c2e0d7-aab9-49ce-9296-e5c4a834eac9",
-  "accept": "auto",
-  "connection_id": "f214391a-b0f5-4291-bac3-e1f64fcc4b06"
+  "created_at": "2020-08-18 05:25:09.997146Z",
+  "invitation_mode": "once",
+  "alias": "receive_invitation",
+  "their_label": "faber.agent",
+  "routing_state": "none",
+  "accept": "manual",
+  "connection_id": "ae354d32-64d8-464b-b00a-2b8041f141e1",
+  "updated_at": "2020-08-18 05:25:09.997146Z"
 }
 ```
-초대장 받고 연결하기 위한 DID등을 생성 
 
+* Next Step
+
+    초대장 받기 완료 후 Accept Invitation 진행 
+
+* State
+
+    현재 상태에서 `get` `/connections​/{conn_id}` connection state를 확인하면 **`invitation`**
+
+```
+{
+  "results": [
+    {
+      "invitation_key": "Fzz8mQSYUzmvRyjQkVwXpZTJE1RDZR6SbkEsEKeCryLd",
+      "state": "invitation",
+      "initiator": "external",
+      "created_at": "2020-08-18 05:25:09.997146Z",
+      "invitation_mode": "once",
+      "alias": "receive_invitation",
+      "their_label": "faber.agent",
+      "routing_state": "none",
+      "accept": "manual",
+      "connection_id": "ae354d32-64d8-464b-b00a-2b8041f141e1",
+      "updated_at": "2020-08-18 05:25:09.997146Z"
+    }
+  ]
+}
+```
 
 #### STEP 3. Alice --> Faber : Accept invitation & request connection.
 
-`POST` `/connections/{conn_id}/accept-invitation` 초대를 수락
+* Method and Resource
+
+    `POST` `/connections/{conn_id}/accept-invitation` 초대를 수락
 
 > STEP2  `/connections/receive-invitation` `auto_accept` **`true`** 이면 STEP3 skip 가능 
 
