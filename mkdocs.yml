@@ -41,13 +41,11 @@ markdown_extensions:
   - footnotes
 
 theme:
-  name: readthedocs
+  name: mkdocs
   nav_style: dark
   navigation_depth : 2
   highlightjs : true
   hljs_style : github
-  extra_css : theme_extra.css
-
 
 extra:
   version: 0.2

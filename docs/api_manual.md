@@ -69,9 +69,9 @@ Response (초대를 Accept를 하기 위해 생성한 정보)
 #### STEP 3. Alice --> Faber : Accept invitation & request connection.
 ##### accept-invitation
 
-`POST' '/connections/{conn_id}/accept-invitation` 초대를 수락
+`POST` `/connections/{conn_id}/accept-invitation` 초대를 수락
 
-> * STEP2  `/connections/receive-invitation` `auto_accept` **`true`** 이면 STEP3 skip 가능 
+> STEP2  `/connections/receive-invitation` `auto_accept` **`true`** 이면 STEP3 skip 가능 
 
 Parameter
 
@@ -104,7 +104,9 @@ Faber의 초대를 수락
 
 #### STEP 4. Faber --> Faber : accept connection request.
 
-`POST' '/connections/{conn_id}/accept-invitation` 초대를 수락
+`POST' '/connections/{conn_id}/accept-invitation` Alice의 연결 요쳥 수락
+
+> STEP1의  `/connections/create-invitation` `auto_accept` **`true`** 이면 STEP4 skip 가능 
 
 Parameter
 
