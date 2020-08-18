@@ -24,9 +24,11 @@ An API to issue, manage, and verify self-sovereign identity credentials
   `GET` | /connections | Agent to Agent connections ist 출력
   `GET` | /connections/{conn_id} | 특정 connection ID 기록 출력
   `POST` | /connections/create-static | Public DID를 Assign 
-  `POST` | [/connections/create-invitation](../api_manual/#create-invitation) | 현재 할당된 Public DID 출력 
-  `POST` | [/connections/receive-invitation](../api_manual/#receive-invitation) | DID에 Endpoint setting 
-  `POST` | [/connections/{conn_id}/accept-invitation](../api_manual/#accept-invitation) | DID Endpoint 정보 출력 
+  `POST` | [/connections/create-invitation](../api_manual/#step-1-faber-alice-create-invitation-send-invitation) | 현재 할당된 Public DID 출력 
+  `POST` | [/connections/receive-invitation](../api_manual/#step-2-alice-receive-invitation-request-connection) | DID에 Endpoint setting 
+  `POST` | [/connections/{conn_id}/accept-invitation](../api_manual/#step-3-alice-faber-accept-invitation-request-connection) | DID Endpoint 정보 출력 
   `POST` | /connections/{conn_id}/accept-request | Rotate keypair for a local non-public DID 
   `POST` | /connections/{conn_id}/establish-inbound/{ref_id} | Rotate keypair for a local non-public DID 
   `POST` | /connections/{conn_id}/remove | Rotate keypair for a local non-public DID 
+
+

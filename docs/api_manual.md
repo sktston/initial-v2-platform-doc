@@ -2,63 +2,71 @@
 <br>
 
 #### STEP 1. Faber --> Alice : create invitation & send invitation.
-##### create-invitation
-​`POST` `/connections​/create-invitation` 새로운 초대장 생성
-
-Parameter
-
- Name | Description 
- --- | --- 
- alias | Alice에게 전달할 초대장 별칭 (e.g A대학제증명발급처) 
- auto_accept | Alice가 초대장 수락 시 자동 connection 설정. 
- multi_use | 초대장을 일회성/다회성 사용여부. QR코드등 인쇄시 `true` 설정 필요
- public | Public DID를 기반으로 초대장 생성
-
-Response (생성된 초대장)
-```
-{
-  "connection_id": "09d617ee-f6e0-4191-a786-ff8ca325d400",
-  "invitation": {
-    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
-    "@id": "b84b4861-d511-4655-a803-9768e9af888b",
-    "recipientKeys": [
-      "4VLDEQesd8qT5VAG3o9EwzS37225ZkN1LnieDidGjw7V"
-    ],
-    "serviceEndpoint": "http://host.docker.internal:8020",
-    "label": "faber.agent"
-  },
-  "invitation_url": "http://host.docker.internal:8020?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiYjg0YjQ4NjEtZDUxMS00NjU1LWE4MDMtOTc2OGU5YWY4ODhiIiwgInJlY2lwaWVudEtleXMiOiBbIjRWTERFUWVzZDhxVDVWQUczbzlFd3pTMzcyMjVaa04xTG5pZURpZEdqdzdWIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cDovL2hvc3QuZG9ja2VyLmludGVybmFsOjgwMjAiLCAibGFiZWwiOiAiZmFiZXIuYWdlbnQifQ==",
-  "alias": "create_invitation"
-}
-```
-**invitation**내용이나 `invitation_url` 혹은 url을 **QR code**로 변경하여 Alice에게 전달하여 초대.
 
 
-​현재 상태에서 `get` `/connections​/{conn_id}` connection state를 확인하면 **`invitation`**
+* Method and Resource
+
+    `POST` `/connections​/create-invitation` 새로운 초대장 생성
+
+* Parameter
+
+     Name | Description 
+     --- | --- 
+     alias | Alice에게 전달할 초대장 별칭 (e.g A대학제증명발급처) 
+     auto_accept | Alice가 초대장 수락 시 자동 connection 설정. 
+     multi_use | 초대장을 일회성/다회성 사용여부. QR코드등 인쇄시 `true` 설정 필요
+     public | Public DID를 기반으로 초대장 생성
+
+* Response (생성된 초대장)
 
 ```
-{
-  "results": [
     {
-      "connection_id": "adb2d50a-b668-49a9-97d0-f3b1fdbd90c0",
-      "invitation_mode": "once",
-      "alias": "create_invitation",
-      "initiator": "self",
-      "invitation_key": "7Juhmgmk711MVo5MybfUQFuwpfa9XQU7n6dEk9piWznh",
-      "accept": "auto",
-      "routing_state": "none",
-      "created_at": "2020-08-18 04:25:15.779615Z",
-      "updated_at": "2020-08-18 04:25:15.779615Z",
-      "state": "invitation"
+      "connection_id": "09d617ee-f6e0-4191-a786-ff8ca325d400",
+      "invitation": {
+        "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
+        "@id": "b84b4861-d511-4655-a803-9768e9af888b",
+        "recipientKeys": [
+          "4VLDEQesd8qT5VAG3o9EwzS37225ZkN1LnieDidGjw7V"
+        ],
+        "serviceEndpoint": "http://host.docker.internal:8020",
+        "label": "faber.agent"
+      },
+      "invitation_url": "http://host.docker.internal:8020?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiYjg0YjQ4NjEtZDUxMS00NjU1LWE4MDMtOTc2OGU5YWY4ODhiIiwgInJlY2lwaWVudEtleXMiOiBbIjRWTERFUWVzZDhxVDVWQUczbzlFd3pTMzcyMjVaa04xTG5pZURpZEdqdzdWIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cDovL2hvc3QuZG9ja2VyLmludGVybmFsOjgwMjAiLCAibGFiZWwiOiAiZmFiZXIuYWdlbnQifQ==",
+      "alias": "create_invitation"
     }
-  ]
-}
+ 
+```
+  
+* Next Step
+    
+    **invitation**내용이나 `invitation_url` 혹은 url을 **QR code**로 변경하여 Alice에게 전달하여 초대.
+
+* State
+
+    현재 상태에서 `get` `/connections​/{conn_id}` connection state를 확인하면 **`invitation`**
+
+```
+    {
+      "results": [
+        {
+          "connection_id": "adb2d50a-b668-49a9-97d0-f3b1fdbd90c0",
+          "invitation_mode": "once",
+          "alias": "create_invitation",
+          "initiator": "self",
+          "invitation_key": "7Juhmgmk711MVo5MybfUQFuwpfa9XQU7n6dEk9piWznh",
+          "accept": "auto",
+          "routing_state": "none",
+          "created_at": "2020-08-18 04:25:15.779615Z",
+          "updated_at": "2020-08-18 04:25:15.779615Z",
+          "state": "invitation"
+        }
+      ]
+    }
 ```
 <br>
 <br>
 
 #### STEP 2. Alice : receive invitation & request connection.
-##### receive-invitation
 
 `POST` `/connections/receive-invitation` 초대장을 받음
 
@@ -70,6 +78,18 @@ Parameter
  alias | 별칭 (e.g A대학제증명발급처) 
  auto_accept | Faber 초대장 수락 시 자동 connection이 active.
  
+ * invitation body example from STEP1
+ ```
+{
+        "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
+        "@id": "9f5e5240-f897-4104-a682-7fb091eeedcb",
+        "label": "faber.agent",
+        "serviceEndpoint": "http://host.docker.internal:8020",
+        "recipientKeys": [
+          "7Juhmgmk711MVo5MybfUQFuwpfa9XQU7n6dEk9piWznh"
+        ]
+      }
+```
 
 <br>
 Response (초대를 Accept를 하기 위해 생성한 정보)
@@ -94,7 +114,6 @@ Response (초대를 Accept를 하기 위해 생성한 정보)
 
 
 #### STEP 3. Alice --> Faber : Accept invitation & request connection.
-##### accept-invitation
 
 `POST` `/connections/{conn_id}/accept-invitation` 초대를 수락
 
@@ -130,7 +149,6 @@ Response (초대를 Accept를 하기 위해 생성한 정보)
 Faber의 초대를 수락
 
 #### STEP 4. Faber --> Faber : accept connection request.
-##### accept-request
 
 `POST' '/connections/{conn_id}/accept-request` Alice의 연결 요쳥 수락
 
