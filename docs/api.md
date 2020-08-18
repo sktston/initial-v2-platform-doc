@@ -1,8 +1,6 @@
 # Initial Platform Console REST API
 An API to issue, manage, and verify self-sovereign identity credentials
 
-## Version: v1
-
 ### Non-interactive Swagger API Service Link
 <a href="https://app.swaggerhub.com/apis-docs/khujin1/Initial-REST-API-Service/v0.5.3"  target="_blank">Initial-REST-API Swagger API Site</a>
 <br>Note: The interactive forms are disabled, as no `host` property was set in the specification. 

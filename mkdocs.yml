@@ -41,8 +41,8 @@ markdown_extensions:
   - footnotes
 
 theme:
-  name: mkdocs
-  nav_style: dark
+  name: readthedocs
+  nav_style: light
   navigation_depth : 2
   highlightjs : true
   hljs_style : github
