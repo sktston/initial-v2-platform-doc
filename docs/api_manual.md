@@ -1,5 +1,7 @@
-Cloud Agent 동작 시나리오
+Cloud Agent REST APIs Manual
 ================
+
+Faber(Issuer/Verifier)와 Alice(Holder/Prover)의 연결 및 VC발급/검증 예제를 통한 API 설명
 <br>
 
 #### STEP 1. Faber --> Alice : create invitation & send invitation.
@@ -26,55 +28,45 @@ Cloud Agent 동작 시나리오
     `public` : `false`<br>
 
     * Response (생성된 초대장)
-```
-    {
-      "connection_id": "e56d0930-8bf6-4ceb-a1e5-8749f65bf553",
-      "invitation": {
-        "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
-        "@id": "e7ee00e9-16a3-432e-b878-cea93ef67c05",
-        "recipientKeys": [
-          "Fzz8mQSYUzmvRyjQkVwXpZTJE1RDZR6SbkEsEKeCryLd"
-        ],
-        "serviceEndpoint": "http://host.docker.internal:8020",
-        "label": "faber.agent"
-      },
-      "invitation_url": "http://host.docker.internal:8020?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiZTdlZTAwZTktMTZhMy00MzJlLWI4NzgtY2VhOTNlZjY3YzA1IiwgInJlY2lwaWVudEtleXMiOiBbIkZ6ejhtUVNZVXptdlJ5alFrVndYcFpUSkUxUkRaUjZTYmtFc0VLZUNyeUxkIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cDovL2hvc3QuZG9ja2VyLmludGVybmFsOjgwMjAiLCAibGFiZWwiOiAiZmFiZXIuYWdlbnQifQ==",
-      "alias": "create_invitation"
-    }
- 
-```
-
-    * State
-    
-    현재 상태에서 `get` `/connections​/{conn_id}` connection state를 확인하면 **`invitation`**
-
-```
+```json
 {
-  "results": [
-    {
-      "state": "invitation",
-      "routing_state": "none",
-      "accept": "manual",
-      "initiator": "self",
-      "invitation_key": "Fzz8mQSYUzmvRyjQkVwXpZTJE1RDZR6SbkEsEKeCryLd",
-      "updated_at": "2020-08-18 05:24:06.092740Z",
-      "alias": "create_invitation",
-      "connection_id": "e56d0930-8bf6-4ceb-a1e5-8749f65bf553",
-      "created_at": "2020-08-18 05:24:06.092740Z",
-      "invitation_mode": "once"
-    }
-  ]
+  "connection_id": "e56d0930-8bf6-4ceb-a1e5-8749f65bf553",
+  "invitation": {
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
+    "@id": "e7ee00e9-16a3-432e-b878-cea93ef67c05",
+    "recipientKeys": [
+      "Fzz8mQSYUzmvRyjQkVwXpZTJE1RDZR6SbkEsEKeCryLd"
+    ],
+    "serviceEndpoint": "http://host.docker.internal:8020",
+    "label": "faber.agent"
+  },
+  "invitation_url": "http://host.docker.internal:8020?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiZTdlZTAwZTktMTZhMy00MzJlLWI4NzgtY2VhOTNlZjY3YzA1IiwgInJlY2lwaWVudEtleXMiOiBbIkZ6ejhtUVNZVXptdlJ5alFrVndYcFpUSkUxUkRaUjZTYmtFc0VLZUNyeUxkIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cDovL2hvc3QuZG9ja2VyLmludGVybmFsOjgwMjAiLCAibGFiZWwiOiAiZmFiZXIuYWdlbnQifQ==",
+  "alias": "create_invitation"
 }
 ```
+
+<br>
+
+* Connection State Check : `get` `/connections​/{conn_id}`
+
+     |  | Faber | Alice |
+     | --- | --- | --- |
+     | connection state | **`invitation`** | N/A |
+  
+    <div class="admonition Note">
+    <p class="admonition-title">Note</p>
+    <p> Alice의 연결요청에 대한 자동 연결을 위해 `auto_accept` parameter를 `true`로 설정하면 STEP5 Accept Connection Request 생략 가</p>
+    </div>
+    
 * Next Step
     
-    **invitation**내용이나 `invitation_url` 혹은 url을 **QR code**로 변경하여 Alice에게 전달하여 초대.
+    **invitation**내용이나 **invitation_url** 혹은 url의 **QR code**를 Alice에게 전달하여 초대.
 
 
 <br>
 <br>
 
-#### STEP 2. Alice : receive invitation & request connection.
+#### STEP 2. Alice --> Faber : receive invitation & request connection.
 
 * Method and Resource
 
@@ -89,8 +81,9 @@ Cloud Agent 동작 시나리오
  auto_accept | Faber 초대장 수락 시 connection이 자동 active.
  
 
-* invitation body example from STEP1
-```
+* Example
+    * body input - STEP1의 Faber가 생성한 invitation을 입력(QRcode 및 URL등 가능)
+```json
 {
         "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
         "@id": "9f5e5240-f897-4104-a682-7fb091eeedcb",
@@ -105,7 +98,7 @@ Cloud Agent 동작 시나리오
 
 * Response (초대를 Accept를 하기 위해 생성한 정보)
 
-```
+```json
 {
   "invitation_key": "Fzz8mQSYUzmvRyjQkVwXpZTJE1RDZR6SbkEsEKeCryLd",
   "state": "invitation",
@@ -121,33 +114,22 @@ Cloud Agent 동작 시나리오
 }
 ```
 
+
+* Connection State `get` `/connections​/{conn_id}`
+
+   **`invitation`**
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>We strongly recommend to <a class="hoverxref tooltip reference internal" data-doc="guides/specifying-dependencies" data-docpath="/guides/specifying-dependencies.html" data-project="docs" data-section="specifying-dependencies" data-version="stable" href="../guides/specifying-dependencies.html#specifying-dependencies"><span class="std std-ref">pin the MkDocs version</span></a>
+used for your project to build the docs to avoid potential future incompatibilities.</p>
+</div>
+
+
 * Next Step
 
     초대장 받기 완료 후 Accept Invitation 진행 
-
-* State
-
-    현재 상태에서 `get` `/connections​/{conn_id}` connection state를 확인하면 **`invitation`**
-
-```
-{
-  "results": [
-    {
-      "invitation_key": "Fzz8mQSYUzmvRyjQkVwXpZTJE1RDZR6SbkEsEKeCryLd",
-      "state": "invitation",
-      "initiator": "external",
-      "created_at": "2020-08-18 05:25:09.997146Z",
-      "invitation_mode": "once",
-      "alias": "receive_invitation",
-      "their_label": "faber.agent",
-      "routing_state": "none",
-      "accept": "manual",
-      "connection_id": "ae354d32-64d8-464b-b00a-2b8041f141e1",
-      "updated_at": "2020-08-18 05:25:09.997146Z"
-    }
-  ]
-}
-```
+    
 
 #### STEP 3. Alice --> Faber : Accept invitation & request connection.
 
