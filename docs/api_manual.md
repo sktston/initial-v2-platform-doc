@@ -1,7 +1,7 @@
 Cloud Agent REST APIs Manual
 ================
 
-**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 및 VC발급/검증 예제를 통한 API 설
+**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 및 VC발급/검증 예제를 통한 API 설명
 <br>
 
 ## Manual Connection
@@ -20,7 +20,7 @@ Cloud Agent REST APIs Manual
      --- | --- 
      alias | Alice에게 전달할 초대장 별칭 (e.g A대학제증명발급처)
      auto_accept | Alice가 초대장 수락 시 자동 connection 설정
-     multi_use | 초대장을 일회성/다회성 사용여부. QR코드등 인쇄시 `true` 설정 필요
+     multi_use | 초대장을 일회성/다회성 사용여부. <br>QR코드등 인쇄시 `true` 설정 필요
      public | Public DID를 기반으로 초대장 생성 (현재 미지원)
 
 <p></p>
@@ -84,6 +84,7 @@ Cloud Agent REST APIs Manual
  body | Invitation 내용
  alias | 별칭 (e.g A대학제증명발급처) 
  auto_accept | Faber 초대장 수락 시 connection이 자동 active.
+ 
  <p></p>
 
 * Example
@@ -130,6 +131,7 @@ Cloud Agent REST APIs Manual
     
 <br>
 <br>
+
 ### STEP 3. Alice --> Faber : Accept invitation & request connection.
 
 * Method and Resource
@@ -148,7 +150,9 @@ Cloud Agent REST APIs Manual
  conn_id | Connection identifier
  my_endpoint | My URL endpoint
  my_label | Label for connection
+
 <p></p>
+
 * Example
 
     * input <br>
@@ -178,7 +182,9 @@ Cloud Agent REST APIs Manual
      |  | Faber | Alice |
      | --- | --- | --- |
      | connection state | **`request`** | **`request`** |
+     
 <p></p>  
+
 * Next Step
     Faber의 초대를 수락하고, Connection의 Request 진행. Faber는 최종 Connection Request를 Accept 해야 함.
 
@@ -203,6 +209,7 @@ Cloud Agent REST APIs Manual
      conn_id | Connection identifier
      my_endpoint | My URL endpoint
 
+<p></p>
 * Example
 
     * input <br>
@@ -236,7 +243,7 @@ Cloud Agent REST APIs Manual
 * Next Step
 
     Alice와 Faber 연결이 완료. ping을 통한 연결 확인.<br>
-    연결 완료. Schema 생성 및 VC 발행 진행.
+    Schema 생성 및 VC 발행 진행.
 <br>
 <br>
 <br>
