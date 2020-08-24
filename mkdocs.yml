@@ -19,7 +19,11 @@ nav:
   - 'Web Console' :
       - 'Agent APIs admin site' : 'api.md'
       - 'API list': 'api_list.md'
-      - 'API Manual': 'api_manual.md'
+      - 'API Example':
+        - 'Auto Connection': 'auto_connection.md'
+        - 'Manual Connection': 'manual_connection.md'
+        - 'Schema & CredDef': 'schema_creddef.md'
+        - 'Credential': 'credential.md'
   - 'Demo/Reference' :
       - 'DID VCX Java Demo' : 'demo.md'
       - 'DID VCX NodeJS Demo': 'node_demo.md'
