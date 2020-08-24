@@ -1,5 +1,4 @@
-Initial Platform Product and Services
-============
+<h2>Initial Platform Product and Services</h2>
 
 
 ## 1. Initial Agency Service

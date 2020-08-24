@@ -1,4 +1,5 @@
-# Welcome to Initial Platform Developer Site
+Welcome to Initial Platform Developer Site
+===============
 
 이곳은 Aries Protocol 기반 Initial Platform 개발자를 위한 사이트 입니다. 
 새로운 디지털 ID 표준인 DID(Decentralized Identifier) 및 VC (Verifiable Credentials)를 기반으로 SSI (Self-Sovereign Identity)를 쉽게 구현할 수 있도록 지원합니다.

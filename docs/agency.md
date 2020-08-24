@@ -1,4 +1,5 @@
-Agency의 역할 및 사용법 설명.<br> 
+#### Agency의 역할 및 사용법
+ 
 more specifically [Mediator Agency](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0046-mediators-and-relays/README.md
 ) in Aries
 

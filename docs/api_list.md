@@ -1,5 +1,4 @@
-Initial Platform Console API Documents
-============
+<p>Initial Platform Console API Documents</p>
 An API to issue, manage, and verify self-sovereign identity credentials
 
 ### Non-interactive Swagger API Service Link
@@ -13,7 +12,7 @@ An API to issue, manage, and verify self-sovereign identity credentials
 
 ### Initial Cloud Agent REST APIs list
 
-#### Wallet - DID and Tag Policy Management APIs
+### Wallet - DID and Tag Policy Management APIs
 
    Method  | Resource | Description 
   :---: | --- | --- 
@@ -27,7 +26,7 @@ An API to issue, manage, and verify self-sovereign identity credentials
 
 
 
-#### Connection - Connection Management APIs
+### Connection - Connection Management APIs
 
    Method  | Resource | Description 
   :---: | --- | --- 
