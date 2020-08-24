@@ -10,20 +10,20 @@ site_name: Initial Platform
 nav:
   - 'Initial Platform' :
       - 'Introduction' : 'index.md'
-      - 'Services' : 'services.md'
       - 'Terms' : 'terms.md'
+      - 'Services': 'services.md'
       - 'Release notes' : 'release_note.md'
-  - 'Agency' :
+  - 'Agency Service' :
       - 'Initial Agency' : 'agency.md'
-      - 'Protocols' : 'agency_protocol.md'
-  - 'Web Console' :
-      - 'Agent APIs admin site' : 'api.md'
+      - 'Agency Protocols' : 'agency_protocol.md'
+  - 'Web Console Service' :
+      - 'Web Console' : 'web_console.md'
+  - 'API Referece':
       - 'API list': 'api_list.md'
-      - 'API Example':
-        - 'Auto Connection': 'auto_connection.md'
-        - 'Manual Connection': 'manual_connection.md'
-        - 'Schema & CredDef': 'schema_creddef.md'
-        - 'Credential': 'credential.md'
+      - 'Auto Connection': 'auto_connection.md'
+      - 'Manual Connection': 'manual_connection.md'
+      - 'Schema & CredDef': 'schema_creddef.md'
+      - 'Credential': 'credential.md'
   - 'Demo/Reference' :
       - 'DID VCX Java Demo' : 'demo.md'
       - 'DID VCX NodeJS Demo': 'node_demo.md'

@@ -1,4 +1,5 @@
-# Initial Agency
+Initial Agency
+===========
 Initial Agency는 Aries Protocol 기반의 Mediator 기능을 제공한다.  
  
 ## Initial Client2Agency Protocol

@@ -1,5 +1,3 @@
-# Initial Platform Agency Guide
-
 Agency의 역할 및 사용법 설명.<br> 
 more specifically [Mediator Agency](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0046-mediators-and-relays/README.md
 ) in Aries
@@ -10,6 +8,12 @@ Peer들의 Agent가 Agency 내부에 생성되고 Peer들의 각각의 서버로
 Peer가 Offline 상황에서도 항상 Encrypted Message를 받아 임시보관하고, 전달할 수 있는 기능을 제공한다. 
 ![workflow](img/agency_architecture.png)
 
+## Agency 사용
+
+Hyperledger VCX Protocol 기반 Agency 사용을 원하는 Mobile App 개발사는 
+Auth 인증을 위한 API Key 발급 필요.
+
+contact : jaehyeon.ju@sk.com
 
 ## Agency Workflow
 * `Faber` - Issuer/Verifier등 기관. 
