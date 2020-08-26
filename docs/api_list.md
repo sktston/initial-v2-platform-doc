@@ -1,18 +1,21 @@
 <p>Initial Platform Console API Documents</p>
 An API to issue, manage, and verify self-sovereign identity credentials
 
-### Non-interactive Swagger API Service Link
+### Swagger API Service Link
+
+##### Non-interactive Swagger API Service Link
 <a href="https://app.swaggerhub.com/apis-docs/khujin1/Initial-REST-API-Service/v0.5.3"  target="_blank">Initial-REST-API Swagger API Site</a>
 <br>Note: The interactive forms are disabled, as no `host` property was set in the specification. 
 
-### Interactive Swagger API Service Link
+##### Interactive Swagger API Service Link
 <a href="http://172.27.18.102:8021/api/doc"  target="_blank">SKT Initial-REST-API Swagger API Site</a>
 <br>Note: This site is only for SKT internal user. External user access is not allowed.
 
 
 ### Initial Cloud Agent REST APIs list
 
-### Wallet - DID and Tag Policy Management APIs
+#### Wallet
+- DID and Tag Policy Management APIs
 
    Method  | Resource | Description 
   :---: | --- | --- 
@@ -26,7 +29,8 @@ An API to issue, manage, and verify self-sovereign identity credentials
 
 
 
-### Connection - Connection Management APIs
+#### Connection
+- Connection Management APIs
 
    Method  | Resource | Description 
   :---: | --- | --- 

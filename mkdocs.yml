@@ -18,13 +18,15 @@ nav:
       - 'Agency Protocols' : 'agency_protocol.md'
   - 'Web Console Service' :
       - 'Web Console' : 'web_console.md'
-  - 'API Referece':
+  - 'Cloud Agent API Referece':
       - 'API list': 'api_list.md'
       - 'Auto Connection': 'auto_connection.md'
       - 'Manual Connection': 'manual_connection.md'
-      - 'Schema & CredDef': 'schema_creddef.md'
-      - 'Credential': 'credential.md'
-  - 'Demo/Reference' :
+      - 'Create Schema & CredDef': 'schema_creddef.md'
+      - 'Auto Credential Issue': 'credential.md'
+      - 'Manual Credential Issue': 'm_credential.md'
+
+  - 'Demo samples' :
       - 'DID VCX Java Demo' : 'demo.md'
       - 'DID VCX NodeJS Demo': 'node_demo.md'
       - 'Cloud Agent REST API Demo' : 'cloud_agent_demo.md'

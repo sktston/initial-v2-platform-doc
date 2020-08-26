@@ -2,8 +2,6 @@ Schema & Credential Definition Example
 ================
 
     
-## Schema & CredDef	
-
 ### STEP 1. Faber : Create Schema
 
 * Method and Resource

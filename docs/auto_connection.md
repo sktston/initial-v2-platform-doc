@@ -1,10 +1,17 @@
 Auto Connection Example
 ================
 
-**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 및 VC발급/검증 예제를 통한 API 설명
+**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 Example
 <br>
+Connection State
 
-## Auto Connection
+Topic | State | Description
+--- | --- | ---
+Connection | invitation | Invitation 생성하거나 받은 상태
+Connection | request | Connection 요청한 상태
+Connection | response | Connection accept 한 태
+Connection | active | Connection 완료 
+
 
 ### STEP 1. Faber --> Alice : create invitation & send invitation.
 
