@@ -23,7 +23,7 @@ nav:
       - 'Auto Connection': 'auto_connection.md'
       - 'Manual Connection': 'manual_connection.md'
       - 'Create Schema & CredDef': 'schema_creddef.md'
-      - 'Auto Credential Issue': 'credential.md'
+      - 'Auto Credential Issue': 'auto_credential.md'
       - 'Manual Credential Issue': 'm_credential.md'
 
   - 'Demo samples' :
