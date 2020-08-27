@@ -3,9 +3,9 @@
 Cloud Agent의 Admin을 위한 REST API<br>
 사업자의 Legacy 시스템(ERP, HR시스템 등)과 연동하여 증명서를 손쉽게 발생할 수 있다.
 
-### Swagger API Service Link
+### ◆ Swagger API Service Link
 
-##### Non-interactive Swagger API Service Link
+##### ◇ Non-interactive Swagger API Service Link
 <a href="https://app.swaggerhub.com/apis-docs/khujin1/Initial-REST-API-Service/v0.5.3"  target="_blank">Initial-REST-API Swagger API Site</a>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -14,7 +14,7 @@ Cloud Agent의 Admin을 위한 REST API<br>
     
 <br>
     
-##### Interactive Swagger API Service Link
+##### ◇ Interactive Swagger API Service Link
 <a href="http://172.27.18.102:8021/api/doc"  target="_blank">SKT Initial-REST-API Swagger API Site</a>
 
 <div class="admonition warning">
@@ -23,15 +23,15 @@ Cloud Agent의 Admin을 위한 REST API<br>
 </div>
 <br>
 
-##### Postman REST API Collection
+##### ◇ Postman REST API Collection
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/978b1219a72df6cd6c5c)
 <br>
 <br>
 
-### Initial Cloud Agent REST APIs list (Aries Cloud Agent Python)
+### ◆ Initial Cloud Agent REST APIs list (Aries Cloud Agent Python)
 
-#### Wallet
+#### ◇ Wallet
 
 - DID and Tag Policy Management APIs
 
@@ -47,7 +47,7 @@ Cloud Agent의 Admin을 위한 REST API<br>
 
 
 
-#### Connection
+#### ◇ Connection
 - Connection Management APIs
 
    Method  | Resource | Description 
@@ -63,7 +63,7 @@ Cloud Agent의 Admin을 위한 REST API<br>
   `POST` | /connections/{conn_id}/remove | Rotate keypair for a local non-public DID 
 
 
-#### Schema
+#### ◇ Schema
 - Schema operation APIs
 
    Method  | Resource | Description 
@@ -72,7 +72,7 @@ Cloud Agent의 Admin을 위한 REST API<br>
   `GET` | /schemas/created | Search for matching schema that agent originated
   `GET` | /schemas/{schema_id} | Gets a schema from the ledger
 
-#### credential-definition
+#### ◇ credential-definition
 - Credential definition operations APIs
 
    Method  | Resource | Description 
@@ -82,7 +82,7 @@ Cloud Agent의 Admin을 위한 REST API<br>
   `GET` | /credential-definitions/{cred_def_id} | Gets a credential definition from the ledger
   
   
-#### issue-credential
+#### ◇ issue-credential
 - Credential issue, revocation
 
    Method  | Resource | Description 
@@ -103,7 +103,7 @@ Cloud Agent의 Admin을 위한 REST API<br>
   `POST` | /issue-credential/records/{cred_ex_id}/remove | /issue-credential/records/{cred_ex_id}/remove
   `POST` | /issue-credential/records/{cred_ex_id}/problem-report | Send a problem report for credential exchange
 
-#### present-proof
+#### ◇ present-proof
 - Proof presentation
 
    Method  | Resource | Description 
