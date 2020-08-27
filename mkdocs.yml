@@ -25,7 +25,9 @@ nav:
       - 'Create Schema & CredDef': 'schema_creddef.md'
       - 'Auto Credential Issue': 'auto_credential.md'
       - 'Manual Credential Issue': 'm_credential.md'
-
+      - 'Proof Presentation': 'proof.md'
+      - 'Revocation': 'revocation.md'
+      - 'Message': 'message.md'
   - 'Demo samples' :
       - 'DID VCX Java Demo' : 'demo.md'
       - 'DID VCX NodeJS Demo': 'node_demo.md'

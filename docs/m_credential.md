@@ -3,7 +3,7 @@ Manual Credential Issue
 
 **Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 및 VC발급/검증 예제를 통한 API 설명
 <br>
-Connection State
+issue_credential State
 
 Topic | State | Description
 --- | --- | ---
@@ -702,7 +702,7 @@ Cloud Agent의 아래 option이 `true`인 경우
 
 `--auto-store-credential` : `true`
 
-Alice의 아래 작업은 자동으로 처리
+Alice의 아래 작업은 자동으로 처리 완료.
 
 `POST` `/issue-credential/records/{cred_ex_id}/store` : Store a received credential
 `POST` `/issue-credential/records/{cred_ex_id}/remove` : Remove an existing credential exchange record

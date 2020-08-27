@@ -3,7 +3,7 @@ Auto Credential Issue
 
 **Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 및 VC발급/검증 예제를 통한 API 설명
 <br>
-Connection State
+issue_credential State
 
 Topic | State | Description
 --- | --- | ---
