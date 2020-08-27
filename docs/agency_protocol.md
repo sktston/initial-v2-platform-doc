@@ -1,13 +1,16 @@
 Initial Agency
 ===========
-Initial Agency는 Aries Protocol 기반의 Mediator 기능을 제공한다.  
+Initial Agency는 Aries Protocol 기반의 Mediator 기능을 제공한다.<br>  
+Mobile App 개발사는 아래 Protocol에 맞게 개발하면 사용할 수 있다. <br>
+Initial에서 제공하는 **[Mobile SDK](#)**나 **[LibVcx](https://github.com/hyperledger/indy-sdk/tree/master/vcx)** 를 사용한다면 100% 호환 가능하다.
  
 ## Initial Client2Agency Protocol
 Initial agency protocol의 message type은 아래와 같이 몇개의 그룹으로 정의 한다.
+
 - Onboarding (Owner's Agent Provisioning and Connection)
 - Downloading/Updating messages owned by cloud agent (Owner's Message 송/수신) 
 - Downloading messages of cloud agent's particular connection (연결 요청 Message 수신)
-- Internal agency forwarding ()
+- Internal agency forwarding
 
 # Messages examples
 

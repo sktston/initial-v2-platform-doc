@@ -2,11 +2,11 @@
 
 
 ## 1. Initial Agency Service
-email 서버 처럼 DID Message의 Hub 역할을 담당
+email 서버와 같이 DID에서 발생하는 Message의 Hub 역할을 담당
 
   - 모바일 App(edge agent)의 Cloud Agent Provisioning 기능 제공
   - 24시간 Message 수취 가능한 무중단 서비스 제공
-  - 개인키 암호화를 통한 Privacy 보장 제공 
+  - 개인키 암호화를 통한 모든 Message의 Privacy 보장 제공 
 
 ## 2. Initial Web Console
 Web GUI 기반으로 손쉽게 Agent, Wallet 생성하고, VC(Verifiable Credential)을 발행하거나 검증할 수 있는 기능 제공.  

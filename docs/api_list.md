@@ -1,20 +1,38 @@
 <p>Initial Platform Console API Documents</p>
-An API to issue, manage, and verify self-sovereign identity credentials
+
+Cloud Agent의 Admin을 위한 REST API<br>
+사업자의 Legacy 시스템(ERP, HR시스템 등)과 연동하여 증명서를 손쉽게 발생할 수 있다.
 
 ### Swagger API Service Link
 
 ##### Non-interactive Swagger API Service Link
 <a href="https://app.swaggerhub.com/apis-docs/khujin1/Initial-REST-API-Service/v0.5.3"  target="_blank">Initial-REST-API Swagger API Site</a>
-<br>Note: The interactive forms are disabled, as no `host` property was set in the specification. 
-
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p> The interactive forms are disabled, as no `host` property was set in the specification.안됨</p>
+</div>
+    
+<br>
+    
 ##### Interactive Swagger API Service Link
 <a href="http://172.27.18.102:8021/api/doc"  target="_blank">SKT Initial-REST-API Swagger API Site</a>
-<br>Note: This site is only for SKT internal user. External user access is not allowed.
 
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p> This site is only for SKT internal user. External user access is not allowed.</p>
+</div>
+<br>
 
-### Initial Cloud Agent REST APIs list
+##### Postman REST API Collection
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/978b1219a72df6cd6c5c)
+<br>
+<br>
+
+### Initial Cloud Agent REST APIs list (Aries Cloud Agent Python)
 
 #### Wallet
+
 - DID and Tag Policy Management APIs
 
    Method  | Resource | Description 
@@ -37,7 +55,7 @@ An API to issue, manage, and verify self-sovereign identity credentials
   `GET` | /connections | Agent to Agent connections ist 출력
   `GET` | /connections/{conn_id} | 특정 connection ID 기록 출력
   `POST` | /connections/create-static | Public DID를 Assign 
-  `POST` | [/connections/create-invitation](../auto_connection/#step-1-faber-alice-create-invitation-send-invitation) | 현재 할당된 Public DID 출력 
+  `POST` | **[/connections/create-invitation](../auto_connection/#step-1-faber-alice-create-invitation-send-invitation)** | 현재 할당된 Public DID 출력 
   `POST` | **[/connections/receive-invitation](../auto_connection/#step-2-alice-receive-invitation-request-connection)** | DID에 Endpoint setting 
   `POST` | **[/connections/{conn_id}/accept-invitation](../manual_connection/#step-3-alice-faber-accept-invitation-request-connection)** | DID Endpoint 정보 출력 
   `POST` | /connections/{conn_id}/accept-request | Rotate keypair for a local non-public DID 
@@ -74,12 +92,12 @@ An API to issue, manage, and verify self-sovereign identity credentials
   `POST` | /issue-credential/create | Send holder a credential, automating entire flow
   `POST` | /issue-credential/send | Send holder a credential, automating entire flow
   `POST` | /issue-credential/send-proposal | Send issuer a credential proposal
-  `POST` | /issue-credential/send-offer | Send holder a credential offer, independent of any proposal
+  `POST` | **[/issue-credential/send-offer](#)** | Send holder a credential offer, independent of any proposal
   `POST` | /issue-credential/records/{cred_ex_id}/send-offer | Send holder a credential offer in reference to a proposal with preview
-  `POST` | /issue-credential/records/{cred_ex_id}/send-request | Send issuer a credential request
+  `POST` | **[/issue-credential/records/{cred_ex_id}/send-request](#)** | Send issuer a credential request
   `POST` | /issue-credential/records/{cred_ex_id}/issue | Send holder a credential
   `POST` | /issue-credential/records/{cred_ex_id}/store | Store a received credential
-  `POST` | /issue-credential/revoke | Revoke an issued credential
+  `POST` | **[/issue-credential/revoke](#)** | Revoke an issued credential
   `POST` | /issue-credential/publish-revocations | Publish pending revocations to ledger
   `POST` | /issue-credential/clear-pending-revocations | Clear pending revocations
   `POST` | /issue-credential/records/{cred_ex_id}/remove | /issue-credential/records/{cred_ex_id}/remove
@@ -95,8 +113,8 @@ An API to issue, manage, and verify self-sovereign identity credentials
   `GET` | /present-proof​/records​/{pres_ex_id}​/credentials | Fetch credentials for a presentation request from wallet
   `POST` | /present-proof​/send-proposal| Sends a presentation proposal
   `POST` | /present-proof/create-request | Creates a presentation request not bound to any proposal or existing connection
-  `POST` | /present-proof/send-request | Sends a free presentation request not bound to any proposal 
+  `POST` | **[/present-proof/send-request](#)** | Sends a free presentation request not bound to any proposal 
   `POST` | /present-proof/records/{pres_ex_id}/send-request | Sends a presentation request in reference to a proposal
-  `POST` | /present-proof​/records​/{pres_ex_id}​/send-presentation | Sends a proof presentation
+  `POST` | **[/present-proof​/records​/{pres_ex_id}​/send-presentation](#)** | Sends a proof presentation
   `POST` | /present-proof/records/{pres_ex_id}/verify-presentation | Verify a received presentation
   `POST` | /present-proof/records/{pres_ex_id}/remove | Remove an existing presentation exchange record  

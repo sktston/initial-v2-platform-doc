@@ -1,0 +1,1779 @@
+{
+	"info": {
+		"_postman_id": "edca9205-b6dc-45db-8262-fad44a9065b5",
+		"name": "aries-cloudagent-python",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "action-menu",
+			"item": [],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "basicmessage",
+			"item": [
+				{
+					"name": "/connections/{conn_id}/send-message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"Hello\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/connections/fa7eb77f-77b4-459b-8b82-95f3244848e8/send-message",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"fa7eb77f-77b4-459b-8b82-95f3244848e8",
+								"send-message"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "connection",
+			"item": [
+				{
+					"name": "/connections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/{conn_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/fa7eb77f-77b4-459b-8b82-95f3244848e8",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"fa7eb77f-77b4-459b-8b82-95f3244848e8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/create-static",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/create-static",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"create-static"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/create-invitation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/create-invitation?public=false&alias=Alias&multi_use=false&auto_accept=true",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"create-invitation"
+							],
+							"query": [
+								{
+									"key": "public",
+									"value": "false"
+								},
+								{
+									"key": "alias",
+									"value": "Alias"
+								},
+								{
+									"key": "multi_use",
+									"value": "false"
+								},
+								{
+									"key": "auto_accept",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/receive-invitation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/receive-invitation",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"receive-invitation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/{conn_id}/accept-invitation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/{conn_id}/accept-invitation",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"{conn_id}",
+								"accept-invitation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/{conn_id}/accept-request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/37e2c9a4-d218-4202-bbfe-37c6cc07a0c7/accept-request",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"37e2c9a4-d218-4202-bbfe-37c6cc07a0c7",
+								"accept-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/{conn_id}/establish-inbound/{ref_id}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/{conn_id}/establish-inbound/{ref_id}",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"{conn_id}",
+								"establish-inbound",
+								"{ref_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": " ​/connections​/{conn_id}​/remove",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}​/connections​/{conn_id}​/remove",
+							"host": [
+								"{{admin-url}}​"
+							],
+							"path": [
+								"connections​",
+								"{conn_id}​",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/invite-with-endpoint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/invite-with-endpoint",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"invite-with-endpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/receive-invitation-with-endpoint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{invitation}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/connections/receive-invitation-with-endpoint",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"receive-invitation-with-endpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/{conn_id}/accept-invitation-with-endpoint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/{{conn_id}}/accept-invitation-with-endpoint",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"{{conn_id}}",
+								"accept-invitation-with-endpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/connections/{conn_id}/accept-request-with-endpoint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/{{conn_id}}/accept-request-with-endpoint",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"{{conn_id}}",
+								"accept-request-with-endpoint"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "credential-definition",
+			"item": [
+				{
+					"name": "/credential-definitions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"schema_id\": \"{{schema_id}}\",\n  \"tag\": \"tag1\",\n  \"support_revocation\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/credential-definitions",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"credential-definitions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/credential-definitions/created",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/credential-definitions/created",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"credential-definitions",
+								"created"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/credential-definitions/{cred_def_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/credential-definitions/TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"credential-definitions",
+								"TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "credentials",
+			"item": [
+				{
+					"name": "/credential/{credential_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/credential/{credential_id}",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"credential",
+								"{credential_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "​/credential​/mime-types​/{credential_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}​/credential​/mime-types​/{credential_id}",
+							"host": [
+								"{{admin-url}}​"
+							],
+							"path": [
+								"credential​",
+								"mime-types​",
+								"{credential_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/credential/{credential_id}/remove",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/credential/{credential_id}/remove",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"credential",
+								"{credential_id}",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/credentials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/credentials",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"credentials"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "introduction",
+			"item": [
+				{
+					"name": "/connections/{conn_id}/start-introduction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/connections/{conn_id}/start-introduction",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"{conn_id}",
+								"start-introduction"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "issue-credential",
+			"item": [
+				{
+					"name": "/issue-credential​/records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/records",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/records/{cred_ex_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/records/54b8bc80-e3a5-4a76-a5c2-c3a39b0b4218",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"records",
+								"54b8bc80-e3a5-4a76-a5c2-c3a39b0b4218"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/create",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/send",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/send",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "​/issue-credential​/send-proposal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}​/issue-credential​/send-proposal",
+							"host": [
+								"{{admin-url}}​"
+							],
+							"path": [
+								"issue-credential​",
+								"send-proposal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/send-offer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"connection_id\": \"{{conn_id}}\",\n  \"cred_def_id\": \"{{cred_def_id}}\",\n  \"revoc_reg_id\": \"{{rev_reg_id}}\",\n  \"credential_preview\": {\n    \"@type\": \"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/credential-preview\",\n    \"attributes\": [\n      {\n        \"name\": \"name\",\n        \"value\": \"alice\"\n      },\n      {\n        \"name\": \"date\",\n        \"value\": \"05-2018\"\n      },\n      {\n        \"name\": \"degree\",\n        \"value\": \"maths\"\n      },\n      {\n        \"name\": \"age\",\n        \"value\": \"25\"\n      }\n    ]\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/send-offer",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"send-offer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/records/{cred_ex_id}/send-offer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/records/{cred_ex_id}/send-offer",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"records",
+								"{cred_ex_id}",
+								"send-offer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/records/{cred_ex_id}/send-request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/records/{cred_ex_id}/send-request",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"records",
+								"{cred_ex_id}",
+								"send-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/records/{cred_ex_id}/issue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/records/{cred_ex_id}/issue",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"records",
+								"{cred_ex_id}",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/records/{cred_ex_id}/store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/records/{cred_ex_id}/store",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"records",
+								"{cred_ex_id}",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/revoke",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/revoke?rev_reg_id={{rev_reg_id}}&cred_rev_id=5&publish=true",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"revoke"
+							],
+							"query": [
+								{
+									"key": "rev_reg_id",
+									"value": "{{rev_reg_id}}"
+								},
+								{
+									"key": "cred_rev_id",
+									"value": "5"
+								},
+								{
+									"key": "publish",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/publish-revocations",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/publish-revocations",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"publish-revocations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/clear-pending-revocations",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/clear-pending-revocations",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"clear-pending-revocations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/records/{cred_ex_id}/remove",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/records/{cred_ex_id}/remove",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"records",
+								"{cred_ex_id}",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issue-credential/records/{cred_ex_id}/problem-report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/issue-credential/records/{cred_ex_id}/problem-report",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"issue-credential",
+								"records",
+								"{cred_ex_id}",
+								"problem-report"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ledger",
+			"item": [
+				{
+					"name": "/ledger/register-nym",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ledger/rotate-public-did-keypair",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/ledger/rotate-public-did-keypair",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"ledger",
+								"rotate-public-did-keypair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ledger/did-verkey",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/ledger/did-verkey?did=TcBtdVFAS2AD6R9CmgqJAU",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"ledger",
+								"did-verkey"
+							],
+							"query": [
+								{
+									"key": "did",
+									"value": "TcBtdVFAS2AD6R9CmgqJAU"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ledger/did-endpoint",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/ledger/did-endpoint?did=TcBtdVFAS2AD6R9CmgqJAU",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"ledger",
+								"did-endpoint"
+							],
+							"query": [
+								{
+									"key": "did",
+									"value": "TcBtdVFAS2AD6R9CmgqJAU"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ledger/taa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/ledger/taa",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"ledger",
+								"taa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ledger/taa/accept",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/ledger/taa/accept",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"ledger",
+								"taa",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "out-of-band",
+			"item": [],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "present-proof",
+			"item": [
+				{
+					"name": "/present-proof/records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/present-proof/records",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"present-proof",
+								"records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/present-proof/records/{pres_ex_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/present-proof/records/{pres_ex_id}",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"present-proof",
+								"records",
+								"{pres_ex_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/present-proof/records/{pres_ex_id}/credentials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/present-proof/records/{pres_ex_id}/credentials",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"present-proof",
+								"records",
+								"{pres_ex_id}",
+								"credentials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/present-proof/send-proposal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/present-proof/send-proposal",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"present-proof",
+								"send-proposal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/present-proof/create-request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/present-proof/create-request",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"present-proof",
+								"create-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/present-proof/send-request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"connection_id\": {{conn_id}},\n  \"proof_request\": {\n    \"name\": \"proof_name\",\n    \"version\": \"1.0\",\n    \"requested_attributes\": {\n      \"attr_name\": {\n        \"name\": \"name\",\n        \"restrictions\": [\n          {\n            \"cred_def_id\": {{cred_def_id}}\n          }\n        ]\n      },\n      \"attr_date\": {\n        \"name\": \"date\",\n        \"restrictions\": [\n          {\n            \"cred_def_id\": {{cred_def_id}}\n          }\n        ]\n      },\n      \"attr_degree\": {\n        \"name\": \"degree\",\n        \"restrictions\": [\n          {\n            \"cred_def_id\": {{cred_def_id}}\n          }\n        ]\n      }\n    },\n    \"requested_predicates\": {\n      \"pred_age\": {\n        \"name\": \"age\",\n        \"p_type\": \">=\",\n        \"p_value\": 20,\n        \"restrictions\": [\n          {\n            \"cred_def_id\": {{cred_def_id}}\n          }\n        ]\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/present-proof/send-request",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"present-proof",
+								"send-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/present-proof​/records​/{pres_ex_id}​/send-request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}​/present-proof​/records​/{pres_ex_id}​/send-request",
+							"host": [
+								"{{admin-url}}​"
+							],
+							"path": [
+								"present-proof​",
+								"records​",
+								"{pres_ex_id}​",
+								"send-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/present-proof​/records​/{pres_ex_id}​/send-presentation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"requested_attributes\": {\n    \"attr_name\": {\n      \"cred_id\": \"68cf71b1-5816-444c-91e3-e3b2edcd92bc\",\n      \"revealed\":true\n    },\n    \"attr_date\": {\n      \"cred_id\":\"68cf71b1-5816-444c-91e3-e3b2edcd92bc\",\n      \"revealed\":true\n    },\n    \"attr_degree\": {\n      \"cred_id\":\"68cf71b1-5816-444c-91e3-e3b2edcd92bc\",\n      \"revealed\":true\n    }\n  },\n  \"requested_predicates\": {\n    \"pred_age\": {\n      \"cred_id\":\"68cf71b1-5816-444c-91e3-e3b2edcd92bc\"\n    }\n  },\n  \"self_attested_attributes\": {\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/present-proof/records/{{pres_ex_id}}/send-presentation",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"present-proof",
+								"records",
+								"{{pres_ex_id}}",
+								"send-presentation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/present-proof/records/{pres_ex_id}/verify-presentation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/present-proof/records/{pres_ex_id}/verify-presentation",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"present-proof",
+								"records",
+								"{pres_ex_id}",
+								"verify-presentation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/present-proof/records/{pres_ex_id}/remove",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/present-proof/records/{pres_ex_id}/remove",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"present-proof",
+								"records",
+								"{pres_ex_id}",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "revocation",
+			"item": [
+				{
+					"name": "/revocation/create-registry",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"max_cred_num\": 100,\n  \"credential_definition_id\": \"TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1\",\n  \"issuance_by_default\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/revocation/create-registry",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"revocation",
+								"create-registry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/revocation/registries/created",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/revocation/registries/created",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"revocation",
+								"registries",
+								"created"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/revocation/registry/{rev_reg_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/revocation/registry/TcBtdVFAS2AD6R9CmgqJAU:4:TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1:CL_ACCUM:df3272bd-1bc4-44da-906d-9243c9ef792c",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"revocation",
+								"registry",
+								"TcBtdVFAS2AD6R9CmgqJAU:4:TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1:CL_ACCUM:df3272bd-1bc4-44da-906d-9243c9ef792c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/revocation/registry/{rev_reg_id}",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tails_public_uri\": \"http://127.0.0.1:6543/TcBtdVFAS2AD6R9CmgqJAU:4:TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1:CL_ACCUM:df3272bd-1bc4-44da-906d-9243c9ef792c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/revocation/registry/TcBtdVFAS2AD6R9CmgqJAU:4:TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1:CL_ACCUM:df3272bd-1bc4-44da-906d-9243c9ef792c",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"revocation",
+								"registry",
+								"TcBtdVFAS2AD6R9CmgqJAU:4:TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1:CL_ACCUM:df3272bd-1bc4-44da-906d-9243c9ef792c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/revocation/active-registry/{cred_def_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/revocation/active-registry/TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"revocation",
+								"active-registry",
+								"TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/revocation/registry/{rev_reg_id}/tails-file",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/revocation/registry/{{rev_reg_id}}/tails-file",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"revocation",
+								"registry",
+								"{{rev_reg_id}}",
+								"tails-file"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/revocation/registry/{rev_reg_id}/publish",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/revocation/registry/TcBtdVFAS2AD6R9CmgqJAU:4:TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1:CL_ACCUM:df3272bd-1bc4-44da-906d-9243c9ef792c/publish",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"revocation",
+								"registry",
+								"TcBtdVFAS2AD6R9CmgqJAU:4:TcBtdVFAS2AD6R9CmgqJAU:3:CL:697:tag1:CL_ACCUM:df3272bd-1bc4-44da-906d-9243c9ef792c",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "schema",
+			"item": [
+				{
+					"name": "/schemas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"attributes\": [\n    \"name\",\n    \"date\",\n    \"degree\",\n    \"age\"\n  ],\n  \"schema_name\": \"degree_schema\",\n  \"schema_version\": \"1.5.1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/schemas",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"schemas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/schemas/created",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/schemas/created",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"schemas",
+								"created"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/schemas/{schema_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/schemas/{{schema_id}}",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"schemas",
+								"{{schema_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/schemas/{schema_id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{admin-url}}/schemas/{{schema_id}}",
+									"host": [
+										"{{admin-url}}"
+									],
+									"path": [
+										"schemas",
+										"{{schema_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "188"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Aug 2020 05:34:43 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Python/3.8 aiohttp/3.6.2"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"schema\": {\n        \"ver\": \"1.0\",\n        \"id\": \"Th7MpTaRZVRYnPiabds81Y:2:degree_schema:1.5.8\",\n        \"name\": \"degree_schema\",\n        \"version\": \"1.5.8\",\n        \"attrNames\": [\n            \"date\",\n            \"degree\",\n            \"name\",\n            \"age\"\n        ],\n        \"seqNo\": 1386\n    }\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "server",
+			"item": [
+				{
+					"name": "/plugins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/plugins",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"plugins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/status",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/status/reset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8021/status/reset",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8021",
+							"path": [
+								"status",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/features",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/features",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"features"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "trustping",
+			"item": [
+				{
+					"name": "/connections/{conn_id}/send-ping",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"comment\": \"hello\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/connections/fa7eb77f-77b4-459b-8b82-95f3244848e8/send-ping",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"connections",
+								"fa7eb77f-77b4-459b-8b82-95f3244848e8",
+								"send-ping"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "wallet",
+			"item": [
+				{
+					"name": "/wallet/did",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/wallet/did",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"wallet",
+								"did"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/wallet/did/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/wallet/did/create",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"wallet",
+								"did",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/wallet/did/public",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/wallet/did/public",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"wallet",
+								"did",
+								"public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/wallet/did/public",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8021/wallet/did/public?did=S3aNkuhK7sUJdJDp69KJVA",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8021",
+							"path": [
+								"wallet",
+								"did",
+								"public"
+							],
+							"query": [
+								{
+									"key": "did",
+									"value": "S3aNkuhK7sUJdJDp69KJVA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/wallet/set-did-endpoint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"endpoint\": \"https://myhost:8021\",\n  \"did\": \"DJKobikPAaYWAu9vfhEEo5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/wallet/set-did-endpoint",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"wallet",
+								"set-did-endpoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/wallet/get-did-endpoint",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}",
+							"host": [
+								"{{admin-url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/wallet/did/local/rotate-keypair",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/wallet/did/local/rotate-keypair?did=AB7MwKJdX77KVm859h2uXj",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"wallet",
+								"did",
+								"local",
+								"rotate-keypair"
+							],
+							"query": [
+								{
+									"key": "did",
+									"value": "AB7MwKJdX77KVm859h2uXj"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/wallet GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/wallet",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/wallet POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"wallet_name\": \"faber.agent2\",\n  \"seed\": \"000000000000000000000000Steward2\",\n  \"wallet_type\": \"indy\",\n  \"wallet_key\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/wallet",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/wallet/{id}/remove",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/wallet/MyNewWallet/remove",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"wallet",
+								"MyNewWallet",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "d1df4a77-a79d-4f46-8251-bd64ee0d5a97",
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({ key: 'Wallet', value: '{{wallet}}' });"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b00bcffa-2638-44dc-bb53-761e134db3df",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
