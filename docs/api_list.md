@@ -37,9 +37,9 @@ An API to issue, manage, and verify self-sovereign identity credentials
   `GET` | /connections | Agent to Agent connections ist 출력
   `GET` | /connections/{conn_id} | 특정 connection ID 기록 출력
   `POST` | /connections/create-static | Public DID를 Assign 
-  `POST` | **[/connections/create-invitation]**(../auto_connection/#step-1-faber-alice-create-invitation-send-invitation) | 현재 할당된 Public DID 출력 
-  `POST` | **[/connections/receive-invitation]**(../auto_connection/#step-2-alice-receive-invitation-request-connection) | DID에 Endpoint setting 
-  `POST` | **[/connections/{conn_id}/accept-invitation]**(../manual_connection/#step-3-alice-faber-accept-invitation-request-connection) | DID Endpoint 정보 출력 
+  `POST` | **[/connections/create-invitation](../auto_connection/#step-1-faber-alice-create-invitation-send-invitation)** | 현재 할당된 Public DID 출력 
+  `POST` | **[/connections/receive-invitation](../auto_connection/#step-2-alice-receive-invitation-request-connection)** | DID에 Endpoint setting 
+  `POST` | **[/connections/{conn_id}/accept-invitation](../manual_connection/#step-3-alice-faber-accept-invitation-request-connection)** | DID Endpoint 정보 출력 
   `POST` | /connections/{conn_id}/accept-request | Rotate keypair for a local non-public DID 
   `POST` | /connections/{conn_id}/establish-inbound/{ref_id} | Rotate keypair for a local non-public DID 
   `POST` | /connections/{conn_id}/remove | Rotate keypair for a local non-public DID 
@@ -50,7 +50,7 @@ An API to issue, manage, and verify self-sovereign identity credentials
 
    Method  | Resource | Description 
   :---: | --- | --- 
-  `POST` | ​**[/schemas]**(../schema_creddef/#step-1-faber-create-schema) | Sends a schema to the ledger
+  `POST` | ​**[/schemas](../schema_creddef/#step-1-faber-create-schema)** | Sends a schema to the ledger
   `GET` | /schemas/created | Search for matching schema that agent originated
   `GET` | /schemas/{schema_id} | Gets a schema from the ledger
 
@@ -59,7 +59,7 @@ An API to issue, manage, and verify self-sovereign identity credentials
 
    Method  | Resource | Description 
   :---: | --- | --- 
-  `POST` | ​**[/credential-definitions]**(../schema_creddef/#step-2-faber-create-credential-definition-revocation-registry) | Sends a credential definition to the ledger
+  `POST` | ​**[/credential-definitions](../schema_creddef/#step-2-faber-create-credential-definition-revocation-registry)** | Sends a credential definition to the ledger
   `GET` | ​/credential-definitions​/created | Search for matching credential definitions that agent originated
   `GET` | /credential-definitions/{cred_def_id} | Gets a credential definition from the ledger
   
