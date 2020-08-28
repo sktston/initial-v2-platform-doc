@@ -2,37 +2,37 @@
 
 ## 1. 기본 용어
 
-### DID(Decentralized Identifier)
+### ○ DID(Decentralized Identifier)
  - 기존 신원확인 방식과 달리 중앙 시스템에 의해 통제되지 않으며 개개인이 자신의 정보에 완전한 통제권을 갖도록 하는 기술. W3C등에서 표준을 작성하고 있다.
  - Public DID - Public 공개하는 DID. 주로 기관등이 Issuer(발급자)로 DID를 Ledger에 공개한다. Initial에서 일반 사용자(Holder)는 DID를 Ledger에 공개하지 않는다.
  - Pairwise DID - Peer-to-Peer 연결을 위해 Private 생성하는 DID이고 오직 연결 상대에게만 공개한다. 매번 연결하다 Pairwise DID가 생성된다.  
 
-### Issuer
+### ○ Issuer
  - [VC](#vcverifiable-credential)/증명서등을 발행하는 주체. 주로 신뢰성 있는 기관들이 해당되며 Issuer로 참여하기 위해서는 Blockchain ledger에 등록할 수 있는 권한(Endorser)을 관리자로 부터 획득해야 한다.
  
-### Verifier
+### ○ Verifier
  - Holder가 제출하는 [VC](#vcverifiable-credential)를 검증하는 주체. 
 
-### Holder
+### ○ Holder
  - [VC](#vcverifiable-credential)를 보관하고 제출하는 Self Sovereign을 담당하는 주체.
  
-### Peer
+### ○ Peer
  - Issuer,Verifier,Holder등은 DID 환경에서 모두 동일한 peer에 해당한다.
  
-### VC(Verifiable Credential)
+### ○ VC(Verifiable Credential)
  - Issuer(발급자)가 발행한 검증이 가능한 증명서.
  - e.g)신분증, 출입증, 학생증, 계좌증명서등.
 
-### Schema
+### ○ Schema
  - Credential의 기본 Template. 권한이 있는 [Issuer](#issuer)만 생성 가능하고 Ledger에 기록됨. 
  - Ledger에 등록된 Schema는 모든 [Issuer](#issuer)들이 사용 가능함.
  
-### Credential Definition
+### ○ Credential Definition
  - 이미 생성된 [Schema](#schema)로 부터 VC를 발행하기 위한 최종 설정.
  - Revocation 사용 여부, 총 발행량, 버전 정보등이 Ledger에 기록.
  - 권한이 있는 Issuer만 생성 가능하고, 생성한 Isser 자신만 사용 가능.
 
-### Wallet
+### ○ Wallet
  - 사용자의 중요 정보를 담기 위한 공간.
  - Initial에서 Wallet은 Secret Key 뿐만 아니라 VC, Connection 정보등 많은 data 저장한다.
  
@@ -40,7 +40,7 @@
 ## 2. Keys
 DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
 
-### MasterKey
+### ○ MasterKey
  - Wallet Key을 암호화 하기 위한 Symmetric Encryption Key(chacha20-poly1305)
  - 사용자는 MasterKey를 직접 관리해야 하며, 보안 사고시 Rotate key를 통해 변경를 해야 한다. 
  
@@ -87,7 +87,14 @@ DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
 ## 4. Web Console
  - Web GUI 기반 DID 동작을 지원하는 서비스 (업데이트 중)
 
+## 5. Cryptography (암호기법)
+ - Initial에서 사용하는 암호기 (업데이트 중)
 
- 
+### 영지식증명(ZKP or Zero Knowledger Proof)
+  - 내정보를 공개하지 않고, 참/거짓을 판별할 수 있는 기술 
+  
+### Accumulator
+  - Revocation에서 개인정보를 공개하지 않고 사용되는 수학적 암호 기술 
+
  
 

@@ -2,17 +2,19 @@ Message
 ================
 
 **Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 SMS 문자와 메신저와 같은 Basic Message 송/수신 예제.
-<br>
-Basice Message는 Webhook을 통해서 전달 되기 때문에, Test를 위해서는 Webhook 서버 세팅이 필요.
-<br> Webhook 서버를 포함하고 있는 상세 Demo 참고 <https://github.com/sktston/acapy-controller-java>
-<br> Webhook으로 받은 Message는 Client에 따라 Push Notification등으로 사용자에게 전달해야 한다.
 
-Basicmessages State
+- Basice Message는 Webhook을 통해서 전달 되기 때문에, Test를 위해서는 Webhook 서버 세팅이 필요.
+- Webhook 서버를 포함하고 있는 상세 Demo 참고 <https://github.com/sktston/acapy-controller-java>
+- Webhook으로 받은 Message는 Client에 따라 Push Notification등으로 사용자에게 전달해야 한다.
+
+<p></p>
+- Basicmessages State
 
 Topic | State | Description
 --- | --- | ---
 basicmessages | received | message를 받은 상태 
 
+<p></p>
 
 ### STEP 1. Faber <--> Alice : 서로 Message를 주고 받을 수 있다. 
 
