@@ -1,9 +1,11 @@
 Auto Connection Example
 ================
 
-**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 Example
+**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 Connection(연결) 예제<br>
+Connection은 기존 Legacy 서비스에서 Log-in과 같은 Authentication(인증) 개념.
 <br>
-Connection State
+
+Connection State는 아래와 같음.
 
 Topic | State | Description
 --- | --- | ---
@@ -12,9 +14,9 @@ Connection | request | Connection 요청한 상태
 Connection | response | Connection accept 한 태
 Connection | active | Connection 완료 
 
+Auto Connection의 Example
 
 ### STEP 1. Faber --> Alice : create invitation & send invitation.
-
 
 * Method and Resource
 
@@ -27,7 +29,7 @@ Connection | active | Connection 완료
      --- | --- 
      alias | Alice에게 전달할 초대장 별칭 (e.g A대학제증명발급처)
      auto_accept | Alice가 초대장 수락 시 자동 connection 설정
-     multi_use | 초대장을 일회성/다회성 사용여부. QR코드등 인쇄시 `true` 설정 필요
+     multi_use | 초대장을 once/multi 사용여부. QR코드등 인쇄시 `true` 설정 필요
      public | Public DID를 기반으로 초대장 생성 (현재 미지원)
 
 <p></p>
@@ -126,3 +128,33 @@ Connection | active | Connection 완료
 * Next Step
 
     연결 완료. Schema 생성 및 VC 발행 진행.
+    
+    
+### STEP 3. Connection 관리 Guide
+
+`GET` `/connections` 으로 connection을 확인하면 
+
+아래와 같은 connection information 을 확인 할 수 있다.<br>
+향후 해당 connection 기반으로 peer에게 message를 보내거나, offer 및 request 하기 위해서는
+connection id와 유저 정보를 alias 등으로 잘 mapping 관리해야 한다.
+```json
+{
+  "results": [
+    {
+      "accept": "auto",
+      "initiator": "self",
+      "connection_id": "3c6dd936-cde1-465c-b917-d7601933ecaf",
+      "created_at": "2020-08-27 08:20:21.355788Z",
+      "state": "active",
+      "their_label": "alice.agent",
+      "my_did": "EXouGSxBs9FDk2Kncp49m9",
+      "routing_state": "none",
+      "updated_at": "2020-08-27 08:20:57.787795Z",
+      "invitation_mode": "once",
+      "their_did": "UuLvvU78qtHEJY1UNgHxj",
+      "invitation_key": "5pSn7c4Miomp6HeXxuVZdvJmAF4npSW1Np1N2hZbZWqV"
+    }
+  ]
+}
+```
+
