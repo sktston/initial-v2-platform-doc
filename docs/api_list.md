@@ -3,7 +3,7 @@
 Cloud Agent의 Admin을 위한 REST API<br>
 사업자의 Legacy 시스템(ERP, HR시스템 등)과 연동하여 증명서를 손쉽게 발생할 수 있다.
 
-### ◆ Swagger API Service Link
+### ● Swagger API Service Link
 
 ##### Non-interactive Swagger API Service Link
 <a href="https://app.swaggerhub.com/apis-docs/khujin1/Initial-REST-API-Service/v0.5.3"  target="_blank">Initial-REST-API Swagger API Site</a>
@@ -30,7 +30,7 @@ Postman 기반 API Collection
 <br>
 <br>
 
-### ◆ Initial Cloud Agent REST APIs list 
+### ● Initial Cloud Agent REST APIs list 
 ACA-Py(Aries Cloud Agent Python) 기반 APIs. 
 <br> 상세 정보는 <https://github.com/hyperledger/aries-cloudagent-python> 참고.
 

@@ -1,10 +1,58 @@
 Revocation
 ================
 
-**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 및 VC발급/검증 예제를 통한 API 설명
+**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 Credential Revocation 예제.
 <br>
 
-### STEP 1. Faber : Alice에게 발행한 Credential을 폐기(revoke)한다. 
+### STEP 1. Faber : Revocation 원하는 Alice에게 발행한 Credential 정보를 확인. 
+
+* Method and Resource
+
+    `GET` `/issue-credential/records` 발행한 credential의 전체 정보를 가져옴.   
+    `GET` `/issue-credential/records/{cred_ex_id}` 특정 Credential ID를 알고 있을 경우 해당 정보만 가져옴.
+    
+* Parameter
+
+ Name | Description 
+ --- | --- 
+ cred_ex_id | Credential exchange identifier
+ 
+<p></p>
+
+<div class="admonition Note">
+<p class="admonition-title">Note</p>
+<p> 현재 Demo는 Cloud Agent의 Credential 정보를 모두 가지고 있는 --preserve-exchange-records 세팅이 되어 있어 Record 확인이 가능하지만, 상용서버에서 고객 정보를 보관하지 않기 위해 해당 기능을 제공하지 않아 사용자 Controller에서 모두 DB로 별도 관리해야 한다. `cred_rev_id`는 credential issue 단계에서 `revocation_id` 확인 가능.  </p>
+</div>
+
+* Example
+
+    * Proof Request <br>
+    `cred_ex_id` : `7503aae5-71ec-4d24-82a2-a2b7b2394c95`<br>
+
+
+<p></p>
+ 
+   * Response body<br>
+    Response 항목 중 필요한 아래 2개(`revoc_reg_id`, `revocation_id`)의 값을 사용한다. 
+    
+```json
+"revoc_reg_id": "Th7MpTaRZVRYnPiabds81Y:4:Th7MpTaRZVRYnPiabds81Y:3:CL:2487:tag.91.43.38:CL_ACCUM:de1de25c-1694-4ad2-bf2d-d971575f32fb",
+"revocation_id": "1",
+
+"state": "credential_acked",
+
+```
+
+<p></p>
+
+* Next Step
+<p></p>
+
+* Ledger Transactions (Indy Node)
+
+<br><br>
+
+### STEP 2. Faber : Alice에게 발행한 Credential을 폐기(revoke)한다. 
 
 * Method and Resource
 
@@ -22,14 +70,14 @@ Revocation
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> `cred_rev_id`는 credential issue 단계에서 발급 받은 Peer와 mapping 하여 별도로 관리해야 함.  </p>
+<p> `cred_rev_id`는 credential issue 단계나, STEP 1에서 `revocation_id`로 확인 가능.  </p>
 </div>
 
 * Example
 
     * Proof Request <br>
     `cred_rev_id` : `1`<br>
-    `rev_reg_id` : `Th7MpTaRZVRYnPiabds81Y:4:Th7MpTaRZVRYnPiabds81Y:3:CL:2143:faber_college_5:CL_ACCUM:c1fde0d5-dddb-495a-9dee-69573e30b656` <br>
+    `rev_reg_id` : `Th7MpTaRZVRYnPiabds81Y:4:Th7MpTaRZVRYnPiabds81Y:3:CL:2487:tag.91.43.38:CL_ACCUM:de1de25c-1694-4ad2-bf2d-d971575f32fb` <br>
     `publish` : `ture`<br>
 
 
@@ -43,8 +91,9 @@ Revocation
 <p></p>
 
 * Next Step
-<br> Push Notification/Webhook등으로 Alice에게 전달. 
-<br> Alice에게 다시 Present proof 하게 되면 `verified`: `false` return.
+<br> Push Notification/Webhook등으로 Alice에게 Revocatino 여부 전달 전달. 
+<br> 하지만 Alice가 직접 삭제하기 전까지는 Revocation 완료한 Alice의 Credential은 wallet에 그대로 존재함.
+<br> Alice의 Credential을 다시 Present proof 하게 되면 `verified`: `false` return.
 <p></p>
 
 * Ledger Transactions (Indy Node)
