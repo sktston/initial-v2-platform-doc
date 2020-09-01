@@ -44,44 +44,37 @@ DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
  - Wallet Key을 암호화 하기 위한 Symmetric Encryption Key(chacha20-poly1305)
  - 사용자는 MasterKey를 직접 관리해야 하며, 보안 사고시 Rotate key를 통해 변경를 해야 한다. 
  
-### Wallet Key
+### ○ Wallet Key
  - Wallet의 실제 data를 암호화 할때 사용하는 Symmetric Encryption Key(chacha20-poly1305).
  - MasterKey에 의해서 암호화 되어, Wallet의 Metadata 영역에 저장/관리 된다
  - Wallet key는 총 7개의 Key로 구성되어 있다
  
-### DID Key
- - DID를 사용하기 위한 Asymmetric Key로 Wallet에 저장되어 있음(ed25519)
- - Digital Sign, Public Key Encryption에 사용함.
+### ○ DID Key
+ - DID를 사용하기 위한 Asymmetric Key로 Wallet에 저장되어 있음(ed25519)있고 Digital Sign, Public Key Encryption에 사용함.
+ - Pairwise DID Key : 상대방과 연결(Connection)에서만 사용하는 DID. Private DID라고 불리기도 함.
+ - Enterprise DID (Issuer DID) : Blockchain Ledger에 접근하기 위한 용도의 DID. Ledger 접근하기 위해 Trustee, Steward, Endorser 권한이 있으며, Transaction을 발생할 수 있다. 권한이 없는 사용자는 Read만 가능하다.  
  
-#### Pairwise DID Key
- - 상대방과 연결에서만 사용하는 DID. Private DID라고 불리기도 함.
- 
-#### Enterprise DID (Issuer DID)
- - Blockchain Ledger에 접근하기 위한 용도의 DID
- - Ledger 접근하기 위해 Trustee, Steward, Endorser 권한이 있으며, Transaction을 발생할 수 있다
- - 권한이 없는 사용자는 Read만 가능하다.  
- 
-#### VerKey
+### ○ VerKey
  - verification key. 공개키로 public key와 동일한 개념이다.
  - DID와 같이 공개된 정보이나, 비밀키 유출 시 rotate-key를 통해 DID는 유지하면서 VerKey를 변경할 수 있다.
    
 ## 3. Agency 용어
-### Agency
+### ○ Agency
  - Agent to Agent 메시징 기본 개념은 중개자(Mediator) 및 중계(Relay)의 요소가 존재하고, Peer(Issuer,Verifier,Holder) Agent들 간의 연결 및 Message 중계를 위해 Agency가 존재. 
  - Initial Platform 기반의 DID 메시지 communication은 모두 SKT Agency를 통해서 동작.
  
-### Mediator
+### ○ Mediator
   - Agency의 역할은 Relayer(단순 메시지 전달), Mediator(Peer의 서버 역할), Full Function(Cloud Wallet등 모든 기능 포함)등으로 구분가능 하다.
   - Mediator는 Message을 encryption 하여 임시 보관하고, Target으로 전달하는 역할하는 능동적인 일을 하지만, 메시지 내용 확인은 불가능 하다.
   - https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0046-mediators-and-relays/README.md
   
-### Cloud Agent
+### ○ Cloud Agent
  - Agency 내부에 Peer를 대신해서 wallet 및 message등을 관리하는 프로그램. Client당 한개의 Agent가 생성된다.
 
-### Connection Agent
+### ○ Connection Agent
  - 참여자들과 연결마다 생성되는 특별한 용도의 프로그램.
 
-### Initial Client
+### ○ Initial Client
  - 이니셜 eco-system의 서비스를 제공 받는 참여자들을 말함. Holder, Issuer, Verifier등 해당. 여기서 서비스 서비스를 제공하는 Server는 Agency를 말함.
  
 ## 4. Web Console
@@ -90,10 +83,10 @@ DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
 ## 5. Cryptography (암호기법)
  - Initial에서 사용하는 암호기 (업데이트 중)
 
-### 영지식증명(ZKP or Zero Knowledger Proof)
+### ○ 영지식증명(ZKP or Zero Knowledger Proof)
   - 내정보를 공개하지 않고, 참/거짓을 판별할 수 있는 기술 
   
-### Accumulator
+### ○ Accumulator
   - Revocation에서 개인정보를 공개하지 않고 사용되는 수학적 암호 기술 
 
  
