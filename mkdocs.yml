@@ -19,7 +19,7 @@ nav:
   - 'Web Console Service' :
       - 'Web Console' : 'web_console.md'
   - 'Cloud Agent API Referece':
-      - 'API list': 'api_list.md'
+      - 'Open API list': 'api_list.md'
       - 'Auto Connection': 'auto_connection.md'
       - 'Manual Connection': 'manual_connection.md'
       - 'Router Connection': 'router_connection.md'
