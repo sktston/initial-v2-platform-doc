@@ -1,4 +1,3 @@
-site_name: Initial v2 Platform
 site_author: SKT 주재현
 site_description: Initial v2 Platform
 site_url: https://initial-v2-platform.readthedocs.io/
@@ -20,6 +19,7 @@ nav:
       - 'Web Console' : 'web_console.md'
   - 'Cloud Agent API Referece':
       - 'Open API list': 'api_list.md'
+      - 'Wallet' : 'wallet_api.md'
       - 'Auto Connection': 'auto_connection.md'
       - 'Manual Connection': 'manual_connection.md'
       - 'Router Connection': 'router_connection.md'
