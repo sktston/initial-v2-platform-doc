@@ -6,7 +6,7 @@ Wallet and Create Authorize & DID
 
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p> Cloud Agent 접속을 위해 Auth 필요. Local demo에서는 직접 생성할 수 있지만, 실제 서비스에서는 관리자에게 생성 요청해야 </p>
+<p> Cloud Agent 접속을 위해 Auth 필요. Local demo에서는 직접 생성할 수 있지만, 실제 서비스에서는 관리자에게 생성 요청해야 함 </p>
 </div>
     
 
