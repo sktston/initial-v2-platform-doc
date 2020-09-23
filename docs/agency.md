@@ -4,20 +4,28 @@
 )
 
 ## Agency란?
-Agency는 Peer간 연결을 위한 cloud agent를 provisioning하고 영구적으로 사용가능한 end point를 생성한다. <br>
-암호화된 Message를 전달하는 Mediator의 역할을 한다.<br>
-Peer들의 Cloud Agent가 Agency 내부에 생성되고 Peer들의 각각의 서버로서 기능을 하게 된다.<br>
+Agency는 Peer간 연결을 위한 cloud agent를 provisioning하고 영구적으로 사용가능한 endpoint를 생성한다. <br>
+그리고 암호화된 Message를 전달하는 Mediator의 역할을 한다.<br>
+Peer들의 Cloud Agent가 Agency 내부에 생성되고 Peer들의 각각 서버로서 기능을 하게 된다.<br>
 Peer가 Offline 상황에서도 항상 Encrypted Message를 받아 임시보관하고, 전달할 수 있는 기능을 제공한다. 
+
+
+<div class="admonition Note">
+<p class="admonition-title">Note</p>
+<p> Initial은 Static endpoint를 가지기 힘든 Mobile(Holder) 전용으로 Agency를 제공하고, Issuer와 Verifier는 전용 Cloud Agent를 별도로 제공 </p>
+</div>
+
+
 ![workflow](img/agency_architecture.png)
 
-## Agency 사용
+## Mobile Agency 사용
 
 Hyperledger VCX Protocol(Aries Protocol support) 기반 Agency 사용을 원하는 Mobile App 개발사는 
 Auth 인증을 위한 API Key 발급 필요.
 
 contact : jaehyeon.ju@sk.com
 
-## Agency Workflow
+## Mobie Agency Workflow
 * `Faber` - Issuer/Verifier등 기관. 
 * `Alice` - Holder등 사용자.
 * `Agency` - Initial Platform의 message 전달을 담당하는 Hub.

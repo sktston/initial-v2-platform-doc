@@ -1,6 +1,5 @@
-site_name: Initial v2 Platform
 site_author: SKT 주재현
-site_description: Initial v2 Platform
+site_description: Initial Platform
 site_url: https://initial-v2-platform.readthedocs.io/
 google_analytics: ['UA-171779938-1', 'https://initial-v2-platform.readthedocs.io/']
 
@@ -13,13 +12,14 @@ nav:
       - 'Terms' : 'terms.md'
       - 'Services': 'services.md'
       - 'Release notes' : 'release_note.md'
-  - 'Agency Service' :
+  - 'Mobile Agency Service' :
       - 'Initial Agency' : 'agency.md'
       - 'Agency Protocols' : 'agency_protocol.md'
   - 'Web Console Service' :
       - 'Web Console' : 'web_console.md'
   - 'Cloud Agent API Referece':
       - 'Open API list': 'api_list.md'
+      - 'Wallet & DID' : 'wallet_api.md'
       - 'Auto Connection': 'auto_connection.md'
       - 'Manual Connection': 'manual_connection.md'
       - 'Router Connection': 'router_connection.md'
@@ -36,7 +36,8 @@ nav:
   - 'SDK API' :
       - 'Java APIs' : 'java_api/java_api.md'
       - 'iOS APIs' : 'ios_api/ios_api.md'
-
+  - 'Blockchain Node' :
+      - 'Blockchain Network' : 'blockchain.md'
 
 
 plugins:

@@ -26,13 +26,15 @@ Schema & Credential Definition Example
     * body
 ```json
 {
-  "schema_name": "degree_schema",
-  "schema_version": "24.8.1",
+  "schema_name": "대학제증명",
+  "schema_version": "1.0",
   "attributes": [
-    "name",
-    "date",
-    "degree",
-    "age"
+    "학년",
+    "입학년월일",
+    "생년월일",
+    "성명",
+    "학교이름",
+    "과정명"
   ]
 }
 ```
@@ -42,20 +44,22 @@ Schema & Credential Definition Example
    * Response body
 ```json
 {
-  "schema_id": "Th7MpTaRZVRYnPiabds81Y:2:degree_schema:24.8.1",
-  "schema": {
-    "ver": "1.0",
-    "id": "Th7MpTaRZVRYnPiabds81Y:2:degree_schema:24.8.1",
-    "name": "degree_schema",
-    "version": "24.8.1",
-    "attrNames": [
-      "date",
-      "name",
-      "degree",
-      "age"
-    ],
-    "seqNo": 2143
-  }
+    "schema_id": "9c74RUPtMwtiSXq8tVDqxp:2:대학제증명:1.0",
+    "schema": {
+        "ver": "1.0",
+        "id": "9c74RUPtMwtiSXq8tVDqxp:2:대학제증명:1.0",
+        "name": "대학제증명",
+        "version": "1.0",
+        "attrNames": [
+            "성명",
+            "학교이름",
+            "과정명",
+            "입학년월일",
+            "생년월일",
+            "학년"
+        ],
+        "seqNo": 5108
+    }
 }
 ```
 
@@ -71,50 +75,55 @@ Schema & Credential Definition Example
 ```json
 {
   "auditPath": [
-    "4v6SmDv5LGEqpQLizK8c2vuAM7qZXdqPSGP3Y1nDEJ4o",
-    "9LG5nxrXVsAiweKwgSuSsZXmBk2gsWRYswSqiJ2Ldobr",
-    "APvykYw8itGpbUJNQdhxp6orhFzBtBSbTM5NG6d1Km2H",
-    "H8KodGkMj1ZM3NvLSJzqWsTfxrx1CNFX26uAJSdRK4yU",
-    "FB4rDkp2cZVVqTGw91z8VkQTj1eFX5Nh5w53oCt4WfQv",
-    "6Lai2Ns9nXVpXqikoXkrorcneXYoXwbCHnWKoaRADGhH"
+    "CYT9WaaQRuaxtt5Vytz7dQx5H9AdgBaQZAtmQT1UXGrk",
+    "3suwRS6WoDpQxR2RPVxmYjWZDsCgXLiFW1hsne7kdGKZ",
+    "534ZdtmEDD4roUU4AHxyg6K4jjB4p2e6oaWvcE2goQpe",
+    "GDk46VDrycJrnidyVNEw89HL7ywAR35AZr3LSfwaV9yv",
+    "9gBoSsmAY5mSLd95PAa7KuiCiqKZoyLQmBr96taH39cU",
+    "DCMMAtwy3bXm2AGTxCxSB88BJtuoxyPNDJ9xRJgzb6SS",
+    "CcNYpVNwWXiuSZvN9uSUCVBXKiREp7zSD63s2PpCy9Db",
+    "6frSji5FdLTZarZHcWSmVceV81KBZUHR8JDEgagqKt5h",
+    "h6sCZx4A4jsnTmLN43rfP2xp6iD49DLwdP6RPXqgt72"
   ],
-  "ledgerSize": 2143,
+  "ledgerSize": 5108,
   "reqSignature": {
     "type": "ED25519",
     "values": [
       {
-        "from": "Th7MpTaRZVRYnPiabds81Y",
-        "value": "WqDXwhXwSYWatsjeN7cyrQEMsafYfoar2GBP6YNpaDNkkx1yuwaLurnUot6B9tEdXPs69fMre9Ja9yQdFwPsn2B"
+        "from": "9c74RUPtMwtiSXq8tVDqxp",
+        "value": "5pg3GqpWgbJLhNDU8b1Y1g7hGXSdkCYyxzTjBn29kTJo2a7pfddgcAreyaCsDi47ptm1xBFfddVVsWWozzoX3je7"
       }
     ]
   },
-  "rootHash": "CBqvBbNfNGy1r7vpst9m5yKVXcxPtm4DxnTskNKkfRJi",
+  "rootHash": "3hzQFdEaAJ5YzXuZvy95QMKwg1hyV1YCiBwceX7YUHc1",
   "txn": {
     "data": {
       "data": {
         "attr_names": [
-          "date",
-          "age",
-          "degree",
-          "name"
+          "생년월일",
+          "학년",
+          "입학년월일",
+          "성명",
+          "학교이름",
+          "과정명"
         ],
-        "name": "degree_schema",
-        "version": "24.8.1"
+        "name": "대학제증명",
+        "version": "1.0"
       }
     },
     "metadata": {
-      "digest": "a548f28a3ed4ac0e370065dd5990ba287fafcf77fbdf5985b0ee4e92fc7d4030",
-      "from": "Th7MpTaRZVRYnPiabds81Y",
-      "payloadDigest": "dc67ec3cd071149f7d5b5049fb47f72a416a19d55ceb80bbcd515a1396a5ba2f",
-      "reqId": 1598247980728272000
+      "digest": "6c4347222b1fb71c6e39a455da3736d5c6d1da90def063d7cc8903fad2bdf60a",
+      "from": "9c74RUPtMwtiSXq8tVDqxp",
+      "payloadDigest": "92e54af94075cac70d1fae5fe2c869ed82c277d2d06cf9da93c504ed83730945",
+      "reqId": 1600849682020794600
     },
     "protocolVersion": 2,
     "type": "101"
   },
   "txnMetadata": {
-    "seqNo": 2143,
-    "txnId": "Th7MpTaRZVRYnPiabds81Y:2:degree_schema:24.8.1",
-    "txnTime": 1598247980
+    "seqNo": 5108,
+    "txnId": "9c74RUPtMwtiSXq8tVDqxp:2:대학제증명:1.0",
+    "txnTime": 1600849682
   },
   "ver": "1"
 }
@@ -137,7 +146,10 @@ Schema & Credential Definition Example
  Name | Description 
  --- | ---
  body | Credential Definition String 
- 
+ schema_id | Credential 발급할 Schema ID. 타인이 생성한 Schema ID도 사용 가능.
+ tag | Credential Definition을 구분하기 위한 tag.
+ support_revocation | Revocation(폐기) 기능 사용 여부. true로 세팅해야 지원.
+ revocation_registry_size | revocation을 위해서 생성할 registry의 크기. 해당 크기 단위로 ledger에 REVOC_REG_DEF가 새로 등록된다. 
 <p></p>
 
 * Example
@@ -145,17 +157,17 @@ Schema & Credential Definition Example
     * input <br>
     `schema_id` : `Th7MpTaRZVRYnPiabds81Y:2:degree_schema:1.0`<br>
     `tag` : `faber_college`<br>
-    `support_revocation` : `false`<br>
-    `revocation_registry_size` : `0`<br>
+    `support_revocation` : `true`<br>
+    `revocation_registry_size` : `100`<br>
 
 
     * body
 ```json
 {
-  "schema_id": "Th7MpTaRZVRYnPiabds81Y:2:degree_schema:24.8.1",
-  "tag": "faber_college",
-  "support_revocation": true,
-  "revocation_registry_size": 100
+    "revocation_registry_size": 100,
+    "schema_id": "9c74RUPtMwtiSXq8tVDqxp:2:대학제증명:1.0",
+    "support_revocation": true,
+    "tag": "SK대학교"
 }
 ```
 
@@ -164,7 +176,7 @@ Schema & Credential Definition Example
    * Response body
 ```json
 {
-  "credential_definition_id": "Th7MpTaRZVRYnPiabds81Y:3:CL:2143:faber_college"
+    "credential_definition_id": "9c74RUPtMwtiSXq8tVDqxp:3:CL:5108:SK대학교"
 }
 ```
 
