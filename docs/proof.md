@@ -85,7 +85,7 @@ present_proof | verified | (faber) Proof verification 완료 한 상태
       }
     },
     "non_revoked": {
-      "to": {{$timestamp}}
+      "to": 1600902571
     }
   }
 }
