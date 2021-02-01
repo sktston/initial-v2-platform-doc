@@ -2,7 +2,8 @@ Auto Connection Example
 ================
 
 **Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 Connection(연결) 예제<br>
-Connection은 기존 Legacy 서비스에서 Log-in과 같은 Authentication(인증) 개념.
+Connection이란 Peer to Peer간 신뢰있는 통신 체널을 구축하는 개념.<br>
+Auto Connection은 최소한의 API 사용으로 상호 연결을 완료 
 <br>
 
 Connection State는 아래와 같음.
@@ -11,10 +12,15 @@ Topic | State | Description
 --- | --- | ---
 Connection | invitation | Invitation 생성하거나 받은 상태
 Connection | request | Connection 요청한 상태
-Connection | response | Connection accept 한 태
+Connection | response | Connection accept 상태
 Connection | active | Connection 완료 
 
-Auto Connection의 Example
+<p></p>
+#### Auto Connection API 사용 Summary
+1. Faber : /connections​/create-invitation (초대장 생성 API 호출)<br>
+2. Alice : /connections/receive-invitation (초대장 수락 API 호출)<br>
+3. Alice : connection request 자동 실행 <br>
+4. Faber : accept connection request 자동 실행<br>
 
 ### STEP 1. Faber --> Alice : create invitation & send invitation.
 
@@ -27,7 +33,7 @@ Auto Connection의 Example
 
      Name | Description 
      --- | --- 
-     alias | Alice에게 전달할 초대장 별칭 (e.g A대학제증명발급처)
+     alias | Connection 별칭 지정 (e.g A대학제증명발급처)
      auto_accept | Alice가 초대장 수락 시 자동 connection 설정
      multi_use | 초대장을 once/multi 사용여부. QR코드등 인쇄시 `true` 설정 필요
      public | Public DID를 기반으로 초대장 생성 (현재 미지원)

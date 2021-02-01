@@ -12,11 +12,12 @@ nav:
       - 'Terms' : 'terms.md'
       - 'Services': 'services.md'
       - 'Release notes' : 'release_note.md'
-  - 'Mobile Agency Service' :
-      - 'Initial Agency' : 'agency.md'
-      - 'Agency Protocols' : 'agency_protocol.md'
+#  - 'Mobile Agency Service' :
+#      - 'Initial Agency' : 'agency.md'
+#      - 'Agency Protocols' : 'agency_protocol.md'
   - 'Web Console Service' :
-      - 'Web Console' : 'web_console.md'
+      - 'Web Console 소개' : 'web_console.md'
+      - 'Web Console 이용방법' : 'web_console_signup.md'
   - 'Cloud Agent API Referece':
       - 'Open API list': 'api_list.md'
       - 'Wallet & DID' : 'wallet_api.md'

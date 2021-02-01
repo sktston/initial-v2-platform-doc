@@ -40,13 +40,16 @@ ACA-Py(Aries Cloud Agent Python) 기반 APIs.
 
    Method  | Resource | Description 
   :---: | --- | --- 
-  `POST` | /wallet​/did​/create | Local non-Public DID 생성 
   `GET` | /wallet/did | DID list 출력 
-  `POST` | /wallet/did/public | Cloud Agent의 Public DID를 새롭게 Assign(Steward, Endorser 역할을 가지고 있는 Issuer만 해당됨. 사전에 DID가 Ledger에 Public 하게 등록되어 있어야 함.) 
+  `POST` | /wallet​/did​/create | Local non-Public DID 생성 
   `GET` | /wallet/did/public | 현재 Cloud Agent의 Public DID 출력 
+  `POST` | /wallet/did/public | Cloud Agent의 Public DID를 새롭게 Assign(사전에 DID가 Ledger에 Public 등록되어 있어야 함.) 
   `POST` | /wallet/set-did-endpoint | DID의 Endpoint setting 
   `GET` | /wallet/set-did-endpoint | DID Endpoint 정보 출력 
-  `PATCH` | /wallet/did/local/rotate-keypair | Rotate keypair for a local non-public DID 
+  `PATCH` | /wallet/did/local/rotate-keypair | Rotate keypair for a DID not posted to the ledger
+  `GET` | /wallet | (Admin Only) 생성된 wallet의 list 출력
+  `GET` | /wallet | (Admin Only) 생성된 wallet의 list 출력
+
 
 
 
@@ -92,9 +95,9 @@ ACA-Py(Aries Cloud Agent Python) 기반 APIs.
   :---: | --- | --- 
   `GET` | ​/issue-credential/records | Fetch all credential exchange records
   `GET` | /issue-credential/records/{cred_ex_id} | Fetch a single credential exchange record
-  `POST` | /issue-credential/create | Send holder a credential, automating entire flow
-  `POST` | /issue-credential/send | Send holder a credential, automating entire flow
-  `POST` | /issue-credential/send-proposal | Send issuer a credential proposal
+  `POST` | /issue-credential/create | VC발급을 생성하고, 외부로 전송하지 않음. OOB와 같이 사용
+  `POST` | /issue-credential/send | Issuer의 VC발급을 대부분 자동으로 진행
+  `POST` | /issue-credential/send-proposal | Holder가 Issuer에게 VC를 만들어서 요청
   `POST` | **[/issue-credential/send-offer](#)** | Send holder a credential offer, independent of any proposal
   `POST` | /issue-credential/records/{cred_ex_id}/send-offer | Send holder a credential offer in reference to a proposal with preview
   `POST` | **[/issue-credential/records/{cred_ex_id}/send-request](#)** | Send issuer a credential request

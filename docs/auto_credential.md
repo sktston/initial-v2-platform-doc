@@ -13,7 +13,8 @@ issue_credential | request_sent | (alice) credential을 요청 한 상태
 issue_credential | request_received | (faber) Credential 요청을 받은 상태 
 issue_credential | credential_issued | (faber) Credential을 issue  
 issue_credential | credential_received | (alice) Credential을 받은 상태 
-issue_credential | credential_acked | (alice/faber) Credential 수취 완
+issue_credential | credential_acked | (alice/faber) Credential 수취 완료
+
 
 
 ### STEP 1. Faber --> Alice : Alice에게 Credential offer를 요청한다. 
