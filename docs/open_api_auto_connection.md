@@ -1,7 +1,21 @@
 Auto Connection Example
 ================
 
-**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 Connection(연결) 예제<br>
+<div class="admonition note">
+<p class="admonition-title">note</p>
+<p> API 사용을 위해서는 Access Token이 필요함 </p>
+</div>
+
+- Access Token Example
+```
+curl --location --request GET 'http://localhost/wallet/did'\
+--header 'Authorization: Bearer ab7aca56-5c36-4fbe-a9fe-2ae4937c63de'
+```
+
+<br><br>
+
+
+.**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 Connection(연결) 예제<br>
 Connection이란 Peer to Peer간 신뢰있는 통신 체널을 구축하는 개념.<br>
 Auto Connection은 최소한의 API 사용으로 상호 연결을 완료 
 <br>
@@ -17,7 +31,7 @@ Connection | active | Connection 완료
 
 <p></p>
 #### Auto Connection API 사용 Summary
-1. Faber : /connections​/create-invitation (초대장 생성 API 호출)<br>
+1. Faber : /connections/create-invitation (초대장 생성 API 호출)<br>
 2. Alice : /connections/receive-invitation (초대장 수락 API 호출)<br>
 3. Alice : connection request 자동 실행 <br>
 4. Faber : accept connection request 자동 실행<br>

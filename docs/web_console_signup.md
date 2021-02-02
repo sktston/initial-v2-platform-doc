@@ -56,7 +56,53 @@ Master는 '기관 생성하기' 버튼을 클릭하여 기관(Organization)을 �
 
 ![webconsole 1](img/web_console_org_info.png)
 
+
 #### 4. 발행양식 생성하기 
+
+증명서 발행을 위해서는 각 기관마다 발행양식(Credential Definition ID) 생성이 필요하다.<br>
+발행양식은 기본양식(Schema ID)기반으로 폐기지원여부, 증명서이름, 증명서발행개수등 설정값을 추가하여 생성이 가능하다.<br>
+initial은 재직증명서, 재학증명서등 기본양식을 미리 제공한다.<br>
+
+    example) initial회사에서 재직증명서 발행을 위해서는 initial재직증명서 발행양식을 생성한 후, initial app에 발행 가능하다.  
+
+* 새로운 기본양식 생성이 필요하면 initial 관리자에게 별도 요청해야 한다.
+
+생성된 발행양식은 해당 기관에서만 사용 가능하다.
+ 
+![webconsole 1](img/web_console_issue.png)
+ 
  
  
 #### 5. 발행하기 
+
+VC발행을 위해서는 Open API를 사용하여 진행.
+
+* Open API 사용하기 위해서는 기관의 API Access Token과 증명서양식I(Credential Definition ID)가 필요함
+
+#### 6. 검증양식 생성하기 
+
+증명서 검증을 위해서는 제출 받을 증명서양식(Verification Template ID) 생성이 필요하다.<br>
+검증양식 생성을 위해서는 제출 받을 양식의 몇가지 제약사항을 설정해야 한다. 
+
+1. 기본양식(Schema ID)기반으로 생성 : 해당 기본양식으로 발행된 모든 증명서 제출 가능 (SKT재직증명,삼성전자재직증명서,LG전자재직증명서등 모두 제출 가능)
+2. 참여기관별 증명양식(Credential Definition ID)기반 생성  : 특정 증명서만 제출 가능 (SKT재직증명서만 제출 가능. 다른 재직증명서는 검증실패)
+
+initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을 선택하면 된.<br>
+
+    example) SKT임직원 행사를 위해 'SKT재직증명서'의 회사명과 이름을 제출하게 양식 생성 
+
+* 영지식증명, 멀티증명서제출검증등 항목 생성은은 향후 지원 예정.
+
+
+ 
+![webconsole 1](img/web_console_verify_template.png)
+
+
+![webconsole 1](img/web_console_verify_2.png)
+
+
+#### 7. 검증하기 
+
+VC발행을 위해서는 Open API를 사용하여 진행.
+
+* Open API 사용하기 위해서는 기관의 API Access Token과 Verification Template ID 필요함

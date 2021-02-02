@@ -1,6 +1,21 @@
 Manual Connection Example
 ================
 
+
+<div class="admonition note">
+<p class="admonition-title">note</p>
+<p> API 사용을 위해서는 Access Token이 필요함 </p>
+</div>
+
+- Access Token Example
+```
+curl --location --request GET 'http://localhost/wallet/did'\
+--header 'Authorization: Bearer ab7aca56-5c36-4fbe-a9fe-2ae4937c63de'
+```
+
+<br><br>
+
+
 **Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 수동 연결 예제
 <br>
 
