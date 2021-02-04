@@ -59,4 +59,4 @@ theme:
   hljs_style : github
 
 extra:
-  version: 0.2
+  version: 1.0.3
