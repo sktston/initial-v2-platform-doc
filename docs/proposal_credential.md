@@ -8,6 +8,7 @@ Proposal Credential & Issue
 
 issue_credential State
 
+
 Topic | State | Description
 --- | --- | ---
 issue_credential | offer_sent | (faber)credential offer 한 상태

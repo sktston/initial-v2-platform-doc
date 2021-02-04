@@ -15,7 +15,7 @@ curl --location --request GET 'http://localhost/wallet/did'\
 <br><br>
 
 
-.**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 Connection(연결) 예제<br>
+**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 Connection(연결) 예제<br>
 Connection이란 Peer to Peer간 신뢰있는 통신 체널을 구축하는 개념.<br>
 Auto Connection은 최소한의 API 사용으로 상호 연결을 완료 
 <br>
@@ -31,10 +31,12 @@ Connection | active | Connection 완료
 
 <p></p>
 #### Auto Connection API 사용 Summary
-1. Faber : /connections/create-invitation (초대장 생성 API 호출)<br>
-2. Alice : /connections/receive-invitation (초대장 수락 API 호출)<br>
+1. Faber(기관/발행자) : /connections/create-invitation (초대장 생성 API 호출)<br>
+2. Alice(개인/Holder) : /connections/receive-invitation (초대장 수락 API 호출)<br>
 3. Alice : connection request 자동 실행 <br>
 4. Faber : accept connection request 자동 실행<br>
+
+<br><br>
 
 ### STEP 1. Faber --> Alice : create invitation & send invitation.
 
@@ -47,10 +49,10 @@ Connection | active | Connection 완료
 
      Name | Description 
      --- | --- 
-     alias | Connection 별칭 지정 (e.g A대학제증명발급처)
-     auto_accept | Alice가 초대장 수락 시 자동 connection 설정
-     multi_use | 초대장을 once/multi 사용여부. QR코드등 인쇄시 `true` 설정 필요
-     public | Public DID를 기반으로 초대장 생성 (현재 미지원)
+     alias | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
+     auto_accept | Alice가 초대장 수락 시 자동 connection 설정 (**default : true**)
+     multi_use | 초대장을 once/multi 사용여부. QR코드등 인쇄시 `true` 설정 필요 (**default : false**)
+     public | Public DID를 기반으로 초대장 생성 (**default : false**)
 
 <p></p>
 
@@ -59,7 +61,7 @@ Connection | active | Connection 완료
     * input <br>
     `auto_accept` : `true`<br>
     `multi_use` : `false`<br>
-    `public` : `false`<br>
+    `public` : `true`<br>
 <br>
     * Response body (생성된 초대장)
 ```json
@@ -97,66 +99,31 @@ Connection | active | Connection 완료
 
 ### STEP 2. Alice --> Faber : receive invitation & request connection.
 
-* Method and Resource
 
-    `POST` `/connections/receive-invitation` 초대장을 받음
 
-* Parameter
+<div class="admonition Note">
+<p class="admonition-title">Note</p>
+<p> STEP2는 Holder가 initial app 일 경우 SDK에서 자동으로 처리됨 </p>
+</div>
 
- Name | Description 
- --- | --- 
- body | Invitation 내용
- alias | 별칭 (e.g A대학제증명발급처) 
- auto_accept | Faber 초대장 수락 시 connection이 자동 active.
- 
 
-* Example
-
-    * input <br>
-    `auto_accept` : `true`<br>
+<br><br>    
     
-    * body - STEP1의 Faber가 생성한 invitation json을 입력
+### [Option] Connection 정보 관리 Guide
 
-    * Response body
-
-```json
-{
-  "updated_at": "2020-08-19 04:54:05.847426Z",
-  "my_did": "4jaLRZTfHA9MVf2a4QaJGE",
-  "state": "request",
-  "their_label": "faber.agent",
-  "invitation_mode": "once",
-  "routing_state": "none",
-  "initiator": "external",
-  "alias": "receive_invitation",
-  "connection_id": "2f139bd4-835a-4a3f-aae7-ddf9936373a6",
-  "created_at": "2020-08-19 04:54:05.833098Z",
-  "invitation_key": "9RGU3g5Mm4Pziza3E3im12pPjFxPhaFDkZWQQvqjw9Sm",
-  "accept": "auto",
-  "request_id": "33f861dc-29fa-4025-ae95-b951cd35748b"
-}
-```
-
-
-* Connection State check : `get` `/connections​/{conn_id}`
-
-     |  | Faber | Alice |
-     | --- | --- | --- |
-     | connection state | **`active`** | `request` --> **`active`** |
-  
-<p></p>
-* Next Step
-
-    연결 완료. Schema 생성 및 VC 발행 진행.
-    
-    
-### STEP 3. Connection 관리 Guide
-
+Connection 정보는 기본적으로 Wallet에 저장된다.
 `GET` `/connections` 으로 connection을 확인하면 
 
-아래와 같은 connection information 을 확인 할 수 있다.<br>
-향후 해당 connection 기반으로 peer에게 message를 보내거나, offer 및 request 하기 위해서는
-connection id와 유저 정보를 alias 등으로 잘 mapping 관리해야 한다.
+아래와 처럼 connection information 을 확인 할 수 있다.<br>
+향후 해당 connection 기반으로 peer에게 message를 보내거나, 증명서 발행 요청 및 검증요청 하기 위해서는
+connection id와 유저 정보를 alias 등으로 mapping 관리해야 한다.
+
+<div class="admonition Note">
+<p class="admonition-title">Note</p>
+<p> 향후 OOB(Out-of-Band)기능 지원을 통해 connection을 자동관리할 예정 </p>
+</div>
+
+
 ```json
 {
   "results": [
@@ -177,4 +144,8 @@ connection id와 유저 정보를 alias 등으로 잘 mapping 관리해야 한�
   ]
 }
 ```
+<br><br>
 
+### [Option] Delete Connection 
+
+/connections/{conn_id}/remove
