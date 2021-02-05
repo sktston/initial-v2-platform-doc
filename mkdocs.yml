@@ -30,7 +30,7 @@ nav:
       - 'Proof Presentation': 'open_api_proof.md'
       - 'Revocation': 'open_api_revocation.md'
 #      - 'Message': 'message.md'
-  - 'Demo samples' :
+  - 'Reference - Demo Samples' :
 #      - 'DID VCX Java Demo' : 'demo.md'
 #      - 'DID VCX NodeJS Demo': 'node_demo.md'
       - 'Cloud Agent REST API Demo' : 'cloud_agent_demo.md'
