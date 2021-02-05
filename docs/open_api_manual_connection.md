@@ -1,7 +1,22 @@
 Manual Connection Example
 ================
 
-**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 예제
+
+<div class="admonition note">
+<p class="admonition-title">note</p>
+<p> API 사용을 위해서는 Access Token이 필요함 </p>
+</div>
+
+- Access Token Example
+```
+curl --location --request GET 'http://localhost/wallet/did'\
+--header 'Authorization: Bearer ab7aca56-5c36-4fbe-a9fe-2ae4937c63de'
+```
+
+<br><br>
+
+
+**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 수동 연결 예제
 <br>
 
 Connection State
@@ -10,10 +25,15 @@ Topic | State | Description
 --- | --- | ---
 Connection | invitation | Invitation 생성하거나 받은 상태
 Connection | request | Connection 요청한 상태
-Connection | response | Connection accept 한 태
+Connection | response | Connection accept 상태
 Connection | active | Connection 완료 
 
-
+<p></p>
+#### Manual Connection API 사용 Summary
+1. Faber : /connections​/create-invitation (초대장 생성 API 호출)<br>
+2. Alice : /connections/receive-invitation (초대장 수락 API 호출)<br>
+3. Alice : /connections/{conn_id}/accept-invitation (연결 요청 API 호출) <br>
+4. Faber : /connections/{conn_id}/accept-request (연결 요청 수락 API 호출) <br>
 
 ### STEP 1. Faber --> Alice : create invitation & send invitation.
 
