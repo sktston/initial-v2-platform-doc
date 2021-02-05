@@ -12,5 +12,5 @@ Initial Network는 Private 형태로 승인된 관계자만 참여/접근 가능
 
 - Hyperledger Fabric(SDK) <https://github.com/hyperledger/fabric>
 
-![platform arch](img/Initial_platform_architecture.png)
+![platform arch](img/initial_platform_architecture.png)
 
