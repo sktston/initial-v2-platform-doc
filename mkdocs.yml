@@ -18,7 +18,9 @@ nav:
   - 'Web Console Service' :
       - 'Web Console 소개' : 'web_console.md'
       - 'Web Console 이용방법' : 'web_console_signup.md'
-  - 'Cloud Agent API Referece':
+      - 'Web Console 개발 Guide': 'web_console_guide.md'
+
+  - 'initial DID Agent API Guide':
       - 'Open API list': 'open_api_list.md'
 #      - 'Wallet & DID' : 'open_api_wallet.md'
       - 'Auto Connection': 'open_api_auto_connection.md'

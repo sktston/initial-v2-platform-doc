@@ -1,7 +1,8 @@
+Document version : v1.0.7 (last updated 2021-02-08)
+
 Welcome to Initial Platform Developer Site
 ===============
 
-Document version : v1.0.4 (last updated 2021-02-05)
 
 이곳은 Hyperledger Aries Protocol 기반 Initial Platform 사용자/개발자를 위한 사이트 입니다. 
 새로운 디지털 ID 표준인 DID(Decentralized Identifier)와 VC (Verifiable Credentials)를 기반으로 SSI (Self-Sovereign Identity)를 쉽게 구현할 수 있도록 지원합니다.
@@ -12,11 +13,10 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 ## 1. Index
 
 * `Introduction` - Platform 소개 / Release note 
-* `Agency` - Initial Agency의 기능 및 Protocol 소개.
-* `Web Console` - Web기반 DID 동작을 지원하는 서비스.
+* `Web Console Service` - Web기반 DID Agent를 지원하는 서비스.
+* `initial DID Agent Guide` - initial DID Agent Open API 사용 가이드.
 * `Reference Guide` - DID Demo 동작을 통한 기술 이해.
-* `SDK APIs` - SDK APIs 소개.
-* `기타` - 기타.
+
 
 ![platform arch](img/initial_platform_architecture.png)
 

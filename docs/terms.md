@@ -78,10 +78,10 @@ DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
  - 이니셜 eco-system의 서비스를 제공 받는 참여자들을 말함. Holder, Issuer, Verifier등 해당. 여기서 서비스 서비스를 제공하는 Server는 Agency를 말함.
  
 ## 4. Web Console
- - Web GUI 기반 DID 동작을 지원하는 서비스 (업데이트 중)
+ - Web GUI 기반 DID Agent 동작을 지원하는 서비스
 
 ## 5. Cryptography (암호기법)
- - Initial에서 사용하는 암호기 (업데이트 중)
+ - Initial에서 사용하는 암호기술 
 
 ### ○ 영지식증명(ZKP or Zero Knowledger Proof)
   - 내정보를 공개하지 않고, 참/거짓을 판별할 수 있는 기술 
