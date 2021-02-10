@@ -1,4 +1,4 @@
-Document version : v1.0.7 (last updated 2021-02-08)
+Document version : v1.0.8 (last updated 2021-02-10)
 
 Welcome to Initial Platform Developer Site
 ===============
