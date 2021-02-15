@@ -1,8 +1,8 @@
 <p>initial Platform DID Agent API Documents</p>
 
 ### DID Agent 안내 
-- 기관사용자는 아래의 DID API를 사용하여 Legacy 시스템(ERP, HR시스템 등)과 연동하여 증명서를 손쉽게 발생할 수 있다.
-- initial Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식이기 때문에 기관 사용자는 Webhook 서버를 준비하고 url 등록해아 한다.
+- 기관사용자는 아래의 DID API를 사용하여 Legacy 시스템(ERP, HR시스템 등)과 연동 및 증명서를 손쉽게 발생할 수 있다.
+- initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식이기 때문에 기관 사용자는 Webhook 서버를 준비하고 url 등록해아 한다.
 
 ### DID Agent API 지원 List
 
@@ -10,10 +10,10 @@
 
    Method  | Resource | Description 
   :---: | --- | --- 
-  `POST` | **[/connections/create-invitation](../auto_connection/#step-1-faber-alice-create-invitation-send-invitation)** | 새로운 초대장 만들기 
-  `POST` | /connections/{conn_id}/send-message| 연결된 사용자에게 Message(개인정보 이용 동의서등)
-  `POST` | **[/issue-credential/send-offer](#)** | 발행자(issuer)가 사용자(holder)에게 VC 보내기
-  `POST` | **[/present-proof/send-request](#)** | 검증자(Verifier)가 사용자(holder)에게 VC 검증 요청하기 
+  `POST` | ** /connections/create-invitation ** | 새로운 초대장 만들기 
+  `POST` | ** /connections/{conn_id}/send-message ** | 연결된 사용자에게 Message(개인정보 이용 동의서등)
+  `POST` | ** /issue-credential/send-offer ** | 발행자(issuer)가 사용자(holder)에게 VC 보내기
+  `POST` | ** /present-proof/send-request ** | 검증자(verifier)가 사용자(holder)에게 VC 검증 요청하기 
 
 <br>
 

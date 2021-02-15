@@ -1,6 +1,6 @@
 # Web Console 사용 Guide
 
-* initial platform 사용을 위해서는 회원가입을 통한 자격을 취득 해야함 
+* initial DID platform 사용을 위해서는 회원가입을 통한 자격을 취득 해야함 
 
     * 참고 : 2021년 2월 현재 사업자등록번호를 가진 기관사용자만 이용 가능 (추후 개인 사용자 확대 예정)  
 

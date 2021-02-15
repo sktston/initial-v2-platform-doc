@@ -1,10 +1,10 @@
-Document version : v1.0.8 (last updated 2021-02-10)
+Document version : v1.0.9 (last updated 2021-02-15)
 
-Welcome to Initial Platform Developer Site
+Welcome to initial DID Platform Developer Site
 ===============
 
 
-이곳은 Hyperledger Aries Protocol 기반 Initial Platform 사용자/개발자를 위한 사이트 입니다. 
+이곳은 Hyperledger Aries Protocol 기반 initial DID Platform 사용자/개발자를 위한 사이트 입니다. 
 새로운 디지털 ID 표준인 DID(Decentralized Identifier)와 VC (Verifiable Credentials)를 기반으로 SSI (Self-Sovereign Identity)를 쉽게 구현할 수 있도록 지원합니다.
 DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 모든 산업 분야에서 많은 기회가 발생합니다.
 우리는 이 기회를 활용하는데 도움이되는 API 및 SDK등 기술을 제공합니다.
@@ -28,7 +28,7 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 <https://github.com/hyperledger/indy-sdk>
 - Hyperledger Aries Cloud Agent - Python
 <https://github.com/hyperledger/aries-cloudagent-python>
-- SKT Ston Project(Initial Platform)
+- SKT Ston Project(initial DID Platform)
 <https://github.com/sktston>
 - Absa Node Agency(Mediator)
 <https://github.com/AbsaOSS/vcxagencynode>

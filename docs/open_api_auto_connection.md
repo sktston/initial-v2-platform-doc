@@ -16,8 +16,13 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 
 **Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 Connection(연결) 예제<br>
-Connection이란 Peer to Peer간 신뢰있는 통신 체널을 구축하는 개념.<br>
-Auto Connection은 최소한의 API 사용으로 상호 연결을 완료 
+<br>
+
+![did connections](img/connections.png)
+
+
+Connection이란 Peer to Peer 사이 Pairwise ID 및 PKI(Public Key Infrastructure) 기반으로 신뢰있는 통신 체널을 구축하는 개념이다. <br>
+Auto Connection은 최소한의 API 사용으로 Key 생성 및 교환으로 상호 연결을 완료한다.
 <br>
 
 Connection State는 아래와 같음.
