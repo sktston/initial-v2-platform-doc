@@ -10,10 +10,11 @@
 
    Method  | Resource | Description 
   :---: | --- | --- 
-  `POST` | ** /connections/create-invitation ** | 새로운 초대장 만들기 
+  `POST` | ** /connections/create-invitation ** | 새로운 초대장 만들어서 연결하기 
   `POST` | ** /connections/{conn_id}/send-message ** | 연결된 사용자에게 Message(개인정보 이용 동의서등)
   `POST` | ** /issue-credential/send-offer ** | 발행자(issuer)가 사용자(holder)에게 VC 보내기
   `POST` | ** /present-proof/send-request ** | 검증자(verifier)가 사용자(holder)에게 VC 검증 요청하기 
+  `POST` | /revocation/revoke | 발행자(issuer)가 사용자(holder)에게 발행한 VC 폐기
 
 <br>
 
@@ -26,12 +27,12 @@
   
   <br>
   
-### Webhook 서버 개발 안내 
-- initial DID Agent는 event driven 방식으로 REST API 요청에 대한 응답을 Webhook 서버로 전달합니다
-- 처리결과를 받기 위한 기관 사용자의 Webhook URL은 기관정보에 필수 등록해야 합니다. e.g)https://domain.com/webhooks
-- Webhook 서버의 API Key는 보안 강화를 위한 선택 사항입니다. https://domain.com/webhooks#org-api-key 와 같이 입력하시면 header의 x-api-key 항목에 값으로 "org-api-key"를 함께 전송합니다.
-- 기관 사용자는 보안강화를 위한 IP기반 방화벽 설정 하세요 (initial platform의 IP대역 xxx.xxx.xxx.xxx/24는 별도로 안래 예정입니다)
-- Webhook 서버 예제는 아래 reference code (DID 발행/검증 Demo)에서 확인할 수 있습니다. 
+#### Holder Cloud Wallet APIs (추후 공개)
 
-
-![platform arch](img/initial_platform_architecture.png)
+   Method  | Resource | Description 
+  :---: | --- | --- 
+  `POST` | /connections/receive-invitation | 초대 수락하며 연결 하기
+  `POST` | /issue-credential/records/{cred_ex_id}/send-request | VC 받기
+  `POST` | /present-proof/records/{pres_ex_id}/send-presentation | VP(Verifiable Presentation) 보내기 
+  `GET` | /credentials | 모든 VC list 가져오기 
+  `DELETE` | /credential/{credential_id} | 특정 VC 삭제하기 
