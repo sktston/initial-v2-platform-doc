@@ -3,20 +3,27 @@
 ![platform arch](img/initial_platform_architecture.png)
 
 ## 기관 참여자 구현/개발이 필요 항목 
-위 그림에서 기관사용자 영역의 3개 항목에 대해서 구현 필요
+위 그림을 참고하여 기관사용자 영역의 3개 항목에 대해서 구현 필요
 
-1. DID Agent API 요청 Controller 서버
-2. Event 수신 Webhook 서버
-3. 참여사 개인정보 수집 및 이용 동의서 전달 
+1. 연결(Connection)요청 API
+2. DID Agent API 요청 Controller 서버
+3. Event 수신 Webhook 서버
+4. 참여사 개인정보 수집 및 이용 동의서 전달 
 
+### 1. 연결 요청 API 개발 안내
+- 기관사용자는 initial App과 최초 연결(connection)을 위해 초대장(invitation)을 생성할 수 있는 API를 제공해야 한다.
+- 각각의 연결요청 API는 initial App내의 증명서발행/검증 icon과 매칭되기 때문에, 연결요청은 발행양식/검증양식마다 각각 API 생성이 필요하다.
+- 연결요청을 위한 기본 domain 주소를 플랫폼에 등록하면, 양식이 생성될때 마다 ```기관제공연결요청url``` + ```발행/검증양식ID``` 형식의 규격화된 url을 자동생성해서 제공한다. (예제 http://기관등록연결요청url/BsCP2xiQBjWmvWw1uHZRsP:3:CL:1602080133:SK대학교 )
+- 기관 사용자는 플랫폼에서 제공하는 url으로 API server를 제공해야 한다.
+- 개발 예제는 https://github.com/sktston/acapy-controller-java/blob/master/src/main/java/com/sktelecom/ston/controller/faber/GlobalController.java 참고
 
-### 1. DID Agent Controller 개발 안내 
+### 2. DID Agent Controller 개발 안내 
 - 기관사용자는 DID Agent REST API를 사용하기 위해 controller 서버를 개발해야 한다.
 - Webhook 서버를 통해 전달된 event에 따라 다음 action을 구현한다.
 - 자세한 API 내용은 initial DID Agent API Guide 및 reference code 참조 
 
   
-### 2. Webhook 서버 개발 안내 
+### 3. Webhook 서버 개발 안내 
 - initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식이기 때문에 기관 사용자는 Webhook 서버를 개발하고 url 등록해아 한다.
 
 - initial DID Agent는 event driven 방식으로 REST API 요청에 대한 응답을 Webhook 서버로 전달합니다
@@ -25,7 +32,7 @@
 - 기관 사용자는 보안강화를 위한 IP기반 방화벽 설정 하세요 (initial DID platform의 IP대역 xxx.xxx.xxx.xxx/24는 별도로 안래 예정입니다)
 - Webhook 서버 예제는 아래 reference code (DID 발행/검증 Demo)에서 확인할 수 있습니다. 
 <br><br>
-#### 2-1. Webhook 구현
+#### 3-1. Webhook 구현
 
 - initial DID platform의 webhook은 topic, body로 전달된다. 
 - 참고 1 : https://github.com/sktston/acapy-controller-java/blob/develop/src/main/java/com/sktelecom/ston/controller/faber/GlobalService.java
@@ -38,12 +45,12 @@ body | response | body:{"my_did": "PJRSPwhWdnGJp7CvifXpkw", "their_role": "invit
 
 body의 `state`는 이후 다음 action을 위해 중요하게 활용 됨. 
 
-#### 2-2. Webhook서버 Controller API 예시 
+#### 3-2. Webhook서버 Controller API 예시 
 
 - @PostMapping("/webhooks/topic/{topic}")
 - 등록한 webhook url 뒤에 전달되는 topic을 확인 후 다음 action을 진행하면 된다.
 
-#### 2-3. Webhook topic의 종류 및 next action 
+#### 3-3. Webhook topic의 종류 및 next action 
  
 topic | state | description | next action
 --- | --- | --- | ---
@@ -59,7 +66,7 @@ revocation_registry | posted | RevocationRegistry record 생성 완료 | No Acti
 problem_report | | | 에러 확인 
 
 
-### 3. 참여사 개인정보 수집 및 이용 동의서 조회 전달 구현 안내 
+### 4. 참여사 개인정보 수집 및 이용 동의서 조회 전달 구현 안내 
 - 모바일 initial App에서 참여사에게 본인확인증명을 제출하기 전 개인정보 수집 및 이용 동의를 받기 위해, 동의서 전달이 필요하다. 
 - 동의서 전달은 DID Agent의 Message 전달 API를 이용한다. 상세 내용은 Message API 참조.
 

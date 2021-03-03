@@ -58,12 +58,17 @@ consentperiod | String | 보유/이용기간 및 파기
 
 ```json
 {
-  "content": "개인정보 수집 및 이용 동의서",
-  "agreement": "Initial 서비스(이하 \u201c서비스\u201d라 한다)와 관련하여, 본인은 동의내용을 숙지하였으며, 이에 따라 본인의 개인정보를 (주)XXXX가 수집 및 이용하는 것에 대해 동의합니다.\n\n본 동의는 서비스의 본질적 기능 제공을 위한 개인정보 수집/이용에 대한 동의로서, 동의를 하는 경우에만 서비스 이용이 가능합니다.\n\n법령에 따른 개인정보의 수집/이용, 계약의 이행/편익제공을 위한 개인정보 취급위탁 및 개인정보 취급과 관련된 일반 사항은 서비스의 개인정보 처리방침에 따릅니다.",
-  "collectiontype": "이름,생년월일",
-  "usagepurpose": "서비스 이용에 따른 본인확인",
-  "consentperiod": "1년",
-}
+     "type" : "agreement"
+     "content" :
+  
+     {
+         "title": "개인정보 수집 및 이용 동의서",
+         "agreement": "Initial 서비스(이하 \u201c서비스\u201d라 한다)와 관련하여, 본인은 동의내용을 숙지하였으며, 이에 따라 본인의 개인정보를 (주)XXXX가 수집 및 이용하는 것에 대해 동의합니다.\n\n본 동의는 서비스의 본질적 기능 제공을 위한 개인정보 수집/이용에 대한 동의로서, 동의를 하는 경우에만 서비스 이용이 가능합니다.\n\n법령에 따른 개인정보의 수집/이용, 계약의 이행/편익제공을 위한 개인정보 취급위탁 및 개인정보 취급과 관련된 일반 사항은 서비스의 개인정보 처리방침에 따릅니다.",
+         "collectiontype": "이름,생년월일",
+         "usagepurpose": "서비스 이용에 따른 본인확인",
+         "consentperiod": "1년",
+     }
+ }
 ```
 
 <p></p>
@@ -93,14 +98,15 @@ consentperiod | String | 보유/이용기간 및 파기
 ```json
 body:
 {
-"connection_id": "77d34f1a-f386-4f18-a8e4-349d87280350", 
-"message_id": "ac0a9621-6e40-4d18-b832-5676db8b4ca9", 
-"content": 
-  {
-  "agree_yn": "Y",
-  "signature":"xcvsdfasdfgawdgasdgasdgsdagasdgasdgdsg"
-  }, 
-"state": "received"
+    "connection_id": "77d34f1a-f386-4f18-a8e4-349d87280350",
+    "message_id": "ac0a9621-6e40-4d18-b832-5676db8b4ca9",
+    "content":
+        {
+            "type" : "agreement_decision"
+            "agree_yn": "Y",
+            "signature":"xcvsdfasdfgawdgasdgasdgsdagasdgasdgdsg"
+        },
+    "state": "received"
 }
 ```
 

@@ -1,4 +1,4 @@
-Document version : v1.1.1 (last updated 2021-02-16)
+Document version : v1.2.1 (last updated 2021-03-03)
 
 Welcome to initial DID Platform Developer Site
 ===============
