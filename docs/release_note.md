@@ -2,5 +2,5 @@
 
  Name | version | Release date| Description 
  --- | --- | --- | --- 
-Mobile SDK | 1.9.0 | 2020.12.09 | Android/iOS SDK
-Cloud Agent API | 1.0 | 2021.2.28 예정 | Cloud Agent API
+Mobile SDK | v1.12.1 | 2021.04.03 | Android/iOS SDK
+Cloud Agent API | 0.6 | 2021.2.28 | Cloud Agent API

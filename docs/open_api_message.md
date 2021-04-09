@@ -18,6 +18,15 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
+Basic Message의 Type은 아래와 같이 정의 (2021.04.09)
+
+type | from | to | Definition
+--- | ---| ---| ---
+initial_agreement |	issuer/verifier	| initial app | issuer/verifier가 개인정보동의/약관 요청
+initial_agreement_decision	| initial app |	issuer/verifier	| 개인정보동의/약관 요청 결과 전송
+initial_web_view(개발중) | issuer/verifier	| initial app |	web_view url 표시 요청
+initial_input_request(개발중) | issuer/verifier	| initial app |	사용자 입력 data 가 필요할 경우 요청 
+initial_input_response(개발중) | initial app | issuer/verifier |	사용자 입력 값을 전달
 
 <p></p>
 - Basicmessages State
@@ -56,19 +65,19 @@ consentperiod | String | 보유/이용기간 및 파기
 
 * body example
 
+**** 중요!! body는 json에서 string으로 변환해야 한다 ****
+
 ```json
 {
-     "type" : "agreement"
-     "content" :
-  
-     {
-         "title": "개인정보 수집 및 이용 동의서",
-         "agreement": "Initial 서비스(이하 \u201c서비스\u201d라 한다)와 관련하여, 본인은 동의내용을 숙지하였으며, 이에 따라 본인의 개인정보를 (주)XXXX가 수집 및 이용하는 것에 대해 동의합니다.\n\n본 동의는 서비스의 본질적 기능 제공을 위한 개인정보 수집/이용에 대한 동의로서, 동의를 하는 경우에만 서비스 이용이 가능합니다.\n\n법령에 따른 개인정보의 수집/이용, 계약의 이행/편익제공을 위한 개인정보 취급위탁 및 개인정보 취급과 관련된 일반 사항은 서비스의 개인정보 처리방침에 따릅니다.",
-         "collectiontype": "이름,생년월일",
-         "usagepurpose": "서비스 이용에 따른 본인확인",
-         "consentperiod": "1년",
-     }
- }
+  "type": "initial_agreement",
+  "content": {
+    "title": "개인정보 수집 및 이용 동의서",
+    "agreement": "Initial 서비스(이하 \u201c서비스\u201d라 한다)와 관련하여, 본인은 동의내용을 숙지하였으며, 이에 따라 본인의 개인정보를 (주)XXXX가 수집 및 이용하는 것에 대해 동의합니다.\n\n본 동의는 서비스의 본질적 기능 제공을 위한 개인정보 수집/이용에 대한 동의로서, 동의를 하는 경우에만 서비스 이용이 가능합니다.\n\n법령에 따른 개인정보의 수집/이용, 계약의 이행/편익제공을 위한 개인정보 취급위탁 및 개인정보 취급과 관련된 일반 사항은 서비스의 개인정보 처리방침에 따릅니다.",
+    "collectiontype": "이름,생년월일",
+    "usagepurpose": "서비스 이용에 따른 본인확인",
+    "consentperiod": "1년"
+  }
+}
 ```
 
 <p></p>
@@ -95,21 +104,63 @@ consentperiod | String | 보유/이용기간 및 파기
 
 - 기관은 Webhook Message를 확인 하여 동의서 결과를 전송 받는다.
 
+**** 중요!! body는 json에서 string으로 변환해야 한다 ****
+
 ```json
-body:
 {
-    "connection_id": "77d34f1a-f386-4f18-a8e4-349d87280350",
-    "message_id": "ac0a9621-6e40-4d18-b832-5676db8b4ca9",
-    "content":
-        {
-            "type" : "agreement_decision"
-            "agree_yn": "Y",
-            "signature":"xcvsdfasdfgawdgasdgasdgsdagasdgasdgdsg"
-        },
-    "state": "received"
+  "type":"initial_agreement_decision",
+  "content":{
+    "agree_yn":"Y",
+    "signature":"xcvsdfasdfgawdgasdgasdgsdagasdgasdgdsg"
+  }
 }
 ```
 
 * Next Step
 
 기관 사용자는 사용자를(CI, unique id등)를 구분하여 정보를 관리한다. 
+
+### STEP 4. Web View 요청
+
+- 기관은 Web View를 요청할 수 있다. initial app은 해당 web-view 화면을 출력 한다
+
+**** 중요!! body는 json에서 string으로 변환해야 한다 ****
+
+```json
+{
+  "type":"initial_web_view",
+  "content":{
+    "web_view_url":"https://www.skinitial.com/web-view"
+  }
+}
+```
+
+### STEP 5. 사용자 입력값 요청
+
+- 사용자에게 추가로 입력 받아야 하는 data를 요청할 수 있다 
+
+**** 중요!! body는 json에서 string으로 변환해야 한다 ****
+
+```json
+{
+  "type":"initial_input_request",
+  "content":{
+    "학번":""
+  }
+}
+```
+
+### STEP 6. 사용자 입력값 전달 
+
+- 사용자 추가 data 전달
+
+**** 중요!! body는 json에서 string으로 변환해야 한다 ****
+
+```json
+{
+  "type":"initial_input_response",
+  "content":{
+    "학번":"11111111"
+  }
+}
+```
