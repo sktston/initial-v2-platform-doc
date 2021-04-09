@@ -62,7 +62,7 @@ Master는 '기관 생성하기' 버튼을 클릭하여 기관(Organization)을 �
 9. 사용여부 : 사용 여부
 10. 기관 이미지 : initial app의 기관 노출 아이콘
 
-![webconsole 1](img/web_console_org_create_1.png)
+![webconsole 1](img/web_console_org_create_1.PNG)
 
 <br><br>
 
@@ -106,7 +106,7 @@ initial은 재직증명서, 재학증명서등 기본양식을 미리 제공한�
 3. 증명서ID : 기본양식(Schema)를 통해 생성된 기관 전용 증명서 양식 ID. 
 4. 증명서 발행 설정 : 발행시작/중지 선택 가능
 
-![webconsole 1](img/web_console_issue_info.png)
+![webconsole 1](img/web_console_issue_info.PNG)
 
 <br><br>
 
@@ -142,7 +142,7 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 
 <br><br>
 생성된 템플릿ID는 향후 검증 요청 시 활요
-![webconsole 1](img/web_console_verify_3.png)
+![webconsole 1](img/web_console_verify_3.PNG)
 
 
 <br><br>
