@@ -45,7 +45,6 @@ Master는 '기관 생성하기' 버튼을 클릭하여 기관(Organization)을 �
 * Owner : 기관의 주인으로 보통 생성한 Master가 Owner가 된다. 다른 User에게 위임도 가능하다 
 * Member : Owner의 초대를 받아 들어올 수 있다. Read의 권한만 주어진다. 
 
-![webconsole 1](img/web_console_org.png)
 
 기관 생성을 위해서는 아래와 같이 기관 이미지(initial app 노출 아이콘)이 필요하다.
 
@@ -70,14 +69,17 @@ initial은 재직증명서, 재학증명서등 기본양식을 미리 제공한�
 생성된 발행양식은 해당 기관에서만 사용 가능하다.
  
 ![webconsole 1](img/web_console_issue.png)
- 
- 
+
+<br><br>
+아래와 같이 증명서ID(Credential Definition ID) 가 생성됨. 해당 증명서ID는 생성기관만 사용하여 발행 할 수 있음.
+
+![webconsole 1](img/web_console_creddefid_complete.png)
  
 #### 5. 발행하기 
 
 VC발행을 위해서는 Open API를 사용하여 진행.
 
-* Open API 사용하기 위해서는 기관의 API Access Token과 증명서양식I(Credential Definition ID)가 필요함
+* Open API 사용하기 위해서는 기관의 API Access Token과 증명서ID(Credential Definition ID)가 필요함
 
 #### 6. 검증양식 생성하기 
 
@@ -98,7 +100,10 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 ![webconsole 1](img/web_console_verify_template.png)
 
 
+
 ![webconsole 1](img/web_console_verify_2.png)
+
+
 
 
 #### 7. 검증하기 
