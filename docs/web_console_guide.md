@@ -12,9 +12,7 @@
 
 ### 1. 연결 요청 API 개발 안내
 - 기관사용자는 initial App과 최초 연결(connection)을 위해 초대장(invitation)을 생성할 수 있는 API를 제공해야 한다.
-- 각각의 연결요청 API는 initial App내의 증명서발행/검증 icon과 매칭되기 때문에, 연결요청은 발행양식/검증양식마다 각각 API 생성이 필요하다.
-- 연결요청을 위한 기본 domain 주소를 플랫폼에 등록하면, 양식이 생성될때 마다 ```기관제공연결요청url``` + ```발행/검증양식ID``` 형식의 규격화된 url을 자동생성해서 제공한다. (예제 http://기관등록연결요청url/BsCP2xiQBjWmvWw1uHZRsP:3:CL:1602080133:SK대학교 )
-- 기관 사용자는 플랫폼에서 제공하는 url으로 API server를 제공해야 한다.
+- initial app의 기관 icon 클릭 시 해당 URL과 최초 통신 한다 
 - 개발 예제는 https://github.com/sktston/acapy-controller-java/blob/master/src/main/java/com/sktelecom/ston/controller/faber/GlobalController.java 참고
 
 ### 2. DID Agent Controller 개발 안내 
@@ -29,7 +27,7 @@
 - initial DID Agent는 event driven 방식으로 REST API 요청에 대한 응답을 Webhook 서버로 전달합니다
 - 처리결과를 받기 위한 기관 사용자의 Webhook URL은 기관정보에 필수 등록해야 합니다. e.g)https://domain.com/webhooks
 - Webhook 서버의 API Key는 보안 강화를 위한 선택 사항입니다. https://domain.com/webhooks#org-api-key 와 같이 입력하시면 header의 x-api-key 항목에 값으로 "org-api-key"를 함께 전송합니다.
-- 기관 사용자는 보안강화를 위한 IP기반 방화벽 설정 하세요 (initial DID platform의 IP대역 xxx.xxx.xxx.xxx/24는 별도로 안래 예정입니다)
+- 기관 사용자는 보안강화를 위한 IP기반 방화벽 설정 하세요 (initial DID platform의 IP대역 xxx.xxx.xxx.xxx/24는 별도로 안내 예정입니다)
 - Webhook 서버 예제는 아래 reference code (DID 발행/검증 Demo)에서 확인할 수 있습니다. 
 <br><br>
 #### 3-1. Webhook 구현
