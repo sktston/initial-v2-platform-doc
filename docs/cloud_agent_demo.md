@@ -1,86 +1,8 @@
 # Cloud Agent REST API Demo
 
-<https://github.com/sktston/acapy-controller-java>
 
-# Controller of aries-cloudagent-python (Java Spring boot)
+[PlatUML](http://www.plantuml.com/plantuml/uml/pLTVQzjM57-UFiKX3yE6UdutjccMl0JsK3RMiQUWoDV9fRRaIhB7M0ScKqlN59AEU75QoIIi3Llnc4dCy23xCdkqhhx3plMzqhLYfOaV5lOKHVUUFxzpVhzpvFkEgzjkkzdGYEbIzrlOS9msiK5tO4KyhiGdNphnUvEwL6_0MiDgrs2rrKgkK7d2RuNlVmr7Xooud8wwRF2KdGNX-wVXo9zEVbpHDArIWPPDRFAuJHtg4gXKD2qsBrHdmKhm0H-QQQ6LrI5s7FNUp2XnWda1snsorxy1s_E11UFmZma8u_2WptuU0niyvt-YtZZS-ml2_MCsUCM2BhxmsEj3O4VFMF3o4z0aq6r4YHxH4woJfXM-kmJcUsWj3QAUBvrWFMh04zGqMK-499zAKAvRfWk6rR3iobQZJQhbhUfNP6l7iXuLDymETNMNMYQiFjY0wSZ7Z6VLMhDCanYp4ruhn9hook5I0m-D1ZKU8SxzUGlCZft_dgFAUzjkv3KTJpkwIwIN9DcRiirXRlcYaVXtYePDq4z11VX88HVCAS5ST7RYXNl31H00dnE3q0wPl_inldpS9euBAc1MfYcynrxuoql8iS41TYI_P1U0T0YUHSSz5ankQwkIswGrv8Oa7sO0qyael9YmarvuCGvFVLZ_50k0X7uN-owh8fNBoBlHz7oKO5ZVM8VLjhkJXsfLgv6hFTEK4kGhAOIexx7148DfAZMWDNYYs2bq-70D7jXMotBq1b9hiIchGdVCywLyOZgrfDKYaUwWtWYC1NrLPL7UNAeDUNPqaCuP_tl39QumvP2wjSqQgVFxABYVME39zYnVMXb51icECTy0uFN7WS8XzFwUZhj5L3mB95VuD46Cw03xifmu8QNExr9L-RxeO0A59d4SVPjSqMdfDkb8_IRoGiDveGjRsK-8tdZIKb9waM7o65a_lRZapjcpqzlo86NBTPV2oWdGr5rZXvhREARxx6WecokoAAVSbzE9ek3-Amh8G2BhtDVyZM85aY9xzKdVnUbv5ryiouaYBbpil5j0tLfrGGB4HUlKc4tQWYtcx08ZCdCHDF3Pdtuy3lYAFVEAsBxe-30yVnxr9_a5YaZVDplDT9S9M8G0KHJPkhkOG6h0PwHw6oOYUpv4ncjBb8QQkHRkZhSIF3xCmq-JMKtRR08dk4kWYYe7UaPjYyfVVhPSHtrfpolw1T5jO-UQbQI8izJml7PiIesabkHdr75v-v5Ry92IRyBJU612pcfnfrVbK99B2ei_lJX1yAcTUpPaBzv6BoR0thxYp0bt-zmzyqwY7uBbS55-fS1RIap-bVnFTq-WikfrLQDuaCiG-5sx-0rmtUnN5oMrxr2G8ZF1coNr9_oclyCMCF-V1GTFP9BOhSHNkCjNEHv5-mUea-GNYn-BooQTJPjiOwXx-6Y9FJ0Bh0Hy7v_QpSQ_)
 
-### Steps to run
-- Run Cloud Agents (Faber and Alice)
-```
-cd docker
-docker-compose up
-```
-Faber agent opens 8020 port (endpoint) and 8021 port (admin). \
-Check admin (swagger API) http://localhost:8021
+![workflow](img/demo_sequence.png)
 
-Alice agent opens 8030 port (endpoint) and 8031 port (admin). \
-Check admin http://localhost:8031
-
-- Run Faber Controller
-```
-./gradlew faber
-```
-Faber controller opens 8022 port. \
-It receives webhook message from faber agent by POST http://localhost:8022/webhooks/topic/{topic}/ \
-Also, It presents invitation by GET http://localhost:8022/invitation
-
-- Run Alice Controller (Run with the faber running)
-```
-./gradlew alice
-```
-Alice controller opens 8032 port. \
-It receives webhook message from alice agent by POST http://localhost:8032/webhooks/topic/{topic}/ \
-When alice controller starts, it gets invitation from faber controller and proceeds connection, credential and proof(presentation) sequentially.
-
-### Advanced user guide
-- Revocation test
-```
-./gradlew faber_revoke
-```
-You can see below log at faber side when demo completes
-```
-[INFO ] [GlobalService.java]printProofResult(200) :   - Proof validation:false
-```
-
-- Access faber from non-docker agent
-
-Open file docker/docker-compose.yml. \
-Edit `--endpoint http://host.docker.internal:8020` on command of acapy-faber-agent. \
-It is the endpoint of invitation for receiving messages from other agents (e.g., alice). 
-
-- Get invitation_url from faber
-
-GET http://localhost:8022/invitation-url
-
-### Demo flow (API-based description)
-| Category | Faber Controller (topic, state) | Faber Agent | Alice Agent | Alice controller (topic, state) | Tails Server | can skip (bold enabled) |
-|---|---|---|---|---|---|---|
-| Schema/CredDef |  | POST /schemas |  |  |  |  |
-|  |  | POST /credential-definitions |  |  |  |  |
-|  |  | POST /revocation/create-registry |  |  |  |  |
-|  |  | PATCH /revocation/registry/{rev_reg_id} |  |  |  |  |
-|  |  | POST /revocation/registry/{rev_reg_id}/publish |  |  |  |  |
-|  |  | GET /revocation/registry/{rev_reg_id}/tails-file |  |  |  |  |
-|  |  |  |  |  | PUT /{revoc_reg_id} |  |
-|  |  |  |  |  |  |  |
-| Connection | connections, invitation | POST /connections/create-invitation |  |  |  |  |
-|  |  |  | POST /connections/receive-invitation | connections, invitation |  |  |
-|  | connections, request |  | POST /connections/{conn_id}/accept-invitation | connections, request |  | **--auto-accept-invites** |
-|  | connections, response | POST /connections/{conn_id}/accept-request |  | connections, response |  | **--auto-accept-requests** |
-|  | connections, active |  | POST /connections/{conn_id}/send-ping | connections, active |  | **--auto-ping-connection** |
-|  |  |  |  |  |  |  |
-| Credential | issue_credential, offer_sent | POST /issue-credential/send-offer |  | issue_credential, offer_received |  |  |
-|  | issue_credential, request_received |  | POST /issue-credential/records/{cred_ex_id}/send-request | issue_credential, request_sent |  | --auto-respond-credential-offer |
-|  | issue_credential, credential_issued | POST /issue-credential/records/{cred_ex_id}/issue |  | issue_credential, credential_received |  | **--auto-respond-credential-request** |
-|  | issue_credential, credential_acked |  | POST /issue-credential/records/{cred_ex_id}/store | issue_credential, credential_acked |  | **--auto-store-credential** |
-|  |  |  |  |  |  |  |
-| Proof | present_proof, request_sent | /present-proof/send-request |  | present_proof, request_received |  |  |
-|  |  |  | GET /present-proof/records/{pres_ex_id}/credentials |  |  |  |
-|  | present_proof, presentation_received |  | POST /present-proof​/records​/{pres_ex_id}​/send-presentation | present_proof, presentation_sent |  | --auto-respond-presentation-request |
-|  | present_proof, verified | POST /present-proof/records/{pres_ex_id}/verify-presentation |  | present_proof, presentation_acked |  | **--auto-verify-presentation** |
-|  |  |  |  |  |  |  |
-| (Optional) Revocation |  | POST /issue-credential/revoke |  |  |  |  |
-|  |  |  |  |  |  |  |
-| (Optional) Message | basicmessages, received |  | POST /connections/{conn_id}/send-message |  |  |  |
-|  |  | POST /connections/{conn_id}/send-message |  | basicmessages, received |  | **--auto-respond-messages** |
-|  |  |  |  |  |  |  |
+Demo Source Code

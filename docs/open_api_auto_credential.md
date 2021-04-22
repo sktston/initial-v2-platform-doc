@@ -31,6 +31,37 @@ issue_credential | credential_acked | (alice/faber) Credential 수취 완료
 
 <br><br>
 
+### STEP 0. Alice(Holder) --> Faber(발급자) : Issuer에게 Credential 발행 proposal
+
+<div class="admonition Note">
+<p class="admonition-title">Note</p>
+<p> STEP0는 Holder(initial app)에서 Credential Proposal을 먼저 진행 한다</p>
+</div>
+
+Holder가 credential proposal을 요청하면, Webhook을 통해 아래와 같은 event가 전달 된다.
+```json
+{
+   "connection_id":"0844ebf0-c88f-49cf-9ed0-d0b57cfd9ec8",
+   "state":"proposal_received",
+   "trace":false,
+   "auto_issue":true,
+   "thread_id":"b0d5d9f3-04d0-40a2-86e7-9f4759ba1985",
+   "created_at":"2021-04-22 12:50:06.597765Z",
+   "auto_remove":false,
+   "credential_proposal_dict":{
+      "@type":"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/propose-credential",
+      "@id":"b0d5d9f3-04d0-40a2-86e7-9f4759ba1985",
+      "cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"
+   },
+   "role":"issuer",
+   "credential_exchange_id":"04441c66-9a4a-49f3-8da9-b60bddb89a0a",
+   "updated_at":"2021-04-22 12:50:06.597765Z",
+   "initiator":"external"
+}
+```
+Issuer는 요청이 들어온 VC정보를 `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"` 를 통해서 확인한다.
+<br> 그리고 요청자의 정보는 `"connection_id":"0844ebf0-c88f-49cf-9ed0-d0b57cfd9ec8"` 를 통해서 확인한다.
+<br><br>
 ### STEP 1. Faber(발급자) --> Alice(Holder) : Alice에게 Credential 발행 
 
 * Method and Resource
@@ -42,6 +73,9 @@ issue_credential | credential_acked | (alice/faber) Credential 수취 완료
  Name | Description 
  --- | --- 
  body | Schema String 
+ connection_id | Holder와 연결을 위해 사용한 ID. STEP0의 Webhook Event를 통해 확인 가능하다. 
+ cred_def_id | 발급할 Credential ID. STEP0의 Webhook Event를 통해 확인 가능하다.
+ credential_preview | Holder에 발급할 VC의 정보를 기입한다. 
  auto_issue | Alice가 credential request를 하면 자동으로 issue 완료<br>`/issue-credential/records/{cred_ex_id}/issue` 자동 처리
  auto_remove | Credential issue 완료되면 cred_ex_id record를 자동 삭제 <br> `/issue-credential/records/{cred_ex_id}/remove` 자동 처리 
  
