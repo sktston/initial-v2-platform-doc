@@ -57,7 +57,7 @@ Connection | active | Connection 완료
      alias | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
      auto_accept | Alice가 초대장 수락 시 자동 connection 설정 (**default : true**)
      multi_use | 초대장을 once/multi 사용여부. QR코드등 인쇄시 `true` 설정 필요 (**default : false**)
-     public | Public DID를 기반으로 초대장 생성 (**default : false**)
+     public | Public DID를 기반으로 초대장 생성 (**default : true**)
 
 <p></p>
 
