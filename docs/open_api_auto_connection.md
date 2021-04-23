@@ -43,7 +43,7 @@ Connection | active | Connection 완료
 
 <br><br>
 
-### STEP 1. Faber --> Alice : create invitation & send invitation.
+### STEP 1. Faber(Issuer/Verifier) --> Alice(Holder) : create invitation & send invitation.
 
 * Method and Resource
 
@@ -61,28 +61,27 @@ Connection | active | Connection 완료
 
 <p></p>
 
-* Example 
+* Request Example 
 
-    * input <br>
-    `auto_accept` : `true`<br>
-    `multi_use` : `false`<br>
-    `public` : `true`<br>
-<br>
-    * Response body (생성된 초대장)
+```java
+curl --location --request POST 'https://dev-console.myinitial.io/agent/api/connections/create-invitation?alias=intial%20test&auto_accept=true&public=true' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer 2xxxxxxx-1234-5678-abcd-c5fb0286f2cc' \
+--data-raw ''
+```
+
+* Response body example(생성된 초대장)
 ```json
 {
-  "connection_id": "eb180f76-0081-41db-a12c-454fe36b3295",
+  "connection_id": null,
   "invitation": {
     "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
-    "@id": "66e7239f-93fe-47f2-939d-ddbc31f929d6",
-    "label": "faber.agent",
-    "serviceEndpoint": "http://host.docker.internal:8020",
-    "recipientKeys": [
-      "9RGU3g5Mm4Pziza3E3im12pPjFxPhaFDkZWQQvqjw9Sm"
-    ]
+    "@id": "0bc89414-1f8c-4b70-adfb-a0c56984182c",
+    "label": "테스트토익증명서",
+    "did": "did:ssw:DrLbXFSao4Vo8gMfjxPxU1",
+    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_3de742e3_1618880926"
   },
-  "invitation_url": "http://host.docker.internal:8020?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiNjZlNzIzOWYtOTNmZS00N2YyLTkzOWQtZGRiYzMxZjkyOWQ2IiwgImxhYmVsIjogImZhYmVyLmFnZW50IiwgInNlcnZpY2VFbmRwb2ludCI6ICJodHRwOi8vaG9zdC5kb2NrZXIuaW50ZXJuYWw6ODAyMCIsICJyZWNpcGllbnRLZXlzIjogWyI5UkdVM2c1TW00UHppemEzRTNpbTEycFBqRnhQaGFGRGtaV1FRdnFqdzlTbSJdfQ==",
-  "alias": "create_invitation"
+  "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMGJjODk0MTQtMWY4Yy00YjcwLWFkZmItYTBjNTY5ODQxODJjIiwgImxhYmVsIjogIlx1ZDE0Y1x1YzJhNFx1ZDJiOFx1ZDFhMFx1Yzc3NVx1Yzk5ZFx1YmE4NVx1YzExYyIsICJkaWQiOiAiZGlkOnNzdzpEckxiWEZTYW80Vm84Z01manhQeFUxIiwgImltYWdlVXJsIjogImh0dHBzOi8va3Iub2JqZWN0Lm5jbG91ZHN0b3JhZ2UuY29tL2Rldi1pbWFnZS1maWxlL2Q0MWQ4Y2Q5XzNkZTc0MmUzXzE2MTg4ODA5MjYifQ=="
 }
 ```
     
@@ -96,13 +95,13 @@ Connection | active | Connection 완료
 <p></p>
 * Next Step
     
-    **invitation**내용이나 **invitation_url** 혹은 url의 **QR code**를 Alice에게 전달하여 초대.
+**invitation**내용이나 **invitation_url** 혹은 url의 **QR code**를 Alice에게 전달하여 초대.
 
 
 <br>
 <br>
 
-### STEP 2. Alice --> Faber : receive invitation & request connection.
+### STEP 2. Alice(Holder) --> Faber(Issuer/Verifier) : receive invitation & request connection.
 
 
 
@@ -113,13 +112,37 @@ Connection | active | Connection 완료
 
 
 <br><br>    
-    
+
+### STEP 3. Faber(Issuer/Verifier) : Webhook Message 확인 및 Connection 정보 관리 
+
+webhook을 통해 아래 Message가 전달 됨.
+
+기관 개발자는 
+state로 연결 정상완료여부 확인하고, their_did(사용자 DID), connection_id(사용자와 communication 필요할때 사용하는 id)등을 확인 하면 된다.
+사용자DID는 정책상 Privacy 보호를 위해 변경(앱재설치등)되기 때문에, 고객 식별자로 사용 불가능 하다. 
+```json
+{
+  "invitation_mode":"once",
+  "invitation_key":"2dJj8a9BZeEWfy5NyEmkzEiPu1qX5o6NCuUadnsX4VnT",
+  "rfc23_state":"completed",
+  "routing_state":"none",
+  "accept":"auto",
+  "created_at":"2021-04-23 03:56:27.025875Z",
+  "state":"active",
+  "their_did":"L4gGrQSBCgN2Cyspg33Ki9",
+  "connection_id":"b257848f-5018-4dac-96c2-e403d96e499f",
+  "my_did":"SxaJpncFYQKdHBGAX1EYuj",
+  "updated_at":"2021-04-23 03:56:27.414165Z",
+  "their_role":"inviter",
+  "their_label":"대학학생증"
+}
+```
+
+
 ### [Option] Connection 정보 관리 Guide
 
-Connection 정보는 기본적으로 Wallet에 저장된다.
-`GET` `/connections` 으로 connection을 확인하면 
-
-아래와 처럼 connection information 을 확인 할 수 있다.<br>
+Connection 정보는 기본적으로 기관 Wallet에 저장된다. STEP3의 Webhook으로 전달된 message 내용과 동일하다.
+`GET` `/connections` 으로 connection을 확인하면 아래와 처럼 connection information 을 확인 할 수 있다.<br>
 향후 해당 connection 기반으로 peer에게 message를 보내거나, 증명서 발행 요청 및 검증요청 하기 위해서는
 connection id와 유저 정보를 alias 등으로 mapping 관리해야 한다.
 
@@ -130,23 +153,20 @@ connection id와 유저 정보를 alias 등으로 mapping 관리해야 한다.
 
 
 ```json
-{
-  "results": [
-    {
-      "accept": "auto",
-      "initiator": "self",
-      "connection_id": "3c6dd936-cde1-465c-b917-d7601933ecaf",
-      "created_at": "2020-08-27 08:20:21.355788Z",
-      "state": "active",
-      "their_label": "alice.agent",
-      "my_did": "EXouGSxBs9FDk2Kncp49m9",
-      "routing_state": "none",
-      "updated_at": "2020-08-27 08:20:57.787795Z",
-      "invitation_mode": "once",
-      "their_did": "UuLvvU78qtHEJY1UNgHxj",
-      "invitation_key": "5pSn7c4Miomp6HeXxuVZdvJmAF4npSW1Np1N2hZbZWqV"
-    }
-  ]
+        {
+  "invitation_mode": "once",
+  "invitation_key": "2dJj8a9BZeEWfy5NyEmkzEiPu1qX5o6NCuUadnsX4VnT",
+  "rfc23_state": "completed",
+  "routing_state": "none",
+  "accept": "auto",
+  "created_at": "2021-04-23 03:56:27.025875Z",
+  "state": "active",
+  "their_did": "L4gGrQSBCgN2Cyspg33Ki9",
+  "connection_id": "b257848f-5018-4dac-96c2-e403d96e499f",
+  "my_did": "SxaJpncFYQKdHBGAX1EYuj",
+  "updated_at": "2021-04-23 03:56:27.414165Z",
+  "their_role": "inviter",
+  "their_label": "대학학생증"
 }
 ```
 <br><br>

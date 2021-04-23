@@ -130,37 +130,7 @@ consentperiod | String | 보유/이용기간 및 파기
 {
   "type":"initial_web_view",
   "content":{
-    "web_view_url":"https://www.skinitial.com/web-view"
-  }
-}
-```
-
-### STEP 5. 사용자 입력값 요청
-
-- 사용자에게 추가로 입력 받아야 하는 data를 요청할 수 있다 
-
-**** 중요!! body는 json에서 string으로 변환해야 한다 ****
-
-```json
-{
-  "type":"initial_input_request",
-  "content":{
-    "학번":""
-  }
-}
-```
-
-### STEP 6. 사용자 입력값 전달 
-
-- 사용자 추가 data 전달
-
-**** 중요!! body는 json에서 string으로 변환해야 한다 ****
-
-```json
-{
-  "type":"initial_input_response",
-  "content":{
-    "학번":"11111111"
+    "web_view_url":"https://www.skinitial.com/web-view/uuid"
   }
 }
 ```
