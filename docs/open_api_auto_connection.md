@@ -76,12 +76,12 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/conne
   "connection_id": null,
   "invitation": {
     "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
-    "@id": "0bc89414-1f8c-4b70-adfb-a0c56984182c",
-    "label": "테스트토익증명서",
-    "did": "did:ssw:DrLbXFSao4Vo8gMfjxPxU1",
-    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_3de742e3_1618880926"
+    "@id": "e21b7bc6-cd06-4f46-9d3b-a5c2319e4978",
+    "label": "모바일학생증발급",
+    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_9e72dab7_1618189875",
+    "did": "did:ssw:3z2a2EKbB1HAejew3xavfA"
   },
-  "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMGJjODk0MTQtMWY4Yy00YjcwLWFkZmItYTBjNTY5ODQxODJjIiwgImxhYmVsIjogIlx1ZDE0Y1x1YzJhNFx1ZDJiOFx1ZDFhMFx1Yzc3NVx1Yzk5ZFx1YmE4NVx1YzExYyIsICJkaWQiOiAiZGlkOnNzdzpEckxiWEZTYW80Vm84Z01manhQeFUxIiwgImltYWdlVXJsIjogImh0dHBzOi8va3Iub2JqZWN0Lm5jbG91ZHN0b3JhZ2UuY29tL2Rldi1pbWFnZS1maWxlL2Q0MWQ4Y2Q5XzNkZTc0MmUzXzE2MTg4ODA5MjYifQ=="
+  "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiZTIxYjdiYzYtY2QwNi00ZjQ2LTlkM2ItYTVjMjMxOWU0OTc4IiwgImxhYmVsIjogIlx1YmFhOFx1YmMxNFx1Yzc3Y1x1ZDU1OVx1YzBkZFx1Yzk5ZFx1YmMxY1x1YWUwOSIsICJpbWFnZVVybCI6ICJodHRwczovL2tyLm9iamVjdC5uY2xvdWRzdG9yYWdlLmNvbS9kZXYtaW1hZ2UtZmlsZS9kNDFkOGNkOV85ZTcyZGFiN18xNjE4MTg5ODc1IiwgImRpZCI6ICJkaWQ6c3N3OjN6MmEyRUtiQjFIQWVqZXczeGF2ZkEifQ=="
 }
 ```
     

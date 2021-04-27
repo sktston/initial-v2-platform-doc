@@ -28,6 +28,24 @@ invitation-url API JAVA sample code
     }
 ```
 
+
+http sample
+```
+POST /agent/api/connections/create-invitation?alias=description&public=true HTTP/1.1
+Host: dev-console.myinitial.io
+Content-Type: application/json
+Authorization: Bearer dxxxxxxx-xxxx-4a49-xxxx-1234567890as
+```
+
+cURL sample
+```url
+curl --location --request POST 'https://dev-console.myinitial.io/agent/api/connections/create-invitation?alias=description&public=true' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer dxxxxxxx-xxxx-4a49-xxxx-1234567890as' \
+--data-raw ''
+```
+
+
 invitation-url API Response Sample
 ```
 https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMmYyNWFhZTktNWQ4MS00MzFhLWE1NzItZDBiYzQ0Yzk5MzI2IiwgImxhYmVsIjogIlx1YjE3OFx1Yzc3OFx1Yzc3Y1x1Yzc5MFx1YjlhYyIsICJkaWQiOiAiZGlkOnNzdzpDQjFmOVdLR0FKRHdVS0NUMlhFeDdvIiwgImltYWdlVXJsIjogImh0dHBzOi8va3Iub2JqZWN0Lm5jbG91ZHN0b3JhZ2UuY29tL2Rldi1pbWFnZS1maWxlL2Q0MWQ4Y2Q5X2Q1YWQ4ZjliXzE2MTYxNDA3ODQifQ==
