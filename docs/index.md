@@ -1,4 +1,4 @@
-Document version : v1.4.0 (last updated 2021-05-6)
+Document version : v1.4.1 (last updated 2021-05-06)
 
 Welcome to initial DID Platform Developer Site
 ===============
@@ -45,3 +45,11 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 
 - GSMA Identity group
 <https://www.gsma.com/identity/>
+
+  
+## 4. Release note
+
+Name | version | Release date| Description
+ --- | --- | --- | --- 
+Mobile SDK | v1.12.1 | 2021.04.03 | Android/iOS SDK
+Cloud Agent API | 0.6 | 2021.2.28 | Cloud Agent API

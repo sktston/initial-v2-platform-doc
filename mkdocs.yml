@@ -9,9 +9,9 @@ site_name: Initial Platform
 nav:
   - 'Initial Platform' :
       - 'Introduction' : 'index.md'
-      - 'Terms' : 'terms.md'
+#      - 'Terms' : 'terms.md'
       - 'Services': 'services.md'
-      - 'Release notes' : 'release_note.md'
+#      - 'Release notes' : 'release_note.md'
       - '이용약관' : 'termsofuse.md'
       - '오픈소스고지문' : 'opensource.md'
       - '개인정보수집/이용' : 'privacyuse.md'
