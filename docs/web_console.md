@@ -23,5 +23,6 @@ Name | 설명
 Owner | 생성된 기관의 관리자. Master가 기관 생성시 default 기관의 owner가 되고, 다른 Member에게 위임 가능하다. 양식의 생성이 가능하다.
 Member | Owner에 의해서 초대된 사용자. Read only 권한만 가진다.
 
+
 Web 화면 
 ![webconsole 1](img/web_console_1.png)
