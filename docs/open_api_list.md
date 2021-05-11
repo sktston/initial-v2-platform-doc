@@ -13,7 +13,7 @@
   `POST` | ** /connections/create-invitation ** | 새로운 초대장 만들어서 연결하기 
   `POST` | ** /connections/{conn_id}/send-message ** | 연결된 사용자에게 Message(개인정보 이용 동의서등)
   `POST` | ** /issue-credential/send-offer ** | 발행자(issuer)가 사용자(holder)에게 VC 보내기
-  `POST` | ** /present-proof/send-request ** | 검증자(verifier)가 사용자(holder)에게 VC 검증 요청하기 
+  `POST` | ** /present-proof/send-verification-request ** | 검증자(verifier)가 사용자(holder)에게 VC 검증 요청하기 
   `POST` | /revocation/revoke | 발행자(issuer)가 사용자(holder)에게 발행한 VC 폐기
 
 <br>

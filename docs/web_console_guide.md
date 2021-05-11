@@ -118,15 +118,12 @@ body의 `state`는 event 수신 후 다음 action을 위해 중요하게 활용 
  
 topic | state 종류 | description | next action
 --- | --- | --- | ---
-connection | invitation,request,response | 연결 중 | No Action. connection state `active` 까지 자동 진행 됨. 
-connection | active | 연결 완료 | 기관 개발자는 connection_id를 저장하고, 발행기관은 Holder로 부터 발행 요청이 올때까지 대기한다. 검증기관은 개인정보수집을 위한 동의서를 요청을 진행한다. 
+connections | invitation,request,response,active | 연결 | connection state `active` 까지 자동 진행 됨. 기관 개발자는 connection_id를 저장하고, 발행기관은 Holder로 부터 발행 요청이 올때까지 대기한다. 검증기관은 개인정보수집을 위한 동의서를 요청을 진행한다.
 basicmessages | received | Message 수신 완료 | message를 display 하거나, 정책에 따라 VC 발행이나 검증을 진행한다. <br>e.g. send-offer,send-request 
-issue_credential | offer_sent, request_received, credential_issued | 발행 중 | No Action. VC발급 진행 중. issue_credential stat `credential_acked`까지 자동 진행 됨. 
+issue_credential | offer_sent, request_received, credential_issued, credential_acked | 발행 | issue_credential state `credential_acked`까지 자동 진행 됨. 
 issuer_cred_rev | issued | revocation registry update  | revocation 관련 정보 저장  |
-issue_credential | credential_acked | VC 발행 완료 | 추가 VC 발행 하거나, 검증 요청할 수 있음. <br>e.g. send-message,send-offer,send-request  
-present_proof | request_sent, presentation_received | 검증 중 | No Action. Verify 완료 시 까지 자동으로 진행 
-present_proof | verified | Verify 완료 | 검증 결과를 확인하거나, 필요 시 저장 하면 됨.
-revocation_registry | posted | RevocationRegistry record 생성 완료 | No Action
+present_proof | request_sent, presentation_received,verified | 검증 | state:verified까지 자동으로 진행. 검증 결과를 확인하거나, 필요 시 저장 하면 됨. 
+revocation_registry | posted | RevocationRegistry record 생성 완료 | 블록체인에 자동으로 생성 완료. 개발자는 별도로 진행할 필요 없음.
 problem_report | | | 에러 확인 
 
 
