@@ -12,20 +12,24 @@ curl --location --request GET 'http://localhost/wallet/did'\
 --header 'Authorization: Bearer ab7aca56-5c36-4fbe-a9fe-2ae4937c63de'
 ```
 
-<br><br>
-
-**Faber**(검증자/Verifier)와 **Alice**(Holder/Prover)의 연결 및 VC발급/검증 예제를 통한 API 설명
 <br>
-present_proof State
+
+**Faber**(검증자/Verifier)와 **Alice**(Holder/Prover)의 VC검증 시나리오
+<br>
+
+![verify sequence diagram](img/verify_diagram.png)
+[PlantUML](http://www.plantuml.com/plantuml/uml/TPH1JzjA4CVl-ob6d1o4UNT44EXTthjLFN2jJB9fBOpjsciaRW6CH0jIQKj4W3WAhG1H1IaDDCsX_KBUpNVeh3s9XLKa99BT_ypE_7ypMGs55OXeos7S5RROWMqUs0sR1s25CBTEN-Qcjr58DsglhoxkLFV4-CzpwdYuvlkLcSmEmuY4_-kFc82nQXNyW0VyRMI7jk1GhJ96GdCboxm4w__AGISTlmDr7iklnsnMpJ99O0bgdkloch0zrr1dWtGug90wU-95uFbUQ3c6vsj99Nic2lD7A9tEaWwRwYO1rUkef6tu55LXheUb1VRhDuBDvngIJ1DNGEuzOk_ppCplvU0oVUY1EXgff8aTC5D7Z3gJLll9EIQ1IUjUVhi35VSc-maAfow2V1Yh1FyUGTtkgjv7agZUBaopzIXQ9J6LpSoyISk1T3oGxwzLvvUywe3QJsJt1wI39fujCdEvuRa2VNEyeBhXH7nbUMF5TcrXOw3b-nW5KmCWBmbhLsTzAEfJ5wTgU8_lnlAeluYSww2TAW2PJ-qjHngvLnMOdBUmqGpLInm57WemjYotRWalsCbf5Ka9Ue6BaWLv9D5oU6C6goIOiSgdL2Ce4yyyxnvgw-uU8VqvbiTDRI9YLQqOvEUElEcdtmTohxt0Sehgou6yRYyG3sJNJ8U_5zJe51qdrncOU1shm_RJYdZzbIL4O6z4WeSLhLBjNNNRL4S9DL2MuyxKxPf5Sap_QJOYtGFPkmOZv4v3PytqcMZouGG70WdAKHCCrtFDW6zxctXRaADjuI7khAMdgCo1jcR6WCmdImdaywkLZotwNBnGtgvdP0KrIggvbT4Noq2LmEGofbrXHluVDBRH54cvztMTVAVKD3tvJ4_KStdgwDmWVRrem2mMWMhJ0FLn9yQnKLS4oH11nFzfM4x8YpB_jWThjKssYWBynVu3)
+
+present_proof State 및 Webhook event 전달 항목 
 
 Topic | State | Description
 --- | --- | ---
-present_proof | request_sent | (faber)proof presentation 요청한 상태
-present_proof | request_received | (alice)proof presentation 요청을 받은 상태
-present_proof | presentation_sent | (alice) proof를 presentation 한 상태
-present_proof | presentation_received | (faber) Credential 요청을 받은 상태 
-present_proof | verified | (faber) Proof verification 완료 한 상태  
-present_proof | presentation_acked | (alice) Proof verified 응답을 받은 상태 
+present_proof | request_sent | (issuer)proof presentation 요청한 상태 
+present_proof | request_received | (holder)proof presentation 요청을 받은 상태
+present_proof | presentation_sent | (holder) proof를 presentation 한 상태
+present_proof | <font color=red>presentation_received<br><b>(Webhook event 전달) | (issuer) Credential 요청을 받은 상태 
+present_proof | <font color=red>verified<br><b>(Webhook event 전달) | (issuer) Proof verification 완료 한 상태  
+present_proof | presentation_acked | (holder) Proof verified 응답을 받은 상태 
 
 <br><br>
 
