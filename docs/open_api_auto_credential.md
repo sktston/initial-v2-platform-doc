@@ -14,20 +14,21 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
-**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 연결 및 VC발급/검증 예제를 통한 API 설명
-
+**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 VC발급 예제
+![issue_diagram](img/issue_diagram.png)
+[PlantUML](http://www.plantuml.com/plantuml/uml/TLD1Rn916BtFh_ZIqsx3zWSqG6gywCruw7qBYsxSxgwxWqblY9XKsqID9QLr8QX1Ww792eWSwX_Q-VWFVimCMuMGS61dtlVUlFTc3c9kHxn-x377vou_WHTEvDPS9m8xXfr3_R6psgt7UWUR8xmUOk-zyI3mghHuBmpD7ER6SLq37yg_EuonKWd2o8cSvtKtTha3fH9Z6bYqoefw7og1xpiLxWQ-WPTfDavDmAkM-7ek2Hv5GHZ4jcS4uH9YIX8vIGoQR1z4ccJpDu3z1BiT8zGp9lC3alMS6cUx2g8HArOJH7DAjdQPbVi3CPbZbtvJmEyliV-1s3zbapxWsGox3JYyBmQtiD9WbY9UnsnR9tLOj6_4Zo7HljFoyk2pX5dAfEr1Da_5sm4cj-9p0lYgAtg_84iRjBR7h68jy3dbvWLHwSYhE-NYKTdrNUxIe1s699GV3vIjHRk3boEuyuZN5pY-8TsME1ljKOjLM6QrgiVwDzprAKCvCs5nrQQWP4r1hKPOuzZsgpOFeXFLKqudoruhgdrgo2dTKkG-UPhNzDz-tf6wU9JWHj60lTDbMCCfPB_duhonZ8sYntOBnCT4V1jbFrFHx1IOQW2_l1Q3JY5lOjB8ndyAEBkWZ7NETvb8Wu_f5ZinNxUeh-A6GTshIcZRVTLnHehQL4Bo-QofRClHaElc9Z_s6zWRg6Tas9LdJjLa1sI8dlrV)
 
 issue_credential State
 
 Topic | State | Description
 --- | --- | ---
-issue_credential | offer_sent | (faber)credential offer 한 상태
-issue_credential | offer_received | (alice)offer를 받은 상태
-issue_credential | request_sent | (alice) credential을 요청 한 상태
-issue_credential | request_received | (faber) Credential 요청을 받은 상태 
-issue_credential | credential_issued | (faber) Credential을 issue  
-issue_credential | credential_received | (alice) Credential을 받은 상태 
-issue_credential | credential_acked | (alice/faber) Credential 수취 완료
+issue_credential | <font color=red>offer_sent<br><b>(Webhook event 전달) | (issuer)credential offer 한 상태
+issue_credential | offer_received | (holder)offer를 받은 상태
+issue_credential | request_sent | (holder) credential을 요청 한 상태
+issue_credential | <font color=red>request_received<br><b>(Webhook event 전달) | (issuer) Credential 요청을 받은 상태 
+issue_credential | <font color=red>credential_issued<br><b>(Webhook event 전달) | (issuer) Credential을 issue  
+issue_credential | credential_received | (holder) Credential을 받은 상태 
+issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달) | (holder/issuer) Credential 수취 완료
 
 <br><br>
 
