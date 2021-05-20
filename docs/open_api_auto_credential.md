@@ -22,6 +22,7 @@ issue_credential State
 
 Topic | State | Description
 --- | --- | ---
+issue_credential | <font color=red>proposal_received<br><b>(Webhook event 전달) | (issuer)credential proposal 받은 상태
 issue_credential | <font color=red>offer_sent<br><b>(Webhook event 전달) | (issuer)credential offer 한 상태
 issue_credential | offer_received | (holder)offer를 받은 상태
 issue_credential | request_sent | (holder) credential을 요청 한 상태
@@ -42,25 +43,28 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
 Holder가 credential proposal을 요청하면, Webhook을 통해 아래와 같은 event가 전달 된다.
 ```json
 {
-   "connection_id":"0844ebf0-c88f-49cf-9ed0-d0b57cfd9ec8",
-   "state":"proposal_received",
-   "trace":false,
-   "auto_issue":true,
-   "thread_id":"b0d5d9f3-04d0-40a2-86e7-9f4759ba1985",
-   "created_at":"2021-04-22 12:50:06.597765Z",
-   "auto_remove":false,
-   "credential_proposal_dict":{
-      "@type":"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/propose-credential",
-      "@id":"b0d5d9f3-04d0-40a2-86e7-9f4759ba1985",
-      "cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"
-   },
-   "role":"issuer",
-   "credential_exchange_id":"04441c66-9a4a-49f3-8da9-b60bddb89a0a",
-   "updated_at":"2021-04-22 12:50:06.597765Z",
-   "initiator":"external"
+  "initiator": "external",
+  "credential_proposal_dict": {
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/propose-credential",
+    "@id": "03e19631-26a0-4c06-9a29-35c95766a692",
+    "cred_def_id": "DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd"
+  },
+  "trace": false,
+  "credential_exchange_id": "148b673e-d506-431a-8063-a70aebdaadfe",
+  "auto_remove": false,
+  "connection_id": "85e21c28-342b-406c-9303-69db21cb96d3",
+  "role": "issuer",
+  "created_at": "2021-05-18 10:10:43.082572Z",
+  "auto_issue": true,
+  "state": "proposal_received",
+  "updated_at": "2021-05-18 10:10:43.082572Z",
+  "thread_id": "03e19631-26a0-4c06-9a29-35c95766a692",
+  "topic": "issue_credential"
 }
 ```
-Issuer는 요청이 들어온 VC정보를 `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"` 를 통해서 확인한다.
+Issuer는 
+<br>topic을 `  "topic": "issue_credential"` 을 확인하고 
+<br> 요청이 들어온 VC정보를 `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"` 를 통해서 확인한다.
 <br> 그리고 요청자의 정보는 `"connection_id":"0844ebf0-c88f-49cf-9ed0-d0b57cfd9ec8"` 를 통해서 확인한다.
 <br><br>
 ### STEP 1. Faber(발급자) --> Alice(Holder) : Alice에게 Credential 발행 
@@ -92,24 +96,50 @@ Issuer는 요청이 들어온 VC정보를 `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o
     * body
 ```json
 {
-  "connection_id": "15a3e02b-e1bb-4f10-a1e6-ac0968b71fa7",
-  "trace": false,
+  "connection_id": "2a6ed506-9577-46ee-a60c-726241f89aec",
+  "cred_def_id": "DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd",
   "credential_preview": {
-    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/credential-preview",
     "attributes": [
-      {"name": "학년", "value": "2"}, 
+      {"name": "학년", "value": "2"},
       {"name": "성명", "value": "Alice"},
       {"name": "과정명", "value": "CS"},
       {"name": "생년월일", "value": "19990101"},
       {"name": "학교이름", "value": "SK대학교"},
       {"name": "입학년월일", "value": "20190301"}
-    ]
+    ],
+    "@type": "issue-credential/1.0/credential-preview"
   },
   "auto_issue": true,
-  "cred_def_id": "9c74RUPtMwtiSXq8tVDqxp:3:CL:5108:SK대학교",
   "auto_remove": false,
-  "comment": "SK대학교 Alice 제증명"
+  "comment": "consequat anim minim aliquip",
+  "trace": false
 }
+```
+
+cURL Request Example
+```
+curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue-credential/send-offer' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer 2ca4dd8a-xxxx-xxxx-xxxx-c5fb0286f2cc' \
+--data-raw '{
+    "connection_id": "2a6ed506-9577-46ee-a60c-726241f89aec",
+    "cred_def_id": "DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd",
+    "credential_preview": {
+        "attributes": [
+            {"name": "학년", "value": "2"}, 
+            {"name": "성명", "value": "Alice"},
+            {"name": "과정명", "value": "CS"},
+            {"name": "생년월일", "value": "19990101"},
+            {"name": "학교이름", "value": "SK대학교"},
+            {"name": "입학년월일", "value": "20190301"}
+        ],
+        "@type": "issue-credential/1.0/credential-preview"
+    },
+    "auto_issue": true,
+    "auto_remove": false,
+    "comment": "consequat anim minim aliquip",
+    "trace": false
+}'
 ```
 
 <p></p>
@@ -288,10 +318,23 @@ Issuer는 요청이 들어온 VC정보를 `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o
 
 <br><br>
 
+### STEP 4. Faber : Webhook을 확인 한다. 
+
+받은 Webhook event의 `topic:issue_credential`, `state:credential_acked` 이면 정상으로 완료된 상태
+<br>
+
+Revocation 사용을 위해서는 아래 [Option] 내용을 확인하고 추가 구현 필요함
+
+<br><br>
+
+
 ### [Option] 폐기(Revocation) 처리를 위한 정보 기록 
 
-기한만료, 자격증명상실등의 이유로 증명서(VC)의 폐기할 경우를 대비하여 발급내역을 기록해야 함 <br>
+기한만료, 자격증명상실등의 이유로 증명서(VC)의 폐기할 경우를 대비하여 `topic:issue_credential`, `state:credential_acked` 으로 전달된 event 중 폐기에 필요한 필수 3가지 값을 기록해야 함. 
 만약 김증명에게 VC를 발행했다면 아래 예시와 같이 기록 필요 
+1. credential_exchange_id
+2. rev_reg_id
+3. revocation_id
 
 * 발급내역 기록 예시
 
@@ -300,8 +343,7 @@ Issuer는 요청이 들어온 VC정보를 `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o
 unique id | 김증명 CI 혹은 ID등 기관에서 구분값
 rev_reg_id | 9c74RUPtMwtiSXq8tVDqxp:4:9c74RUPtMwtiSXq8tVDqxp:3:CL:5108:SK대학교:CL_ACCUM:8f8ff208-ad45-49a4-a606-1b523dcd5d5a
 revocation_id | 2
+credential_exchange_id | 27e5b826-8a48-4d4b-a63c-a405ab81debc
 
-
-
-    
+상세 폐기 방법은 Revocation page 참조
 <br><br>

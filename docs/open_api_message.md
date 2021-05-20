@@ -45,10 +45,17 @@ basicmessages | received | message를 받은 상태
 
 * Parameter
 
- Name | Description 
- --- | --- 
- body | Schema String 
- connection_id | Alice의 connection 정보 
+Path Variables
+
+Name | Description
+--- | ---
+conn_id | Alice의 connection 정보
+
+
+* Body
+```json
+{"contents": "{{string}}"}
+```
  
 <p></p>
 
@@ -63,9 +70,9 @@ usagepurpose | String | 수집 이용 목적
 consentperiod | String | 보유/이용기간 및 파기 
 
 
-* body example
+* 동의서 Sample
 
-**** 중요!! body는 json에서 string으로 변환해야 한다 ****
+**** 중요!! json에서 string으로 변환하여 body에 입력 한다 ****
 
 ```json
 {
@@ -79,6 +86,22 @@ consentperiod | String | 보유/이용기간 및 파기
   }
 }
 ```
+
+Body Example
+```
+{"content":" {\"type\" : \"initial_agreement\" , \"content\" = { \"title\":\"개인정보 수집 및 이용 동의서\",\"agreement\" :\"Initial 서비스(이하 서비스라 한다)와 관련하여, 본인은 동의내용을 숙지하였으며, 이에 따라 본인의 개인정보를 (주)XXXX가 수집 및 이용하는 것에 대해 동의합니다.\\n\\n본 동의는 서비스의 본질적기능 제공을 위한 개인정보 수집\/이용에 대한 동의로서, 동의를 하는 경우에만 서비스 이용이 가능합니다.\\n\\n법령에 따른 개인정보의 수집\/이용, 계약의 이행\/편익제공을 위한 개인정보 취급위탁 및 개인정보취급과 관련된 일반 사항은 서비스의 개인정보 처리방침에 따릅니다.\",\"collectiontype\" : \"이름,생년월일\",\t\t\t\"usagepurpose\" : \"서비스 이용에 따른본인확인\",\"consentperiod\" : \"1년\" }}"}
+```
+
+
+cURL Request Example
+
+```
+curl --location --request POST 'https://dev-console.myinitial.io/agent/api/connections/638d8e47-c488-4245-8102-cfd3eccc7d69/send-message' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer a80c77b8-9889-4a48-918a-95b70fa7d50a' \
+--data-raw '{"content":" {\"type\" : \"initial_agreement\" , \"content\" = { \"title\":\"개인정보 수집 및 이용 동의서\",\"agreement\" :\"Initial 서비스(이하 서비스라 한다)와 관련하여, 본인은 동의내용을 숙지하였으며, 이에 따라 본인의 개인정보를 (주)XXXX가 수집 및 이용하는 것에 대해 동의합니다.\\n\\n본 동의는 서비스의 본질적기능 제공을 위한 개인정보 수집\/이용에 대한 동의로서, 동의를 하는 경우에만 서비스 이용이 가능합니다.\\n\\n법령에 따른 개인정보의 수집\/이용, 계약의 이행\/편익제공을 위한 개인정보 취급위탁 및 개인정보취급과 관련된 일반 사항은 서비스의 개인정보 처리방침에 따릅니다.\",\"collectiontype\" : \"이름,생년월일\",\t\t\t\"usagepurpose\" : \"서비스 이용에 따른본인확인\",\"consentperiod\" : \"1년\" }}"}'
+```
+
 
 <p></p>
  
@@ -104,8 +127,13 @@ consentperiod | String | 보유/이용기간 및 파기
 
 - 기관은 Webhook Message를 확인 하여 동의서 결과를 전송 받는다.
 
-**** 중요!! body는 json에서 string으로 변환해야 한다 ****
+Webhook Example 
 
+```json
+body:{"connection_id":"50a9da1a-e506-4e47-8f5a-37756a9e972c","message_id":"ac706983-3089-4604-926f-7fbb99f82452","content":"{\"type\":\"initial_agreement_decision\",\"content\":{\"agree_yn\":\"Y\"}}","state":"received","sent_time":"2021-05-18T10:10:58.399","locale":"en","topic":"basicmessages"}
+```
+
+동의서 내용
 ```json
 {
   "type":"initial_agreement_decision",
@@ -120,11 +148,12 @@ consentperiod | String | 보유/이용기간 및 파기
 
 기관 사용자는 사용자를(CI, unique id등)를 구분하여 정보를 관리한다. 
 
+
 ### STEP 4. Web View 요청
 
 - 기관은 Web View를 요청할 수 있다. initial app은 해당 web-view 화면을 출력 한다
 
-**** 중요!! body는 json에서 string으로 변환해야 한다 ****
+**** 중요!! json에서 string으로 변환해서 Body에 입력 한다 ****
 
 ```json
 {
