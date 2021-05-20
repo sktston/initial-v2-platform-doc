@@ -39,11 +39,10 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
     `POST` `/present-proof/send-verification-request` proof 제출 요청.  
 
-* Parameter
+* Body Parameter
 
  Name | Description 
- --- | --- 
- body | Schema String 
+ --- | ---
  connection_id | Alice와 connection 정보
  verification_template_id | 사용하고자 하는 검증양식ID(verifTplId) 
  
@@ -59,12 +58,23 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
 * Example
 
-
+body example
 ```json
 {
   "connection_id": "{{connectionId}}",
-  "proof_request": "{{verifTplId}}"
+  "verification_template_id": "{{verifTplId}}"
 }
+```
+
+curl example
+```
+curl --location --request POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-verification-request' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer 2ca4dd8a-xxxx-421c-xxxx-c5fb0286f2cc' \
+--data-raw '{
+    "connection_id": "2a6ed506-9577-xxxx-a60c-726241f89aec",
+    "verification_template_id": "b43aba3a-xxxx-4a96-xxxx-9ee532b71cab"
+}'
 ```
 
 <p></p>
