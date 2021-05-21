@@ -43,6 +43,7 @@ basicmessages | received | message를 받은 상태
 
     `POST` `/connections/{conn_id}/send-message` message 전송.   
 
+<br><br>
 * Parameter
 
 Path Variables
@@ -51,7 +52,7 @@ Name | Description
 --- | ---
 conn_id | Alice의 connection 정보
 
-
+<br><br>
 * Body
 ```json
 {"contents": "{{string}}"}
@@ -69,6 +70,7 @@ collectiontype | String | 수집 항목
 usagepurpose | String | 수집 이용 목적
 consentperiod | String | 보유/이용기간 및 파기 
 
+<br><br>
 
 * 동의서 Sample
 

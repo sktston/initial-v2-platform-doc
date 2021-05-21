@@ -275,3 +275,10 @@ Webhhok Message의 `requested_proof` 및 `verified` 정보 확인
 `"verified": "true"`
 
 verified 결과 True/False 확인
+
+* 참고 
+Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json 경로를 parsing 한다
+  <br>
+  presantation.requested_proof.revealed_attrs.{{requested_attribute}}.raw
+  
+  ![verify_webhook](img/verify_topic.png)
