@@ -16,6 +16,10 @@
 - 연결요청 Open API 참고 : [Connection](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/)
 - 개발 참고 JAVA 예제 :  [Create Invitation Url java code](https://github.com/sktston/initial-controller-java/blob/master/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java#L181)
 
+invitation_url process sequence diagram
+![invitation_url](img/invitation_url.png)
+[PlantUML](http://www.plantuml.com/plantuml/uml/dLHVQzDG57-_d-Amvys-5oihsnW5sGPMV9JONhfWbyGaBSeOP3E8SuLDN5qwcg6e7OCEOgtGX_bbVCmz_GxUUzDaTt7WdwSskUVypk_FkLbqNCrsMrjDGWrNTr-0rk1_G7DWRgbfjkfGbi_bZSfSMc7Q3NcEqGHFXl4aYiSUw4PRTpLNDus5bjtCQbiEjMLnnT1TNMj2sRAoGws-fHloL4zFnPivGaebi6ngqsSjtT5T2gKI8MBimhrPKp4t4F13btqRyn-V7Go162RlCjlK5cpdanw2mMiyw6FFWpZgOUW9LUpB5N_giwW_xGPS3c0uPXV765wnTrynz67wwlkqEuQKeOJ2awDur9aDkqFeSstBQb9EQjDrBQTOA6nl9xQmGv-TVyPmihDJk45Os5q7mP8G2VbdQSaf-dqsye550GQxG9HkQNKHPdbWr-TAy4S0qxTzhbgrHBQGMwTmEt8Zk2tiWa-tB0o3Ms0p7IAq7APbcpNgE38-GK_G534MONMb-Yzc9UHjlR7f4jmRuka5dXsnDySgdzqn6rmgYV58uyb-8HvvE0W1JuznT4co68KSxxTseOY_OsS1yB5fq_-bMdFrjkPIcKls9EHdconlLX4srXzKeL0p3OFM193pqpier6pAonUkuLKBPXaBAeFXp0dbjegWrYrgYFrEDVpT423uSXVz2TiRSu-5GvMrIhLIlW_BbMKehwwiLINewiFAyeeOivG1WlWSV8mo1pB9YKwIgCqMGCoK8s_UN5AdkJxXbhBUrrmVSx_PUGSipNPqem79_Krn520nCTk_st6WJcjcNK5HtUnv83m-x06UHF4e0Zptf-_tPv1tbIHpvuA2kWGv3xBodiy-TG2x7JQuKg-fg9wNx1_H9vkc-VHwktEzjCrBK-bP0ely7_-o_m80)
+
 
 invitation-url API JAVA sample code
 ```java
@@ -31,12 +35,12 @@ invitation-url API JAVA sample code
 ```
 
 
-invitation-url http request code
+initial App에서 요청하는 invitation-url http request sample
 ```
 curl --location --request GET 'http://221.168.33.78:8050/invitation-url'
 ```
 
-invitation-url Response sample
+기관에서 응답해야 하는 invitation-url Response sample
 ```
 https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMmYyNWFhZTktNWQ4MS00MzFhLWE1NzItZDBiYzQ0Yzk5MzI2IiwgImxhYmVsIjogIlx1YjE3OFx1Yzc3OFx1Yzc3Y1x1Yzc5MFx1YjlhYyIsICJkaWQiOiAiZGlkOnNzdzpDQjFmOVdLR0FKRHdVS0NUMlhFeDdvIiwgImltYWdlVXJsIjogImh0dHBzOi8va3Iub2JqZWN0Lm5jbG91ZHN0b3JhZ2UuY29tL2Rldi1pbWFnZS1maWxlL2Q0MWQ4Y2Q5X2Q1YWQ4ZjliXzE2MTYxNDA3ODQifQ==
 ```
@@ -74,7 +78,13 @@ holder(initial app)은 위 response를 base64 decoding 하여 사용
 - Webhook 서버의 API Key는 보안 강화를 위한 선택 사항입니다. https://domain.com/webhooks#org-api-key 와 같이 입력하시면 header의 x-api-key 항목에 값으로 "org-api-key"를 함께 전송합니다.
 - Webhook 서버 예제는 아래 reference code (DID 발행/검증 Demo)에서 확인할 수 있습니다. 
 <br><br>
-  
+
+
+![webhooks](img/webhooks.png)
+[PlantUML](http://www.plantuml.com/plantuml/uml/tPFFRjD04CRl-nIZd42Y-1uHr8XJJ_0A9barAnBlujqKK5KfGX6Y2b904990Z5hnfvSYcRG77_n4tl4xCEji3KGSuDfRulbzCz_tMTxL9epDSD1dF3B2F8Dmdtv0gA5nho-7NMXN_ziFzXfNX8ptgpcc6SxFYomjBaVmX3_iIVceXeQQnnMr5maZmZwqbQg77HbfsUVLNFYvVzPWhDK25VEOFnuABGo7LeinTtFdRYriNjrpng18LpPTWKsdOD_-iAS9YoJfv05P8E4jhsAuU8cJ5Iv7f5XYCd9Y-pNt-dAse3YmvGVdh_tIsum_3GUgkjupHkbc41mURkBRwTYUVS4aEpeAl3DDORlWZ32_YWBuTd_PjnUNzdaE-3d75w_y8TT03QXOThZMTGc_xRYlU5Jbnm_lSFtz1ixJOfq65AN8ZeDYFS9loKsseU_iaD2z4zBzZGCy6vVlZprDhBlLz9k1yE8YTrKvMpsoDI1FnDhJ5U39s4xEMTWnuY0qt2atJkij7iPa0KOgqO5oEQEkeFmu1ZkXsYZvT8cVthX3U3BR3kgPVylRvNyu-S_yrw-0NHvrwVF-2G00)
+
+
+
 #### 3-1. Webhook API 구현
 
 - initial DID platform에서 처리 결과를 webhook으로 전달다.

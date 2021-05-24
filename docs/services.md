@@ -4,16 +4,16 @@
 ## 1. initial Web Console
 Web GUI 기반으로 손쉽게 Agent, Wallet 생성하고, VC(Verifiable Credential)을 발행하거나 검증할 수 있는 기능 및 발행/검증 통계 및 사용자 초대 가능
 
-  - 디지털 자격 증명을 사용자에게 직접 발행(Issue) 가능
-  - 발행된 디지털 자격 증명서를 쉽고 간편하게 검증(Verify) 가능
+  - 디지털 자격 증명을 사용자에게 발행(Issue) 하기 위한 양식 생성 가능
+  - 발행된 디지털 자격 증명서를 쉽고 간편하게 검증(Verify) 하기 위한 양식 생성 가능
   - 발행/검증 관련 모든 통계 data 제공
-  - 사용자 추가 초대 기능 제
+  - 사용자 추가 초대 기능 제공
 
 ## 2. 기관(Enterprise) 사용자를 위한 initial DID Agent API Services
 REST API 기반 Wallet 생성 및 VC 발행/검증 지원 
   
-  - 기존 Legacy Back-end system과 REST APIs를 통한 손쉬운 개발 지원
-  - REST APIs와 연결을 위한 SDK Controller SDK 지원
+  - 기존 Legacy system과 REST APIs를 통한 손쉬운 개발 지원
+  - REST APIs와 연결을 위한 Guide 지원
 
 
 ## 3. initial SDK
@@ -31,7 +31,7 @@ Mobile/Server SDK/Agent 제공 (협의 필요)
 
 #### ○ DID(Decentralized Identifier)
 - 기존 신원확인 방식과 달리 중앙 시스템에 의해 통제되지 않으며 개개인이 자신의 정보에 완전한 통제권을 갖도록 하는 기술. W3C등에서 표준을 작성하고 있다.
-- Public DID - Public 공개하는 DID. 주로 기관등이 Issuer(발급자)로 DID를 Ledger에 공개한다. Initial에서 일반 사용자(Holder)는 DID를 Ledger에 공개하지 않는다.
+- Public DID - Public 공개하는 DID. 주로 기관등이 Issuer(발급자)로 DID를 Ledger에 공개한다. initial에서 일반 사용자(Holder)는 DID를 Ledger에 공개하지 않는다.
 - Pairwise DID - Peer-to-Peer 연결을 위해 Private 생성하는 DID이고 오직 연결 상대에게만 공개한다. 매번 연결하다 Pairwise DID가 생성된다.
 
 #### ○ Issuer
@@ -52,7 +52,32 @@ Mobile/Server SDK/Agent 제공 (협의 필요)
 
 #### ○ Schema
 - Credential의 기본 Template. 권한이 있는 [Issuer](#issuer)만 생성 가능하고 Ledger에 기록됨.
-- Ledger에 등록된 Schema는 모든 [Issuer](#issuer)들이 사용 가능함.
+- Ledger에 등록된 Schema는 모든 [Issuer](#issuer)들이 활용하여 Credental 발행 가능함.
+
+모바일가입증명 Schema 예시 
+
+```json
+{
+    "schema": {
+        "ver": "1.0",
+        "id": "cU8rErjgKj8fgn1kTDren:2:PersonIdentityCredential:1.0",
+        "name": "PersonIdentityCredential",
+        "version": "1.0",
+        "attrNames": [
+            "ci",
+            "telecom",
+            "date_of_birth",
+            "is_foreigner",
+            "person_name",
+            "mobile_num",
+            "gender",
+            "exp_date"
+        ],
+        "seqNo": 1618987943
+    }
+}
+```
+
 
 #### ○ Credential Definition
 - 이미 생성된 [Schema](#schema)로 부터 VC를 발행하기 위한 최종 설정.
@@ -60,15 +85,15 @@ Mobile/Server SDK/Agent 제공 (협의 필요)
 - 권한이 있는 Issuer만 생성 가능하고, 생성한 Isser 자신만 사용 가능.
 
 #### ○ Wallet
-- 사용자의 중요 정보를 담기 위한 공간.
-- Initial에서 Wallet은 Secret Key 뿐만 아니라 VC, Connection 정보등 많은 data 저장한다.
+- 사용자의 중요 정보를 담기 위한 Secure 공간.
+- initial에서 Wallet은 Secret Key 뿐만 아니라 VC, Connection 정보등 많은 data 저장한다.
 
 
 ### 2. Keys
 DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
 
 #### ○ MasterKey
-- Wallet Key을 암호화 하기 위한 Symmetric Encryption Key(chacha20-poly1305)
+- Wallet Key을 암호화 하기 위한 Symmetric Encryption Key(chacha20-poly1305 기반)
 - 사용자는 MasterKey를 직접 관리해야 하며, 보안 사고시 Rotate key를 통해 변경를 해야 한다.
 
 #### ○ Wallet Key
@@ -77,9 +102,9 @@ DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
 - Wallet key는 총 7개의 Key로 구성되어 있다
 
 #### ○ DID Key
-- DID를 사용하기 위한 Asymmetric Key로 Wallet에 저장되어 있음(ed25519)있고 Digital Sign, Public Key Encryption에 사용함.
+- DID를 사용하기 위한 Asymmetric Key로 Wallet에 저장되어 있음(ed25519), Digital Sign, Public Key Encryption에 사용함.
 - Pairwise DID Key : 상대방과 연결(Connection)에서만 사용하는 DID. Private DID라고 불리기도 함.
-- Enterprise DID (Issuer DID) : Blockchain Ledger에 접근하기 위한 용도의 DID. Ledger 접근하기 위해 Trustee, Steward, Endorser 권한이 있으며, Transaction을 발생할 수 있다. 권한이 없는 사용자는 Read만 가능하다.
+- Public DID (Primary DID) : Blockchain Ledger에 접근하기 위한 용도의 DID. Ledger 접근하기 위해 Trustee, Steward, Endorser 권한이 있으며, Transaction을 발생할 수 있다. 권한이 없는 사용자는 Read만 가능하다.
 
 #### ○ VerKey
 - verification key. 공개키로 public key와 동일한 개념이다.
