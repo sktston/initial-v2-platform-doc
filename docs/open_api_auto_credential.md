@@ -62,12 +62,14 @@ Holder가 credential proposal을 요청하면, Webhook을 통해 아래와 같�
   "topic": "issue_credential"
 }
 ```
-Issuer는 
-<br>topic을 `  "topic": "issue_credential"` 을 확인하고 
-<br> 요청이 들어온 VC정보를 `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"` 를 통해서 확인한다.
-<br> 그리고 요청자의 정보는 `"connection_id":"0844ebf0-c88f-49cf-9ed0-d0b57cfd9ec8"` 를 통해서 확인한다.
+Issuer는 아래 정보를 확인 해야 함.
+<br>1. `"topic": "issue_credential"`, `"state": "proposal_received"` (사용자가 발급 요청을 했음을 확인) 
+<br>2. `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"` (사용자가 요청한 VC 정보)
+<br>3. `"connection_id":"0844ebf0-c88f-49cf-9ed0-d0b57cfd9ec8"` (사용자와 연결 정보)
+<br>4. `"credential_exchange_id": "148b673e-d506-431a-8063-a70aebdaadfe"` (VC발급 session id)
 <br><br>
-### STEP 1. Faber(발급자) --> Alice(Holder) : Alice에게 Credential 발행 
+
+### STEP 1-1. Faber(발급자) --> Alice(Holder) : Proposal의 credential_exchange_id 기반 Credential 발행 
 
 * Method and Resource
 
@@ -81,6 +83,8 @@ Issuer는
  connection_id | Holder와 연결을 위해 사용한 ID. STEP0의 Webhook Event를 통해 확인 가능하다. 
  cred_def_id | 발급할 Credential ID. STEP0의 Webhook Event를 통해 확인 가능하다.
  credential_preview | Holder에 발급할 VC의 정보를 기입한다. 
+ counter_proposal | 사용자의 proposal에 대한 응답임을 명시
+ credential_proposal | 
  auto_issue | Alice가 credential request를 하면 자동으로 issue 완료<br>`/issue-credential/records/{cred_ex_id}/issue` 자동 처리
  auto_remove | Credential issue 완료되면 cred_ex_id record를 자동 삭제 <br> `/issue-credential/records/{cred_ex_id}/remove` 자동 처리 
  
@@ -92,6 +96,155 @@ Issuer는
     `connection_id` : `string`<br>
     `attribute` : `list string`<br>
     `cred_def_id` : `string`<br>
+
+    * body
+```json
+{
+  "counter_proposal":{
+    "cred_def_id":"DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd",
+    "credential_proposal":{
+      "attributes":[
+        {
+          "name":"date_of_birth",
+          "value":"20000228"
+        },
+        {
+          "name":"date_of_test",
+          "value":"20180228'"
+        },
+        {
+          "name":"english_name",
+          "value":"Kim Initial"
+        },
+        {
+          "name":"exp_date",
+          "value":"20180228"
+        },
+        {
+          "name":"korean_name",
+          "value":"김증명"
+        },
+        {
+          "name":"registration_number",
+          "value":"123456789"
+        },
+        {
+          "name":"score_of_listening",
+          "value":"445"
+        },
+        {
+          "name":"score_of_reading",
+          "value":"445"
+        },
+        {
+          "name":"score_of_total",
+          "value":"990"
+        }
+      ]
+    }
+  }
+}
+```
+
+cURL Request Example
+```
+curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue-credential/records/553b95d3-ab6e-41d8-83db-fbd68aadce40/send-offer' \
+--header 'Authorization: Bearer 2ca4dd8a-22b6-421c-bf2b-c5fb0286f2cc' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "counter_proposal":{
+    "cred_def_id":"DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd",
+    "credential_proposal":{
+      "attributes":[
+        {
+          "name":"date_of_birth",
+          "value":"20000228"
+        },
+        {
+          "name":"date_of_test",
+          "value":"20180228'\''"
+        },
+        {
+          "name":"english_name",
+          "value":"Kim Initial"
+        },
+        {
+          "name":"exp_date",
+          "value":"20180228"
+        },
+        {
+          "name":"korean_name",
+          "value":"김증명"
+        },
+        {
+          "name":"registration_number",
+          "value":"123456789"
+        },
+        {
+          "name":"score_of_listening",
+          "value":"445"
+        },
+        {
+          "name":"score_of_reading",
+          "value":"445"
+        },
+        {
+          "name":"score_of_total",
+          "value":"990"
+        }
+      ]
+    }
+  }
+}'
+```
+
+<p></p>
+
+
+<p></p>
+
+* issue_credential State check 
+
+    |  | Faber | Alice |
+    | --- | --- | --- |
+    | issue_credential state | **`offer_sent`** | N/A |
+<p></p>
+
+
+* Next Step
+<br> Push Notification/Webhook등으로 Alice에게 전달. 
+<br> Alice의 `/issue-credential/records/{cred_ex_id}/send-request` send request를 waiting.
+<p></p>
+
+
+    
+<br><br>
+
+### STEP 1-1. Faber(발급자) --> Alice(Holder) : Proposal의 credential_exchange_id 기반 Credential 발행
+
+* Method and Resource
+
+  `POST` `/issue-credential​/send-offer` credential preview를 보내면서 offer.
+
+* Parameter
+
+Name | Description
+ --- | --- 
+body | Schema String
+connection_id | Holder와 연결을 위해 사용한 ID. STEP0의 Webhook Event를 통해 확인 가능하다.
+cred_def_id | 발급할 Credential ID. STEP0의 Webhook Event를 통해 확인 가능하다.
+credential_preview | Holder에 발급할 VC의 정보를 기입한다.
+auto_issue | Alice가 credential request를 하면 자동으로 issue 완료<br>`/issue-credential/records/{cred_ex_id}/issue` 자동 처리
+auto_remove | Credential issue 완료되면 cred_ex_id record를 자동 삭제 <br> `/issue-credential/records/{cred_ex_id}/remove` 자동 처리
+
+<p></p>
+
+* Example
+
+    * input <br>
+      `connection_id` : `string`<br>
+      `attribute` : `list string`<br>
+      `cred_def_id` : `string`<br>
 
     * body
 ```json
@@ -143,8 +296,8 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
 ```
 
 <p></p>
- 
-   * Response body
+
+* Response body
 ```json
 {
     "credential_offer": {
@@ -283,22 +436,23 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
 
 <p></p>
 
-* issue_credential State check 
+* issue_credential State check
 
-    |  | Faber | Alice |
-    | --- | --- | --- |
-    | issue_credential state | **`offer_sent`** | N/A |
+  |  | Faber | Alice |
+      | --- | --- | --- |
+  | issue_credential state | **`offer_sent`** | N/A |
 <p></p>
 
 
 * Next Step
-<br> Push Notification/Webhook등으로 Alice에게 전달. 
-<br> Alice의 `/issue-credential/records/{cred_ex_id}/send-request` send request를 waiting.
+  <br> Push Notification/Webhook등으로 Alice에게 전달.
+  <br> Alice의 `/issue-credential/records/{cred_ex_id}/send-request` send request를 waiting.
 <p></p>
 
 
-    
+
 <br><br>
+
 
 ### STEP 2. Alice : Faber의 Credential offer를 확인. 
 
