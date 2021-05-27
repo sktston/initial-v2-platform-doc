@@ -8,7 +8,7 @@
 
 initial console 가입 Master 회원은, 아래 사이트에서 Test 가능하다.  
 
-<https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/>
+[Open API Swagger Site 이동](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/)
 
 ### DID Agent API 지원 List
 
@@ -18,8 +18,8 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능하�
   :---: | --- | --- 
   `POST` | ** /connections/create-invitation ** | 새로운 초대장 만들어서 연결하기 
   `POST` | ** /connections/{conn_id}/send-message ** | 연결된 사용자에게 Message(개인정보 이용 동의서등)
-  `POST` | ** /issue-credential/send-offer ** | 발행자(issuer)가 사용자(holder)에게 VC 보내기
-  `POST` | ** /issue-credential/records/{cred_ex_id}/send-offer ** | 사용자에게 받은 proposal 기반 credential offer 보내기(자동발급)
+  `POST` | ** /issue-credential/send-offer ** | 발행자(issuer)가 사용자(holder)에게 VC 발행
+  `POST` | ** /issue-credential/records/{cred_ex_id}/send-offer ** | 사용자에게 받은 proposal 기반 발행자(issuer)가 사용자(holder)에게 VC 발행
   `POST` | ** /present-proof/send-verification-request ** | 검증자(verifier)가 사용자(holder)에게 VC 검증 요청하기 
   `POST` | /revocation/revoke | 발행자(issuer)가 사용자(holder)에게 발행한 VC 폐기
 

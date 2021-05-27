@@ -43,7 +43,7 @@ basicmessages | received | message를 받은 상태
 
     `POST` `/connections/{conn_id}/send-message` message 전송.   
 
-<br><br>
+
 * Parameter
 
 Path Variables
@@ -52,7 +52,6 @@ Name | Description
 --- | ---
 conn_id | Alice의 connection 정보
 
-<br><br>
 * Body
 ```json
 {"contents": "{{string}}"}
@@ -157,11 +156,22 @@ body:{"connection_id":"50a9da1a-e506-4e47-8f5a-37756a9e972c","message_id":"ac706
 
 **** 중요!! json에서 string으로 변환해서 Body에 입력 한다 ****
 
+Web_view 요청 content sample
+
 ```json
 {
   "type":"initial_web_view",
   "content":{
-    "web_view_url":"https://www.skinitial.com/web-view/uuid"
+    "web_view_url":"https://www.sktelecom.com/test.php?their_did=UtArAzrfSaTF77mNJVcCrA"
   }
 }
+```
+
+
+Web_view 요청 Request Sample
+```
+curl --location --request POST 'https://dev-console.myinitial.io/agent/api/connections/b62bfc68-8762-4e9d-af4a-221502508944/send-message' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer 2ca4dd8a-xxxx-xxxx-xxxx-c5fb0286f2cc' \
+--data-raw '{"content":" {\"type\" : \"initial_web_view\" , \"content\" = { \"web_view_url\":\"https://www.sktelecom.com/test.php?their_did=UtArAzrfSaTF77mNJVcCrA\" }}"}'
 ```
