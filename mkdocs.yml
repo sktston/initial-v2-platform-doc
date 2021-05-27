@@ -39,6 +39,7 @@ nav:
 #      - 'DID VCX Java Demo' : 'demo.md'
 #      - 'DID VCX NodeJS Demo': 'node_demo.md'
       - 'Open API Demo' : 'cloud_agent_demo.md'
+      - 'Swagger' : 'https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/'
 #  - 'SDK API' :
 #      - 'Java APIs' : 'java_api/java_api.md'
 #      - 'iOS APIs' : 'ios_api/ios_api.md'
