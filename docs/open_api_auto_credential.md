@@ -14,7 +14,7 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
-**Faber**(Issuer/Verifier)와 **Alice**(Holder/Prover)의 VC발급 예제
+**기관**(Issuer/Verifier)과 **사용자**(Holder/Prover)의 VC발급 예제
 ![issue_diagram](img/issue_diagram.png)
 [PlantUML](http://www.plantuml.com/plantuml/uml/TLD1Rn916BtFh_ZIqsx3zWSqG6gywCruw7qBYsxSxgwxWqblY9XKsqID9QLr8QX1Ww792eWSwX_Q-VWFVimCMuMGS61dtlVUlFTc3c9kHxn-x377vou_WHTEvDPS9m8xXfr3_R6psgt7UWUR8xmUOk-zyI3mghHuBmpD7ER6SLq37yg_EuonKWd2o8cSvtKtTha3fH9Z6bYqoefw7og1xpiLxWQ-WPTfDavDmAkM-7ek2Hv5GHZ4jcS4uH9YIX8vIGoQR1z4ccJpDu3z1BiT8zGp9lC3alMS6cUx2g8HArOJH7DAjdQPbVi3CPbZbtvJmEyliV-1s3zbapxWsGox3JYyBmQtiD9WbY9UnsnR9tLOj6_4Zo7HljFoyk2pX5dAfEr1Da_5sm4cj-9p0lYgAtg_84iRjBR7h68jy3dbvWLHwSYhE-NYKTdrNUxIe1s699GV3vIjHRk3boEuyuZN5pY-8TsME1ljKOjLM6QrgiVwDzprAKCvCs5nrQQWP4r1hKPOuzZsgpOFeXFLKqudoruhgdrgo2dTKkG-UPhNzDz-tf6wU9JWHj60lTDbMCCfPB_duhonZ8sYntOBnCT4V1jbFrFHx1IOQW2_l1Q3JY5lOjB8ndyAEBkWZ7NETvb8Wu_f5ZinNxUeh-A6GTshIcZRVTLnHehQL4Bo-QofRClHaElc9Z_s6zWRg6Tas9LdJjLa1sI8dlrV)
 
@@ -33,14 +33,14 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
 
 <br><br>
 
-### STEP 0. Alice(Holder) --> Faber(발급자) : Issuer에게 Credential 발행 proposal
+### STEP 0. 사용자(Holder) --> 기관(발급자/Issuer) : Issuer에게 Credential 발행 proposal
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
 <p> STEP0는 Holder(initial app)에서 Credential Proposal을 먼저 진행 한다</p>
 </div>
 
-Holder가 credential proposal을 요청하면, Webhook을 통해 아래와 같은 event가 전달 된다.
+사용자(Holder)가 credential proposal을 요청하면, Webhook을 통해 아래와 같은 event가 전달 된다.
 ```json
 {
   "initiator": "external",
@@ -69,7 +69,7 @@ Issuer는 아래 정보를 확인 해야 함.
 <br>4. `"credential_exchange_id": "148b673e-d506-431a-8063-a70aebdaadfe"` >> (VC발급 관련 모든 정보를 담고 있는 ID)
 <br><br>
 
-### STEP 1. Faber(발급자) --> Alice(Holder) 
+### STEP 1. 기관(발급자) --> 사용자(Holder) 
 
 발급은 두가지 방법이 존재.
 
@@ -81,7 +81,7 @@ Step 1-2 . Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id�
 
 
 <br><br>
-#### STEP 1-1. Faber(발급자) --> Alice(Holder) : Proposal의 credential_exchange_id 기반 Credential 발행 
+#### STEP 1-1. 기관(발급자) --> 사용자(Holder) : Proposal의 credential_exchange_id 기반 Credential 발행 
 
 * Method and Resource
 
@@ -226,7 +226,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
 
 <br>
 
-#### STEP 1-2. Faber(발급자) --> Alice(Holder) : 신규 credential_exchange_id 기반 Credential 발행
+#### STEP 1-2. 기관(발급자) --> 사용자(Holder) : 신규 credential_exchange_id 기반 Credential 발행
 
 * Method and Resource
 
@@ -541,7 +541,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
   | issue_credential state | **`offer_sent`** | N/A |
 <p></p>
 
-### STEP 2. Alice : Faber의 Credential offer를 확인. 
+### STEP 2. 사용자 : Faber의 Credential offer를 확인. 
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
@@ -550,7 +550,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
 
 <br><br>
 
-### STEP 3. Alice --> Faber : Faber에게 Credential Request를 요청한다. 
+### STEP 3. 사용자 --> 기관 : Faber에게 Credential Request를 요청한다. 
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
@@ -559,7 +559,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
 
 <br><br>
 
-### STEP 4. Faber : Webhook을 확인 한다. 
+### STEP 4. 기관 : Webhook을 확인 한다. 
 
 받은 Webhook event의 `topic:issue_credential`, `state:credential_acked` 이면 정상으로 완료된 상태
 <br>
