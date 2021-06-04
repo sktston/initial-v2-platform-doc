@@ -1,4 +1,4 @@
-Proof Presentation
+(Verify) Proof Presentation
 ================
 
 <div class="admonition note">
@@ -282,3 +282,95 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
   presantation.requested_proof.revealed_attrs.{{requested_attribute}}.raw
   
   ![verify_webhook](img/verify_topic.png)
+
+
+### STEP 5. Verify 다양한 기법
+
+#### Type 1
+
+data model
+- comment [Option] : 검증/관리를 위한 목적등 설명 작성
+- connection_id [Mandatory] : Verify 요청할 connection id
+- name [Option] : 검증 제목
+- version [Option]: 버전 관리
+- requested_attributes [Mandatory]: 공개 요청할 항목들
+    - names : 요청할 attribute 값(schema 확인 하여 정확하게 기입)
+    - non_revoked [Option]: 증명서 유효 기간(unix time).
+        - from [Option] : 시작 시간. 일반적으로 0. 
+        - to [Option] : 종료 시간. 일반적으로 현재시간.
+    - restrictions [Option] : 제출할 증명서 제한. 
+      - cred_def_id [Option] : 특정 credential
+      - issuer_did [Option] : 특정 issuer 발행 credential
+      - schema_id [Option] : 특정 schema
+- requested_predicates [Mandatory]: 영지식증명으로 요청할 항목들
+    - names : 요청할 attribute 값(schema 확인 하여 정확하게 기입)
+    - non_revoked [Option]: 증명서 유효 기간(unix time).
+        - from [Option] : 시작 시간. 일반적으로 0.
+        - to [Option] : 종료 시간. 일반적으로 현재시간.
+    - restrictions [Option] : 제출할 증명서 제한.
+        - cred_def_id [Option] : 특정 credential
+        - issuer_did [Option] : 특정 issuer 발행 credential
+        - schema_id [Option] : 특정 schema
+
+
+
+```json
+{
+  "comment": "SKT 입사지원을 위한 검증",
+  "connection_id": "2612699e-3b88-412c-a435-b9824b48983c",
+  "proof_request": {
+    "name": "모바일가입증명서/졸업증명서/성적증명서 검증",
+    "version": "1.0",
+    "requested_attributes": {
+      "소제목:모바일가입증명서": {
+        "names": [
+          "date_of_birth","exp_date","gender","is_foreigner","mobile_num","person_name","telecom"
+        ],
+        "non_revoked": {
+          "from": 0,
+          "to": 1622436299
+        },
+        "restrictions": [
+          {
+            "issuer_did": "NoLL1sbRSGPB19TuqHPWqY",
+            "schema_id": "N6r4nLwAkcYUX8c8Kb8Ufu:2:UniCertificateOfGraduationKor:2.0"
+          }
+        ]
+      },
+      "소제목2:대학졸업증명서": {
+        "names": [
+          "college","current_grade","date_of_admission","date_of_birth"
+        ],
+        "restrictions": [
+          {
+            "cred_def_id": "GoW6ww2bbRGauHx3CSicLM:3:CL:101:UniCertificateOfGraduationKorRevTest5"
+          }
+        ]
+      },
+      "소제목3:대학성적증명서": {
+        "names": [
+          "degree"
+        ],
+        "restrictions": [
+          {
+            "issuer_did": "NoLL1sbRSGPB19TuqHPWqY",
+            "schema_id": "N6r4nLwAkcYUX8c8Kb8Ufu:2:UniCertificateOfGraduationKor:2.0"          }
+        ]
+      }
+    },
+    "requested_predicates": {
+      "소제목4": {
+        "name": "age",
+        "p_type": ">=",
+        "p_value": 20,
+        "restrictions": [
+          {
+            "issuer_did": "NoLL1sbRSGPB19TuqHPWqY",
+            "cred_def_id": "GoW6ww2bbRGauHx3CSicLM:3:CL:101:UniCertificateOfGraduationKorRevTest5",
+            "schema_id": "N6r4nLwAkcYUX8c8Kb8Ufu:2:UniCertificateOfGraduationKor:2.0"          }
+        ]
+      }
+    }
+  }
+}
+```

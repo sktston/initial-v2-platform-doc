@@ -12,9 +12,7 @@ Schema & Credential Definition Example
 
  항목 | 한글 | 영어
  --- | --- | ---
- 한글명 | 한글 스키마 제목 (e.g ID카드신청) | 영어 제목 (e.g IDCardApplication) 
- Schema ID (개발)| 생성 후 발급  | (e.g. N6r4nLwAkcYUX8c8Kb8Ufu:2:IDCardApplication:1.0)
- Schema ID (운영) | 생성 후 발급  | (e.g. N6r4nLwAkcYUX8c8Kb8Ufu:2:IDCardApplication:1.0)
+ 한글명 | 한글 스키마 제목 (e.g ID카드신청) | 영어 제목 (e.g IDCardApplication)
  Attribute #1 | 사업장코드 | contract_no
  Attribute #2 | 카드번호  | mid
  Attribute #3 | 사원(학생)번호 | employee_no 
@@ -22,7 +20,10 @@ Schema & Credential Definition Example
  Attribute #5 | 한글... | English...
  ... | ... | ...
 
-  
+
+- Schema ID (개발) | 생성 후 발급  | (e.g. N6r4nLwAkcYUX8c8Kb8Ufu:2:IDCardApplication:1.0)
+- Schema ID (운영) | 생성 후 발급  | (e.g. N6r4nLwAkcYUX8c8Kb8Ufu:2:IDCardApplication:1.0) 
+ 
 <br><br>
 
 ### STEP 2. 증명서발행양식(Credential Definition ID) 생성하기 
@@ -40,117 +41,8 @@ Schema & Credential Definition Example
 ![webconsole 1](img/web_console_create_creddefid.png)
 
 
-<br><br>
+<br>
 생성이 완료되면 아래와 같이 정보가 표시 됨<br>
 증명서ID가 발행을 위한 정보 입니다.<br>
 
 ![webconsole 1](img/web_console_creddefid_complete.png)
-
-
-### [Option] 증명서발행양식(Credential Definition ID) 검색하기  
-
-* Method and Resource
-
-    `POST` `/credential-definitions/created` 내가 생성한 credential definition 검색 
-<p></p>
-
-* Parameter
-
-     Name | Description 
-     --- | --- 
-     cred_def_id | credential definition id 직접 검색  
-     issuer_did | 발행자(issuer 기관) public did로 검색 
-     schema_id | 특정 SchemaID 기반으로 관련된 credential definition id 검색  
-     schema_issuer_did | schema ID 를 생성한 issuer public did 기반 검색  
-     schema_name | schema name 기반으로 검색 
-     schema_version | schema version 으로 검색  
-
-<p></p>
-
-<br>
-    * Response body (검색결과)
-```json
-{
-  "credential_definition_ids": [
-    "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag"
-  ]
-}
-```
-<br><br>
-
-### [Option] 특정 증명서발행양식(Credential Definition ID) 상세내용 검색하기  
-
-* Method and Resource
-
-    `POST` `/credential-definitions/{cred_def_id}` 특정 증명서발행양식(Credential definition ID) 정보 가져오기  
-<p></p>
-
-<br>
-    * Response body (검색결과)
-```json
-{
-  "credential_definition": {
-    "type": "CL",
-    "tag": "tag",
-    "ver": "1.0",
-    "schemaId": "20",
-    "id": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag",
-    "value": {}
-  }
-}
-```
-
-<br><br>
-
-### [Option] 기본양식(Schema ID) 검색하기  
-
-* Method and Resource
-
-    `POST` `/schemas/created` 기본양식(Schema ID) 검색하기   
-<p></p>
-
-* Parameter
-
-     Name | Description 
-     --- | --- 
-     schema_id | 특정 SchemaID 기반으로 관련된 credential definition id 검색  
-     schema_issuer_did | schema ID 를 생성한 issuer public did 기반 검색  
-     schema_name | schema name 기반으로 검색 
-     schema_version | schema version 으로 검색  
-
-<p></p>
-
-<br>
-    * Response body (검색결과)
-```json
-{
-  "schema_ids": [
-    "WgWxqztrNooG92RXvxSTWv:2:schema_name:1.0"
-  ]
-}
-```
-
-
-### [Option] 특정 기본양식(Schema ID) 상세내용 검색하기  
-
-* Method and Resource
-
-    `POST` `/schemas/{schema_id}` 특정 기본양식(Schema ID) 정보 가져오기  
-<p></p>
-
-<br>
-    * Response body (검색결과)
-```json
-{
-  "schema": {
-    "version": "1.0",
-    "attrNames": [
-      "score"
-    ],
-    "ver": "1.0",
-    "name": "schema_name",
-    "id": "WgWxqztrNooG92RXvxSTWv:2:schema_name:1.0",
-    "seqNo": 10
-  }
-}
-```
