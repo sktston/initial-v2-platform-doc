@@ -77,7 +77,7 @@ Step 1-1 : Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id�
 
 Step 1-2 . Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id와 상관없이 새로운 credential_exchange_id기반 발행 요청
 
-1-1의 방법은 기존에 받은 proposal을 활용하는 방법으로 전체적인 발급관리에 있어서 효율적이어서 추천.
+1-1의 방법은 기존에 받은 proposal을 활용하는 방법으로 전체적인 발급관리에 있어 효율적임. 기본 사용으로 추천.
 
 
 <br><br>
@@ -85,7 +85,7 @@ Step 1-2 . Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id�
 
 * Method and Resource
 
-    `POST` `/issue-credential​/send-offer` credential preview를 보내면서 offer.  
+    `POST` `/issue-credential/records/{cred_ex_id}/send-offer` credential preview를 보내면서 offer.  
 
 * Parameter Description
 
@@ -94,7 +94,7 @@ Step 1-2 . Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id�
  cred_def_id | 발급할 Credential ID. STEP0의 Webhook Event를 통해 확인 가능하다.
  counter_proposal | 사용자의 issue proposal에 대한 응답임을 명시
  credential_proposal | Proposal이 내용 부분
- auto_issue | Alice가 credential request를 하면 자동으로 issue 완료<br>`/issue-credential/records/{cred_ex_id}/issue` 자동 처리
+ auto_issue | 사용자가 credential request를 하면 자동으로 issue 완료<br>`/issue-credential/records/{cred_ex_id}/issue` 자동 처리
  auto_remove | Credential issue 완료되면 관련 record를 자동 삭제 <br> `/issue-credential/records/{cred_ex_id}/remove` 자동 처리 
  
 <p></p>
@@ -105,6 +105,8 @@ Step 1-2 . Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id�
     `cred_ex_id` : `string`<br>
 
     * body
+    
+    모든 attribute의 값을 입력해야(null 가능) 오류가 발행하지 않음.
 ```json
 {
   "counter_proposal":{
@@ -160,7 +162,7 @@ Step 1-2 . Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id�
 cURL Request Example
 ```
 curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue-credential/records/d6aa4f24-c082-4443-9f91-2dda87962257/send-offer' \
---header 'Authorization: Bearer 2ca4dd8a-22b6-421c-bf2b-c5fb0286f2cc' \
+--header 'Authorization: Bearer 2ca4dd8a-1234-1234-1234-c5fb0286f2cc' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "counter_proposal":{
@@ -218,7 +220,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
 
 * issue_credential State check 
 
-    |  | Faber | Alice |
+    |  | Issuer | Holder |
     | --- | --- | --- |
     | issue_credential state | **`offer_sent`** | N/A |
 
@@ -246,7 +248,10 @@ auto_remove | Credential issue 완료되면 cred_ex_id record를 자동 삭제 <
 
 * Example
 
-    * body
+    * body 
+      
+    모든 attribute의 값을 입력해야(null 가능) 오류가 발행하지 않음.
+
 
 ```json
 {
@@ -536,12 +541,12 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
 
 * issue_credential State check
 
-  |  | Faber | Alice |
+  |  | Issuer | Holder |
       | --- | --- | --- |
   | issue_credential state | **`offer_sent`** | N/A |
 <p></p>
 
-### STEP 2. 사용자 : Faber의 Credential offer를 확인. 
+### STEP 2. 사용자 : Issuer(발급기관)의 Credential offer를 확인. 
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
@@ -550,7 +555,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
 
 <br><br>
 
-### STEP 3. 사용자 --> 기관 : Faber에게 Credential Request를 요청한다. 
+### STEP 3. 사용자 --> 기관 : Issuer(발급기관)에게 Credential Request를 요청한다. 
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>

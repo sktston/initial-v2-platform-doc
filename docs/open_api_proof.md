@@ -105,7 +105,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
    "presentation_exchange_id":"491cdc38-01de-43fd-a0e5-feac18dd7769",
    "initiator":"self",
    "presentation_request":{
-      "name":"고려대학생증검증v2",
+      "name":"학생증검증v2",
       "version":"1.0",
       "requested_attributes":{
          "campuslocation":{
@@ -284,17 +284,16 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
   ![verify_webhook](img/verify_topic.png)
 
 
-### STEP 5. Verify 다양한 기법
+### STEP 5. 고급 증명양식 검증(Verify)의 다양한 기법
 
-#### Type 1
+##### Data Model
 
-data model
 - comment [Option] : 검증/관리를 위한 목적등 설명 작성
 - connection_id [Mandatory] : Verify 요청할 connection id
 - name [Option] : 검증 제목
 - version [Option]: 버전 관리
-- requested_attributes [Mandatory]: 공개 요청할 항목들
-    - names : 요청할 attribute 값(schema 확인 하여 정확하게 기입)
+- requested_attributes [Option]: 공개 요청할 항목들
+    - name [Mandatory]: 요청할 attribute 값(schema 확인 하여 정확하게 기입)
     - non_revoked [Option]: 증명서 유효 기간(unix time).
         - from [Option] : 시작 시간. 일반적으로 0. 
         - to [Option] : 종료 시간. 일반적으로 현재시간.
@@ -302,8 +301,8 @@ data model
       - cred_def_id [Option] : 특정 credential
       - issuer_did [Option] : 특정 issuer 발행 credential
       - schema_id [Option] : 특정 schema
-- requested_predicates [Mandatory]: 영지식증명으로 요청할 항목들
-    - names : 요청할 attribute 값(schema 확인 하여 정확하게 기입)
+- requested_predicates [Option]: 영지식증명으로 요청할 항목들
+    - name : 요청할 attribute 값(schema 확인 하여 정확하게 기입)
     - non_revoked [Option]: 증명서 유효 기간(unix time).
         - from [Option] : 시작 시간. 일반적으로 0.
         - to [Option] : 종료 시간. 일반적으로 현재시간.
@@ -313,6 +312,232 @@ data model
         - schema_id [Option] : 특정 schema
 
 
+<br>
+
+##### Example #1 
+시나리오 : 모바일가입증명의 cred_def_id가 정확히 일치하는 증명서의 이름,생일,전화번호 요청
+
+ - restriction 1 : 현재시간(unixtime : 1623124667) 기준 revocation이 되지 않은 VC
+ - restriction 2 : SKT 모바일 가입증명 cred_def_id (3fZJD68zkyJwzsME3rDk7e:3:CL:0:v01) VC
+
+```json
+{
+  "connection_id": "836b3c81-062e-4270-b4cc-03725802bf9c",
+  "proof_request": {
+    "name": "SKT 입사지원을 위한 검증",
+    "version": "1.0",
+    "requested_attributes": {
+      "모바일가입증명 검증_생일":{
+        "name":"date_of_birth",
+        "non_revoked":{
+          "from":0,
+          "to":1623124667
+        },
+        "restrictions":[
+          {
+            "cred_def_id":"3fZJD68zkyJwzsME3rDk7e:3:CL:0:v01"
+          }
+        ]
+      },
+      "모바일가입증명 검증_전화번호":{
+        "name":"mobile_num",
+        "non_revoked":{
+          "from":0,
+          "to":1623124667
+        },
+        "restrictions":[
+          {
+            "cred_def_id":"3fZJD68zkyJwzsME3rDk7e:3:CL:0:v01"
+          }
+        ]
+      },
+      "모바일가입증명 검증_이름":{
+        "name":"person_name",
+        "non_revoked":{
+          "from":0,
+          "to":1623124667
+        },
+        "restrictions":[
+          {
+            "cred_def_id":"3fZJD68zkyJwzsME3rDk7e:3:CL:0:v01"
+          }
+        ]
+      }
+    }
+  },
+  "comment": "SKT 입사지원을 위한 검증을 위해 모바일 가입증명을 요청"
+}
+```
+<br>
+
+
+##### Example #2
+시나리오 : 모바일가입증명의 스키마를 사용하고, SKT initial 기관에서 발급한 증명서의 이름,생일,전화번호 요청
+
+- restriction 1 : 발급 기관의 DID(issuer_did)는 SKT initial(3fZJD68zkyJwzsME3rDk7e) VC
+- restriction 2 : 모바일 가입증명의 스키마(schema_id) 4G5rcJdUxa5SbtfqNJxPXt:2:PersonIdentityCredential:3.0 를 사용한 VC
+- 필요시 non_revoked 사용 가능
+
+```json
+{
+  "connection_id": "836b3c81-062e-4270-b4cc-03725802bf9c",
+  "proof_request": {
+    "name": "SKT 입사지원을 위한 검증",
+    "version": "1.0",
+    "requested_attributes": {
+      "모바일가입증명 검증_생일":{
+        "name":"date_of_birth",
+        "restrictions":[
+          {
+            "issuer_did":"3fZJD68zkyJwzsME3rDk7e",
+            "schema_id":"4G5rcJdUxa5SbtfqNJxPXt:2:PersonIdentityCredential:3.0"
+          }
+        ]
+      },
+      "모바일가입증명 검증_전화번호":{
+        "name":"mobile_num",
+        "non_revoked":{
+          "from":0,
+          "to":1623124667
+        },
+        "restrictions":[
+          {
+            "issuer_did":"3fZJD68zkyJwzsME3rDk7e",
+            "schema_id":"4G5rcJdUxa5SbtfqNJxPXt:2:PersonIdentityCredential:3.0"
+          }
+        ]
+      },
+      "모바일가입증명 검증_이름":{
+        "name":"person_name",
+        "restrictions":[
+          {
+            "cred_def_id":"3fZJD68zkyJwzsME3rDk7e:3:CL:0:v01"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+<br>
+
+##### Example #3
+시나리오 :  모바일가입증명의 스키마를 사용하고, SKT initial 기관 혹은 B기관에서 발급한 증명서의 전화번호 요청
+
+- restriction 1 : 발급 기관의 DID(issuer_did)는 SKT initial(3fZJD68zkyJwzsME3rDk7e) 혹은 B기관(DrLbXFSao4Vo8gMfjxPxU1) VC
+- restriction 2 : 모바일 가입증명의 스키마(schema_id) 4G5rcJdUxa5SbtfqNJxPXt:2:PersonIdentityCredential:3.0 를 사용한 VC
+- restriction 3 : 현재시간(unixtime : 1623124667) 기준 revocation이 되지 않은 VC
+
+```json
+{
+  "connection_id": "836b3c81-062e-4270-b4cc-03725802bf9c",
+  "proof_request": {
+    "name": "SKT 입사지원을 위한 검증",
+    "version": "1.0",
+    "requested_attributes": {
+      "모바일가입증명 검증_전화번호":{
+        "name":"mobile_num",
+        "non_revoked":{
+          "from":0,
+          "to":1623124667
+        },
+        "restrictions":[
+          {
+            "issuer_did":"3fZJD68zkyJwzsME3rDk7e",
+            "schema_id":"4G5rcJdUxa5SbtfqNJxPXt:2:PersonIdentityCredential:3.0"
+          },
+          {
+            "issuer_did":"DrLbXFSao4Vo8gMfjxPxU1",
+            "schema_id":"4G5rcJdUxa5SbtfqNJxPXt:2:PersonIdentityCredential:3.0"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+<br>
+
+##### Example #4
+시나리오 :  서로 다른 VC의 항목을 요청. 
+- restriction 1 : 모바일가입증명 VC의 생일 
+- restriction 2 : 대학 재학증명서 VC의 학번
+- restriction 2 : non_revoked 
+
+```json
+{
+  "connection_id": "836b3c81-062e-4270-b4cc-03725802bf9c",
+  "proof_request": {
+    "name": "SKT 입사지원을 위한 검증",
+    "version": "1.0",
+    "requested_attributes": {
+      "모바일가입증명 검증_생일":{
+        "name":"date_of_birth",
+        "non_revoked":{
+          "from":0,
+          "to":1623124667
+        },
+        "restrictions":[
+          {
+            "cred_def_id":"3fZJD68zkyJwzsME3rDk7e:3:CL:0:v01"
+          }
+        ]
+      },
+      "대학재학증명서 검증_학번":{
+        "name":"student_id",
+        "non_revoked":{
+          "from":0,
+          "to":1623124667
+        },
+        "restrictions":[
+          {
+            "cred_def_id":"QjuxXDs69RLKbSsCccehnQ:3:CL:1605674669:UniCertificateOfEnrollmentKorRev"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+<br>
+
+
+##### Example #5
+시나리오 : 나이를 공개하지 않고, 영지식증명을 이용하여 성인 인증 
+- restriction 1 : 모바일가입증명 VC의 생일
+- restriction 2 : 대학 재학증명서 VC의 학번
+- restriction 2 : non_revoked
+
+* 지원가능 Range Predicate(p_type) : "<", "<=", ">=", ">"
+* 현재 숫자만 가능
+
+```json
+{
+  "comment": "2000년 1월 1일 이전 출생자인 성인인증을 통한 클럽 출입",
+  "connection_id": "836b3c81-062e-4270-b4cc-03725802bf9c",
+  "proof_request": {
+    "name": "성인인증",
+    "version": "1.0",
+    "requested_predicates": {
+      "모바일가입증명 검증_나이": {
+        "name": "date_of_birth",
+        "p_type": "<=",
+        "p_value": 20000101,
+        "restrictions": [
+          {
+            "cred_def_id": "3fZJD68zkyJwzsME3rDk7e:3:CL:0:v01"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+<br>
+
+##### Example #6
+시나리오 : 복합 
 
 ```json
 {
@@ -323,9 +548,7 @@ data model
     "version": "1.0",
     "requested_attributes": {
       "소제목:모바일가입증명서": {
-        "names": [
-          "date_of_birth","exp_date","gender","is_foreigner","mobile_num","person_name","telecom"
-        ],
+        "name": "date_of_birth",
         "non_revoked": {
           "from": 0,
           "to": 1622436299
@@ -338,9 +561,7 @@ data model
         ]
       },
       "소제목2:대학졸업증명서": {
-        "names": [
-          "college","current_grade","date_of_admission","date_of_birth"
-        ],
+        "name": "college",
         "restrictions": [
           {
             "cred_def_id": "GoW6ww2bbRGauHx3CSicLM:3:CL:101:UniCertificateOfGraduationKorRevTest5"
@@ -348,9 +569,7 @@ data model
         ]
       },
       "소제목3:대학성적증명서": {
-        "names": [
-          "degree"
-        ],
+        "names": "degree",
         "restrictions": [
           {
             "issuer_did": "NoLL1sbRSGPB19TuqHPWqY",
@@ -359,7 +578,7 @@ data model
       }
     },
     "requested_predicates": {
-      "소제목4": {
+      "성인 여부 영지식증명 검증": {
         "name": "age",
         "p_type": ">=",
         "p_value": 20,
@@ -374,3 +593,23 @@ data model
   }
 }
 ```
+<br>
+
+##### Example #7 (지원 예정)
+시나리오 : 사용자가 값을 직접 입력 
+
+- self_attested_attributes 이용하여, 사용자가 직접 값을 입력할 수 있게 할 수 있음.
+
+```json
+{
+  "connection_id": "836b3c81-062e-4270-b4cc-03725802bf9c",
+  "proof_request": {
+    "name": "SKT 입사지원을 위한 검증",
+    "version": "1.0",
+    "self_attested_attributes": {
+                  "address": "내가직접 입력"
+    }
+  }
+}
+```
+
