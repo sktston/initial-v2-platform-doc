@@ -14,11 +14,12 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
-**기관**(Issuer/Verifier)과 **사용자**(Holder/Prover)의 VC발급 예제
+* **기관**(Issuer/Verifier)과 **사용자**(Holder/Prover)의 VC발급 workflow
 ![issue_diagram](img/issue_diagram.png)
 [PlantUML](http://www.plantuml.com/plantuml/uml/TLF1RX9H5Ds_hxXXDTCmVe01KkD6TyQ5ssRAF9A9qtdZp63I7I8crJPHOucq3WGrQ30q6G6HHVsXURV_uEMzWL882GjoS-uvSywvRp-AxJ2k7tcC-x4R7qCzuY7O4HImESBB8VO-68-4vz3mGH2OXINCZQ9w3doi_XOOO-Ko124F-Okw6xanXtAPiHnOiYgQ-ZvKXU_pQkmAty3FQJPEJS2Bbln-fWYUX28GaUqP8bX0J4MYDeb1an67J9Di_XQmds2tOmJvZibyGRBY9G-L6DlJk1osf3P1DgVaROzPAvCW9tFiqcyA-FCLzZ-In9TiqWSydM6t0SyUoi4rB8MOfOatCRlcf0utxIlvQqYqxtDvzVMpX5dQgUr1Da_bkm4cr_9h0lYwAtj_84iRDBl7h59D-365vucmVEZLUQLqM75zDtPfqGw2XT1TsMh8dGE7rmvSXwHQydH4vJcmY6ZPYhMUwMqMU7cEuoj3Up7Xvg9DqQXsHAr6MEF8zXqx5k6nhcT5fphUwATzOgYjzN8qVhsU5MhLZRuwIcwhPS3UoIAauHIoltDvrbZ4HTwntGBvAP4_HjdlL3OxHQQJnszlvA1JN3KmQMJZVqMSdLEsURwtoIYRJ-c4UHHl6TLtk6KpxrFdjEjOyr13JMrg8VLsDbHsfMcekRdDZ_q6zWRw3HbszJbtJBPFXkXL_mS0)
 
-issue_credential State
+<p></p>
+* 발급 과정 중 issue_credential State 
 
 Topic | State | Description
 --- | --- | ---
@@ -31,6 +32,32 @@ issue_credential | <font color=red>credential_issued<br><b>(Webhook event 전달
 issue_credential | credential_received | (holder) Credential을 받은 상태 
 issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달) | (holder/issuer) Credential 수취 완료
 
+<br>
+
+* Credential_exchange_id Data Model(Example)
+    - issue_credential 관리를 위해 별도의 identifier인 credential_exchange_id를 제공한다.
+    - credential_exchange_id는 아래와 같이 connection_id를 포함하여 발급 관련 모든 정보를 포함하고 있다
+
+```json
+        {
+            "initiator": "external",
+            "auto_issue": true,
+            "trace": false,
+            "state": "proposal_received",
+            "credential_proposal_dict": {
+                "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/propose-credential",
+                "@id": "33c8e5ff-ab21-45c1-b966-06cead6e0317",
+                "cred_def_id": "A5EaF6CUiTquuMFysqykmY:3:CL:1614236895:tag.56.42.80"
+            },
+            "connection_id": "c9e32cc7-ad4e-4808-8d43-0a6dbadcfbb2",
+            "thread_id": "33c8e5ff-ab21-45c1-b966-06cead6e0317",
+            "auto_remove": false,
+            "credential_exchange_id": "bbf3ec30-f01d-4879-b016-9abc4ce075cb",
+            "role": "issuer",
+            "updated_at": "2021-05-26 04:20:47.073303Z",
+            "created_at": "2021-05-26 04:20:47.073303Z"
+        }
+```
 <br><br>
 
 ### STEP 0. 사용자(Holder) --> 기관(발급자/Issuer) : Issuer에게 Credential 발행 proposal
@@ -62,25 +89,26 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
   "topic": "issue_credential"
 }
 ```
-Issuer는 아래 정보를 확인 해야 함.
-<br>1. `"topic": "issue_credential"`, `"state": "proposal_received"` >> (사용자가 발급 요청을 했음을 확인) 
-<br>2. `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"` >> (사용자가 요청한 VC 정보)
-<br>3. `"connection_id":"0844ebf0-c88f-49cf-9ed0-d0b57cfd9ec8"` >> (사용자와 연결 정보)
-<br>4. `"credential_exchange_id": "148b673e-d506-431a-8063-a70aebdaadfe"` >> (VC발급 관련 모든 정보를 담고 있는 ID)
+* Issuer는 아래 정보를 확인 해야 함.
+<p></p>
+1. `"topic": "issue_credential"` >> VC 발행 요청
+2. `"state": "proposal_received"` >> Proposal 상태
+3. `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"` >> 사용자가 요청한 VC 정보
+4. `"connection_id":"0844ebf0-c88f-49cf-9ed0-d0b57cfd9ec8"` >> 사용자 연결 정보
+5. `"credential_exchange_id": "148b673e-d506-431a-8063-a70aebdaadfe"` >> VC발급 관련 모든 정보를 담고 있는 ID
 <br><br>
 
-### STEP 1. 기관(발급자) --> 사용자(Holder) 
+### STEP 1. 기관(발급자) --> 사용자(Holder) 발행
 
-발급은 두가지 방법이 존재.
+- VC 발급은 두가지 방법이 존재한다.
 
-Step 1-1 : Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id를 그대로 활용하여 발행 요청
+    - Step 1-1 : Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id를 그대로 활용하여 발행 요청
+    - Step 1-2 : Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id와 상관없이 새로운 credential_exchange_id기반 발행 요청
 
-Step 1-2 . Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id와 상관없이 새로운 credential_exchange_id기반 발행 요청
-
-1-1의 방법은 기존에 받은 proposal을 활용하는 방법으로 전체적인 발급관리에 있어 효율적임. 기본 사용으로 추천.
+    <p></p>1-1의 방법은 기존에 받은 proposal을 활용하는 방법으로 전체적인 발급관리에 있어 효율적임. 기본 사용으로 추천.
 
 
-<br><br>
+<br>
 #### STEP 1-1. 기관(발급자) --> 사용자(Holder) : Proposal의 credential_exchange_id 기반 Credential 발행 
 
 * Method and Resource
@@ -105,8 +133,13 @@ Step 1-2 . Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id�
     `cred_ex_id` : `string`<br>
 
     * body
+
+    <div class="admonition warning ">
+    <p class="admonition-title">important</p>
+    <p> 모든 attribute의 값을 입력해야(null 가능) 오류가 발행하지 않음 </p>
+    </div>
+
     
-    모든 attribute의 값을 입력해야(null 가능) 오류가 발행하지 않음.
 ```json
 {
   "counter_proposal":{
@@ -159,7 +192,8 @@ Step 1-2 . Step 0의 Holder로 부터 받은 Proposal의 credential_exchange_id�
 }
 ```
 
-cURL Request Example
+- cURL Request Example
+
 ```
 curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue-credential/records/d6aa4f24-c082-4443-9f91-2dda87962257/send-offer' \
 --header 'Authorization: Bearer 2ca4dd8a-1234-1234-1234-c5fb0286f2cc' \
@@ -175,7 +209,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
         },
         {
           "name":"date_of_test",
-          "value":"20180228'\''"
+          "value":"20180228"
         },
         {
           "name":"english_name",
@@ -203,12 +237,12 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
         },
         {
           "name":"score_of_total",
-          "value":"990"
+          "value":""
         }
       ]
     },
     "auto_issue": true,
-    "auto_remove": false,
+    "auto_remove": true,
     "comment": "Counter Proposal Send offer Example",
     "trace": false
   }
@@ -249,9 +283,11 @@ auto_remove | Credential issue 완료되면 cred_ex_id record를 자동 삭제 <
 * Example
 
     * body 
-      
-    모든 attribute의 값을 입력해야(null 가능) 오류가 발행하지 않음.
 
+    <div class="admonition warning ">
+    <p class="admonition-title">important</p>
+    <p> 모든 attribute의 값을 입력해야(null 가능) 오류가 발행하지 않음 </p>
+    </div>
 
 ```json
 {
@@ -566,7 +602,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue
 
 ### STEP 4. 기관 : Webhook을 확인 한다. 
 
-받은 Webhook event의 `topic:issue_credential`, `state:credential_acked` 이면 정상으로 완료된 상태
+Webhook event의 `topic:issue_credential`, `state:credential_acked` 이면 정상으로 완료된 상태
 <br>
 
 Revocation 사용을 위해서는 아래 [Option] 내용을 확인하고 추가 구현 필요함
@@ -584,12 +620,12 @@ Revocation 사용을 위해서는 아래 [Option] 내용을 확인하고 추가 
 
 * 발급내역 기록 예시
 
-항목 | 예제 내용
- --- | ---
-unique id | 김증명 CI 혹은 ID등 기관에서 구분값
-rev_reg_id | 9c74RUPtMwtiSXq8tVDqxp:4:9c74RUPtMwtiSXq8tVDqxp:3:CL:5108:SK대학교:CL_ACCUM:8f8ff208-ad45-49a4-a606-1b523dcd5d5a
-revocation_id | 2
-credential_exchange_id | 27e5b826-8a48-4d4b-a63c-a405ab81debc
+    항목 | 예제 내용
+     --- | ---
+    unique id | 김증명 CI 혹은 ID등 기관에서 구분값
+    rev_reg_id | 9c74RUPtMwtiSXq8tVDqxp:4:9c74RUPtMwtiSXq8tVDqxp:3:CL:5108:SK대학교:CL_ACCUM:8f8ff208-ad45-49a4-a606-1b523dcd5d5a
+    revocation_id | 2
+    credential_exchange_id | 27e5b826-8a48-4d4b-a63c-a405ab81debc
 
-상세 폐기 방법은 Revocation page 참조
+    <br>상세 폐기 방법은 Revocation page 참조
 <br><br>

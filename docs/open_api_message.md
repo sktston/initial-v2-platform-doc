@@ -35,8 +35,10 @@ curl --location --request GET 'http://localhost/wallet/did'\
 {"contents": "{{본문}}"}
 ```
 
-**** 중요!! 본문이 json일 경우 string으로 변환하여 body에 입력 한다 ****
-
+<div class="admonition warning">
+<p class="admonition-title">important</p>
+<p>  중요!! 본문이 json일 경우 string으로 변환하여 {{본문}} 입력 한다  </p>
+</div>
 
 * Request Sample
 
@@ -66,7 +68,7 @@ basicmessages | received | message를 받은 상태
 
 <br><br>
 
-### Message Contents Spec
+### [참고] initial Message Spec
 
 Basic Message의 Type은 아래와 같이 정의 (2021.06.03)
 
@@ -75,8 +77,6 @@ type | from | to | Definition
 initial_agreement |	issuer/verifier	| initial app | issuer/verifier가 개인정보 이용 동의/약관 요청
 initial_agreement_decision	| initial app |	issuer/verifier	| 개인정보동의/약관 요청 결과 전송
 initial_web_view | issuer/verifier	| initial app |	web_view url 표시 요청
-initial_input_request(개발중) | issuer/verifier	| initial app |	사용자 입력 data 가 필요할 경우 요청
-initial_input_response(개발중) | initial app | issuer/verifier |	사용자 입력 값을 전달
 
 <p></p>
 
@@ -97,7 +97,8 @@ agreement | 동의서 내용 (각 기관 법무팀 검토 필요)
 condition | 각 기관 부제목 및 값을 표시. `sub_title` 및 `target` 을 key 값으로 list 형태 
 
 <br>
-* 동의서 본문 Sample
+
+* 동의서 {{본문}} Sample
 
 ```json
 {
@@ -205,7 +206,7 @@ curl -X 'POST' \
 
 
 
-### 2. initial_agreement_decision : 사용자 --> 기관 
+#### 2. initial_agreement_decision : 사용자 --> 기관 
 
 동의서 결과 전송 받기.
 
@@ -236,10 +237,10 @@ signature | 사용자 서명 (사용안함)
 
 * Next Step
 
-기관 사용자는 사용자를(CI, unique id등)를 구분하여 동의 결과 정보를 관리한다. 
+기관 관리자는 동의 결과를 사용자 정보(connection_id, CI, unique id등)와 mappin하여 정보를 관리한다. 
 
-
-### 3. initial_web_view (기관 --> 사용자)
+<br>
+#### 3. initial_web_view (기관 --> 사용자)
 
 - 기관은 Web View를 요청할 수 있다. initial app은 해당 web-view 화면을 출력 한다
 - Web View는 사용자로 부터 추가 정보 입력이 필요할때 사용한다 
