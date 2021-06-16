@@ -45,6 +45,7 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
  --- | ---
  connection_id | Alice와 connection 정보
  verification_template_id | 사용하고자 하는 검증양식ID(verifTplId) 
+ agreement | (String)개인정보 수집 및 이용 동의서 / 제3자 정보제공 동의서
  
 <p></p>
 
@@ -62,9 +63,101 @@ body example
 ```json
 {
   "connection_id": "{{connectionId}}",
-  "verification_template_id": "{{verifTplId}}"
+  "verification_template_id": "{{verifTplId}}",
+  "agreement": "{{동의서 본문 String}}"
 }
 ```
+
+* {{동의서 본문}} Sample
+
+<div class="admonition warning">
+<p class="admonition-title">important</p>
+<p>  중요!! Verifier(검증자)는 동의서를 `comment` 포함하여 사용자(Holder)에게 전달해야 한다. <br> 본문 json은 string으로 변환하여 {{동의서 본문}} 입력 한다  </p>
+</div>
+
+```json
+{
+  "type": "initial_agreement",
+  "content": [{
+    "sequence": 1,
+    "title": "개인정보 수집 및 이용 동의서",
+    "is_mandatory": "true",
+    "terms_id": "person",
+    "terms_ver": "1.0",
+    "agreement": "initial서비스(이하“서비스”라 한다)와 관련하여, 본인은 동의 내용을 숙지하였으며, 이에 따라 본인의 개인정보를 귀사(SK텔레콤주식회사)가 수집 및 이용하는 것에 대해 동의 합니다. 본 동의는 서비스의 본질적 기능 제공을 위한 개인정보 수집/이용에 대한 동의로서, 동의를 하는 경우에만 서비스 이용이 가능합니다. 법령에 따른 개인정보의 수집/이용, 계약의 이행/편익 제공을 위한 개인정보 취급 위탁 및 개인정보 취급과 관련된 일반 사항은 서비스의 개인정보 처리 방침에 따릅니다.",
+    "condition": [{
+      "sub_title": "수집 항목",
+      "target": "이름,생년월일"
+    },
+      {
+        "sub_title": "수집 및 이용목적",
+        "target": "서비스 이용에 따른 본인확인"
+      },
+      {
+        "sub_title": "이용기간 및 보유/파기",
+        "target": "1년"
+      }
+    ]
+  },
+    {
+      "sequence": 2,
+      "title": "위치정보 수집 및 이용 동의서",
+      "is_mandatory": "true",
+      "terms_id": "location",
+      "terms_ver": "1.0",
+      "agreement": "이 약관은 이니셜(SK텔레콤)(이하“회사”)가 제공하는 위치 정보사업 또는 위치기반 서비스 사업과 관련하여 회사와 개인 위치 정보주체와의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.",
+      "condition": [{
+        "sub_title": "위치정보 수집 방법",
+        "target": "GPS칩"
+      },
+        {
+          "sub_title": "위치정보 이용/제공",
+          "target": "이 약관에 명시되지 않은 사항은 위치정보의 보호 및 이용 등에 관한 법률, 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 전기통신기본법, 전기통신사업법 등 관계법령과 회사의 이용약관 및 개인정보취급방침, 회사가 별도로 정한 지침 등에 의합니다."
+        },
+        {
+          "sub_title": "수집목적",
+          "target": "현재의 위치를 기반으로 하여 주변 매장의 위치 등의 정보를 제공하는 서비스"
+        },
+        {
+          "sub_title": "위치정보 보유기간",
+          "target": "1년"
+        }
+      ]
+    },
+    {
+      "sequence": 3,
+      "title": "제3자 정보제공 동의서",
+      "is_mandatory": "true",
+      "terms_id": "3rdparty",
+      "terms_ver": "1.0",
+      "agreement": "initial서비스(이하“서비스”라 한다)와 관련하여, 본인은 동의 내용을 숙지하였으며, 이에 따라 본인의 개인정보를 귀사(이슈어)가 수집한 개인정보를 아래와 같이 제3자에게 제공하는 것에 대해 동의 합니다. 고객은 개인정보의 제3자 제공에 대한 동의를 거부할 권리가 있으며, 동의를 거부할 시 받는 별도의 불이익은 없습니다. 단, 서비스 이용이 불가능하거나, 서비스 이용 목적에 따른 서비스 제공에 제한이 따르게 됩니다.",
+      "condition": [{
+        "sub_title": "제공하는 자",
+        "target": "발급기관"
+      },
+        {
+          "sub_title": "제공받는 자",
+          "target": "이니셜(SK텔레콤)"
+        },
+        {
+          "sub_title": "제공받는 항목",
+          "target": "생년월일,시험일,성명(영문),만료일,성명(한글),수험번호,듣기점수,읽기점수,총점"
+        },
+        {
+          "sub_title": "수집 및 이용목적",
+          "target": "모바일 전자증명서 발급"
+        },
+        {
+          "sub_title": "보유 및 이용기간",
+          "target": "모바일 전자증명서 발급을 위해 서버에 임시 저장하였다가, 증명서 발행 후 즉시 삭제(단, 고객 단말기 내부 저장영역에 증명서 형태로 저장/보관)"
+        }
+      ]
+    }
+  ]
+
+}
+```
+
 
 curl example
 ```

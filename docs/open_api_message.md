@@ -187,6 +187,13 @@ condition | 각 기관 부제목 및 값을 표시. `sub_title` 및 `target` 을
 
 ![동의서](./img/agreement.png)
 
+
+<div class="admonition warning">
+<p class="admonition-title">warning</p>
+<p> 동의서 전달은 Message API가 아닌 Verify API로 진행 한다 </p>
+</div>
+
+
 * Request Sample
 
 cURL Request Example
@@ -262,4 +269,25 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/conne
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer 2ca4dd8a-xxxx-xxxx-xxxx-c5fb0286f2cc' \
 --data-raw '{"content":" {\"type\" : \"initial_web_view\" , \"content\" = { \"web_view_url\":\"https://www.sktelecom.com/test.php?their_did=UtArAzrfSaTF77mNJVcCrA\" }}"}'
+```
+
+<br>
+
+- 취소 버튼 Java Script Guide
+    - web_view의 취소 버튼 삽입 시 아래 java script code를 적용하면, 사용자앱은 전체 진행을 취소.
+    - sample code : <https://github.com/sktston/initial-controller-java/blob/cloud_demo/src/main/resources/static/web-view/form.html>
+
+```javascript
+<script>
+    function cancle(){
+        //initial app에서 web_view 화면을 즉시 종료 하는 code
+        var userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.search("android") > -1) {
+            Android.failVC ();
+        }
+        else {
+            webkit.messageHandlers.callbackHandler.postMessage("failVC");
+        }
+    }
+</script>
 ```

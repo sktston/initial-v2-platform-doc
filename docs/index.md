@@ -1,4 +1,4 @@
-Document version : v1.7.2 (last updated 2021-06-09)
+Document version : v1.7.3 (last updated 2021-06-16)
 
 Welcome to initial DID Platform Developer Site
 ===============
@@ -14,15 +14,30 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 
 * `Introduction` - Platform 소개 / Release note 
 * `Web Console Service` - Web기반 DID Agent를 지원하는 서비스.
-* `initial DID Agent Guide` - initial DID Agent Open API 사용 가이드.
-* `Reference Guide` - DID Demo 동작을 통한 기술 이해.
+* `initial DID Agent API Guide` - initial DID Agent Open API 사용 가이드.
+* `Reference - Demo Samples` - DID Demo 동작을 통한 기술 이해.
 
 
 ![platform arch](img/initial_platform_architecture.png)
 
 <br>
 
-## 2. Open Source Contribute
+## 2. W3C DID/VC Specification Support
+
+- initial은 W3C DID 표준을 준수하고, did:ssw: method는 W3C DID에 공식 등록 되어 있습니다.
+    - W3C Decentralized Identifiers (DIDs) v1.0 : https://www.w3.org/TR/did-core/
+    - W3C DID methods : <https://www.w3.org/TR/did-spec-registries/#did-methods> (did:ssw:)
+    - SSW DID method specification: <https://sktston.github.io/ssw-did/did-method-spec.html>
+
+<p></p>
+
+- initial은 W3C VC Data 모델의 표준을 준수하고 있습니다.
+    - W3C Verifiable Credentials Data Model 1.0 : https://www.w3.org/TR/vc-data-model/
+
+
+<br>
+
+## 3. Open Source Contribute
 
 - Hyperledger Indy(SDK)
 <https://github.com/hyperledger/indy-sdk>
@@ -36,7 +51,7 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 
 <br>
 
-## 3. Global Standardization
+## 4. Global Standardization
 
 - ToIP(Trust over IP)
 <https://trustoverip.org/> <br>
@@ -47,7 +62,7 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 <https://www.gsma.com/identity/>
 
   
-## 4. Release note
+## 5. Release note
 
 Name | version | Release date| Description
  --- | --- | --- | --- 
