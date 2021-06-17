@@ -21,7 +21,19 @@ invitation_url process sequence diagram
 [PlantUML](http://www.plantuml.com/plantuml/uml/dLHVQzDG57-_d-Amvys-5oihsnW5sGPMV9JONhfWbyGaBSeOP3E8SuLDN5qwcg6e7OCEOgtGX_bbVCmz_GxUUzDaTt7WdwSskUVypk_FkLbqNCrsMrjDGWrNTr-0rk1_G7DWRgbfjkfGbi_bZSfSMc7Q3NcEqGHFXl4aYiSUw4PRTpLNDus5bjtCQbiEjMLnnT1TNMj2sRAoGws-fHloL4zFnPivGaebi6ngqsSjtT5T2gKI8MBimhrPKp4t4F13btqRyn-V7Go162RlCjlK5cpdanw2mMiyw6FFWpZgOUW9LUpB5N_giwW_xGPS3c0uPXV765wnTrynz67wwlkqEuQKeOJ2awDur9aDkqFeSstBQb9EQjDrBQTOA6nl9xQmGv-TVyPmihDJk45Os5q7mP8G2VbdQSaf-dqsye550GQxG9HkQNKHPdbWr-TAy4S0qxTzhbgrHBQGMwTmEt8Zk2tiWa-tB0o3Ms0p7IAq7APbcpNgE38-GK_G534MONMb-Yzc9UHjlR7f4jmRuka5dXsnDySgdzqn6rmgYV58uyb-8HvvE0W1JuznT4co68KSxxTseOY_OsS1yB5fq_-bMdFrjkPIcKls9EHdconlLX4srXzKeL0p3OFM193pqpier6pAonUkuLKBPXaBAeFXp0dbjegWrYrgYFrEDVpT423uSXVz2TiRSu-5GvMrIhLIlW_BbMKehwwiLINewiFAyeeOivG1WlWSV8mo1pB9YKwIgCqMGCoK8s_UN5AdkJxXbhBUrrmVSx_PUGSipNPqem79_Krn520nCTk_st6WJcjcNK5HtUnv83m-x06UHF4e0Zptf-_tPv1tbIHpvuA2kWGv3xBodiy-TG2x7JQuKg-fg9wNx1_H9vkc-VHwktEzjCrBK-bP0ely7_-o_m80)
 
 
-invitation-url API JAVA sample code
+##### invitation-url API Request 
+
+- initial App에서 실제 요청하는 invitation-url http request sample
+
+```
+curl --location --request GET 'http://{{ 기관 도메인 }}/invitation-url'
+```
+
+<p></p>
+- invitation-url API 구현을 위한 JAVA sample code
+
+    - Open API의 `/connections/create-invitation`를 요청하고, Open API의 response중 invitation_url만 전달한다.
+  
 ```java
     public String createInvitationUrl() {
         String params = "?public=true";
@@ -34,25 +46,17 @@ invitation-url API JAVA sample code
     }
 ```
 
+##### invitation-url API Response
 
-initial App에서 요청하는 invitation-url http request sample
-```
-curl --location --request GET 'http://221.168.33.78:8050/invitation-url'
-```
+- invitation-url API Response는 아래와 같은 양식으로 제공해야 한다
 
-기관에서 응답해야 하는 invitation-url Response sample
+    - Response sample
 ```
 https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMmYyNWFhZTktNWQ4MS00MzFhLWE1NzItZDBiYzQ0Yzk5MzI2IiwgImxhYmVsIjogIlx1YjE3OFx1Yzc3OFx1Yzc3Y1x1Yzc5MFx1YjlhYyIsICJkaWQiOiAiZGlkOnNzdzpDQjFmOVdLR0FKRHdVS0NUMlhFeDdvIiwgImltYWdlVXJsIjogImh0dHBzOi8va3Iub2JqZWN0Lm5jbG91ZHN0b3JhZ2UuY29tL2Rldi1pbWFnZS1maWxlL2Q0MWQ4Y2Q5X2Q1YWQ4ZjliXzE2MTYxNDA3ODQifQ==
 ```
 
-##### invitation-url API Response는 아래와 같은 양식으로 제공해야 한다 
+- initial app(holder)은 response의 값을 base64 decoding 하여 연결 시작
 
-Response sample
-```
-https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMmYyNWFhZTktNWQ4MS00MzFhLWE1NzItZDBiYzQ0Yzk5MzI2IiwgImxhYmVsIjogIlx1YjE3OFx1Yzc3OFx1Yzc3Y1x1Yzc5MFx1YjlhYyIsICJkaWQiOiAiZGlkOnNzdzpDQjFmOVdLR0FKRHdVS0NUMlhFeDdvIiwgImltYWdlVXJsIjogImh0dHBzOi8va3Iub2JqZWN0Lm5jbG91ZHN0b3JhZ2UuY29tL2Rldi1pbWFnZS1maWxlL2Q0MWQ4Y2Q5X2Q1YWQ4ZjliXzE2MTYxNDA3ODQifQ==
-```
-
-holder(initial app)은 위 response를 base64 decoding 하여 사용
 ```json
 {
   "@type":"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
@@ -62,6 +66,7 @@ holder(initial app)은 위 response를 base64 decoding 하여 사용
   "imageUrl":"https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_d5ad8f9b_1616140784"
 }
 ```
+<br>
 
 ### 2. DID Agent Controller 개발 안내 
 - 기관사용자는 DID Agent REST API를 사용하기 위해 controller 서버를 개발해야 한다.
@@ -70,10 +75,10 @@ holder(initial app)은 위 response를 base64 decoding 하여 사용
 - Open API 참고 : [Open APIs](https://initial-v2-platform.readthedocs.io/ko/master/open_api_list/)
 - 개발 참고 JAVA 예제 :  [Create Invitation Url java code](https://github.com/sktston/initial-controller-java/blob/master/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java)
 
-
+<br>
   
 ### 3. Webhook API 개발 안내 
-- initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식으로 기관 사용자는 Event를 받을 수 있는 Webhook API를 개발하고 url 등록해아 한다.
+- initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식으로 기관, 사용자는 Event를 받을 수 있는 Webhook API를 개발하고 url 등록해아 한다.
 - 처리결과를 받기 위한 기관 사용자의 Webhook URL은 기관정보에 필수 등록해야 합니다. e.g)https://domain.com/webhooks
 - Webhook 서버의 API Key는 보안 강화를 위한 선택 사항입니다. https://domain.com/webhooks#org-api-key 와 같이 입력하시면 header의 x-api-key 항목에 값으로 "org-api-key"를 함께 전송합니다.
 - Webhook 서버 예제는 아래 reference code (DID 발행/검증 Demo)에서 확인할 수 있습니다. 
@@ -85,22 +90,31 @@ holder(initial app)은 위 response를 base64 decoding 하여 사용
 
 
 
-#### 3-1. Webhook API 구현
+#### 3-1. Webhook url API 개발
 
 - initial DID platform에서 처리 결과를 webhook으로 전달다.
 - 기관은 Webhook으로 event를 받을 수 있는 API를 제공해야 한다.
 - 개발 코드 참고 : https://github.com/sktston/initial-controller-java/blob/main/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java#L643
 - Topic에 관한 참고 : https://ldej.nl/post/aries-cloudagent-python-webhooks
 
-```java
+```
     @PostMapping(value = "/webhooks")
-public ResponseEntity webhooksTopicHandler(@RequestBody String body) {
+public ResponseEntity webhooksTopicHandler(@RequestBody String body, HttpServletRequest request) {
+        //http header x-api-key 정보 확인
+        String httpAddr = request.getRemoteAddr();
+        String apiKey = request.getHeader("x-api-key");
+
+        // api key check
+        if(!apiKey.equals(xApiKey)){
+        log.info("http header:   " + httpAddr + "   xapikey :" + apiKey + ", Unauthorized API-KEY");
+        return ResponseEntity.badRequest().build();
+        }
         globalService.handleEvent(body);
         return ResponseEntity.ok().build();
         }
 ```
 
-실제 Webhook으로 전달되는 Connection Event Sample 
+- 실제 Webhook으로 전달되는 Connection Event Sample 
 
 ```json
 body: {
@@ -238,8 +252,4 @@ Webhook으로 전달되는 event의 서버 log 예제
 ### 4. 참여사 개인정보 수집 및 이용 약관 조회 전달 구현 안내 
 - 모바일 initial App에서 참여사에게 본인확인증명을 제출하기 전 개인정보 수집 및 이용 동의를 받기 위해, 동의서 전달이 필요하다.
 - 동의서는 해당기관 법무팀의 검토를 받아야 한다.
-- 약관/동의서 전달은 DID Agent의 Message 전달 API를 이용한다. 상세 내용은 Message API 참조.
-- Open API 참고 : [Message](https://initial-v2-platform.readthedocs.io/ko/master/open_api_message/)
-- 개발 참고 JAVA 예제 :  [약관 표시 java code](https://github.com/sktston/initial-controller-java/blob/main/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java#L207)
-
-
+- 약관/동의서 전달 상세 내용은 Message 및 Verify API 참조.

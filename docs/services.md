@@ -2,27 +2,27 @@
 
 
 ## 1. initial Web Console
-Web GUI 기반으로 손쉽게 Agent, Wallet 생성하고, VC(Verifiable Credential)을 발행하거나 검증할 수 있는 기능 및 발행/검증 통계 및 사용자 초대 가능
+- Web GUI 기반으로 손쉽게 Agent, Wallet 생성하고, VC(Verifiable Credential)을 발행/검증할 수 있는 기능 제공
 
-  - 디지털 자격 증명을 사용자에게 발행(Issue) 하기 위한 양식 생성 가능
-  - 발행된 디지털 자격 증명서를 쉽고 간편하게 검증(Verify) 하기 위한 양식 생성 가능
-  - 발행/검증 관련 모든 통계 data 제공
-  - 사용자 추가 초대 기능 제공
+      - 디지털 자격 증명을 사용자에게 발행(Issue) 하기 위한 양식 생성 가능
+      - 발행된 디지털 자격 증명서를 쉽고 간편하게 검증(Verify) 하기 위한 양식 생성 가능
+      - 발행/검증 관련 모든 통계 data 제공
+      - 사용자 추가 초대 기능 제공
 
-## 2. 기관(Enterprise) 사용자를 위한 initial DID Agent API Services
-REST API 기반 Wallet 생성 및 VC 발행/검증 지원 
+## 2. 기관(Enterprise) 이용자를 위한 Open API Services
+- REST API 기반 Wallet 생성 및 VC 발행/검증 지원 
   
-  - 기존 Legacy system과 REST APIs를 통한 손쉬운 개발 지원
-  - REST APIs와 연결을 위한 Guide 지원
+      - 기존 Legacy system과 REST APIs를 통한 손쉬운 개발 지원
+      - REST APIs와 연결을 위한 Guide 지원
 
 
-## 3. initial SDK
-Mobile/Server SDK/Agent 제공 (협의 필요)
+## 3. initial SDK & Agent
+- Mobile/Server SDK/Agent 제공 (협의 필요)
 
- - iOS Native SDK
- - Mobile Android Native SDK
- - Java Server SDK(Deprecated)
- - Python Server Agent
+     - iOS Native SDK
+     - Android Native SDK
+     - Java Server SDK(Deprecated)
+     - Python Server Agent
 
 
 ## 4. Definition and Terms
@@ -81,8 +81,8 @@ Mobile/Server SDK/Agent 제공 (협의 필요)
 
 #### ○ Credential Definition
 - 이미 생성된 [Schema](#schema)로 부터 VC를 발행하기 위한 최종 설정.
-- Revocation 사용 여부, 총 발행량, 버전 정보등이 Ledger에 기록.
-- 권한이 있는 Issuer만 생성 가능하고, 생성한 Isser 자신만 사용 가능.
+- Revocation 사용 여부, 총 발행량, 버전 정보, 전자서명등이 Ledger에 기록.
+- 권한이 있는 Issuer만 생성 가능하고, 생성한 Issuer 자신만 사용 가능.
 
 #### ○ Wallet
 - 사용자의 중요 정보를 담기 위한 Secure 공간.
@@ -90,21 +90,20 @@ Mobile/Server SDK/Agent 제공 (협의 필요)
 
 
 ### 2. Keys
-DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
+DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다.
 
 #### ○ MasterKey
 - Wallet Key을 암호화 하기 위한 Symmetric Encryption Key(chacha20-poly1305 기반)
-- 사용자는 MasterKey를 직접 관리해야 하며, 보안 사고시 Rotate key를 통해 변경를 해야 한다.
 
 #### ○ Wallet Key
 - Wallet의 실제 data를 암호화 할때 사용하는 Symmetric Encryption Key(chacha20-poly1305).
-- MasterKey에 의해서 암호화 되어, Wallet의 Metadata 영역에 저장/관리 된다
-- Wallet key는 총 7개의 Key로 구성되어 있다
+- MasterKey에 의해서 암호화 되어, Wallet의 Metadata 영역에 저장/관리 된다.
+- Wallet key는 총 7개의 Key로 구성되어 있다.
 
 #### ○ DID Key
 - DID를 사용하기 위한 Asymmetric Key로 Wallet에 저장되어 있음(ed25519), Digital Sign, Public Key Encryption에 사용함.
-- Pairwise DID Key : 상대방과 연결(Connection)에서만 사용하는 DID. Private DID라고 불리기도 함.
-- Public DID (Primary DID) : Blockchain Ledger에 접근하기 위한 용도의 DID. Ledger 접근하기 위해 Trustee, Steward, Endorser 권한이 있으며, Transaction을 발생할 수 있다. 권한이 없는 사용자는 Read만 가능하다.
+- Pairwise DID : 상대방과 연결(Connection)에서만 사용하는 DID. Private DID라고 불리기도 함.
+- Public DID (Primary DID) : Blockchain Ledger에 Transaction(Write)을 발생하기 위한 용도의 DID. Public DID는 Trustee, Steward, Endorser 권한이 있다. 권한이 없는 사용자는 Read만 가능하다.
 
 #### ○ VerKey
 - verification key. 공개키로 public key와 동일한 개념이다.
@@ -121,13 +120,7 @@ DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
 - https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0046-mediators-and-relays/README.md
 
 #### ○ Cloud Agent
-- Agency 내부에 Peer를 대신해서 wallet 및 message등을 관리하는 프로그램. Client당 한개의 Agent가 생성된다.
-
-#### ○ Connection Agent
-- 참여자들과 연결마다 생성되는 특별한 용도의 프로그램.
-
-#### ○ Initial Client
-- 이니셜 eco-system의 서비스를 제공 받는 참여자들을 말함. Holder, Issuer, Verifier등 해당. 여기서 서비스 서비스를 제공하는 Server는 Agency를 말함.
+- Agency 내부에서 Peer를 대신해서 wallet 및 암호화 message등을 관리하는 기능 제공.
 
 ### 4. Web Console
 - Web GUI 기반 DID Agent 동작을 지원하는 서비스
@@ -137,9 +130,10 @@ DID는 보안 강화를 위해 다양한 종류의 Key들을 사용한다
 
 #### ○ 영지식증명(ZKP or Zero Knowledger Proof)
 - 내정보를 공개하지 않고, 참/거짓을 판별할 수 있는 기술
+- CL Signature가 사용되고 있으며, 2021년 하반기 BBS+ 지원 예정
 
 #### ○ Accumulator
-- Revocation에서 개인정보를 공개하지 않고 사용되는 수학적 암호 기술 
+- Revocation에서 개인정보를 공개하지 않고 사용되는 암호학적 기술 
 
  
 

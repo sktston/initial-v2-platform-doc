@@ -1,4 +1,4 @@
-Document version : v1.7.3 (last updated 2021-06-16)
+Document version : v1.7.4 (last updated 2021-06-17)
 
 Welcome to initial DID Platform Developer Site
 ===============
@@ -39,14 +39,15 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 
 ## 3. Open Source Contribute
 
-- Hyperledger Indy(SDK)
-<https://github.com/hyperledger/indy-sdk>
-- Hyperledger Aries Cloud Agent - Python
-<https://github.com/hyperledger/aries-cloudagent-python>
-- SKT Ston Project(initial DID Platform)
-<https://github.com/sktston>
-- Absa Node Agency(Mediator)
-<https://github.com/AbsaOSS/vcxagencynode>
+- initial은 Hyperledger open source 진영에서 활동하고 기여하고 있으며, 호환성을 제공합니다. 
+    - Hyperledger Indy(SDK)
+    <https://github.com/hyperledger/indy-sdk>
+    - Hyperledger Aries Cloud Agent - Python
+    <https://github.com/hyperledger/aries-cloudagent-python>
+    - SKT Ston Project(initial DID Platform)
+    <https://github.com/sktston>
+    - Absa Node Agency(Mediator)
+    <https://github.com/AbsaOSS/vcxagencynode>
 
 
 <br>

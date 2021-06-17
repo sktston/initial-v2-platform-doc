@@ -74,12 +74,18 @@ Basic Message의 Type은 아래와 같이 정의 (2021.06.03)
 
 type | from | to | Definition
 --- | ---| ---| ---
-initial_agreement |	issuer/verifier	| initial app | issuer/verifier가 개인정보 이용 동의/약관 요청
-initial_agreement_decision	| initial app |	issuer/verifier	| 개인정보동의/약관 요청 결과 전송
+initial_agreement |	issuer	| initial app | **<span style="color:red">(Issuer Only)</span>** 개인정보 이용 동의/약관 요청
+initial_agreement_decision	| initial app |	issuer	| **<span style="color:red">(Issuer Only)</span>** 개인정보동의/약관 요청 결과 전송
 initial_web_view | issuer/verifier	| initial app |	web_view url 표시 요청
 
 <p></p>
 
+<div class="admonition warning">
+<p class="admonition-title">important</p>
+<p>  중요!!  Verify(검증)이 포함된 기관은 Verify API에서 이용약관 및 동의서 보냄 </p>
+</div>
+
+<br>
 
 #### 1. initial_agreement (기관 --> 사용자)
 
@@ -190,7 +196,7 @@ condition | 각 기관 부제목 및 값을 표시. `sub_title` 및 `target` 을
 
 <div class="admonition warning">
 <p class="admonition-title">warning</p>
-<p> 동의서 전달은 Message API가 아닌 Verify API로 진행 한다 </p>
+<p> Verify가 포함된 기관의 동의서 전달은 Message API가 아닌 Verify API로 진행 한다 </p>
 </div>
 
 
@@ -228,6 +234,7 @@ type | Message의 종류
 agree_yn | 동의 여부 
 signature | 사용자 서명 (사용안함)
 
+<p></p>
 - 기관은 Webhook Message를 확인 하여 동의서 결과를 전송 받는다. 
   
 기관에게 전달되는 `initial_agreement_decision` example
@@ -244,7 +251,7 @@ signature | 사용자 서명 (사용안함)
 
 * Next Step
 
-기관 관리자는 동의 결과를 사용자 정보(connection_id, CI, unique id등)와 mappin하여 정보를 관리한다. 
+    - 기관 관리자는 동의 결과를 사용자 정보(connection_id, CI, unique id등)와 mapping하여 정보를 관리한다. 
 
 <br>
 #### 3. initial_web_view (기관 --> 사용자)
