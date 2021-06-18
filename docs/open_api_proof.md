@@ -64,7 +64,7 @@ body example
 {
   "connection_id": "{{connectionId}}",
   "verification_template_id": "{{verifTplId}}",
-  "agreement": "{{동의서 본문 String}}"
+  "agreement": "{{ 동의서 본문 }}"
 }
 ```
 
@@ -72,8 +72,13 @@ body example
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
-<p>  중요!! Verifier(검증자)는 동의서를 `comment` 포함하여 사용자(Holder)에게 전달해야 한다. <br> 본문 json은 string으로 변환하여 {{동의서 본문}} 입력 한다  </p>
+<p> 중요!! 검증기관은 사용자 개인정보를 취득하고, intial platform을 통한 정보 전달을 위해 아래와 같은 약관을 사용자에게 전달해야 한다. 동의서 본문은 아래와 같이 json 규격을 만족해야 한다. </p>
 </div>
+
+* initial app 동의 표시 화면
+
+![동의서](./img/agreement.png)
+
 
 ```json
 {
@@ -159,14 +164,79 @@ body example
 ```
 
 
-curl example
+- curl Request Example
+
 ```
 curl --location --request POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-verification-request' \
 --header 'Content-Type: application/json' \
---header 'Authorization: Bearer 2ca4dd8a-xxxx-421c-xxxx-c5fb0286f2cc' \
+--header 'Authorization: Bearer 2ca4dd8a-1234-1234-1234-c5fb0286f2cc' \
 --data-raw '{
-    "connection_id": "2a6ed506-9577-xxxx-a60c-726241f89aec",
-    "verification_template_id": "b43aba3a-xxxx-4a96-xxxx-9ee532b71cab"
+	"connection_id": "e2a831c8-643a-4a50-bac9-fae620e5437e",
+	"verification_template_id": "82c75511-4eb8-49db-b065-58cda32f8bb3",
+	"agreement": {
+		"type": "initial_agreement",
+		"content": [{
+			"sequence": 1,
+			"title": "개인정보 수집 및 이용 동의서",
+			"is_mandatory": "true",
+			"terms_id": "person",
+			"terms_ver": "1.0",
+			"agreement": "initial서비스(이하\u201C서비스\u201D라 한다)와 관련하여, 본인은 동의 내용을  숙지하였으며, 이에 따라 본인의 개인정보를 귀사(SK텔레콤주식회사)가 수집 및 이용하는 것에 대해 동의 합니다. 본 동의는 서비스의 본질적 기능 제공을 위한 개인정보 수집/이용에 대한 동의로서, 동의를 하는 경우에만 서비스 이용이 가능합니다. 법령 에 따른 개인정보의 수집/이용, 계약의 이행/편익 제공을 위한 개인정보 취급 위탁 및 개인정보 취급과 관련된 일반 사항은 서비스의 개인정보 처리 방침에 따릅니다.",
+			"condition": [{
+				"sub_title": "수집 항목",
+				"target": "이름,생년월일"
+			}, {
+				"sub_title": "수 집 및 이용목적",
+				"target": "서비스 이용에 따른 본인확인"
+			}, {
+				"sub_title": "이용기간 및 보유/파기",
+				"target": "1년"
+			}]
+		}, {
+			"sequence": 2,
+			"title": "위치정보 수집 및 이용 동의서",
+			"is_mandatory": "true",
+			"terms_id": "location",
+			"terms_ver": "1.0",
+			"agreement": "이 약관은 이니셜(SK텔레콤)(이하\u201C회사\u201D)가 제공하는 위치 정보사업 또는 위치기반 서비스 사업과 관련하여 회사와 개인 위치 정보주체와의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.",
+			"condition": [{
+				"sub_title": "위치정보 수집 방법",
+				"target": "GPS칩"
+			}, {
+				"sub_title": "위치정보 이용/제공",
+				"target": "이 약관에 명시되지 않은 사항은 위치정보의 보호 및 이용 등에 관한 법률, 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 전기통신기본법, 전기통신사업법 등 관계법령과 회사의 이용약관 및 개인정보취급방침, 회사가 별도로 정한 지침 등에 의합니다."
+			}, {
+				"sub_title": "수집목적",
+				"target": "현재의 위치를 기반으로 하여 주변 매장의 위치 등의 정보를 제공하는 서비스"
+			}, {
+				"sub_title": "위치정보 보유기간",
+				"target": "1년"
+			}]
+		}, {
+			"sequence": 3,
+			"title": "제3자 정보제공 동의서",
+			"is_mandatory": "true",
+			"terms_id": "3rdparty",
+			"terms_ver": "1.0",
+			"agreement": "initial서비스(이하\u201C서비스\u201D라 한다)와 관련하여, 본인은 동의 내용을 숙지하였으며, 이에 따라 본인의  개인정보를 귀사(이슈어)가 수집한 개인정보를 아래와 같이 제3자에게 제공하는 것에 대해 동의 합니다. 고객은 개인정보의 제3자 제공에 대한 동의를 거부할 권리가 있으며, 동의를 거부할 시 받는 별도의 불이익은 없습니다. 단, 서비스 이용이 불가능하 거나, 서비스 이용 목적에 따른 서비스 제공에 제한이 따르게 됩니다.",
+			"condition": [{
+				"sub_title": "제공하는 자",
+				"target": "발급기관"
+			}, {
+				"sub_title": "제공받는 자",
+				"target": "이니셜(SK텔레콤)"
+			}, {
+				"sub_title": "제공받는 항목",
+				"target": "생년월일,시험일,성명(영문),만료일,성명(한글),수험번호,듣기점수,읽기점수,총점"
+			}, {
+				"sub_title": "수집 및 이용목적",
+				"target": "모바일 전자증명서 발급"
+			}, {
+				"sub_title": "보유 및 이용기간",
+				"target": "모바일 전자증명서 발급을 위해 서버에 임시 저장하였다가, 증명서 발행 후 즉시 삭제(단, 고객 단말기 내부 저장영역에 증명서 형태로 저장/보관)"
+			}]
+		}]
+	}
 }'
 ```
 
@@ -175,112 +245,77 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
    * Response body
 ```json
 {
-   "thread_id":"a1e4441a-2c08-4807-b92f-3e8b6030b037",
-   "trace":false,
-   "presentation_request_dict":{
-      "@type":"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/request-presentation",
-      "@id":"a1e4441a-2c08-4807-b92f-3e8b6030b037",
-      "comment":"{\"verification_template_id\":\"2f2ee9e2-1cd7-48d5-ad63-25aced9abccf\"}",
-      "request_presentations~attach":[
-         {
-            "@id":"libindy-request-presentation-0",
-            "mime-type":"application/json",
-            "data":{
-               "base64":"eyJuYW1lIjogIlx1YWNlMFx1YjgyNFx1YjMwMFx1ZDU1OVx1YzBkZFx1Yzk5ZFx1YWM4MFx1Yzk5ZHYyIiwgInZlcnNpb24iOiAiMS4wIiwgInJlcXVlc3RlZF9hdHRyaWJ1dGVzIjogeyJjYW1wdXNsb2NhdGlvbiI6IHsibmFtZSI6ICJjYW1wdXNsb2NhdGlvbiIsICJub25fcmV2b2tlZCI6IHsiZnJvbSI6IDAsICJ0byI6IDE2MTkwOTk1NTh9LCAicmVzdHJpY3Rpb25zIjogW3siY3JlZF9kZWZfaWQiOiAiM3oyYTJFS2JCMUhBZWpldzN4YXZmQTozOkNMOjE2MTUzNjEzNTY6MzA1M2Q4YzYtMDg4MS00ZTU0LWE4NzQtYmJjYWQxMjRiMDUyIn1dfSwgImNvbGxlZ2UiOiB7Im5hbWUiOiAiY29sbGVnZSIsICJub25fcmV2b2tlZCI6IHsiZnJvbSI6IDAsICJ0byI6IDE2MTkwOTk1NTh9LCAicmVzdHJpY3Rpb25zIjogW3siY3JlZF9kZWZfaWQiOiAiM3oyYTJFS2JCMUhBZWpldzN4YXZmQTozOkNMOjE2MTUzNjEzNTY6MzA1M2Q4YzYtMDg4MS00ZTU0LWE4NzQtYmJjYWQxMjRiMDUyIn1dfSwgInVuaXZlcnNpdHkiOiB7Im5hbWUiOiAidW5pdmVyc2l0eSIsICJub25fcmV2b2tlZCI6IHsiZnJvbSI6IDAsICJ0byI6IDE2MTkwOTk1NTh9LCAicmVzdHJpY3Rpb25zIjogW3siY3JlZF9kZWZfaWQiOiAiM3oyYTJFS2JCMUhBZWpldzN4YXZmQTozOkNMOjE2MTUzNjEzNTY6MzA1M2Q4YzYtMDg4MS00ZTU0LWE4NzQtYmJjYWQxMjRiMDUyIn1dfSwgInN0dWRlbnRpZCI6IHsibmFtZSI6ICJzdHVkZW50aWQiLCAibm9uX3Jldm9rZWQiOiB7ImZyb20iOiAwLCAidG8iOiAxNjE5MDk5NTU4fSwgInJlc3RyaWN0aW9ucyI6IFt7ImNyZWRfZGVmX2lkIjogIjN6MmEyRUtiQjFIQWVqZXczeGF2ZkE6MzpDTDoxNjE1MzYxMzU2OjMwNTNkOGM2LTA4ODEtNGU1NC1hODc0LWJiY2FkMTI0YjA1MiJ9XX0sICJuYW1lIjogeyJuYW1lIjogIm5hbWUiLCAibm9uX3Jldm9rZWQiOiB7ImZyb20iOiAwLCAidG8iOiAxNjE5MDk5NTU4fSwgInJlc3RyaWN0aW9ucyI6IFt7ImNyZWRfZGVmX2lkIjogIjN6MmEyRUtiQjFIQWVqZXczeGF2ZkE6MzpDTDoxNjE1MzYxMzU2OjMwNTNkOGM2LTA4ODEtNGU1NC1hODc0LWJiY2FkMTI0YjA1MiJ9XX0sICJkZXBhcnRtZW50IjogeyJuYW1lIjogImRlcGFydG1lbnQiLCAibm9uX3Jldm9rZWQiOiB7ImZyb20iOiAwLCAidG8iOiAxNjE5MDk5NTU4fSwgInJlc3RyaWN0aW9ucyI6IFt7ImNyZWRfZGVmX2lkIjogIjN6MmEyRUtiQjFIQWVqZXczeGF2ZkE6MzpDTDoxNjE1MzYxMzU2OjMwNTNkOGM2LTA4ODEtNGU1NC1hODc0LWJiY2FkMTI0YjA1MiJ9XX19LCAicmVxdWVzdGVkX3ByZWRpY2F0ZXMiOiB7fSwgIm5vbmNlIjogIjUxNTI4NTg4MDY1MzI1NTU3Mzk5MzA4NCJ9"
-            }
-         }
-      ]
-   },
-   "role":"verifier",
-   "updated_at":"2021-04-22 13:52:38.610876Z",
-   "auto_present":false,
-   "connection_id":"8d8ff076-f96e-42a8-a227-b86e4c2f8ac2",
-   "presentation_exchange_id":"491cdc38-01de-43fd-a0e5-feac18dd7769",
-   "initiator":"self",
-   "presentation_request":{
-      "name":"학생증검증v2",
-      "version":"1.0",
-      "requested_attributes":{
-         "campuslocation":{
-            "name":"campuslocation",
-            "non_revoked":{
-               "from":0.0,
-               "to":1.619099558E9
-            },
-            "restrictions":[
-               {
-                  "cred_def_id":"3z2a2EKbB1HAejew3xavfA:3:CL:1615361356:3053d8c6-0881-4e54-a874-bbcad124b052"
-               }
-            ]
-         },
-         "college":{
-            "name":"college",
-            "non_revoked":{
-               "from":0.0,
-               "to":1.619099558E9
-            },
-            "restrictions":[
-               {
-                  "cred_def_id":"3z2a2EKbB1HAejew3xavfA:3:CL:1615361356:3053d8c6-0881-4e54-a874-bbcad124b052"
-               }
-            ]
-         },
-         "university":{
-            "name":"university",
-            "non_revoked":{
-               "from":0.0,
-               "to":1.619099558E9
-            },
-            "restrictions":[
-               {
-                  "cred_def_id":"3z2a2EKbB1HAejew3xavfA:3:CL:1615361356:3053d8c6-0881-4e54-a874-bbcad124b052"
-               }
-            ]
-         },
-         "studentid":{
-            "name":"studentid",
-            "non_revoked":{
-               "from":0.0,
-               "to":1.619099558E9
-            },
-            "restrictions":[
-               {
-                  "cred_def_id":"3z2a2EKbB1HAejew3xavfA:3:CL:1615361356:3053d8c6-0881-4e54-a874-bbcad124b052"
-               }
-            ]
-         },
-         "name":{
-            "name":"name",
-            "non_revoked":{
-               "from":0.0,
-               "to":1.619099558E9
-            },
-            "restrictions":[
-               {
-                  "cred_def_id":"3z2a2EKbB1HAejew3xavfA:3:CL:1615361356:3053d8c6-0881-4e54-a874-bbcad124b052"
-               }
-            ]
-         },
-         "department":{
-            "name":"department",
-            "non_revoked":{
-               "from":0.0,
-               "to":1.619099558E9
-            },
-            "restrictions":[
-               {
-                  "cred_def_id":"3z2a2EKbB1HAejew3xavfA:3:CL:1615361356:3053d8c6-0881-4e54-a874bbcad124b052"
-               }
-            ]
-         }
+  "trace": false,
+  "thread_id": "e9f29413-9fcb-43e6-90d1-51e078cad5c5",
+  "presentation_request_dict": {
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/request-presentation",
+    "@id": "e9f29413-9fcb-43e6-90d1-51e078cad5c5",
+    "request_presentations~attach": [
+      {
+        "@id": "libindy-request-presentation-0",
+        "mime-type": "application/json",
+        "data": {
+          "base64": "eyJuYW1lIjogIlx1ZDFhMFx1Yzc3NVx1YzEzMVx1YzgwMVx1Yzk5ZFx1YmE4NVx1YzExY1x1YmMxY1x1ZDU4OSBcdWJhYThcdWJjMTRcdWM3N2NcdWFjMDBcdWM3ODVcdWFjODBcdWM5OWQiLCAidmVyc2lvbiI6ICIxLjAiLCAicmVxdWVzdGVkX2F0dHJpYnV0ZXMiOiB7ImRhdGVfb2ZfYmlydGgiOiB7Im5hbWUiOiAiZGF0ZV9vZl9iaXJ0aCIsICJub25fcmV2b2tlZCI6IHsiZnJvbSI6IDAsICJ0byI6IDE2MjQwMDMwNDJ9LCAicmVzdHJpY3Rpb25zIjogW3sic2NoZW1hX2lkIjogImNVOHJFcmpnS2o4ZmduMWtURHJlbjoyOlBlcnNvbklkZW50aXR5Q3JlZGVudGlhbDoxLjAiLCAiY3JlZF9kZWZfaWQiOiAiVG1pc25FQUdCUGVWVkRqdEFYUGRZdDozOkNMOjA6djAxIn1dfSwgIm1vYmlsZV9udW0iOiB7Im5hbWUiOiAibW9iaWxlX251bSIsICJub25fcmV2b2tlZCI6IHsiZnJvbSI6IDAsICJ0byI6IDE2MjQwMDMwNDJ9LCAicmVzdHJpY3Rpb25zIjogW3sic2NoZW1hX2lkIjogImNVOHJFcmpnS2o4ZmduMWtURHJlbjoyOlBlcnNvbklkZW50aXR5Q3JlZGVudGlhbDoxLjAiLCAiY3JlZF9kZWZfaWQiOiAiVG1pc25FQUdCUGVWVkRqdEFYUGRZdDozOkNMOjA6djAxIn1dfSwgInBlcnNvbl9uYW1lIjogeyJuYW1lIjogInBlcnNvbl9uYW1lIiwgIm5vbl9yZXZva2VkIjogeyJmcm9tIjogMCwgInRvIjogMTYyNDAwMzA0Mn0sICJyZXN0cmljdGlvbnMiOiBbeyJzY2hlbWFfaWQiOiAiY1U4ckVyamdLajhmZ24xa1REcmVuOjI6UGVyc29uSWRlbnRpdHlDcmVkZW50aWFsOjEuMCIsICJjcmVkX2RlZl9pZCI6ICJUbWlzbkVBR0JQZVZWRGp0QVhQZFl0OjM6Q0w6MDp2MDEifV19fSwgInJlcXVlc3RlZF9wcmVkaWNhdGVzIjoge30sICJub25jZSI6ICI0MTEwNjg0OTkzODA0MDkwODk0NTI2MDMifQ=="
+        }
+      }
+    ],
+    "comment": "{\"verification_template_id\":\"82c75511-4eb8-49db-b065-58cda32f8bb3\",\"agreement\":{}}"
+  },
+  "role": "verifier",
+  "updated_at": "2021-06-18 07:57:23.007573Z",
+  "auto_present": false,
+  "connection_id": "e2a831c8-643a-4a50-bac9-fae620e5437e",
+  "presentation_exchange_id": "029090d5-70de-48b2-9b30-d7ae0c4866ee",
+  "initiator": "self",
+  "presentation_request": {
+    "nonce": "411068499380409089452603",
+    "name": "토익성적증명서발행 모바일가입검증",
+    "version": "1.0",
+    "requested_attributes": {
+      "date_of_birth": {
+        "name": "date_of_birth",
+        "restrictions": [
+          {
+            "schema_id": "cU8rErjgKj8fgn1kTDren:2:PersonIdentityCredential:1.0",
+            "cred_def_id": "TmisnEAGBPeVVDjtAXPdYt:3:CL:0:v01"
+          }
+        ],
+        "non_revoked": {
+          "to": 1.624003042E9,
+          "from": 0.0
+        }
       },
-      "requested_predicates":{
-         
+      "mobile_num": {
+        "name": "mobile_num",
+        "restrictions": [
+          {
+            "schema_id": "cU8rErjgKj8fgn1kTDren:2:PersonIdentityCredential:1.0",
+            "cred_def_id": "TmisnEAGBPeVVDjtAXPdYt:3:CL:0:v01"
+          }
+        ],
+        "non_revoked": {
+          "to": 1.624003042E9,
+          "from": 0.0
+        }
       },
-      "nonce":"515285880653255573993084"
-   },
-   "created_at":"2021-04-22 13:52:38.610876Z",
-   "state":"request_sent"
+      "person_name": {
+        "name": "person_name",
+        "restrictions": [
+          {
+            "schema_id": "cU8rErjgKj8fgn1kTDren:2:PersonIdentityCredential:1.0",
+            "cred_def_id": "TmisnEAGBPeVVDjtAXPdYt:3:CL:0:v01"
+          }
+        ],
+        "non_revoked": {
+          "to": 1.624003042E9,
+          "from": 0.0
+        }
+      }
+    },
+    "requested_predicates": {}
+  },
+  "created_at": "2021-06-18 07:57:23.007573Z",
+  "state": "request_sent"
 }
 ```
 

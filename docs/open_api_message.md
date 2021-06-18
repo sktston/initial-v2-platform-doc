@@ -189,9 +189,7 @@ condition | 각 기관 부제목 및 값을 표시. `sub_title` 및 `target` 을
 }
 ```
 
-* initial app 동의 표시 화면
 
-![동의서](./img/agreement.png)
 
 
 <div class="admonition warning">
