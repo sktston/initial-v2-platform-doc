@@ -13,7 +13,8 @@ nav:
       - 'Services': 'services.md'
 #      - 'Release notes' : 'release_note.md'
       - '이용약관' : 'termsofuse.md'
-      - '오픈소스고지문' : 'initial platform_v1.0_오픈소스고지문_20210325.htm'
+#      - '오픈소스고지문' : 'initial platform_v1.0_오픈소스고지문_20210325.htm'
+      - '오픈소스고지문' : 'opensource.md'
       - '개인정보수집/이용' : 'privacyuse.md'
 #  - 'Mobile Agency Service' :
 #      - 'Initial Agency' : 'agency.md'
