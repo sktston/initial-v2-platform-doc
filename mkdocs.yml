@@ -1,11 +1,11 @@
 site_author: SKT 주재현
-site_description: Initial Platform
+site_description: initial Platform
 site_url: https://initial-v2-platform.readthedocs.io/
 google_analytics: ['UA-171779938-1', 'https://initial-v2-platform.readthedocs.io/']
 
 repo_url: https://github.com/sktston/initial-v2-platform-doc
 
-site_name: Initial Platform
+site_name: initial Platform
 nav:
   - 'Initial Platform' :
       - 'Introduction' : 'index.md'
@@ -13,7 +13,7 @@ nav:
       - 'Services': 'services.md'
 #      - 'Release notes' : 'release_note.md'
       - '이용약관' : 'termsofuse.md'
-      - '오픈소스고지문' : 'opensource.md'
+      - '오픈소스고지문' : 'initial platform_v1.0_오픈소스고지문_20210325.htm'
       - '개인정보수집/이용' : 'privacyuse.md'
 #  - 'Mobile Agency Service' :
 #      - 'Initial Agency' : 'agency.md'
@@ -65,4 +65,4 @@ theme:
   hljs_style : github
 
 extra:
-  version: 1.0.3
+  version: 1.6.1
