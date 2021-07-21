@@ -11,10 +11,11 @@
 4. 참여사 개인정보 수집 및 이용 동의서 전달 
 
 ### 1. 연결 요청 API 개발 안내
-- 기관사용자는 initial App과 최초 연결(connection)을 위해 초대장(invitation)을 생성할 수 있는 API를 제공해야 한다.
-- initial app의 기관 icon 클릭 시 해당 URL과 최초 통신 한다 
+- 기관사용자는 initial App과 최초 연결(connection)을 위해 초대장(invitation)을 생성하고 전달할 수 있는 API를 제공해야 한다.
+- initial app의 기관 icon 클릭 시 invitation-url에서 초대장을 받아 연결을 시도 한다.
+- invitation-url API 개발 완료 후 Web Console의 '기관정보'에 입력해야 한다.
 - 연결요청 Open API 참고 : [Connection](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/)
-- 개발 참고 JAVA 예제 :  [Create Invitation Url java code](https://github.com/sktston/initial-controller-java/blob/master/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java#L181)
+- 개발 참고 JAVA 예제 :  [Create Invitation Url java code](https://github.com/sktston/initial-controller-java/blob/master/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java)
 
 
 invitation_url process sequence diagram
@@ -51,14 +52,14 @@ curl --location --request GET 'http://{{ 기관 도메인 }}/invitation-url'
 
 ##### invitation-url API Response
 
-- invitation-url API Response는 아래와 같은 양식으로 제공해야 한다
+- invitation-url API Response는 아래와 같은 양식으로 제공해야 한다.
 
     - Response sample
 ```
 https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMmYyNWFhZTktNWQ4MS00MzFhLWE1NzItZDBiYzQ0Yzk5MzI2IiwgImxhYmVsIjogIlx1YjE3OFx1Yzc3OFx1Yzc3Y1x1Yzc5MFx1YjlhYyIsICJkaWQiOiAiZGlkOnNzdzpDQjFmOVdLR0FKRHdVS0NUMlhFeDdvIiwgImltYWdlVXJsIjogImh0dHBzOi8va3Iub2JqZWN0Lm5jbG91ZHN0b3JhZ2UuY29tL2Rldi1pbWFnZS1maWxlL2Q0MWQ4Y2Q5X2Q1YWQ4ZjliXzE2MTYxNDA3ODQifQ==
 ```
 
-- initial app(holder)은 response의 값을 base64 decoding 하여 연결 시작
+- initial app(holder)은 response의 값을 base64 decoding 하여 연결 시작한다.
 
 ```json
 {
@@ -69,11 +70,13 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
   "imageUrl":"https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_d5ad8f9b_1616140784"
 }
 ```
-<br>
+
+
+- invitation-url의 개발은 OPEN API의 [Connection](/open_api_auto_connection/)을 참고.
 
 ### 2. DID Agent Controller 개발 안내 
 - 기관사용자는 DID Agent REST API를 사용하기 위해 controller 서버를 개발해야 한다.
-- Webhook 서버를 통해 전달된 event에 따라 다음 action을 구현한다.
+- Webhook 서버를 통해 전달된 Event에 따라 다음 Service Logic을 구현해야 한다.
 - 자세한 API 내용은 initial DID Agent API Guide 및 reference code 참조
 - Open API 참고 : [Open APIs](https://initial-v2-platform.readthedocs.io/ko/master/open_api_list/)
 - 개발 참고 JAVA 예제 :  [Create Invitation Url java code](https://github.com/sktston/initial-controller-java/blob/master/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java)
@@ -157,8 +160,9 @@ present_proof | request_sent, presentation_received,verified | 검증 | state:ve
 revocation_registry | posted | RevocationRegistry record 생성 완료 | 블록체인에 자동으로 생성 완료. 개발자는 별도로 진행할 필요 없음.
 problem_report | | | 에러 확인 
 
-
+<br> 
 ##### Webhook Controller Sample code
+
 ```java
 public void handleEvent(String body) {
 String topic = JsonPath.read(body, "$.topic");
@@ -255,4 +259,4 @@ Webhook으로 전달되는 event의 서버 log 예제
 ### 4. 참여사 개인정보 수집 및 이용 약관 조회 전달 구현 안내 
 - 모바일 initial App에서 참여사에게 본인확인증명을 제출하기 전 개인정보 수집 및 이용 동의를 받기 위해, 동의서 전달이 필요하다.
 - 동의서는 해당기관 법무팀의 검토를 받아야 한다.
-- 약관/동의서 전달 상세 내용은 Message 및 Verify API 참조.
+- 약관/동의서 전달 상세 내용은 [Verify](/open_api_proof/#step-1-verifier-holder-verification-request) API 참조.
