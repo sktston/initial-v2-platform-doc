@@ -14,26 +14,42 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br>
 
-**Faber**(검증자/Verifier)와 **Alice**(Holder/Prover)의 VC검증 시나리오
+**Verifier**(검증자)와 **Holder**(사용자/initial App)의 VC 검증 시나리오
 <br>
 
 ![verify sequence diagram](img/verify_diagram.png)
-[PlantUML](http://www.plantuml.com/plantuml/uml/TPH1JzjA4CVl-ob6d1o4UNT44EXTthjLFN2jJB9fBOpjsciaRW6CH0jIQKj4W3WAhG1H1IaDDCsX_KBUpNVeh3s9XLKa99BT_ypE_7ypMGs55OXeos7S5RROWMqUs0sR1s25CBTEN-Qcjr58DsglhoxkLFV4-CzpwdYuvlkLcSmEmuY4_-kFc82nQXNyW0VyRMI7jk1GhJ96GdCboxm4w__AGISTlmDr7iklnsnMpJ99O0bgdkloch0zrr1dWtGug90wU-95uFbUQ3c6vsj99Nic2lD7A9tEaWwRwYO1rUkef6tu55LXheUb1VRhDuBDvngIJ1DNGEuzOk_ppCplvU0oVUY1EXgff8aTC5D7Z3gJLll9EIQ1IUjUVhi35VSc-maAfow2V1Yh1FyUGTtkgjv7agZUBaopzIXQ9J6LpSoyISk1T3oGxwzLvvUywe3QJsJt1wI39fujCdEvuRa2VNEyeBhXH7nbUMF5TcrXOw3b-nW5KmCWBmbhLsTzAEfJ5wTgU8_lnlAeluYSww2TAW2PJ-qjHngvLnMOdBUmqGpLInm57WemjYotRWalsCbf5Ka9Ue6BaWLv9D5oU6C6goIOiSgdL2Ce4yyyxnvgw-uU8VqvbiTDRI9YLQqOvEUElEcdtmTohxt0Sehgou6yRYyG3sJNJ8U_5zJe51qdrncOU1shm_RJYdZzbIL4O6z4WeSLhLBjNNNRL4S9DL2MuyxKxPf5Sap_QJOYtGFPkmOZv4v3PytqcMZouGG70WdAKHCCrtFDW6zxctXRaADjuI7khAMdgCo1jcR6WCmdImdaywkLZotwNBnGtgvdP0KrIggvbT4Noq2LmEGofbrXHluVDBRH54cvztMTVAVKD3tvJ4_KStdgwDmWVRrem2mMWMhJ0FLn9yQnKLS4oH11nFzfM4x8YpB_jWThjKssYWBynVu3)
+[PlantUML 상세보기](http://www.plantuml.com/plantuml/uml/TPH1JzjA4CVl-ob6d1o4UNT44EXTthjLFN2jJB9fBOpjsciaRW6CH0jIQKj4W3WAhG1H1IaDDCsX_KBUpNVeh3s9XLKa99BT_ypE_7ypMGs55OXeos7S5RROWMqUs0sR1s25CBTEN-Qcjr58DsglhoxkLFV4-CzpwdYuvlkLcSmEmuY4_-kFc82nQXNyW0VyRMI7jk1GhJ96GdCboxm4w__AGISTlmDr7iklnsnMpJ99O0bgdkloch0zrr1dWtGug90wU-95uFbUQ3c6vsj99Nic2lD7A9tEaWwRwYO1rUkef6tu55LXheUb1VRhDuBDvngIJ1DNGEuzOk_ppCplvU0oVUY1EXgff8aTC5D7Z3gJLll9EIQ1IUjUVhi35VSc-maAfow2V1Yh1FyUGTtkgjv7agZUBaopzIXQ9J6LpSoyISk1T3oGxwzLvvUywe3QJsJt1wI39fujCdEvuRa2VNEyeBhXH7nbUMF5TcrXOw3b-nW5KmCWBmbhLsTzAEfJ5wTgU8_lnlAeluYSww2TAW2PJ-qjHngvLnMOdBUmqGpLInm57WemjYotRWalsCbf5Ka9Ue6BaWLv9D5oU6C6goIOiSgdL2Ce4yyyxnvgw-uU8VqvbiTDRI9YLQqOvEUElEcdtmTohxt0Sehgou6yRYyG3sJNJ8U_5zJe51qdrncOU1shm_RJYdZzbIL4O6z4WeSLhLBjNNNRL4S9DL2MuyxKxPf5Sap_QJOYtGFPkmOZv4v3PytqcMZouGG70WdAKHCCrtFDW6zxctXRaADjuI7khAMdgCo1jcR6WCmdImdaywkLZotwNBnGtgvdP0KrIggvbT4Noq2LmEGofbrXHluVDBRH54cvztMTVAVKD3tvJ4_KStdgwDmWVRrem2mMWMhJ0FLn9yQnKLS4oH11nFzfM4x8YpB_jWThjKssYWBynVu3)
 
 present_proof State 및 Webhook event 전달 항목 
 
 Topic | State | Description
 --- | --- | ---
+present_proof | <font color=red>proposal_received<br><b>(Webhook event 전달) | (issuer) proof 요청을 받은 상태
 present_proof | request_sent | (issuer)proof presentation 요청한 상태 
 present_proof | request_received | (holder)proof presentation 요청을 받은 상태
 present_proof | presentation_sent | (holder) proof를 presentation 한 상태
-present_proof | <font color=red>presentation_received<br><b>(Webhook event 전달) | (issuer) Credential 요청을 받은 상태 
+present_proof | <font color=red>presentation_received<br><b>(Webhook event 전달) | (issuer) Proof를 받은 상태 
 present_proof | <font color=red>verified<br><b>(Webhook event 전달) | (issuer) Proof verification 완료 한 상태  
 present_proof | presentation_acked | (holder) Proof verified 응답을 받은 상태 
 
 <br><br>
 
-### STEP 1. Faber(검증자) --> Alice(Holder) : Alice에게 Proof Present를 보낸다. 
+### STEP 0. Holder(사용자) --> Verifier(검증자) : Proof Proposal 보낸다.
+
+<div class="admonition Note">
+<p class="admonition-title">Note</p>
+<p> STEP0는 Holder(initial app)에서 Proof Proposal을 먼저 진행할 경우 해당한다. <br> STEP0를 생략하고 Verifier가 STEP1 Verification Request를 먼저 보낼 수도 있다.</p>
+</div>
+
+상세 내용 update 예정
+
+* Verifier 아래 정보를 확인 해야 함.
+<p></p>
+1. `"topic": "present_proof"` >> VC 검증 요청
+2. `"state": "proposal_received"` >> Proposal 상태
+<br><br>
+
+### STEP 1. Verifier(검증자) --> Holder(사용자) : 사용자에게 Verification Request를 보낸다. 
 
 * Method and Resource
 
@@ -43,7 +59,7 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
  Name | Description 
  --- | ---
- connection_id | Alice와 connection 정보
+ connection_id | 사용자와 connection 정보
  verification_template_id | 사용하고자 하는 검증양식ID(verifTplId) 
  agreement | (String)개인정보 수집 및 이용 동의서 / 제3자 정보제공 동의서
  
@@ -57,9 +73,8 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
 ![webconsole 1](img/web_console_verification_templete_id.png)
 
-* Example
+* Body Example
 
-body example
 ```json
 {
   "connection_id": "{{connectionId}}",
@@ -68,16 +83,12 @@ body example
 }
 ```
 
-* {{동의서 본문}} Sample
+- agreement에 들어갈 {{동의서 본문}} Sample
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
 <p> 중요!! 검증기관은 사용자 개인정보를 취득하고, intial platform을 통한 정보 전달을 위해 아래와 같은 약관을 사용자에게 전달해야 한다. 동의서 본문은 아래와 같이 json 규격을 만족해야 한다. </p>
 </div>
-
-* initial app 동의 표시 화면
-
-![동의서](./img/agreement.png)
 
 
 ```json
@@ -162,6 +173,10 @@ body example
 
 }
 ```
+
+* initial app 동의 표시 화면
+
+![동의서](./img/agreement.png)
 
 
 - curl Request Example
@@ -337,7 +352,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
     
 <br><br>
 
-### STEP 2. Alice : Faber(검증자)의 present proof를 확인. 
+### STEP 2. Holder : Verifier(검증자)의 presentation 요청 내용 확인. 
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
@@ -347,7 +362,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
 <br><br>
 
 
-### STEP 3. Alice --> Faber(검증자) : Faber에게 send presentation 보낸다. 
+### STEP 3. Holder --> Verifier(검증자) : Verifier에게 presentation 보낸다. 
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
@@ -356,7 +371,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
 
 <br><br>
 
-### STEP 4. Faber : VP 검증 결과를 확인 한다.
+### STEP 4. Verifier : Presentation 검증 결과 확인.
 
 Webhhok Message의 `requested_proof` 및 `verified` 정보 확인
 ```json
@@ -405,11 +420,12 @@ Webhhok Message의 `requested_proof` 및 `verified` 정보 확인
 verified 결과 True/False 확인
 
 * 참고 
-Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json 경로를 parsing 한다
-  <br>
-  presantation.requested_proof.revealed_attrs.{{requested_attribute}}.raw
-  
-  ![verify_webhook](img/verify_topic.png)
+
+Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json 경로를 parsing 한다<br>
+`presentation.requested_proof.revealed_attrs.{{requested_attribute}}.raw`
+<br> `{{requested_attribute}}` 의 명칭은 검증양식 생성할때 사용한 `"검증명"` + `"Attribute 이름"` 이다.
+
+  ![verify_webhook](img/verify_topic2.png)
 
 
 ### STEP 5. 고급 증명양식 검증(Verify)의 다양한 기법
