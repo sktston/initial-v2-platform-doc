@@ -37,7 +37,6 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능하�
   `POST` | /issue-credential/records/{cred_ex_id}/problem-report | Issue Problem report 보내기
   `POST` | /present-proof/records/{pres_ex_id}/problem-report | Verify Problem report 보내기
 
-
   
   <br>
   
@@ -50,3 +49,4 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능하�
   `POST` | /present-proof/records/{pres_ex_id}/send-presentation | VP(Verifiable Presentation) 보내기 
   `GET` | /credentials | 모든 VC list 가져오기 
   `DELETE` | /credential/{credential_id} | 특정 VC 삭제하기 
+  `POST` | /present-proof/send-proposal | Verify Proposal 보내기

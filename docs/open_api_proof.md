@@ -24,7 +24,7 @@ present_proof State 및 Webhook event 전달 항목
 
 Topic | State | Description
 --- | --- | ---
-present_proof | <font color=red>proposal_received<br><b>(Webhook event 전달) | (issuer) proof 요청을 받은 상태
+present_proof | <font color=red>proposal_received<br><b>(Webhook event 전달) | (issuer) proof 제안을 받은 상태
 present_proof | request_sent | (issuer)proof presentation 요청한 상태 
 present_proof | request_received | (holder)proof presentation 요청을 받은 상태
 present_proof | presentation_sent | (holder) proof를 presentation 한 상태
@@ -41,12 +41,82 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 <p> STEP0는 Holder(initial app)에서 Proof Proposal을 먼저 진행할 경우 해당한다. <br> STEP0를 생략하고 Verifier가 STEP1 Verification Request를 먼저 보낼 수도 있다.</p>
 </div>
 
-상세 내용 update 예정
+* Method and Resource
 
-* Verifier 아래 정보를 확인 해야 함.
+  `POST` `/present-proof/send-proposal` proof 제출 요청.
+
+* Body Parameter
+
+Name | Description
+ --- | ---
+connection_id | 사용자와 connection 정보
+presentation_proposal | proposal 내용
+
+* Request Body Example
+
+```json
+{
+    "connection_id": "83de4567-ec62-48cc-bfbe-426fbbc9a0b6",
+    "presentation_proposal": {
+        "attributes": [
+            {
+                "name": "favourite_drink",
+                "cred_def_id": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag"
+            }
+        ],
+        "predicates": [],
+        "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/presentation-preview"
+    },
+    "auto_present": true,
+    "comment": "검증 제안 Sample",
+    "trace": false
+}
+```
+
 <p></p>
+
+* Response Body and Received Topic Example
+
+```json
+{
+	"presentation_exchange_id": "cf11111c-f944-44c6-a9d0-fb401a5833f9",
+	"presentation_proposal_dict": {
+		"@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/propose-presentation",
+		"@id": "60b43378-582e-450f-8d7a-69adfc55168b",
+		"comment": "검증 제안 Sample",
+		"presentation_proposal": {
+			"@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/presentation-preview",
+			"attributes": [{
+				"name": "favourite_drink",
+				"cred_def_id": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag"
+			}],
+			"predicates": []
+		}
+	},
+	"connection_id": "b7ee2e6b-1bc3-4c23-93ac-416c857d4daa",
+	"created_at": "2021-07-23 01:27:26.783346Z",
+	"thread_id": "60b43378-582e-450f-8d7a-69adfc55168b",
+	"role": "verifier",
+	"auto_present": false,
+	"updated_at": "2021-07-23 01:27:26.783346Z",
+	"initiator": "external",
+	"state": "proposal_received",
+	"trace": false,
+	"topic": "present_proof"
+}
+```
+<p></p>
+
+* Verifier 위 Topic에서 아래 정보를 확인 해야 함.
+
+<p></p>
+
 1. `"topic": "present_proof"` >> VC 검증 요청
 2. `"state": "proposal_received"` >> Proposal 상태
+3. `presentation_proposal_dict.presentation_proposal.attributes.cred_def_id` >> 검증 제안 VC (추후 변경 가능)
+
+Verifiers는 3번의 cred_def_id를 확인 후 STEP1의 proof 요청한다.
+
 <br><br>
 
 ### STEP 1. Verifier(검증자) --> Holder(사용자) : 사용자에게 Verification Request를 보낸다. 
@@ -73,7 +143,7 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
 ![webconsole 1](img/web_console_verification_templete_id.png)
 
-* Body Example
+* Request Body Example
 
 ```json
 {
