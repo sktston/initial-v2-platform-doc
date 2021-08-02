@@ -123,3 +123,29 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 * VC발행을 위해서는 Open API를 사용하여 진행.
 * Open API 사용하기 위해서는 기관의 API Access Token과 Verification Template ID 필요함
 * 상세 내용은 Open API의 ['Verify'](/open_api_proof/) Page 참고
+<br><br>
+
+#### 8. initial App 연동하기
+
+<div class="admonition warning">
+<p class="admonition-title">warning</p>
+<p> initial App 연동은 사용자들에게 직접 영향을 주기 때문에 주의가 필요 </p>
+</div>
+
+* 기관 관리자는 Web Console을 통해 initial App의 기관 표시를 컨트롤 할 수 있다.
+* 실수를 방지하기 위해 아래 두단계를 활성화 해야 한다
+<p></p>
+
+* <b>기관관리</b>-<b>기관정보</b>에서 아래 두 항목을 활성화 해야 한다. webhook url과 invitation url 모두 개발 되어야 활성화 된다.
+    - <b>기관 공개</b> : `공개`로 설정. '비공개'로 설정하면 'App표시'는 자동으로 `미사용` 된다.
+    - <b>App표시</b> : '사용'으로 설정.
+
+![webconsole 1](img/initial_app_display_1.png)
+
+* <b>발행관리</b>-<b>발행양식관리</b>-<b>증명서상세보기</b>에서 아래 항목을 활성화 해야 한다
+    - <b>증명서 발행 설정</b> : '증명서공개'로 설정. 해당 증명서만 영향을 준다.
+![webconsole 1](img/initial_app_display_2.png)
+
+<br><br>
+
+* 개발 진행 중에는 기관공개를 `비공개`로 하거나, App표시를 `미사용`으로 해야 한다.  
