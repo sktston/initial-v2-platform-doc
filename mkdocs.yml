@@ -23,6 +23,8 @@ nav:
       - 'Web Console 소개' : 'web_console.md'
       - 'Web Console 이용방법' : 'web_console_signup.md'
       - 'Web Console 개발 Guide': 'web_console_guide.md'
+      - 'FAQ': 'web_console_FAQ.md'
+
 
   - 'initial DID Agent API Guide':
       - 'Open API list': 'open_api_list.md'
@@ -66,4 +68,4 @@ theme:
   hljs_style : github
 
 extra:
-  version: 1.6.1
+  version: 1.9.0
