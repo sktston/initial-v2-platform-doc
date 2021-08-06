@@ -30,13 +30,13 @@ nav:
       - 'Open API list': 'open_api_list.md'
 #      - 'Wallet & DID' : 'open_api_wallet.md'
       - 'Connection': 'open_api_auto_connection.md'
+      - 'Verify': 'open_api_proof.md'
       - 'Message': 'open_api_message.md'
-          #      - 'Manual Connection': 'open_api_manual_connection.md'
+      - 'Issue': 'open_api_auto_credential.md'
+            #      - 'Manual Connection': 'open_api_manual_connection.md'
 #      - 'Router Connection': 'open_api_router_connection.md'
       - 'Schema & Credential ID 등록': 'open_api_schema_creddef.md'
-      - 'Issue': 'open_api_auto_credential.md'
 #      - 'Manual Credential Issue': 'm_credential.md'
-      - 'Verify': 'open_api_proof.md'
       - 'Revocation': 'open_api_revocation.md'
   - 'Reference - Demo Samples' :
 #      - 'DID VCX Java Demo' : 'demo.md'
@@ -68,4 +68,4 @@ theme:
   hljs_style : github
 
 extra:
-  version: 1.9.0
+  version: 2.0.0
