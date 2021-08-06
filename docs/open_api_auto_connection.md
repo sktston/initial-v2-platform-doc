@@ -95,7 +95,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <br>
 
-### STEP 1. 기관(Issuer/Verifier) --> 사용자(Holder) : create invitation & send invitation.
+### STEP 1. <font color=green>[Mandatory]</font> 기관 → 사용자(Holder) : create & send invitation.
 
 * Method and Resource
 
@@ -131,7 +131,7 @@ curl -X 'POST' \
 ```
 <p></p>
 
-* Response body example(생성된 초대장)
+* Response Body example(생성된 초대장)
 ```json
 {
   "connection_id": null,
@@ -149,13 +149,14 @@ curl -X 'POST' \
 <br><br>
 
 
-### STEP 1-1. 기관(Issuer/Verifier) --> 사용자(Holder) : Invitation 전달
+### STEP 1-1. <font color=green>[Mandatory]</font> 기관 → 사용자(Holder) : Invitation 전달
 
 1. [initial default] **invitation_url**을 전달할 수 있는 API 작성 
     - [Web Console 개발 Guide](web_console_guide/#1-api) 참조
 2. [deeplink] App to App 요청 
     - spec : initial://reqService?process=I&ynCloud=Y&invitation=**<span style="color:red">{{invitation_url 내용}}</span>**
-    - sample : `\initial://reqService?process=I&ynCloud=Y&invitation=https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMzk3ZDZkNTEtODVlOC00NTNlLThlODAtZWI2NzVmZmVhYzU1IiwgImRpZCI6ICJkaWQ6c3N3Ok5vTEwxc2JSU0dQQjE5VHVxSFBXcVkiLCAibGFiZWwiOiAiKFRFU1QpXHViMzAwXHVkNTU5XHVjODFjXHVjOTlkXHViYTg1XHVhYzgwXHVjOTlkIFx1YWUzMFx1YWQwMCIsICJpbWFnZVVybCI6ICJodHRwczovL2tyLm9iamVjdC5uY2xvdWRzdG9yYWdlLmNvbS9kZXYtaW1hZ2UtZmlsZS9kNDFkOGNkOV9lMmY1MmQ1YV8xNjIyMTc5ODQxIn0=`
+    - sample : 
+      `initial://reqService?process=I&ynCloud=Y&invitation=https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMzk3ZDZkNTEtODVlOC00NTNlLThlODAtZWI2NzVmZmVhYzU1IiwgImRpZCI6ICJkaWQ6c3N3Ok5vTEwxc2JSU0dQQjE5VHVxSFBXcVkiLCAibGFiZWwiOiAiKFRFU1QpXHViMzAwXHVkNTU5XHVjODFjXHVjOTlkXHViYTg1XHVhYzgwXHVjOTlkIFx1YWUzMFx1YWQwMCIsICJpbWFnZVVybCI6ICJodHRwczovL2tyLm9iamVjdC5uY2xvdWRzdG9yYWdlLmNvbS9kZXYtaW1hZ2UtZmlsZS9kNDFkOGNkOV9lMmY1MmQ1YV8xNjIyMTc5ODQxIn0=`
 3. [QR code] 
     - 위 Deeplink를 QR code 생성하여 사용자 scan
 
@@ -163,13 +164,13 @@ curl -X 'POST' \
 <br>
 <br>
 
-### STEP 2. 사용자(Holder) --> 기관(Issuer/Verifier) : receive invitation & request connection.
+### STEP 2. 사용자(Holder) → 기관 : receive invitation & request connection.
 
 
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> STEP2는 Holder가 initial app 일 경우 SDK에서 자동으로 처리된다</p>
+<p> STEP2는 initial app(Holder) SDK에서 자동으로 처리되기 때문에, 참고만 하시면 됩니다. </p>
 </div>
 
 * STEP2 실제 과정 참고
@@ -178,46 +179,83 @@ curl -X 'POST' \
     * [Cloud Agent <<< **<span style="color:red">모바일</span>**] `request connection`을 받고 자동으로 `response` 전송
     * [**<span style="color:red">Cloud Agent </span>**>>> 모바일] `response`를 받고 자동으로 `response` 전송
     
-    <br> 위와 같은 process로 인해 기관의 Webhook 서버로 아래 두번의 event(`request`,`response`) 결과가 전달 된다.
-    정보는 참고만 하면 되고 다른 action은 필요 없다.(아래 sample은 JAVA 서버 기준) 
+    <br> 위와 같은 process로 인해 기관의 Webhook 서버로 아래 두번의 Webhook event(`request`,`response`) 결과가 전달 된다.
+    정보는 참고만 하면 되고 다른 action은 필요 없다. 
+
+<b>topic : `connections`, state : `request` </b>
+```json
+{
+  "created_at":"2021-06-02 06:31:57.255177Z",
+  "their_role":"inviter",
+  "updated_at":"2021-06-02 06:31:57.255177Z",
+  "rfc23_state":"request-sent",
+  "state":"request",
+  "accept":"auto",
+  "routing_state":"none",
+  "their_did":"78bCMv53bKrusuxyrrbgWM",
+  "invitation_mode":"once",
+  "connection_id":"7d670c2a-ef85-4289-81c3-24bb8e4f045d",
+  "invitation_key":"81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P",
+  "my_did":"66ZaFYLPorqgtQpo8AcpQY",
+  "their_label":"agency",
+  "topic":"connections"
+}
 ```
-2021-06-02 15:31:57 [INFO ] [GlobalService.java]handleEvent(78) : handleEvent >>> topic:connections, state:request, body:{"created_at":"2021-06-02 06:31:57.255177Z","their_role":"inviter","updated_at":"2021-06-02 06:31:57.255177Z","rfc23_state":"request-sent","state":"request","accept":"auto","routing_state":"none","their_did":"78bCMv53bKrusuxyrrbgWM","invitation_mode":"once","connection_id":"7d670c2a-ef85-4289-81c3-24bb8e4f045d","invitation_key":"81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P","my_did":"66ZaFYLPorqgtQpo8AcpQY","their_label":"agency","topic":"connections"}
-2021-06-02 15:31:57 [INFO ] [GlobalService.java]handleEvent(78) : handleEvent >>> topic:connections, state:response, body:{"created_at":"2021-06-02 06:31:57.255177Z","their_role":"inviter","updated_at":"2021-06-02 06:31:57.385549Z","rfc23_state":"response-received","state":"response","accept":"auto","routing_state":"none","their_did":"78bCMv53bKrusuxyrrbgWM","invitation_mode":"once","connection_id":"7d670c2a-ef85-4289-81c3-24bb8e4f045d","invitation_key":"81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P","my_did":"66ZaFYLPorqgtQpo8AcpQY","their_label":"agency","topic":"connections"}```
+<br>
+
+<b>topic : `connections`, state : `response` </b>
+```json
+{
+"created_at":"2021-06-02 06:31:57.255177Z",
+"their_role":"inviter",
+"updated_at":"2021-06-02 06:31:57.385549Z",
+"rfc23_state":"response-received",
+"state":"response",
+"accept":"auto",
+"routing_state":"none",
+"their_did":"78bCMv53bKrusuxyrrbgWM",
+"invitation_mode":"once",
+"connection_id":"7d670c2a-ef85-4289-81c3-24bb8e4f045d",
+"invitation_key":"81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P",
+"my_did":"66ZaFYLPorqgtQpo8AcpQY",
+"their_label":"agency",
+"topic":"connections"
+}
 ```
 <br><br>    
 
-### STEP 3. 기관(Issuer/Verifier) : Webhook Message 확인 및 Connection 정보 관리 
+### STEP 3. <font color=green>[Mandatory]</font> 기관(Issuer/Verifier) : Webhook Message 확인 및 Connection 정보 관리 
 
-- 연결(Connection)이 완료되면 Webhook을 통해 아래 Message가 전달 된다.
+- 연결(Connection)이 완료되면 Webhook Event을 통해 아래 Message가 전달 된다.
   
-```
-2021-06-02 15:32:01 [INFO ] [GlobalService.java]handleEvent(78) : handleEvent >>> topic:connections, state:active, body:{"created_at":"2021-06-02 06:31:57.255177Z","routing_state":"none","my_did":"66ZaFYLPorqgtQpo8AcpQY","their_label":"agency","rfc23_state":"completed","connection_id":"7d670c2a-ef85-4289-81c3-24bb8e4f045d","their_role":"inviter","accept":"auto","updated_at":"2021-06-02 06:32:01.252322Z","invitation_key":"81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P","invitation_mode":"once","their_did":"78bCMv53bKrusuxyrrbgWM","state":"active","topic":"connections"}
+
+<b> topic: `connections`, state : `active` </b>
+
+
+```json
+{
+  "created_at":"2021-06-02 06:31:57.255177Z",
+  "routing_state":"none",
+  "my_did":"66ZaFYLPorqgtQpo8AcpQY",
+  "their_label":"agency",
+  "rfc23_state":"completed",
+  "connection_id":"7d670c2a-ef85-4289-81c3-24bb8e4f045d",
+  "their_role":"inviter",
+  "accept":"auto",
+  "updated_at":"2021-06-02 06:32:01.252322Z",
+  "invitation_key":"81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P",
+  "invitation_mode":"once",
+  "their_did":"78bCMv53bKrusuxyrrbgWM",
+  "state":"active",
+  "topic":"connections"
+}
 ```
 
 - 기관 개발자는 body의 `"topic":"connections"`와 `"state":"active"`를 확인 해야 한다.
     - body의 `"state":"active"` 일 경우 연결이 완료 되었기 때문에, their_did(사용자 DID), connection_id(사용자와 communication 필요할때 사용하는 id)등을 확인/기록 하면 된다.
     - `their_did(사용자 DID)`는 정책상 Privacy 보호를 위해 수시로 변경(앱재설치등)되기 때문에, 고객 식별자로 사용 불가능 하다. 
+  
 
-- body로 전달 된 connection 정보 example
-```json
-{
-  "created_at": "2021-06-02 06:31:57.255177Z",
-  "routing_state": "none",
-  "my_did": "66ZaFYLPorqgtQpo8AcpQY",
-  "their_label": "agency",
-  "rfc23_state": "completed",
-  "connection_id": "7d670c2a-ef85-4289-81c3-24bb8e4f045d",
-  "their_role": "inviter",
-  "accept": "auto",
-  "updated_at": "2021-06-02 06:32:01.252322Z",
-  "invitation_key": "81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P",
-  "invitation_mode": "once",
-  "their_did": "78bCMv53bKrusuxyrrbgWM",
-  "state": "active",
-  "topic": "connections"
-}
-```
-<br>
 <div class="admonition note">
 <p class="admonition-title">note</p>
 <p> `connection_id`는 앞으로 DID 관련 모든 API에서 사용되는 중요한 uuid로서 관리가 필요하다. </p>
