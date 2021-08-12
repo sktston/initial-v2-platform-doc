@@ -38,21 +38,21 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> STEP0는 initial app(Holder)에서 요청합니다. 발행기관의 경우 STEP0이 필요 없습니다.</p>
+<p> STEP0는 initial app(Holder)에서 요청합니다. 검증기관은 Webhook을 통해 전달되는 Message를 확인하면 됩니다. 발행기관(issuer)의 경우 Issue Proposal이 별도로 있기 때문에 현재 STEP0이 필요 없습니다.</p>
 </div>
 
-* Method and Resource
+* <font color=blue>{Holder 전용}</font> Method and Resource
 
   `POST` `/present-proof/send-proposal` proof 제출 요청.
 
-* Body Parameter
+* <font color=blue>{Holder 전용}</font> Body Parameter
 
 Name | Description
  --- | ---
 connection_id | 사용자와 connection 정보
 presentation_proposal | proposal 내용
 
-* Request Body Example
+* <font color=blue>{Holder 전용}</font> Request Body Example
 
 ```json
 {
@@ -75,7 +75,7 @@ presentation_proposal | proposal 내용
 
 <p></p>
 
-* Webhook Event Example
+* <font color=red>[Verifier 에게 전달되는]</font> Webhook Event Example
 
 ```json
 {
@@ -115,7 +115,10 @@ presentation_proposal | proposal 내용
 2. `"state": "proposal_received"` >> Proposal 상태
 3. `presentation_proposal_dict.presentation_proposal.attributes.cred_def_id` >> 검증 제안 VC (추후 변경 가능)
 
-Verifiers는 3번의 cred_def_id를 확인 후 STEP1의 proof 요청에 활용한다.
+<div class="admonition Note">
+<p class="admonition-title">Note</p>
+<p> Verifier는 3번의 `cred_def_id`를 확인 후 STEP1의 Verification Request 요청에 사용할 verification_template_id을 선택해야 합니다. </p>
+</div>
 
 <br><br>
 
@@ -438,7 +441,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> STEP2에거 사용자가 `약관동의 및 증명서 제출` 클릭 시 initial app SDK에서 자동으로 처리됩니다.</p>
+<p> STEP2에서 사용자가 `약관동의 및 증명서 제출` 클릭 시 initial app SDK에서 자동으로 처리됩니다.</p>
 </div>
 
 Verifier는 아래 Webhook Event를 받게 됩니다. 검증의 중간 과정으로 다른 Action은 필요 없습니다.
