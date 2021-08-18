@@ -10,6 +10,19 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능하�
 
 [Open API Swagger Site 이동](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/)
 
+### DID Agent REST API Method
+
+1. 기본 URI : 
+      - {domain}/Resorce/Method
+      - e.g. `https://dev-console.myinitial.io/agent/api/connections/create-invitation`
+2. 요청형식 (Header)
+      - ** Content-Type : application/json **
+      - ** Accept: application/json **
+      - ** Authorization: {{bearer token}} **
+      - e.g. `curl -X POST "https://dev-console.myinitial.io/agent/api/connections/create-invitation" -H "accept: application/json" -H "Authorization: bearer 2ca4dd8a-1234-1234-1234-c5fb0286f2cc" -H "Content-Type: application/json" -d "{}"`
+3. 응답형식 (Header)
+      - Content-Type : application/json; charset=utf-8
+
 ### DID Agent API 지원 List
 
 #### Mandatory(필수) APIs
