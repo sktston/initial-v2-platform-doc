@@ -87,7 +87,7 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
 VC발행을 위해서는 Open API를 사용하여 진행.
 
 * Open API 사용하기 위해서는 기관의 API Access Token과 증명서ID(Credential Definition ID)가 필요합니다.
-* 상세 내용은 Open API의 ['Issue'](/open_api_auto_credential/) Page 참고
+* 상세 내용은 Open API의 ['Issue'](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_credential/) Page 참고
 
 <br><br>
 
@@ -122,7 +122,7 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 
 * VC발행을 위해서는 Open API를 사용하여 진행.
 * Open API 사용하기 위해서는 기관의 API Access Token과 Verification Template ID 필요함
-* 상세 내용은 Open API의 ['Verify'](/open_api_proof/) Page 참고
+* 상세 내용은 Open API의 ['Verify'](https://initial-v2-platform.readthedocs.io/ko/master/open_api_proof/) Page 참고
 <br><br>
 
 #### 8. initial App 연동하기

@@ -113,7 +113,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
      Name | Description 
      --- | --- 
      alias | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
-     auto_accept | Alice가 초대장 수락 시 자동 connection 설정 <span style="color:red">(**default : true**)</span>
+     auto_accept | 사용자가 초대장 수락 시 자동 connection 설정 <span style="color:red">(**default : true**)</span>
      multi_use | 초대장을 once/multi 사용여부. `public` `true` 세팅시 선택 불가. 자동 multi로 활성 화. <span style="color:red">(**default : false**)</span>
      public | Public DID를 기반으로 초대장 생성 <span style="color:red">(**default : true**)</span>
 
