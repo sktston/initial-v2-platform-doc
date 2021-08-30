@@ -95,6 +95,10 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <br>
 
+![connection flow](img/webconsole_connection_flow.png)
+
+<br>
+
 ### STEP 1. <font color=green>[Mandatory]</font> 기관 → 사용자(Holder) : create & send invitation.
 
 * Method and Resource
