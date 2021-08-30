@@ -19,6 +19,16 @@ curl --location --request GET 'http://localhost/wallet/did'\
 [PlantUML](http://www.plantuml.com/plantuml/uml/TLF1RX9H5Ds_hxXXDTCmVe01KkD6TyQ5ssRAF9A9qtdZp63I7I8crJPHOucq3WGrQ30q6G6HHVsXURV_uEMzWL882GjoS-uvSywvRp-AxJ2k7tcC-x4R7qCzuY7O4HImESBB8VO-68-4vz3mGH2OXINCZQ9w3doi_XOOO-Ko124F-Okw6xanXtAPiHnOiYgQ-ZvKXU_pQkmAty3FQJPEJS2Bbln-fWYUX28GaUqP8bX0J4MYDeb1an67J9Di_XQmds2tOmJvZibyGRBY9G-L6DlJk1osf3P1DgVaROzPAvCW9tFiqcyA-FCLzZ-In9TiqWSydM6t0SyUoi4rB8MOfOatCRlcf0utxIlvQqYqxtDvzVMpX5dQgUr1Da_bkm4cr_9h0lYwAtj_84iRDBl7h59D-365vucmVEZLUQLqM75zDtPfqGw2XT1TsMh8dGE7rmvSXwHQydH4vJcmY6ZPYhMUwMqMU7cEuoj3Up7Xvg9DqQXsHAr6MEF8zXqx5k6nhcT5fphUwATzOgYjzN8qVhsU5MhLZRuwIcwhPS3UoIAauHIoltDvrbZ4HTwntGBvAP4_HjdlL3OxHQQJnszlvA1JN3KmQMJZVqMSdLEsURwtoIYRJ-c4UHHl6TLtk6KpxrFdjEjOyr13JMrg8VLsDbHsfMcekRdDZ_q6zWRw3HbszJbtJBPFXkXL_mS0)
 
 <p></p>
+
+<br>
+
+Issue Flow
+
+![connection flow](img/webconsole_issue_flow.png)
+
+<Br>
+
+
 * 발급 과정 중 issue_credential State 
 
 Topic | State | Description
