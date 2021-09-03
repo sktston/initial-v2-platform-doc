@@ -158,9 +158,23 @@ curl -X 'POST' \
 1. [initial default] **invitation_url**을 전달할 수 있는 API 작성 
     - [Web Console 개발 Guide](web_console_guide/#1-api) 참조
 2. [deeplink] App to App 요청 
-    - spec : initial://reqService?process=I&ynCloud=Y&invitation=**<span style="color:red">{{invitation_url 내용}}</span>**
-    - sample : 
-      `initial://reqService?process=I&ynCloud=Y&invitation=https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMzk3ZDZkNTEtODVlOC00NTNlLThlODAtZWI2NzVmZmVhYzU1IiwgImRpZCI6ICJkaWQ6c3N3Ok5vTEwxc2JSU0dQQjE5VHVxSFBXcVkiLCAibGFiZWwiOiAiKFRFU1QpXHViMzAwXHVkNTU5XHVjODFjXHVjOTlkXHViYTg1XHVhYzgwXHVjOTlkIFx1YWUzMFx1YWQwMCIsICJpbWFnZVVybCI6ICJodHRwczovL2tyLm9iamVjdC5uY2xvdWRzdG9yYWdlLmNvbS9kZXYtaW1hZ2UtZmlsZS9kNDFkOGNkOV9lMmY1MmQ1YV8xNjIyMTc5ODQxIn0=`
+    - Scheme : initial://reqService?**<span style="color:red">{{Parameter}}</span>**
+      
+      Parameter | M / O | Value | Description
+      --- | :---: | :---: | ---
+      process | 필수 | string | I  -  Issue, Credential 발급<br> V - Verify, Credential 제출/검증
+      ynCloud | 필수 | string | Cloud Agent 기관 여부
+      orgName | 옵션 | string | 기관명
+      svcPublicDID | 필수 | String |Issuer or verifier의  PublicDID
+      nonce | 옵션 | String | Issuer or verifier의  nonce
+      credDefId | 옵션 | String | Issuer or verifier의 증명서 ID
+      invitation | 필수 | URL | invitation-url
+
+
+     - sample : 발급요청 / Cloud Agent 기관 / Public DID / 발행할 Cree_Def_ID / invitation url
+
+      `initial://reqService?process=I&ynCloud=Y&svcPublicDID=DrLbXFSao4Vo8gMfjxPxU1&credDefId=DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd&invitation=https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiNWQ5NDI5MTgtMDNjNC00ZTQyLTljMDgtMzZiNGM1YTY0ZDMxIiwgImRpZCI6ICJkaWQ6c3N3OkRyTGJYRlNhbzRWbzhnTWZqeFB4VTEiLCAiaW1hZ2VVcmwiOiAiaHR0cHM6Ly9rci5vYmplY3QubmNsb3Vkc3RvcmFnZS5jb20vZGV2LWltYWdlLWZpbGUvZDQxZDhjZDlfYTMyODYxZTdfMTYyNzg2NjUzMiIsICJsYWJlbCI6ICIoXHVjMGQ4XHVkNTBjKSBTS1QgXHVkMWEwXHVjNzc1XHVjMTMxXHVjODAxIFx1Yzk5ZFx1YmE4NVx1YzExYyJ9`
+
 3. [QR code] 
     - 위 Deeplink를 QR code 생성하여 사용자 scan
 
