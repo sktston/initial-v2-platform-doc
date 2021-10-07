@@ -10,8 +10,29 @@
 3. Event 수신 Webhook API
 4. 참여사 개인정보 수집 및 이용 동의서 전달 
 
-### 1. 연결 요청 API 개발 안내
-- 기관사용자는 initial App과 최초 연결(connection)을 위해 초대장(invitation)을 생성하고 전달할 수 있는 API를 제공해야 한다.
+### 1. initial Console 가입 및 기관 생성
+- initial console 가입을 진행하고, Master 권한 신청 및 기관 생성을 진행한다.
+- [가입 및 기관 생성](https://initial-v2-platform.readthedocs.io/ko/master/web_console_signup/#1)
+
+### 2. 기본양식(Schema ID) 확인 및 신규 생성
+- initial Console에 접속하여 `디렉토리` - `기본양식 리스트`에 사용하기 원하는 양식(Schema) 있는지 확인.
+- 사용하고자 하는 양식이 있으면 그대로 사용 가능하고, 없다면 신규 생성을 요청해야 한다.
+- 신규 양식 생성은 initial 관리자만 생성 가능함으로 [Schema 등록](https://initial-v2-platform.readthedocs.io/ko/master/open_api_schema_creddef/) 참고하여 신청해야 한다.
+
+### 3. 발행양식 및 검증양식 생성 
+- 아래 링크를 참고하여 발행양식과 검증양식을 생성한다. 이부분은 현재 단계에서 skip 가능하다.
+- [발행양식 생성](https://initial-v2-platform.readthedocs.io/ko/master/web_console_signup/#4)
+- [검증양식 생성](https://initial-v2-platform.readthedocs.io/ko/master/web_console_signup/#6)
+
+### 4. API 및 Sample Code 확인
+- 개발하기 전 아래 참고 사이트를 확인 한다.
+- Open API [[Click]](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/)
+- JAVA Demo 소스코드 [[Click]](https://github.com/sktston/initial-controller-java)
+- Demo Sequence Diagram [[Click]](http://www.plantuml.com/plantuml/uml/rLPVRzjK57_6d-Ae3oYMMl9UfTLA-rA9Xuc98PuYrxvfhvhOcUrae5Afb0oDTL9RQ6Wwx2Y8hS0KH6WZ5AJoPNYChxy3v_hU-3fBiZKQFF2K--UUF-TtVh_ZtF5ym_LhbR96R9_wdy6cvzM82uO72sAvCBhvo1kTszIdHXdMoqxDWhLgDNr2vGr_5RtyEUgTiV1cs3jWxKViCenUFefwmN3mzOAcQIihK7M9InxKg4Tz0YihcZOoNrfDWYt3QtnejeDMJfsuewYBYL7g1FC2TjXbptu1TXG02_lHRmCGnj59YttN1zP-p7_YPZyw-XEYumlMFcNX0HuqsBCpOETViV3fUw39GhUnIlI8dc23L9penGsme87MqY1k1j89uc41Jr3J99vOabmjGw7as3wOJjbnLxRADR9Qs5fzIBPs76VNorExJdt3fuuDQtStOTWBCEK4hdN7jed9RnAmiDWnjxnUQkAbMQRcBXPwdBN0zDZLhxcCzvfRrZK3R-k6JwINDDitfPl3tFIzFSkf6DJUtyzalOH-tr5L2zOiGoOmwpIYe-v4_W0V4fFGEic-VHSF7zI8X_7JMgOccItreX7z-1Hoh7s2tT1lsu6FHGU0r0dUnHTD5WuWvpjLQgA52kyjWeVP4JnCq2EtZg1y5Ac5x97qn3nXEEX5rmFMQKRN_UY703RUHvYGyYz6lWiAoa81cTaRNlNIIZSsDs2jvk_eiBggMUJLfcfAA_98IYLkDLYxYy4qbHfG2pvN_1LAlRyETrsdwdX66RatsRereKpM2AJ0HdohIglfJ7lhhb1kMZHTOk4jYbwrPXIuw0fIMRVk4iB1mfRgZMXARgnvEZi_6QyKTz_pqQ6GoF6qYXOfyVU975MUHVAfkMFOsmJlKEBViB0X-pr_hq35mTsC8AgXm1iwVR3AKlB3gmCym3xFDGtoECuzZBo4q3kbF2wj9Qo2bgWf1eChb2ozpXpoYagi4x0_0WNmSJ9TmnRUvLdphs7_GCuIoF7fVjd8upQ-E8kk7iUjGVJjxtew0oOO-uQWKptgKm4H8K209YNvDknEoItnB2PuAcOBJESWj9eoKshAm8eJPNXza_j4vwDfZEwSxHN3DtUelGrniyNEksf22MmBOraKPkCxXjFqUVMVI00l57qWEkmZ9gCZLJgU291maOL9wGVLCpdkKgsaA2o3WbrEa2devvKdFVa6z5hIdkDxZnYkkJDZSYeElaQJa5T8UVazla4azeKuAyJpZ6qY_QLop1Jt0VLyJWQaATodv25-cLB5ELNkz5LbBKj0S1eEhpjO_1XMbrtsv7dyP03i-IddKNJOukvPenD_6KBk7d6nvqcGdxvWdLD00LGnSQBFLpFbJvOK2_u-E18LEwLIYf_wdehm-ETjig_ZyqEPg8TI1F-YxcT_rBB4DipTEKQ0g4RmS4vr2x_ZVpycSFg_oHct8d7iUbfBwYG-Fa4jfd_lWv60NL8lkcGRWo_YqZ4D2Q0EQZpSmLMjKlu7)
+
+### 5. 연결 요청 API 개발 안내
+- 기관사용자는 initial App과 최초 연결(connection)을 위해 초대장(invitation)을 생성하고 전달할 수 있는 API를 제공해야 한다. 
+- 유일하게 모바일에서 접근하는 영역이므로 해당 API의 방화벽은 `any open` 이어야 한다.(이후에는 Agent 서버와 통신)
 - initial app의 기관 icon 클릭 시 invitation-url에서 초대장을 받아 연결을 시도 한다.
 - invitation-url API 개발 완료 후 Web Console의 '기관정보'에 입력해야 한다.
 - 연결요청 Open API 참고 : [Connection](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/)
@@ -74,7 +95,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 - invitation-url의 개발은 OPEN API의 [Connection](/open_api_auto_connection/)을 참고.
 
-### 2. DID Agent Controller 개발 안내 
+### 5. DID Agent Controller 개발 안내 
 - 기관사용자는 DID Agent REST API를 사용하기 위해 controller 서버를 개발해야 한다.
 - Webhook 서버를 통해 전달된 Event에 따라 다음 Service Logic을 구현해야 한다.
 - 자세한 API 내용은 initial DID Agent API Guide 및 reference code 참조
@@ -83,7 +104,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 <br>
   
-### 3. Webhook API 개발 안내 
+### 6. Webhook API 개발 안내 
 - initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식으로 기관, 사용자는 Event를 받을 수 있는 Webhook API를 개발하고 url 등록해아 한다.
 - 처리결과를 받기 위한 기관 사용자의 Webhook URL은 기관정보에 필수 등록해야 합니다. e.g)https://domain.com/webhooks
 - Webhook 서버의 API Key는 보안 강화를 위한 선택 사항입니다. https://domain.com/webhooks#org-api-key 와 같이 입력하시면 header의 x-api-key 항목에 값으로 "org-api-key"를 함께 전송합니다.
@@ -96,7 +117,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 
 
-#### 3-1. Webhook url API 개발
+#### 6-1. Webhook url API 개발
 
 - initial DID platform에서 처리 결과를 webhook으로 전달다.
 - 기관은 Webhook으로 event를 받을 수 있는 API를 제공해야 한다.
@@ -142,7 +163,7 @@ body: {
 ```
 body의 `topic`의 `state`는 event 수신 후 다음 action을 위해 중요하게 활용. 
 
-#### 3-2. Webhook Controller 개발 
+#### 6-2. Webhook Controller 개발 
 
 - webhook으로 전달된 event에 따른 biz logic 처리를 위해 controller를 개발해야 한다.
 
@@ -256,7 +277,11 @@ Webhook으로 전달되는 event의 서버 log 예제
 2021-05-14 10:19:28 [INFO ] [GlobalService.java]handleEvent(116) : Web View is not used -> sendCredentialOffer
 2021-05-14 10:19:28 [INFO ] [GlobalService.java]handleEvent(66) : handleEvent >>> topic:issue_credential, state:offer_sent, body:{"initiator":"self","credential_definition_id":"DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd","created_at":"2021-05-14 01:19:28.449637Z","credential_offer_dict":{"@type":"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/offer-credential","@id":"14f835a6-9184-48b6-9957-400db54bb0d8","~thread":{},"offers~attach":[{"@id":"libindy-cred-offer-0","mime-type":"application/json","data":{"base64":"eyJzY2hlbWFfaWQiOiAiTjZyNG5Md0FrY1lVWDhjOEtiOFVmdToyOkNlcnRpZmljYXRlT2ZUT0VJQzo0LjAiLCAiY3JlZF9kZWZfaWQiOiAiRHJMYlhGU2FvNFZvOGdNZmp4UHhVMTozOkNMOjE2MTc2OTgyMzg6ODFkZjAwMTAtNjJiNC00NWIxLWJkMDAtOGQwYWQ3NDc2MmZkIiwgImtleV9jb3JyZWN0bmVzc19wcm9vZiI6IHsiYyI6ICIxMTUzMDkyMDc2NjU0Mjg0MDYxNzk1NDU5OTQzNzM5MTIxODEyODI4MzE1NDUxMTg1NDAwMTQyMjk5NjcyNzE3MDc4OTYyMjQ5MzE1NTAiLCAieHpfY2FwIjogIjEwNTU1NzI3Njk4NjI2NjM0NjM3MDk5MzQyMDQ2MDE5NTQwODA0ODM4OTg4MjYwMzA4Nzk1OTU5NzkwNzQ5NzEwMDQyMDY4NTkzOTM3ODI2NTU1OTkzMjQxNDA5MTM5MDI2NTM2NTAz
 ```
-### 4. 참여사 개인정보 수집 및 이용 약관 조회 전달 구현 안내 
+### 7. 참여사 개인정보 수집 및 이용 약관 조회 전달 구현 안내 
 - 모바일 initial App에서 참여사에게 본인확인증명을 제출하기 전 개인정보 수집 및 이용 동의를 받기 위해, 동의서 전달이 필요하다.
 - 동의서는 해당기관 법무팀의 검토를 받아야 한다.
 - 약관/동의서 전달 상세 내용은 [Verify](/open_api_proof/#step-1-verifier-holder-verification-request) API 참조.
+
+
+### 8. initial 개발앱 요청
+- Test를 진행하기 위해 initial 개발앱을 별도로 요청해야 한다.

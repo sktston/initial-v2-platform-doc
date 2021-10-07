@@ -10,7 +10,7 @@ Schema & Credential Definition Example
 
 - 기본증명(Schema ID) 생성요청 예시
 
- 항목 | 한글 | 영어 | 설명
+ 항목 | 한글 | 영어 | 작성 Guide
  --- | --- | --- | ---
  한글명 | 한글 스키마 제목 (e.g ID 카드신청) | 영어 제목 (e.g IDCardApplication) | 한글명 띄어쓰기 가능 <br>영문명 띄어쓰기 불가, 대문자사용 가능
  Attribute #1 | 사업장코드 | contract_no | 한글명 띄어쓰기 가능, 영문 가능 <br>영문명 띄어쓰기 대신 '_' 사용, 대문자, 특수문자 불가능
