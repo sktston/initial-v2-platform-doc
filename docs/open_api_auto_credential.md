@@ -108,6 +108,121 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
 5. `"credential_exchange_id": "148b673e-d506-431a-8063-a70aebdaadfe"` >> VC발급 관련 모든 정보를 담고 있는 ID
 <br><br>
 
+<div class="admonition Note">
+<p class="admonition-title">Note</p>
+<p> 아래는 Holder 전용 Cloud Wallet 사용자 Guide 입니다. 기관 사용자는 Skip 하셔도 됩니다.</p>
+</div>
+
+#### Method and Resource
+
+`POST` `/issue-credential/send-proposal` <font color=blue><b>[Holder 전용]</b></font> Issuer에게 VC 발급 요청
+<p></p>
+
+* Swagger Document
+  
+    [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/issue-credential%20v1.0/post_issue_credential_send_proposal)
+<p></p>
+
+#### Parameters
+
+* Query Parameters
+
+     KEY | Value | Required | Description 
+     --- | :---: | :---: | ---
+
+<p></p>
+
+* Path Variables
+
+     KEY | Value | Required | Description 
+     --- | --- | --- | ---
+
+* Body 
+
+    Parameter content type `application/json`
+
+```json
+{
+  "auto_remove": true,
+  "comment": "string",
+  "connection_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "cred_def_id": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag" // 발행받고자 하는 VC ID
+}
+```
+
+#### Request Example 
+
+* Curl
+
+```
+curl -L -X POST 'https://dev-console.myinitial.io/agent/api/issue-credential/send-proposal' \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer 5dd1e041-xxxx-xxxx-xxxx-96616886ece4' \
+--data-raw '{
+  "auto_remove": true,
+  "comment": "string",
+  "connection_id": "6efb1145-3163-4db1-af8f-57a0acef8086",
+  "cred_def_id": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag" 
+}'
+```
+<p></p>
+
+#### Response example
+
+* Response body
+
+```json
+{
+    "connection_id": "6efb1145-3163-4db1-af8f-57a0acef8086",
+    "credential_exchange_id": "7ca8537e-e412-4dee-a37e-c444d4ae1724",
+    "created_at": "2021-10-13 15:50:11.817413Z",
+    "thread_id": "1d095f07-aa47-40ca-ab1d-655f3810f025",
+    "role": "holder",
+    "state": "proposal_sent",
+    "credential_proposal_dict": {
+        "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/propose-credential",
+        "@id": "1d095f07-aa47-40ca-ab1d-655f3810f025",
+        "cred_def_id": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag",
+        "comment": "string"
+    },
+    "auto_remove": true,
+    "auto_issue": false,
+    "updated_at": "2021-10-13 15:50:11.817413Z",
+    "initiator": "self"
+}
+```
+<p></p><p></p>
+
+#### Webhook example
+
+```json
+{
+  "initiator": "external",
+  "credential_proposal_dict": {
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/propose-credential",
+    "@id": "03e19631-26a0-4c06-9a29-35c95766a692",
+    "cred_def_id": "DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd"
+  },
+  "trace": false,
+  "credential_exchange_id": "148b673e-d506-431a-8063-a70aebdaadfe",
+  "auto_remove": false,
+  "connection_id": "85e21c28-342b-406c-9303-69db21cb96d3",
+  "role": "issuer",
+  "created_at": "2021-05-18 10:10:43.082572Z",
+  "auto_issue": true,
+  "state": "proposal_received",
+  "updated_at": "2021-05-18 10:10:43.082572Z",
+  "thread_id": "03e19631-26a0-4c06-9a29-35c95766a692",
+  "topic": "issue_credential"
+}
+```
+
+1. <b>topic</b> : `issue_credential` >> VC 발행 요청 event
+2. <b>state</b> : `proposal_received` >> Proposal 상태
+
+<br><br>
+
+
 ### STEP 1. <font color=green>[Mandatory]</font> 기관(발급자) → 사용자(Holder) 발행
 
 - VC 발급은 두가지 방법이 존재한다.

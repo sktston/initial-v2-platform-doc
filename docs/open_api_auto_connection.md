@@ -101,29 +101,45 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 ### STEP 1. <font color=green>[Mandatory]</font> 기관 → 사용자(Holder) : create & send invitation.
 
-* Method and Resource
+#### Method and Resource
 
     `POST` `/connections​/create-invitation` 새로운 초대장 생성
 <p></p>
 
 * Swagger Document
   
-    [Link](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_create_invitation)
+    [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_create_invitation)
 <p></p>
 
-  
-* Parameter
+#### Parameters
 
-     Name | Description 
-     --- | --- 
-     alias | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
-     auto_accept | 사용자가 초대장 수락 시 자동 connection 설정 <span style="color:red">(**default : true**)</span>
-     multi_use | 초대장을 once/multi 사용여부. `public` `true` 세팅시 선택 불가. 자동 multi로 활성 화. <span style="color:red">(**default : false**)</span>
-     public | Public DID를 기반으로 초대장 생성 <span style="color:red">(**default : true**)</span>
+* Query Parameters
+
+     KEY | Value | Required | Description 
+     --- | :---: | :---: | ---
+     alias | string |  | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
+     auto_accept | <span style="color:red">true</span>/false | O | 사용자가 초대장 수락 시 자동 connection 설정.
+     multi_use | true/<span style="color:red">false</span> | O | 초대장 다회 사용여부 선택. `public:true` 세팅 시 자동 multi로 활성화. 
+     public | <span style="color:red">**true**</span>/false | O | Public DID를 기반으로 초대장 생성.
 
 <p></p>
 
-* Request Example 
+* Path Variables
+
+     KEY | Value | Required | Description 
+     --- | --- | --- | ---
+
+* Body 
+
+    Parameter content type `application/json`
+
+```json
+{}
+```
+
+#### Request Example 
+
+* Curl
 
 ```
 curl -X 'POST' \
@@ -135,7 +151,10 @@ curl -X 'POST' \
 ```
 <p></p>
 
-* Response Body example(생성된 초대장)
+#### Response example
+
+* Response body
+
 ```json
 {
   "connection_id": null,
@@ -149,9 +168,13 @@ curl -X 'POST' \
   "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMzk3ZDZkNTEtODVlOC00NTNlLThlODAtZWI2NzVmZmVhYzU1IiwgImRpZCI6ICJkaWQ6c3N3Ok5vTEwxc2JSU0dQQjE5VHVxSFBXcVkiLCAibGFiZWwiOiAiKFRFU1QpXHViMzAwXHVkNTU5XHVjODFjXHVjOTlkXHViYTg1XHVhYzgwXHVjOTlkIFx1YWUzMFx1YWQwMCIsICJpbWFnZVVybCI6ICJodHRwczovL2tyLm9iamVjdC5uY2xvdWRzdG9yYWdlLmNvbS9kZXYtaW1hZ2UtZmlsZS9kNDFkOGNkOV9lMmY1MmQ1YV8xNjIyMTc5ODQxIn0="
 }
 ```
+<p></p><p></p>
+
+#### Webhook example
+
+- 없음
 
 <br><br>
-
 
 ### STEP 1-1. <font color=green>[Mandatory]</font> 기관 → 사용자(Holder) : Invitation 전달
 
@@ -184,23 +207,112 @@ curl -X 'POST' \
 
 ### STEP 2. 사용자(Holder) → 기관 : receive invitation & request connection.
 
-
-
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> STEP2는 initial app(Holder) SDK에서 자동으로 처리되기 때문에, 참고만 하시면 됩니다. </p>
+<p> STEP2는 initial app(Holder)의 경우 SDK에서 자동으로 처리 됩니다. 아래 Guide는 Cloud Wallet Holder의 경우 참고 하시면 됩니다. </p>
 </div>
 
 * STEP2 실제 과정 참고
-    * [Cloud Agent <<< **<span style="color:red">모바일</span>**] `receive invitation` 진행 후 `request connection` 전송
-    * [**<span style="color:red">Cloud Agent </span>**>>> 모바일] `request connection` 받고 자동으로 `request connection` 전송
-    * [Cloud Agent <<< **<span style="color:red">모바일</span>**] `request connection`을 받고 자동으로 `response` 전송
-    * [**<span style="color:red">Cloud Agent </span>**>>> 모바일] `response`를 받고 자동으로 `response` 전송
+    * [Cloud Agent ← **<span style="color:red">모바일</span>**] `receive invitation` 진행 후 `request connection` 전송
+    * [**<span style="color:red">Cloud Agent </span>** → 모바일] `request connection` 받고 자동으로 `request connection` 전송
+    * [Cloud Agent ← **<span style="color:red">모바일</span>**] `request connection`을 받고 자동으로 `response` 전송
+    * [**<span style="color:red">Cloud Agent </span>** → 모바일] `response`를 받고 자동으로 `response` 전송
     
-    <br> 위와 같은 process로 인해 기관의 Webhook 서버로 아래 두번의 Webhook event(`request`,`response`) 결과가 전달 된다.
-    정보는 참고만 하면 되고 다른 action은 필요 없다. 
+    <br> 위와 같은 process로 인해 기관의 Webhook 서버로 두번의 Webhook event(`request`,`response`) 결과가 전달 된다.
+    Cloud Agent에서 자동으로 처리되기 때문에, 정보는 참고만 하면 되고 다른 action은 필요 없다. 
 
-<b>topic : `connections`, state : `request` </b>
+<p></p>
+
+#### Method and Resource
+
+    `POST` `/connections/receive-invitation` <font color=blue><b>[Holder 전용]</b></font> 초대 수락
+<p></p>
+
+* Swagger Document
+  
+    [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_receive_invitation)
+<p></p>
+
+#### Parameters
+
+* Query Parameters
+
+     KEY | Value | Required | Description 
+     --- | :---: | :---: | ---
+     alias | string |  | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
+     auto_accept | <span style="color:red">true</span>/false | O | 사용자가 초대장 수락 시 자동 connection 설정.
+     mediation_id | string | | Identifier for active mediation record to be used
+
+<p></p>
+
+* Path Variables
+
+     KEY | Value | Required | Description 
+     --- | --- | --- | ---
+
+* Body 
+
+    Parameter content type `application/json`
+
+```json
+// STEP 1 기관의 create-invitation에서 생성된 invitation의 json 값을 입력한다.
+{
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
+    "@id": "619dd713-545a-4e37-9aca-2d8883e1aac3",
+    "did": "did:ssw:RtFNUCp65wqs41U2ZBUDkh",
+    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_cdf0a7c0_1624540317",
+    "label": "SKT_Issuer_Demo"
+  }
+```
+
+#### Request Example 
+
+* Curl
+
+```curl
+curl -L -X POST 'https://dev-console.myinitial.io/agent/api/connections/receive-invitation?alias=string&auto_accept=true' \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer d1504526-0d60-4a49-8233-d67c6335cea6' \
+--data-raw '{
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
+    "@id": "619dd713-545a-4e37-9aca-2d8883e1aac3",
+    "did": "did:ssw:RtFNUCp65wqs41U2ZBUDkh",
+    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_cdf0a7c0_1624540317",
+    "label": "SKT_Issuer_Demo"
+  }'
+```
+<p></p>
+
+#### Response example
+
+* Response body
+
+```json
+{
+  "invitation_msg_id": "619dd713-545a-4e37-9aca-2d8883e1aac3",
+  "request_id": "91549d74-1342-4e92-9cb6-b3756d5f4e29",
+  "invitation_mode": "once",
+  "state": "request",
+  "rfc23_state": "request-sent",
+  "routing_state": "none",
+  "accept": "auto",
+  "created_at": "2021-10-13 14:17:34.946411Z",
+  "their_role": "inviter",
+  "my_did": "71Qd3cF2cJd5fRdBCicvro",
+  "connection_protocol": "connections/1.0",
+  "connection_id": "7aea189b-9b6b-4d68-a01d-84a85e164db9",
+  "updated_at": "2021-10-13 14:17:34.991815Z",
+  "their_label": "SKT_Issuer_Demo"
+}
+```
+<p></p><p></p>
+
+#### Webhook example
+
+두번의 event가 전달 됨.
+
+- <b>topic : `connections`
+- state : `request` </b>
 ```json
 {
   "created_at":"2021-06-02 06:31:57.255177Z",
@@ -221,7 +333,8 @@ curl -X 'POST' \
 ```
 <br>
 
-<b>topic : `connections`, state : `response` </b>
+- <b>topic : `connections`
+- state : `response` </b>
 ```json
 {
 "created_at":"2021-06-02 06:31:57.255177Z",
@@ -246,9 +359,10 @@ curl -X 'POST' \
 
 - 연결(Connection)이 완료되면 Webhook Event을 통해 아래 Message가 전달 된다.
   
+#### Webhook example
 
-<b> topic: `connections`, state : `active` </b>
-
+- <b> topic: `connections`
+- state : `active` </b>
 
 ```json
 {
@@ -276,13 +390,13 @@ curl -X 'POST' \
 
 <div class="admonition note">
 <p class="admonition-title">note</p>
-<p> `connection_id`는 앞으로 DID 관련 모든 API에서 사용되는 중요한 uuid로서 관리가 필요하다. </p>
+<p> <b>connection_id</b>는 앞으로 DID 관련 모든 API에서 사용되는 중요한 <b>key value</b>로 관리가 필요하다. </p>
 </div>
 
 
 <br><br>
 
-### STEP 4. Connection 정보 관리 Guide
+### [Option] Connection 정보 확인
 
 Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 저장된다.<br>
 `connection_id`는 각 기관에서 관리하는 개인의 식별자(ID, uuid, CI등)에 mapping 하여 관리하면 된다.([참조](/cloud_agent_demo))
@@ -291,32 +405,7 @@ Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 �
 
     - 전체 connection list 확인 : `GET` `/connections`
     - 특정 connection 정보 확인 : `GET` `/connections/{conn_id}` 
-    * Swagger Document : [Link](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/get_connections__conn_id_)
-<p></p>
-- Request Example
-```
-curl -X 'GET' \
-  'https://dev-console.myinitial.io/agent/api/connections/91026652-18dc-4119-b8b9-9957c8430d86' \
-  -H 'accept: application/json' \
-  -H 'Authorization: bearer 4dd1f97a-1234-1234-1234-9ed8cd2cfb6d'
-```
-<p></p>
-
-- Response Example
-```json
-{
-  "created_at": "2021-06-02 08:08:42.520752Z",
-  "routing_state": "none",
-  "rfc23_state": "invitation-sent",
-  "connection_id": "91026652-18dc-4119-b8b9-9957c8430d86",
-  "their_role": "invitee",
-  "accept": "auto",
-  "updated_at": "2021-06-02 08:08:42.520752Z",
-  "invitation_key": "7WzP4NDjmVTgunG7natwnFNZekBV7eBSkHo1aAfvjaqj",
-  "invitation_mode": "once",
-  "state": "invitation"
-}
-```
+    * <b>[Swagger Document Link ](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/get_connections__conn_id_)</b>
 
 <br><br>
 
