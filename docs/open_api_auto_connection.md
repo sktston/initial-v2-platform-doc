@@ -36,7 +36,10 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 <p></p>
 
 
-- Connection 진행동안 State는 아래와 같다.
+- Connection 진행동안 State는 아래와 같이 변경되면 진행 된다.
+
+    기관(issuer/verifier) : request → response → active<br>
+    Holder : invitation → request → response → active<br>
 
     Topic | State | rfc23_state | Description
     --- | :---: | :---: | ---
@@ -49,9 +52,9 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 - Connection ID Data Model & Example
 
-    connection_id는 앞으로 사용자와 모든 통신에서 사용되는 중요한 identifier 입니다. 사용자는 기관에 발급/검증 요청할때 해당 id로 항상 요청합니다.
+    connection_id는 앞으로 사용자와 모든 통신에서 사용되는 중요한 identifier 입니다. 사용자는 기관에 발급/검증 요청할때 해당 id로 항상 요청한다.
   
-    다만 사용자가 모바일단말을 교체하거나, 앱을 재설치할경우 해당 connection_id는 사용할 수 없고, 새로운 connection_id가 생성됩니다.
+    다만 사용자가 모바일단말을 교체하거나, 앱을 재설치할경우 해당 connection_id는 사용할 수 없고, 새로운 connection_id가 생성된다.
 
     Item | description | example
     --- | --- |
@@ -103,7 +106,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 #### Method and Resource
 
-    `POST` `/connections​/create-invitation` 새로운 초대장 생성
+  `POST` `/connections​/create-invitation` 새로운 초대장 생성
 <p></p>
 
 * Swagger Document
@@ -134,9 +137,9 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
     Parameter content type `application/json`
 
 ```json
-{}
+{} // no data
 ```
-
+<br>
 #### Request Example 
 
 * Curl
@@ -149,8 +152,7 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{}'
 ```
-<p></p>
-
+<br>
 #### Response example
 
 * Response body
@@ -168,18 +170,18 @@ curl -X 'POST' \
   "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMzk3ZDZkNTEtODVlOC00NTNlLThlODAtZWI2NzVmZmVhYzU1IiwgImRpZCI6ICJkaWQ6c3N3Ok5vTEwxc2JSU0dQQjE5VHVxSFBXcVkiLCAibGFiZWwiOiAiKFRFU1QpXHViMzAwXHVkNTU5XHVjODFjXHVjOTlkXHViYTg1XHVhYzgwXHVjOTlkIFx1YWUzMFx1YWQwMCIsICJpbWFnZVVybCI6ICJodHRwczovL2tyLm9iamVjdC5uY2xvdWRzdG9yYWdlLmNvbS9kZXYtaW1hZ2UtZmlsZS9kNDFkOGNkOV9lMmY1MmQ1YV8xNjIyMTc5ODQxIn0="
 }
 ```
-<p></p><p></p>
+<br>
 
 #### Webhook example
 
-- 없음
+- create-invitation은 별도의 webhook event가 없습니다. Request의 Response data를 Holder에게 전달해 주시면 됩니다.
 
 <br><br>
 
 ### STEP 1-1. <font color=green>[Mandatory]</font> 기관 → 사용자(Holder) : Invitation 전달
 
-1. [initial default] **invitation_url**을 전달할 수 있는 API 작성 
-    - [Web Console 개발 Guide](web_console_guide/#1-api) 참조
+1. [initial default] **invitation_url**을 전달할 수 있는 API 개발
+    - [Web Console 개발 Guide](https://initial-v2-platform.readthedocs.io/ko/master/web_console_guide/#5-api) 참조
 2. [deeplink] App to App 요청 
     - Scheme : initial://reqService?**<span style="color:red">{{Parameter}}</span>**
       
@@ -209,7 +211,7 @@ curl -X 'POST' \
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> STEP2는 initial app(Holder)의 경우 SDK에서 자동으로 처리 됩니다. 아래 Guide는 Cloud Wallet Holder의 경우 참고 하시면 됩니다. </p>
+<p> STEP2는 initial app(Holder)의 경우 SDK에서 자동으로 처리 되기 때문에, 전달되는 Webhook event만 확인 하시면 됩니다. </p>
 </div>
 
 * STEP2 실제 과정 참고
@@ -218,98 +220,10 @@ curl -X 'POST' \
     * [Cloud Agent ← **<span style="color:red">모바일</span>**] `request connection`을 받고 자동으로 `response` 전송
     * [**<span style="color:red">Cloud Agent </span>** → 모바일] `response`를 받고 자동으로 `response` 전송
     
-    <br> 위와 같은 process로 인해 기관의 Webhook 서버로 두번의 Webhook event(`request`,`response`) 결과가 전달 된다.
+    <br> 위와 같은 process로 인해 기관의 Webhook 서버로 두번의 Webhook event(`request` → `response`) 결과가 전달 된다.
     Cloud Agent에서 자동으로 처리되기 때문에, 정보는 참고만 하면 되고 다른 action은 필요 없다. 
 
 <p></p>
-
-#### Method and Resource
-
-    `POST` `/connections/receive-invitation` <font color=blue><b>[Holder 전용]</b></font> 초대 수락
-<p></p>
-
-* Swagger Document
-  
-    [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_receive_invitation)
-<p></p>
-
-#### Parameters
-
-* Query Parameters
-
-     KEY | Value | Required | Description 
-     --- | :---: | :---: | ---
-     alias | string |  | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
-     auto_accept | <span style="color:red">true</span>/false | O | 사용자가 초대장 수락 시 자동 connection 설정.
-     mediation_id | string | | Identifier for active mediation record to be used
-
-<p></p>
-
-* Path Variables
-
-     KEY | Value | Required | Description 
-     --- | --- | --- | ---
-
-* Body 
-
-    Parameter content type `application/json`
-
-```json
-// STEP 1 기관의 create-invitation에서 생성된 invitation의 json 값을 입력한다.
-{
-    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
-    "@id": "619dd713-545a-4e37-9aca-2d8883e1aac3",
-    "did": "did:ssw:RtFNUCp65wqs41U2ZBUDkh",
-    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_cdf0a7c0_1624540317",
-    "label": "SKT_Issuer_Demo"
-  }
-```
-
-#### Request Example 
-
-* Curl
-
-```curl
-curl -L -X POST 'https://dev-console.myinitial.io/agent/api/connections/receive-invitation?alias=string&auto_accept=true' \
--H 'Content-Type: application/json' \
--H 'Authorization: Bearer d1504526-0d60-4a49-8233-d67c6335cea6' \
---data-raw '{
-    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
-    "@id": "619dd713-545a-4e37-9aca-2d8883e1aac3",
-    "did": "did:ssw:RtFNUCp65wqs41U2ZBUDkh",
-    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_cdf0a7c0_1624540317",
-    "label": "SKT_Issuer_Demo"
-  }'
-```
-<p></p>
-
-#### Response example
-
-* Response body
-
-```json
-{
-  "invitation_msg_id": "619dd713-545a-4e37-9aca-2d8883e1aac3",
-  "request_id": "91549d74-1342-4e92-9cb6-b3756d5f4e29",
-  "invitation_mode": "once",
-  "state": "request",
-  "rfc23_state": "request-sent",
-  "routing_state": "none",
-  "accept": "auto",
-  "created_at": "2021-10-13 14:17:34.946411Z",
-  "their_role": "inviter",
-  "my_did": "71Qd3cF2cJd5fRdBCicvro",
-  "connection_protocol": "connections/1.0",
-  "connection_id": "7aea189b-9b6b-4d68-a01d-84a85e164db9",
-  "updated_at": "2021-10-13 14:17:34.991815Z",
-  "their_label": "SKT_Issuer_Demo"
-}
-```
-<p></p><p></p>
-
-#### Webhook example
-
-두번의 event가 전달 됨.
 
 - <b>topic : `connections`
 - state : `request` </b>
@@ -353,6 +267,170 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/connections/receive-
 "topic":"connections"
 }
 ```
+<br><br>   
+
+<div class="admonition Note">
+<p class="admonition-title">Note</p>
+<p> 아래는 Cloud Wallet Holder를 위한 개발 가이드 입니다. 기관(Issuer/Verifier) 사용자는 Skip 하셔도 됩니다. </p>
+</div>
+
+
+#### Method and Resource
+
+  `POST` `/connections/receive-invitation` <font color=blue><b>[Holder 전용]</b></font> 초대 수락
+<p></p>
+
+* Swagger Document
+  
+    [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_receive_invitation)
+<p></p>
+
+#### Parameters
+
+* Query Parameters
+
+     KEY | Value | Required | Description 
+     --- | :---: | :---: | ---
+     alias | string |  | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
+     auto_accept | <span style="color:red">true</span>/false | O | 사용자가 초대장 수락 시 자동 connection 설정.
+     mediation_id | string | | Identifier for active mediation record to be used
+
+<p></p>
+
+* Path Variables
+
+     KEY | Value | Required | Description 
+     --- | --- | --- | ---
+
+* Body 
+
+    Parameter content type `application/json`
+
+```json
+// STEP 1 기관의 create-invitation에서 생성된 invitation의 json 값을 입력한다.
+{
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
+    "@id": "619dd713-545a-4e37-9aca-2d8883e1aac3",
+    "did": "did:ssw:RtFNUCp65wqs41U2ZBUDkh",
+    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_cdf0a7c0_1624540317",
+    "label": "SKT_Issuer_Demo"
+  }
+```
+<br>
+#### Request Example 
+
+* Curl
+
+```
+curl -L -X POST 'https://dev-console.myinitial.io/agent/api/connections/receive-invitation?alias=string&auto_accept=true' \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer d1504526-0d60-4a49-8233-d67c6335cea6' \
+--data-raw '{
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
+    "@id": "619dd713-545a-4e37-9aca-2d8883e1aac3",
+    "did": "did:ssw:RtFNUCp65wqs41U2ZBUDkh",
+    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_cdf0a7c0_1624540317",
+    "label": "SKT_Issuer_Demo"
+  }'
+```
+<br>
+#### Response example
+
+* Response body
+
+```json
+{
+  "invitation_msg_id": "619dd713-545a-4e37-9aca-2d8883e1aac3",
+  "request_id": "91549d74-1342-4e92-9cb6-b3756d5f4e29",
+  "invitation_mode": "once",
+  "state": "request",
+  "rfc23_state": "request-sent",
+  "routing_state": "none",
+  "accept": "auto",
+  "created_at": "2021-10-13 14:17:34.946411Z",
+  "their_role": "inviter",
+  "my_did": "71Qd3cF2cJd5fRdBCicvro",
+  "connection_protocol": "connections/1.0",
+  "connection_id": "7aea189b-9b6b-4d68-a01d-84a85e164db9",
+  "updated_at": "2021-10-13 14:17:34.991815Z",
+  "their_label": "SKT_Issuer_Demo"
+}
+```
+<br>
+#### Webhook example
+
+Webhook을 사용하는 경우 Holder에게는 아래 3번의 event가 순차적으로 자동 전달 된다. (`invitation`→`request`→`response`)<br>
+Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한다. (별도 안내)
+
+- <b>topic : `connections`
+- state : `invitation` </b>
+```json
+{
+   "state":"invitation",
+   "invitation_msg_id":"316e68f8-a413-4080-80d9-501f137cb00d",
+   "their_role":"inviter",
+   "connection_protocol":"connections/1.0",
+   "connection_id":"eb4e8512-1472-4dd1-b294-440aa27aeb76",
+   "routing_state":"none",
+   "created_at":"2021-10-14 01:14:08.239551Z",
+   "updated_at":"2021-10-14 01:14:08.239551Z",
+   "rfc23_state":"invitation-received",
+   "alias":"Barry",
+   "accept":"auto",
+   "their_label":"(샘플) SKT 토익성적 증명서",
+   "invitation_mode":"once",
+   "topic":"connections"
+}
+```
+<br>
+
+- <b>topic : `connections`
+- state : `request` </b>
+```json
+{
+   "state":"request",
+   "my_did":"PXHgY2S3P1o55ERh5QYWT1",
+   "invitation_msg_id":"316e68f8-a413-4080-80d9-501f137cb00d",
+   "their_role":"inviter",
+   "connection_protocol":"connections/1.0",
+   "connection_id":"eb4e8512-1472-4dd1-b294-440aa27aeb76",
+   "routing_state":"none",
+   "created_at":"2021-10-14 01:14:08.239551Z",
+   "updated_at":"2021-10-14 01:14:08.284960Z",
+   "rfc23_state":"request-sent",
+   "alias":"Barry",
+   "accept":"auto",
+   "their_label":"(샘플) SKT 토익성적 증명서",
+   "request_id":"5b9e0de6-cc2f-4978-91f2-badca97337f7",
+   "invitation_mode":"once",
+   "topic":"connections"
+}
+```
+<br>
+
+- <b>topic : `connections`
+- state : `response` </b>
+```json
+{
+   "state":"response",
+   "my_did":"PXHgY2S3P1o55ERh5QYWT1",
+   "invitation_msg_id":"316e68f8-a413-4080-80d9-501f137cb00d",
+   "their_role":"inviter",
+   "their_did":"4jEPS2TzDDYmiNdqcj263H",
+   "connection_protocol":"connections/1.0",
+   "connection_id":"eb4e8512-1472-4dd1-b294-440aa27aeb76",
+   "routing_state":"none",
+   "created_at":"2021-10-14 01:14:08.239551Z",
+   "updated_at":"2021-10-14 01:14:13.581110Z",
+   "rfc23_state":"response-received",
+   "alias":"Barry",
+   "accept":"auto",
+   "their_label":"(샘플) SKT 토익성적 증명서",
+   "request_id":"5b9e0de6-cc2f-4978-91f2-badca97337f7",
+   "invitation_mode":"once",
+   "topic":"connections"
+}
+```
 <br><br>    
 
 ### STEP 3. <font color=green>[Mandatory]</font> 기관(Issuer/Verifier) : Webhook Message 확인 및 Connection 정보 관리 
@@ -383,7 +461,7 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/connections/receive-
 }
 ```
 
-- 기관 개발자는 body의 `"topic":"connections"`와 `"state":"active"`를 확인 해야 한다.
+- 기관 개발자는 body의 <b>topic</b> : `connections"`와 <b>state</b>: `active`를 확인 해야 한다.
     - body의 `"state":"active"` 일 경우 연결이 완료 되었기 때문에, their_did(사용자 DID), connection_id(사용자와 communication 필요할때 사용하는 id)등을 확인/기록 하면 된다.
     - `their_did(사용자 DID)`는 정책상 Privacy 보호를 위해 수시로 변경(앱재설치등)되기 때문에, 고객 식별자로 사용 불가능 하다. 
   

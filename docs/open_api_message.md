@@ -16,48 +16,61 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
-#### 1. <font color=green>[Option]</font> initial_web_view (기관 → 사용자)
+### STEP 1. <font color=green>[Option]</font> initial_web_view (기관 → 사용자)
 
 - 발급 기관은 사용자로 부터 추가 정보 입력이 필요하거나 사용자가 선택이 필요한 리스트 내용이 있을 경우 Web view를 통해 요청할 수 있고, initial app은 해당 web-view 화면을 출력 한다
  
 <p></p><br>
 
-* Method and Resource
+
+
+
+#### Method and Resource
 
   `POST` `/connections/{conn_id}/send-message` message 전송.
+<p></p>
+
+* Swagger Document
+  
+    [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/basicmessage/post_connections__conn_id__send_message)
+<p></p>
+
+#### Parameters
+
+* Query Parameters
+
+     KEY | Value | Required | Description 
+     --- | :---: | :---: | ---
+
+<p></p>
+
+* Path Variables
+
+     KEY | Value | Required | Description 
+     --- | --- | :---: | ---
+     conn_id | | O | connection id. <br>e.g. 3fa85f64-5717-4562-b3fc-2c963f66afa6
 
 
-* Parameter
 
-  Path Variables
+* Body 
 
-  Name | Description
-      --- | ---
-  conn_id | 사용자와 연결된 connection_id 정보
-
-* Body
-```json
-{"contents": "{{본문}}"}
-```
+    Parameter content type `application/json`
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
-<p>  중요!! {{본문}}이 json일 경우 string으로 변환하여 {{본문}} 입력 한다  </p>
+<p>  중요!! {"contents": "{{본문}}"} 형식에서, {{본문}}이 json일 경우 string Type으로 변환해야 한다  </p>
 </div>
 
-- Web_view 요청하기 위한 {{본문}} 양식
 
 ```json
 {
-  "type":"initial_web_view",
-  "content":{
-    "web_view_url":"{{기관 Web-view URL}}"
-  }
+   "content":" {\"type\" : \"initial_web_view\" , \"content\" : { \"web_view_url\":\"https://www.sktelecom.com/test.php?their_did=UtArAzrfSaTF77mNJVcCrA\" }}"
 }
 ```
+<br>
+#### Request Example 
 
-{{본문}} 양식을 String 변환하여 Web_view 요청 Request Sample
-
+* Curl
 
 ```
 curl --location --request POST 'https://dev-console.myinitial.io/agent/api/connections/b62bfc68-8762-4e9d-af4a-221502508944/send-message' \
@@ -71,27 +84,61 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/conne
 <p>  중요!! {{본문}}이 json일 경우 본문내 "(Double quotation marks)는 \"(Backslash)를 포함 변환하여 Request를 보내야 한다. 위 Request Sample을 꼭 참조해야 한다.  </p>
 </div>
 
+
+<br>
+
+#### Response example
+
 * Response body
+
 ```json
 { }
 ```
 
+<br>
 
-* Basicmessages State
+#### Webhook example
 
-Topic | State | Description
---- | --- | ---
-basicmessages | received | message를 받은 상태
 
-<p></p>
-
-* Topic Event
-
-없음
+- <b>topic : `basicmessages`
+- state : `received` </b>
 
 
 <br>
 
+### STEP 2. Web_view내 본문 표준 규격 (Protocol)
+
+initial은 basicmessage를 이용하여 initial app과 다양한 통신을 할 수 있다.<br>
+그중 이미 정의된 규격(Protocol)이 있다.
+
+STEP1에서 설명한 {{본문}}에 다음의 규격을 사용하면 App에서 미리 정의한 서비스를 이용할 수 있다
+
+```json
+{"contents": "{{본문}}"}
+
+```
+<br>
+#### 1. Webview 화면 요청 본문 Spec
+```json
+{
+  "type":"initial_web_view",
+  "content":{
+    "web_view_url":"{{기관 Web-view URL}}"
+  }
+}
+```
+<br>
+#### 2. Message 화면 요청 본문 Spec (개발 중)
+```json
+{
+  "type":"initial_message_popup",
+  "content":{
+    "message":"{{message}}"
+  }
+}
+```
+
+<br>
 #### [Option] Web_view내 닫기(취소) 버튼 개발 Guide
 
 - 취소 버튼 Java Script Guide
