@@ -273,8 +273,14 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/issue-credential/sen
 
     <div class="admonition warning ">
     <p class="admonition-title">important</p>
-    <p> 모든 attribute의 값을 입력해야(null 가능) 오류가 발행하지 않음 </p>
+    <p> 모든 attribute의 값을 입력해야(null 가능) 오류가 발행하지 않음. </p>
     </div>
+
+    <div class="admonition warning ">
+    <p class="admonition-title">important</p>
+    <p> 유효기간은 schema의 attribute 명칭이 exp_date로 생성해야 함. <br> 모든 날짜는 YYYYMMDD(20000101) 형식으로 해야 오류가 발행하지 않음. <br>YYYY-MM-DD 혹은 YYYY.MM.DD 형식을 사용하면 안됨 </p>
+    </div>
+
 
 ```json
 {
