@@ -1,4 +1,4 @@
-Document version : v2.1.0 (last updated 2021-10-14)
+Document version : v2.1.1 (last updated 2021-10-15)
 
 Welcome to initial DID Platform Developer Site
 ===============
@@ -68,4 +68,4 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 Name | version | Release date| Description
  --- | --- | --- | --- 
 Mobile SDK | v1.12.1 | 2021.04.03 | Android/iOS SDK
-Cloud Agent API | 0.6 | 2021.2.28 | Cloud Agent API
+Cloud Agent API | 0.7 | 2021.10.14 | Cloud Agent API
