@@ -194,6 +194,7 @@ curl -X 'POST' \
       nonce | 옵션 | String | Issuer or verifier의  nonce
       credDefId | 옵션 | String | Issuer or verifier의 증명서 ID
       invitation | 필수 | URL | invitation-url
+      callback | 옵션 | String | 제출완료 후 복귀할 deeplink URL
 
 
      - sample : 발급요청 / Cloud Agent 기관 / Public DID / 발행할 Cree_Def_ID / invitation url
