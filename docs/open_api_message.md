@@ -58,13 +58,14 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
-<p>  중요!! {"contents": "{{본문}}"} 형식에서, {{본문}}이 json일 경우 string Type으로 변환해야 한다  </p>
+<p>  중요!! {"contents": "{{본문}}"} 형식에서 {{본문}}의 json 규격은 STEP 2의 initial 표준 가이드를 따라야 한다.</p>
 </div>
 
 
 ```json
 {
-   "content":" {\"type\" : \"initial_web_view\" , \"content\" : { \"web_view_url\":\"https://www.sktelecom.com/test.php?their_did=UtArAzrfSaTF77mNJVcCrA\" }}"
+  // "content":"보내고 싶은 내용" 의 형식을 지켜야 한다.
+  "content":" {\"type\" : \"initial_web_view\" , \"content\" : { \"web_view_url\":\"https://www.sktelecom.com/test.php?their_did=UtArAzrfSaTF77mNJVcCrA\" }}"
 }
 ```
 <br>
@@ -81,7 +82,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/conne
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
-<p>  중요!! {{본문}}이 json일 경우 본문내 "(Double quotation marks)는 \"(Backslash)를 포함 변환하여 Request를 보내야 한다. 위 Request Sample을 꼭 참조해야 한다.  </p>
+<p>  중요!! {{본문}}이 json일 경우 본문내 "(Double quotation marks)는 \"(Backslash)를 포함 string으로 변환하여 Request를 보내야 한다. 위 Request Sample을 꼭 참조해야 한다.  </p>
 </div>
 
 
@@ -106,7 +107,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/conne
 
 <br>
 
-### STEP 2. Web_view내 본문 표준 규격 (Protocol)
+### STEP 2. initial Content 본문 표준 규격 (Protocol)
 
 initial은 basicmessage를 이용하여 initial app과 다양한 통신을 할 수 있다.<br>
 그중 이미 정의된 규격(Protocol)이 있다.
@@ -117,6 +118,13 @@ STEP1에서 설명한 {{본문}}에 다음의 규격을 사용하면 App에서 �
 {"contents": "{{본문}}"}
 
 ```
+
+<div class="admonition warning">
+<p class="admonition-title">important</p>
+<p>  아래는 {"contents": "{{본문}}"}의 {{본문}}에 해당하는 규격입니다. 실제 API 개발시에는 "content" key를 포함해야 합니다.</p>
+</div>
+
+
 <br>
 #### 1. Webview 화면 요청 본문 Spec
 ```json
@@ -133,7 +141,9 @@ STEP1에서 설명한 {{본문}}에 다음의 규격을 사용하면 App에서 �
 {
   "type":"initial_message_popup",
   "content":{
-    "message":"{{message}}"
+    "message_code":"{{code}}",
+    "message_main":"{{main message}}",
+    "message_sub":"{{sub message}}"
   }
 }
 ```
