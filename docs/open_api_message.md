@@ -143,7 +143,8 @@ STEP1에서 설명한 {{본문}}에 다음의 규격을 사용하면 App에서 �
   "content":{
     "message_code":"{{code}}",
     "message_main":"{{main message}}",
-    "message_sub":"{{sub message}}"
+    "message_sub":"{{sub message}}",
+    "button":["확인","취소"]
   }
 }
 ```

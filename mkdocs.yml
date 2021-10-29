@@ -38,6 +38,7 @@ nav:
       - 'Schema & Credential ID 등록': 'open_api_schema_creddef.md'
 #      - 'Manual Credential Issue': 'm_credential.md'
       - 'Revocation': 'open_api_revocation.md'
+      - 'initial Deeplink' : 'initial_deeplink.md'
   - 'Reference - Demo Samples' :
 #      - 'DID VCX Java Demo' : 'demo.md'
 #      - 'DID VCX NodeJS Demo': 'node_demo.md'
@@ -46,8 +47,8 @@ nav:
 #  - 'SDK API' :
 #      - 'Java APIs' : 'java_api/java_api.md'
 #      - 'iOS APIs' : 'ios_api/ios_api.md'
-  - 'Blockchain Node' :
-      - 'Blockchain Network' : 'blockchain.md'
+#  - 'Blockchain Node' :
+#      - 'Blockchain Network' : 'blockchain.md'
 
 
 plugins:
@@ -68,4 +69,4 @@ theme:
   hljs_style : github
 
 extra:
-  version: 2.1.1
+  version: 2.1.2
