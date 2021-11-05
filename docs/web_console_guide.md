@@ -3,12 +3,11 @@
 ![platform arch](img/initial_platform_architecture.png)
 
 ## 기관 참여자 구현/개발이 필요 항목 
-위 그림을 참고하여 기관사용자 영역의 3개 항목에 대해서 구현 필요
+기관은 위 그림을 참고하여 Cloud Agent와 연동을 위한 Controller 개발이 필요하다.
 
-1. 연결(Connection)요청 API
-2. DID Agent API 사용위한 Controller
-3. Event 수신 Webhook API
-4. 참여사 개인정보 수집 및 이용 동의서 전달 
+1. initial App과 최초 통신을 위한 연결(Connection)요청 API
+2. Cloud Agent API 사용위한 Controller
+3. Event 수신 Webhook controller
 
 ### 1. initial Console 가입 및 기관 생성
 - initial console 가입을 진행하고, Master 권한 신청 및 기관 생성을 진행한다.
@@ -104,7 +103,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 <br>
   
-### 6. Webhook API 개발 안내 
+### 6. Webhook controller 개발 안내 
 - initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식으로 기관, 사용자는 Event를 받을 수 있는 Webhook API를 개발하고 url 등록해아 한다.
 - 처리결과를 받기 위한 기관 사용자의 Webhook URL은 기관정보에 필수 등록해야 합니다. e.g)https://domain.com/webhooks
 - Webhook 서버의 API Key는 보안 강화를 위한 선택 사항입니다. https://domain.com/webhooks#org-api-key 와 같이 입력하시면 header의 x-api-key 항목에 값으로 "org-api-key"를 함께 전송합니다.

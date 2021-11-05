@@ -143,8 +143,81 @@ STEP1에서 설명한 {{본문}}에 다음의 규격을 사용하면 App에서 �
   "content":{
     "message_code":"{{code}}",
     "message_main":"{{main message}}",
-    "message_sub":"{{sub message}}"
+    "message_sub":"{{sub message}}",
+    "button":["확인","취소"]
   }
+}
+```
+
+<br>
+#### 3. 구비서류 문서 제출 완료 (개발 중)
+```json
+{
+  "type":"initial_summit_doc",
+  "content":
+      {
+         "seq":"1038555586867",
+         "reqDocId":"10000000001",
+         "docId":"90000000011",
+         "govDocs":{
+            "bundleId":"999388811455",
+            "reqDocId":[
+               “10000000001”
+            ],
+            "pinCode":"099998",
+            "walletAddr":"1DF34115DA312141",
+            "masking":"Y",
+            "verify":"Y"
+         },
+         "ocrDocs":[
+            {
+               "seq":"1038555586867",
+               "reqDocId":"10000000001",
+               "docId":"90000000011",
+               "fileName":"1038555586867_10000000001_189057378234.tiff",
+               "masking":"Y",
+               "verify":"Y",
+               "ocrInfo":{
+                  "name":"홍길동",
+                  "idNo":"111111-1",
+                  "issueDate":"20201117",
+                  "authority":"서울특별시 중구청장"
+               }
+            },
+            {
+               "seq":"1038555586867",
+               "reqDocId":"10000000001",
+               "docId":"90000000022",
+               "fileName":"1038555586867_10000000001_189057378235.tiff",
+               "masking":"Y",
+               "verify":"Y",
+               "ocrInfo":{
+                  "name":"홍길동",
+                  "idNo":"111111-1",
+                  "issueDate":"20201117",
+                  "authority":"서울특별시 중구청장"
+               }
+            }
+         ],
+         "etcDocs":[
+            {
+               "seq":"1038555586867",
+               "reqDocId":"10000000001",
+               "masking":"N",
+               "verify":"Y",
+               "fileName":"1038555586867_10000000001_189057378245.jpeg",
+               "docId":"90000000011"
+            },
+            {
+               "seq":"1038555586867",
+               "reqDocId":"10000000001",
+               "docId":"90000000012",
+               "masking":"N",
+               "verify":"Y",
+               "fileName":"1038555586867_10000000001_189057378255.jpeg"
+            }
+         ]
+      }
 }
 ```
 
