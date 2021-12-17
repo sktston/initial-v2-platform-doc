@@ -1622,4 +1622,126 @@ Revocation 사용을 위해서는 아래 [Option] 내용을 확인하고 추가 
     credential_exchange_id | 2aa723e2-16f8-45ff-9c29-0b88ce6dbf09
 
     <br>상세 폐기 방법은 Revocation page 참조
+    
 <br><br>
+
+
+### [Option] 예외 처리를 위한 Problem Report API
+
+증명서 발행 중 승인이 안되어있거나, 권한이 없어 발급 불가능한 상황에서 사용자에게 정보를 전달하는 API
+
+만약 김증명에게 VC를 발행했다면 아래 예시와 같이 기록 필요
+
+#### Method and Resource
+
+`POST` `/issue-credential/records/{cred_ex_id}/problem-report` Holder 에게 Problem Report 전송
+<p></p>
+
+* Swagger Document
+  
+    [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/issue-credential%20v1.0/post_issue_credential_records__cred_ex_id__problem_report)
+<p></p>
+
+#### Parameters
+
+* Query Parameters
+
+     KEY | Value | Required | Description 
+     --- | :---: | :---: | ---
+
+<p></p>
+
+* Path Variables
+
+     KEY | Value | Required | Description 
+     cred_ex_id | 3fa85f64-5717-xxxx-xxxx-2c963f66afa6 | O | propose-credential에서 받은 ID
+
+* Body 
+
+    Parameter content type `application/json`
+
+```json
+{
+  "description": "유효하지 않은 노인일자리증명 발급요청 입니다."
+}
+```
+<br>
+#### Request Example 
+
+* Curl
+
+```
+curl --location --request POST 'https://dev-console.myinitial.io/agent/api/issue-credential/records/3fa85f64-5717-xxxx-xxxx-2c963f66afa6/problem-report' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer 49fxxc85-xxxx-xxxx-xxxx-75d4xxb01885' \
+--data-raw '{
+  "description": "유효하지 않은 노인일자리증명 발급요청 입니다."
+}'
+```
+<br>
+#### Response example
+
+* Response body
+
+```json
+{}
+```
+<br>
+#### Webhook example
+
+```json
+{
+   "credential_exchange_id":"1f9dfa10-66af-48d7-8da4-4dab3bef1f95",
+   "error_msg":"created problem report: 유효하지 않은 노인일자리증명 발급요청 입니다.",
+   "created_at":"2021-12-17T05:18:34.939394Z",
+   "credential_proposal_dict":{
+      "@type":"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/propose-credential",
+      "@id":"54c0fc0f-242e-4f6f-8ef2-4c97c0d037ba",
+      "cred_def_id":"ENszK15TbVGazfFn3VJFXC:3:CL:1593153360:f7f772a2-1135-4965-88ec-4453adaf92ce"
+   },
+   "auto_remove":true,
+   "trace":false,
+   "initiator":"external",
+   "role":"issuer",
+   "updated_at":"2021-12-17T05:18:37.781358Z",
+   "connection_id":"39a8f15c-62b7-4c69-8ec7-343241255aca",
+   "thread_id":"54c0fc0f-242e-4f6f-8ef2-4c97c0d037ba",
+   "auto_issue":true
+}
+```
+
+1. <b>topic</b> : `issue_credential` >> VC 발행 요청 event
+2. <b>error_msg</b> : problem report
+
+<br><br>
+
+Holder App 에게는 아래 message 규격으로 전달 됨
+
+```
+    did= did:ssw:TLHAXzdSfSSuvYLQwjRHE8
+    message= {
+       "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec\/issue-credential\/1.0\/problem-report",
+       "@id": "95d9296b-9b56-4005-9c7b-68ac97cdb304",
+       "~thread": {
+          "thid": "162001f5-d076-476c-bea5-e32f799ac4ae"
+       },
+       "description": {
+          "en": "유효하지 않은 노인일자리증명 발급요청입니다.",
+          "code": "issuance-abandoned"
+       }
+    }
+```
+
+```
+catalog = null
+code = "issuance-abandoned"
+desc = "유효하지 않은 노인일자리증명 발급요청입니다."
+```
+
+<br><br>
+
+Sample Image
+
+- 아래와 같이 Description에 명기한 내용을 Popup 알림창으로 표시
+
+![problem_report](img/issue_problem_report.jpg)
