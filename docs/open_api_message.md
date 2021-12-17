@@ -56,11 +56,20 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
     Parameter content type `application/json`
 
+```json
+{
+  // "content":"String" 의 형식을 지켜야 한다.
+  "content":"String"
+}
+```
+<br><br>
+
 <div class="admonition warning">
 <p class="admonition-title">important</p>
 <p>  중요!! {"contents": "{{본문}}"} 형식에서 {{본문}}의 json 규격은 STEP 2의 initial 표준 가이드를 따라야 한다.</p>
 </div>
 
+Sample
 
 ```json
 {
@@ -112,7 +121,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/conne
 initial은 basicmessage를 이용하여 initial app과 다양한 통신을 할 수 있다.<br>
 그중 이미 정의된 규격(Protocol)이 있다.
 
-STEP1에서 설명한 {{본문}}에 다음의 규격을 사용하면 App에서 미리 정의한 서비스를 이용할 수 있다
+STEP1에서 설명한 {{본문 or String}}에 다음의 규격을 사용하면 App에서 미리 정의한 서비스를 이용할 수 있다
 
 ```json
 {"contents": "{{본문}}"}
@@ -135,91 +144,11 @@ STEP1에서 설명한 {{본문}}에 다음의 규격을 사용하면 App에서 �
   }
 }
 ```
-<br>
-#### 2. Message 화면 요청 본문 Spec (개발 중)
-```json
-{
-  "type":"initial_message_popup",
-  "content":{
-    "message_code":"{{code}}",
-    "message_main":"{{main message}}",
-    "message_sub":"{{sub message}}",
-    "button":["확인","취소"]
-  }
-}
-```
 
-<br>
-#### 3. 구비서류 문서 제출 완료 (개발 중)
-```json
-{
-  "type":"initial_summit_doc",
-  "content":
-      {
-         "seq":"1038555586867",
-         "reqDocId":"10000000001",
-         "docId":"90000000011",
-         "govDocs":{
-            "bundleId":"999388811455",
-            "reqDocId":[
-               “10000000001”
-            ],
-            "pinCode":"099998",
-            "walletAddr":"1DF34115DA312141",
-            "masking":"Y",
-            "verify":"Y"
-         },
-         "ocrDocs":[
-            {
-               "seq":"1038555586867",
-               "reqDocId":"10000000001",
-               "docId":"90000000011",
-               "fileName":"1038555586867_10000000001_189057378234.tiff",
-               "masking":"Y",
-               "verify":"Y",
-               "ocrInfo":{
-                  "name":"홍길동",
-                  "idNo":"111111-1",
-                  "issueDate":"20201117",
-                  "authority":"서울특별시 중구청장"
-               }
-            },
-            {
-               "seq":"1038555586867",
-               "reqDocId":"10000000001",
-               "docId":"90000000022",
-               "fileName":"1038555586867_10000000001_189057378235.tiff",
-               "masking":"Y",
-               "verify":"Y",
-               "ocrInfo":{
-                  "name":"홍길동",
-                  "idNo":"111111-1",
-                  "issueDate":"20201117",
-                  "authority":"서울특별시 중구청장"
-               }
-            }
-         ],
-         "etcDocs":[
-            {
-               "seq":"1038555586867",
-               "reqDocId":"10000000001",
-               "masking":"N",
-               "verify":"Y",
-               "fileName":"1038555586867_10000000001_189057378245.jpeg",
-               "docId":"90000000011"
-            },
-            {
-               "seq":"1038555586867",
-               "reqDocId":"10000000001",
-               "docId":"90000000012",
-               "masking":"N",
-               "verify":"Y",
-               "fileName":"1038555586867_10000000001_189057378255.jpeg"
-            }
-         ]
-      }
-}
-```
+##### Sample 화면
+
+![webview](img/webview.jpg)
+
 
 <br>
 #### [Option] Web_view내 닫기(취소) 버튼 개발 Guide
@@ -254,3 +183,80 @@ STEP1에서 설명한 {{본문}}에 다음의 규격을 사용하면 App에서 �
 #### [Option] Web_view내 Modal 개발 Guide
 
 - Web view내 API의 동작 처리 시간이 오래 걸리는 경우 Modal등 화면을 이용하여 사용자에게 UI/UX 처리해야 함
+
+
+
+
+
+<br>
+#### 2. Popup 알림창 요청 본문 Spec
+
+- 기관(Issuer/Verifier) → Holder(initial App 혹은 Cloud Wallet등)에 알림창 표시를 위해 사용한다.
+- "type":"initial_message_popup" 선언 후 정의된 message 본문 전송
+
+   Field | 필수 | Value | Description 
+   --- | :---: | :---: | ---
+   button | 필수 | [confirm] <br> [cancel] | confirm : 확인버튼 표시(성공 시 사용. main으로 이동 <br> cancel : 취소버튼 표시(실패 시 사용. main으로 이동)
+   message_code |	필수	| 별도 Spec 참고 | e.g. D0004 = 승인되지 않았음
+   message_main |	필수	| 사용자 정의 | 화면에 표시하고 싶은 Main Title
+   message_sub	| X	| 사용자 정의 |	화면에 표시하고 싶은 Sub Title
+
+
+```json
+{
+  "type":"initial_message_popup",
+  "content":{
+    "message_code":"{{code}}",
+    "message_main":"{{main message}}",
+    "message_sub":"{{sub message}}",
+    "button":["확인","취소"]
+  }
+}
+```
+
+Predefined code & message
+
+No | message_code | message_main | Description | Next Action
+--- | :---: | --- | --- | ---
+1 | 0000 | 성공하였습니다 | | 종료하고 Main으로 이동 |
+2 | 0001 | 실패하였습니다 | | 종료하고 Main으로 이동 |
+3 | H0001 |	출근 등록이 정상적으로 완료되었습니다 |	노인인력개발원 전용 | |
+4 | H0002 |	퇴근 등록이 정상적으로 완료되었습니다 |	노인인력개발원 전용|	|
+5 | H0003 |	출근 등록이 완료된 상태입니다	 | 노인인력개발원 전용	| |
+6 | H0004 |	퇴근 등록이 완료된 상태입니다 |	노인인력개발원 전용	| |
+7 | H0005 |	출근 등록이 완료되지 않았습니다 |	노인인력개발원 전용 | |	
+8 | H0006 |	퇴근 등록이 완료되지 않았습니다 |	노인인력개발원 전용 | |
+
+##### Sample 화면
+
+![popup](img/popup.png)
+
+
+<br>
+#### 2. Toast 알림창 요청 본문 Spec
+
+- 기관(Issuer/Verifier) → Holder(initial App 혹은 Cloud Wallet등)에 Toast 알림창 표시를 위해 사용한다.
+- "type":"initial_message_popup" 선언 후 정의된 message 본문 전송
+
+   Field | 필수 | Value | Description 
+   --- | :---: | :---: | ---
+   message_code |	필수	| 별도 Spec 참고 | e.g. D0004 = 승인되지 않았음
+   message_main |	필수	| 사용자 정의 | 화면에 표시하고 싶은 Main Title
+
+
+```json
+{
+  "type":"initial_message_popup",
+  "content":{
+    "message_code":"{{code}}",
+    "message_main":"{{main message}}"
+  }
+}
+```
+
+Predefined code & message
+
+No | message_code | message_main | Description | Next Action
+--- | :---: | --- | --- | ---
+1 | 0000 | 성공하였습니다 | | 종료하고 Main으로 이동 |
+2 | 0001 | 실패하였습니다 | | 종료하고 Main으로 이동 |
