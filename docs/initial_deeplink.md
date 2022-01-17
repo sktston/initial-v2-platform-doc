@@ -15,6 +15,7 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
 
 - Scheme : initial://reqService?**<span style="color:red">{{Parameter}}</span>**
 
+
 #### Deeplink Parameters
 
   Parameter | M / O | Type | Value |  Description
