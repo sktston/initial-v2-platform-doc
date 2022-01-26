@@ -22,23 +22,24 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
   --- | :---: | :---: | :---: | ---
   process | 필수 | string | I <br> V <br> E <br> O <br> F | I - Issue, Credential 발급<br> V - Verify, Credential 제출/검증<br> E - 행안부 전자문서 제출 <br> O - OCR scan 문서 제출 <br> F - 추가서류 제출
   ynCloud | 필수 | String | Y <br>N | Cloud Agent 기관 여부 (Y/N)
-  orgName | 옵션 | string | 기관명 | 등록된 기관명
+  orgName | 필수 | string | 기관명 | 표시하기 원하는 기관명
+  credName | 필수 | string | 기관명 | 표시하기 원하는 증명서명
   svcPublicDID | 필수 | String | did:ssw:{{did}}| 기관의 PublicDID
   credDefId | 옵션 | String | cred_def_id | 증명서 ID
-  seq | 필수 | String | 고객구분자 | 고객구분자 / 신청번호
+  seq | 옵션* | String | 고객구분자 | 고객구분자 / 신청번호
   govDocs | 옵션 | String | 코드 | 전자정부 문서 제출 목록 <br> process=E일 경우 필수
   govWalletAdd | 옵션 | String | 지갑 주소 | 제출할 곳의 전자정부 지갑 주소 <br> process=E일 경우 필수
   masking | 옵션 | String | Y <br>N | 마스킹 처리 여부
   submitUrl | 옵션 | url | URL | 제출 완료를 위한 URL
-  invitationUrl | 필수 | URL | URL | 등록된 invitation url
-  invitation | 필수 | string | invitation json | create-invitation으로 생성된 json
+  invitationUrl | 필수* | URL | URL | 등록된 invitation url
+  invitation | 옵션 | string | invitation json | create-invitation으로 생성된 json
   callback | 옵션 | String | URL |제출완료 후 복귀할 deeplink URL
 
 
   - sample : 발급요청 / Cloud Agent 기관 / Public DID / 발행할 Cree_Def_ID / invitation
 
 
-`initial://reqService?process=I&ynCloud=Y&svcPublicDID=did:ssw:DrLbXFSao4Vo8gMfjxPxU1&credDefId=DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd&invitation=https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiNWQ5NDI5MTgtMDNjNC00ZTQyLTljMDgtMzZiNGM1YTY0ZDMxIiwgImRpZCI6ICJkaWQ6c3N3OkRyTGJYRlNhbzRWbzhnTWZqeFB4VTEiLCAiaW1hZ2VVcmwiOiAiaHR0cHM6Ly9rci5vYmplY3QubmNsb3Vkc3RvcmFnZS5jb20vZGV2LWltYWdlLWZpbGUvZDQxZDhjZDlfYTMyODYxZTdfMTYyNzg2NjUzMiIsICJsYWJlbCI6ICIoXHVjMGQ4XHVkNTBjKSBTS1QgXHVkMWEwXHVjNzc1XHVjMTMxXHVjODAxIFx1Yzk5ZFx1YmE4NVx1YzExYyJ9`
+`initial://reqService?process=I&ynCloud=Y&orgName=샘플기관&credName=샘플증명서&svcPublicDID=did:ssw:DrLbXFSao4Vo8gMfjxPxU1&credDefId=DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd&invitationUrl=https://dev-console.myinitial.io/invitation-url`
 
 
 #### Parameter 상세 설명 및 예시 
