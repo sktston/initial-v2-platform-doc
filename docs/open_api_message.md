@@ -226,6 +226,7 @@ No | message_code | message_main | Description | Next Action
 6 | H0004 |	퇴근 등록이 완료된 상태입니다 |	노인인력개발원 전용	| |
 7 | H0005 |	출근 등록이 완료되지 않았습니다 |	노인인력개발원 전용 | |	
 8 | H0006 |	퇴근 등록이 완료되지 않았습니다 |	노인인력개발원 전용 | |
+8 | M0001 |로그인이 완료 되었습니다 |	로그인등 완료 후 현재 작업 종료 | 종료하고 Main으로 이동 |
 
 ##### Sample 화면
 
@@ -233,10 +234,10 @@ No | message_code | message_main | Description | Next Action
 
 
 <br>
-#### 2. Toast 알림창 요청 본문 Spec
+#### 3. Toast 알림창 요청 본문 Spec
 
 - 기관(Issuer/Verifier) → Holder(initial App 혹은 Cloud Wallet등)에 Toast 알림창 표시를 위해 사용한다.
-- "type":"initial_message_popup" 선언 후 정의된 message 본문 전송
+- "type":"initial_message_toast" 선언 후 정의된 message 본문 전송
 
    Field | 필수 | Value | Description 
    --- | :---: | :---: | ---
@@ -246,7 +247,7 @@ No | message_code | message_main | Description | Next Action
 
 ```json
 {
-  "type":"initial_message_popup",
+  "type":"initial_message_toast",
   "content":{
     "message_code":"{{code}}",
     "message_main":"{{main message}}"
@@ -260,3 +261,4 @@ No | message_code | message_main | Description | Next Action
 --- | :---: | --- | --- | ---
 1 | 0000 | 성공하였습니다 | | 종료하고 Main으로 이동 |
 2 | 0001 | 실패하였습니다 | | 종료하고 Main으로 이동 |
+3 | M0001 | {{ 사용자 Message }} | | 종료하고 Main으로 이동 |
