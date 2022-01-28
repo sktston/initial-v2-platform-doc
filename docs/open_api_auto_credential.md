@@ -1653,6 +1653,7 @@ Revocation 사용을 위해서는 아래 [Option] 내용을 확인하고 추가 
 * Path Variables
 
      KEY | Value | Required | Description 
+     --- | :---: | :---: | ---
      cred_ex_id | 3fa85f64-5717-xxxx-xxxx-2c963f66afa6 | O | propose-credential에서 받은 ID
 
 * Body 
