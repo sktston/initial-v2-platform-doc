@@ -58,15 +58,15 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
     Item | description | example
     --- | --- |
-    connection_id | Connection identifier | 아래 Example 참조
-    accept | Connection acceptance 설정  | manual / `auto`
-    alias | 향후 재사용을 위한 별칭 설정 | 설명
-    created_at | Time of record creation | 아래 Example 참조
+    connection_id | Connection identifier (Unique ID) | 아래 Example 참조
+    accept | 자동 Connection 동작 설정  | manual / `auto`
+    alias | 향후 재사용을 위한 별칭 설정 <br> Query Parameters의 public = false 에서만 동작 | 설명
+    created_at | connection_id 생성 시간 | 아래 Example 참조
     invitation_key | invitation을 위해 사용한 Public key | 아래 Example 참조
     invitation_mode | invitation mode 설정. | `once` / multi / static
     my_did | connection을 위해 생성한 나의 pairwise did | 아래 Example 참조
     request_id | Connection request identifier | 아래 Example 참조
-    state | Current record state | State 상세내용 참조
+    state | Current state.  | request → response → active <br> 순으로 상태 변경됨
     rfc23_state | state와 동일하나 RFC23 protocol spec 적용 | State 상세내용 참조
     routing_state | 라우팅 기능 사용 시 state. 현재 지원 안함  | `none`
     their_did | 사용자가 연결을 위해 생성한 pairwise did | 아래 Example 참조
@@ -123,7 +123,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
      alias | string |  | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
      auto_accept | <span style="color:red">true</span>/false | O | 사용자가 초대장 수락 시 자동 connection 설정.
      multi_use | true/<span style="color:red">false</span> | O | 초대장 다회 사용여부 선택. `public:true` 세팅 시 자동 multi로 활성화. 
-     public | <span style="color:red">**true**</span>/false | O | Public DID를 기반으로 초대장 생성.
+     public | <span style="color:red">**true**</span>/false | O | Public DID를 기반으로 초대장 생성.<br>connection_id 마다 alias 설정을 위해서는 false 선택
 
 <p></p>
 
@@ -140,7 +140,9 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 {} // no data
 ```
 <br>
-#### Request Example 
+#### a. "public=ture" Invitation Request Example 
+
+일반적인 invitation 초대는 public=true로 생성한다. 
 
 * Curl
 
@@ -153,21 +155,66 @@ curl -X 'POST' \
   -d '{}'
 ```
 <br>
-#### Response example
+##### "public=ture" Invitation Response example
 
 * Response body
 
+public=true로 생성한 invitation은 "connection_id"가 생성되지 않아 여러번 재사용 가능하다
+
+
 ```json
 {
-  "connection_id": null,
+  "connection_id": null,  //unique connecton identifier.
+  "invitation": {
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation", // connection protocol
+    "@id": "397d6d51-85e8-453e-8e80-eb675ffeac55",  // thread id
+    "did": "did:ssw:NoLL1sbRSGPB19TuqHPWqY",  // 기관의 Public DID
+    "label": "(TEST)대학제증명검증 기관", // 기관명
+    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_e2f52d5a_1622179841" //기관 대표 이미지
+  }, // 아래 invitation_url은 위 invitation의 json 값을 base64 encoding한 값
+  "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMzk3ZDZkNTEtODVlOC00NTNlLThlODAtZWI2NzVmZmVhYzU1IiwgImRpZCI6ICJkaWQ6c3N3Ok5vTEwxc2JSU0dQQjE5VHVxSFBXcVkiLCAibGFiZWwiOiAiKFRFU1QpXHViMzAwXHVkNTU5XHVjODFjXHVjOTlkXHViYTg1XHVhYzgwXHVjOTlkIFx1YWUzMFx1YWQwMCIsICJpbWFnZVVybCI6ICJodHRwczovL2tyLm9iamVjdC5uY2xvdWRzdG9yYWdlLmNvbS9kZXYtaW1hZ2UtZmlsZS9kNDFkOGNkOV9lMmY1MmQ1YV8xNjIyMTc5ODQxIn0="
+}
+```
+<br>
+
+<br>
+#### b. "public=false" Invitation Request Example 
+
+connection_id를 기관의 특정한 key 값과 mapping하여 관리를 원한다면 public=false를 설정하고, alias에 unique값을 부여한다.
+
+* Curl
+
+```
+curl -X 'POST' \
+  'https://dev-console.myinitial.io/agent/api/connections/create-invitation?alias=a123456789b&auto_accept=true&public=false' \
+  -H 'accept: application/json' \
+  -H 'Authorization: bearer 4dd1f97a-1234-1234-1234-9ed8cd2cfb6d' \
+  -H 'Content-Type: application/json' \
+  -d '{}'
+```
+<br>
+##### Public Invitation Response example
+
+* Response body
+
+아래 invitation은 connection_id가 이미 생성된 상태로, 1회(1명)만 사용 가능하다. <br>
+기관은 생성된 connection_id를 여러번 재사용 가능하다.
+
+```json
+{
+  "connection_id": "30cbd096-0fc9-4d12-b668-ad045345485e",
   "invitation": {
     "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
-    "@id": "397d6d51-85e8-453e-8e80-eb675ffeac55",
-    "did": "did:ssw:NoLL1sbRSGPB19TuqHPWqY",
-    "label": "(TEST)대학제증명검증 기관",
-    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_e2f52d5a_1622179841"
+    "@id": "8f215dba-072b-4ccc-b908-0e95ac4ce98c",
+    "recipientKeys": [
+      "EjD1ieKnuetMQ8E76pXczHKZYfBbmrXrZUTSAP3nmn9F"
+    ],
+    "serviceEndpoint": "https://dev-console.myinitial.io/agent/endpoint",
+    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_cdf0a7c0_1624540317",
+    "label": "SKT_Issuer_Demo"
   },
-  "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMzk3ZDZkNTEtODVlOC00NTNlLThlODAtZWI2NzVmZmVhYzU1IiwgImRpZCI6ICJkaWQ6c3N3Ok5vTEwxc2JSU0dQQjE5VHVxSFBXcVkiLCAibGFiZWwiOiAiKFRFU1QpXHViMzAwXHVkNTU5XHVjODFjXHVjOTlkXHViYTg1XHVhYzgwXHVjOTlkIFx1YWUzMFx1YWQwMCIsICJpbWFnZVVybCI6ICJodHRwczovL2tyLm9iamVjdC5uY2xvdWRzdG9yYWdlLmNvbS9kZXYtaW1hZ2UtZmlsZS9kNDFkOGNkOV9lMmY1MmQ1YV8xNjIyMTc5ODQxIn0="
+  "alias": "a123456789b", //기관이 특정 사용자를 지칭하기 위해 사용하는 key 값
+  "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiOGYyMTVkYmEtMDcyYi00Y2NjLWI5MDgtMGU5NWFjNGNlOThjIiwgInJlY2lwaWVudEtleXMiOiBbIkVqRDFpZUtudWV0TVE4RTc2cFhjekhLWllmQmJtclhyWlVUU0FQM25tbjlGIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cHM6Ly9kZXYtY29uc29sZS5teWluaXRpYWwuaW8vYWdlbnQvZW5kcG9pbnQiLCAiaW1hZ2VVcmwiOiAiaHR0cHM6Ly9rci5vYmplY3QubmNsb3Vkc3RvcmFnZS5jb20vZGV2LWltYWdlLWZpbGUvZDQxZDhjZDlfY2RmMGE3YzBfMTYyNDU0MDMxNyIsICJsYWJlbCI6ICJTS1RfSXNzdWVyX0RlbW8ifQ=="
 }
 ```
 <br>
@@ -181,37 +228,17 @@ curl -X 'POST' \
 ### STEP 1-1. <font color=green>[Mandatory]</font> 기관 → 사용자(Holder) : Invitation 전달
 
 1. [initial default] **invitation_url**을 전달할 수 있는 API 개발
-    - [Web Console 개발 Guide](https://initial-v2-platform.readthedocs.io/ko/master/web_console_guide/#5-api) 참조
+
+     [Web Console 개발 Guide](https://initial-v2-platform.readthedocs.io/ko/master/web_console_guide/#5-api) 참조
+
 2. [deeplink] App to App 요청 
-    - Scheme : initial://reqService?**<span style="color:red">{{Parameter}}</span>**
-      
-      Parameter | M / O | Type | Value |  Description
-      --- | :---: | :---: | :---: | ---
-      process | 필수 | string | I <br> V <br> E <br> O <br> F | I - Issue, Credential 발급<br> V - Verify, Credential 제출/검증<br> E - 행안부 전자문서 제출 <br> O - OCR scan 문서 제출 <br> F - 추가서류 제출
-      ynCloud | 필수 | String | Y <br>N | Cloud Agent 기관 여부 (Y/N)
-      orgName | 옵션 | string | 기관명 | 등록된 기관명
-      svcPublicDID | 필수 | String | did:ssw:{{did}}| 기관의 PublicDID
-      credDefId | 옵션 | String | cred_def_id | 증명서 ID
-      seq | 필수 | String | 고객구분자 | 고객구분자 / 신청번호
-      govDocs | 옵션 | String | 코드 | 전자정부 문서 제출 목록 <br> process=E일 경우 필수
-      govWalletAdd | 옵션 | String | 지갑 주소 | 제출할 곳의 전자정부 지갑 주소 <br> process=E일 경우 필수
-      masking | 옵션 | String | Y <br>N | 마스킹 처리 여부
-      submitUrl | 옵션 | url | URL | 제출 완료를 위한 URL
-      invitationUrl | 필수 | URL | URL | 등록된 invitation url
-      invitation | 필수 | string | invitation json | create-invitation으로 생성된 json
-      callback | 옵션 | String | URL |제출완료 후 복귀할 deeplink URL
 
+     Scheme : initial://reqService?**<span style="color:red">{{Parameter}}</span>**
 
-     - sample : 발급요청 / Cloud Agent 기관 / Public DID / 발행할 Cree_Def_ID / invitation url
-
-
-`initial://reqService?process=I&ynCloud=Y&svcPublicDID=DrLbXFSao4Vo8gMfjxPxU1&credDefId=DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd&invitation=https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiNWQ5NDI5MTgtMDNjNC00ZTQyLTljMDgtMzZiNGM1YTY0ZDMxIiwgImRpZCI6ICJkaWQ6c3N3OkRyTGJYRlNhbzRWbzhnTWZqeFB4VTEiLCAiaW1hZ2VVcmwiOiAiaHR0cHM6Ly9rci5vYmplY3QubmNsb3Vkc3RvcmFnZS5jb20vZGV2LWltYWdlLWZpbGUvZDQxZDhjZDlfYTMyODYxZTdfMTYyNzg2NjUzMiIsICJsYWJlbCI6ICIoXHVjMGQ4XHVkNTBjKSBTS1QgXHVkMWEwXHVjNzc1XHVjMTMxXHVjODAxIFx1Yzk5ZFx1YmE4NVx1YzExYyJ9`
-
-
+    - [initial Deeplink Guide](https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/) 참조  
 
 3. [QR code] 
     - 위 Deeplink를 QR code 생성하여 사용자 scan
-
 
 <br>
 <br>
@@ -220,7 +247,7 @@ curl -X 'POST' \
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> STEP2는 initial app(Holder)의 경우 SDK에서 자동으로 처리 되기 때문에, 전달되는 Webhook event만 확인 하시면 됩니다. </p>
+<p> STEP2는 STEP1에서 auto_accept=true 설정하였다면 initial app(Holder)과 자동으로 처리 하기 때문에, 전달되는 Webhook event만 확인 하시면 됩니다. </p>
 </div>
 
 * STEP2 실제 과정 참고
@@ -451,6 +478,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 - <b> topic: `connections`
 - state : `active` </b>
 
+###### public=true example
 ```json
 {
   "created_at":"2021-06-02 06:31:57.255177Z",
@@ -469,10 +497,36 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
   "topic":"connections"
 }
 ```
+<br><br>
+###### public=false example
+
+기관이 설정한 alias가 포함되어 있다
+
+
+```json
+{    
+  "routing_state": "none",
+  "rfc23_state": "completed",
+  "my_did": "RVbyj9N8ZvhAUibVP7hkjq",
+  "created_at": "2022-04-27T17:21:46.329877Z",
+  "invitation_mode": "once",
+  "alias": "a123456789b", // 사용자 mapping을 위해서 기관에서 입력한 값
+  "their_role": "invitee",
+  "accept": "auto",
+  "their_did": "AFdcLYcQb68RQiwTJbYssm",
+  "updated_at": "2022-04-27T17:45:09.140698Z",
+  "their_label": "SKT_Issuer_Demo",
+  "state": "active",
+  "connection_id": "30cbd096-0fc9-4d12-b668-ad045345485e",
+  "invitation_key": "EjD1ieKnuetMQ8E76pXczHKZYfBbmrXrZUTSAP3nmn9F",
+  "connection_protocol": "connections/1.0"
+}
+```
 
 - 기관 개발자는 body의 <b>topic</b> : `connections"`와 <b>state</b>: `active`를 확인 해야 한다.
     - body의 `"state":"active"` 일 경우 연결이 완료 되었기 때문에, their_did(사용자 DID), connection_id(사용자와 communication 필요할때 사용하는 id)등을 확인/기록 하면 된다.
     - `their_did(사용자 DID)`는 정책상 Privacy 보호를 위해 수시로 변경(앱재설치등)되기 때문에, 고객 식별자로 사용 불가능 하다. 
+    - `alias`는 특정 사용자를 구분 및 사용자 mapping을 위해 사용 가능하다
   
 
 <div class="admonition note">
