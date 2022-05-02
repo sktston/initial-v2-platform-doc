@@ -33,8 +33,12 @@
     - 기본 동작 개념 : 연결(DID 교환) → 필요한 VC 검증 (Verify)
 
 ### 5. 연결 요청 API 개발 안내
+
+![invitation flow](img/invitation_flow.png)
+
+
 - 기관사용자는 initial App과 최초 연결(connection)을 위해 초대장(invitation)을 생성하고 전달할 수 있는 API를 제공해야 한다. 
-- 유일하게 모바일에서 접근하는 영역이므로 해당 API의 방화벽은 `any open` 이어야 한다.(이후에는 Agent 서버와 통신)
+- 유일하게 모바일에서 접근하는 영역이므로 해당 API의 방화벽은 `any open` 이어야 한다.(이후에는 Cloud Agent 서버와 통신)
 - initial app의 기관 icon 클릭 시 invitation-url에서 초대장을 받아 연결을 시도 한다.
 - invitation-url API 개발 완료 후 Web Console의 '기관정보'에 입력해야 한다.
 - 연결요청 Open API 참고 : [Connection](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/)
