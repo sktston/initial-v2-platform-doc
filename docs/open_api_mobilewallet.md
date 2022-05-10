@@ -69,7 +69,9 @@ Fetch credentials from wallet
     - wql (Required) : (JSON) WQL query
         
     wql example
+
     모바일가입증명 Schema ID 요청. (기타 Schema ID는 별도 전달)
+    
     ```
     {"schema_id": "cU8rErjgKj8fgn1kTDren:2:PersonIdentityCredential:1.0"}
     ```
