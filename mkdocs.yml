@@ -39,6 +39,7 @@ nav:
 #      - 'Manual Credential Issue': 'm_credential.md'
       - 'Revocation': 'open_api_revocation.md'
       - 'initial Deeplink' : 'initial_deeplink.md'
+      - '' : 'open_api_mobilewallet.md'
   - 'Reference - Demo Samples' :
 #      - 'DID VCX Java Demo' : 'demo.md'
 #      - 'DID VCX NodeJS Demo': 'node_demo.md'
@@ -69,4 +70,4 @@ theme:
   hljs_style : github
 
 extra:
-  version: 2.2.1
+  version: 2.2.2
