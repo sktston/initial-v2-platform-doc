@@ -149,3 +149,95 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 <br><br>
 
 * 개발 진행 중에는 기관공개를 `비공개`로 하거나, App표시를 `미사용`으로 해야 한다.  
+
+
+#### 9. 통계분석하기
+
+![webconsole 1](img/console_statistics.png)
+
+* 발행/검증 통계를 제공한다.
+
+##### Web 화면기준 
+
+항목(화면) | 설명
+--- | ---
+No. | 번호
+From | 통계 Data를 보낸 주체. Issuer 혹은 Verifier 만 표시됨
+Txn ID | 통계 정보를 기록한 블록체인의 트랜잭션 ID 
+Org did | 발행/검증을 진행한 기관의 Public DID
+Holder did | 증명서 발행/검증한 사용자의 Pairwised DID
+TxReulst | 검증/발행의 성공/실패 여부
+VCs | 검증에 사용한 증명서의 개수
+credDefId | 발행/검증에 사용한 증명서ID
+claims | 발행/검증에 사용한 attribute 항목들
+Time stamp | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.
+
+##### 엑셀 다운로드 기준
+
+항목(화면) | 설명
+--- | ---
+txnType | 통계 Data를 보낸 주체. Issuer(0) 혹은 Verifier(1) 만 표시됨
+txnId | 통계 정보를 기록한 블록체인의 트랜잭션 ID 
+result | 검증/발행의 성공/실패 여부
+sPublicDid | 발행/검증을 진행한 기관의 Public DID
+sPairwiseDid | 기관에서 생성한 Pairwised DID
+cPairwiseDid | 증명서 발행/검증한 사용자(client)의 Pairwised DID(Holder DID) 
+verifTplId | 검증양식 ID
+credentials | 발행/검증에 사용한 증명서의 종류와(credDefId)오 항목들(claims)
+timestamp | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.
+
+
+##### * 참고사항 
+
+###### Excel unixtime to datatime 으로 변경하기
+
+예제) 엑셀 J열의 timestamp ```1652943167393``` 변환하는 예시
+
+
+- Step 1 unixtime을 두부분으로 나눈 후 Seoul Time (9시간 추가) 변경하여 시간 변경 가능한 형태로 재계산 
+
+```=((((LEFT(J2,10) & "." & RIGHT(J2,3))+9*60*60)/60)/60)/24+DATE(1970,1,1)```
+
+
+- step 2 : date time 형식으로 cell 속성 변경
+
+```yyyy/m/d h:mm:ss.000```
+
+
+
+###### Holder did(사용자) 확인 방법
+
+<https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#option-connection>
+
+기관에서 실제 사용자와 매핑하여 보관하고 있는 ```connection_id```로 위 API를 호출하면 sPairwiseDid, cPairwiseDid 를 확인할 수 있다.
+
+Sample curl Request
+
+```
+curl --location --request GET 'https://dev-console.myinitial.io/agent/api/connections/3fa85f64-5717-4562-b3fc-2c963f66afa6' \
+--header 'Authorization: Bearer 2caxxd8a-xxxx-xxxx-xxxx-c5fbxx86f2cc'
+```
+
+Sample Response
+
+- sPairwiseDid = my_did
+- cPairwiseDid = their_did
+
+```json
+{
+  "created_at":"2021-06-02 06:31:57.255177Z",
+  "routing_state":"none",
+  "my_did":"66ZaFYLPorqgtQpo8AcpQY",
+  "their_label":"agency",
+  "rfc23_state":"completed",
+  "connection_id":"7d670c2a-ef85-4289-81c3-24bb8e4f045d",
+  "their_role":"inviter",
+  "accept":"auto",
+  "updated_at":"2021-06-02 06:32:01.252322Z",
+  "invitation_key":"81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P",
+  "invitation_mode":"once",
+  "their_did":"78bCMv53bKrusuxyrrbgWM",
+  "state":"active",
+  "topic":"connections"
+}
+```
