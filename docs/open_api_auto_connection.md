@@ -175,6 +175,8 @@ public=true로 생성한 invitation은 "connection_id"가 생성되지 않아 �
   "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiMzk3ZDZkNTEtODVlOC00NTNlLThlODAtZWI2NzVmZmVhYzU1IiwgImRpZCI6ICJkaWQ6c3N3Ok5vTEwxc2JSU0dQQjE5VHVxSFBXcVkiLCAibGFiZWwiOiAiKFRFU1QpXHViMzAwXHVkNTU5XHVjODFjXHVjOTlkXHViYTg1XHVhYzgwXHVjOTlkIFx1YWUzMFx1YWQwMCIsICJpbWFnZVVybCI6ICJodHRwczovL2tyLm9iamVjdC5uY2xvdWRzdG9yYWdlLmNvbS9kZXYtaW1hZ2UtZmlsZS9kNDFkOGNkOV9lMmY1MmQ1YV8xNjIyMTc5ODQxIn0="
 }
 ```
+
+
 <br>
 
 <br>
@@ -197,8 +199,7 @@ curl -X 'POST' \
 
 * Response body
 
-아래 invitation은 connection_id가 이미 생성된 상태로, 1회(1명)만 사용 가능하다. <br>
-기관은 생성된 connection_id를 여러번 재사용 가능하다.
+아래 invitation은 connection_id가 이미 생성된 상태로, 1회(1명)만 사용 가능하다.
 
 ```json
 {
@@ -217,6 +218,13 @@ curl -X 'POST' \
   "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiOGYyMTVkYmEtMDcyYi00Y2NjLWI5MDgtMGU5NWFjNGNlOThjIiwgInJlY2lwaWVudEtleXMiOiBbIkVqRDFpZUtudWV0TVE4RTc2cFhjekhLWllmQmJtclhyWlVUU0FQM25tbjlGIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cHM6Ly9kZXYtY29uc29sZS5teWluaXRpYWwuaW8vYWdlbnQvZW5kcG9pbnQiLCAiaW1hZ2VVcmwiOiAiaHR0cHM6Ly9rci5vYmplY3QubmNsb3Vkc3RvcmFnZS5jb20vZGV2LWltYWdlLWZpbGUvZDQxZDhjZDlfY2RmMGE3YzBfMTYyNDU0MDMxNyIsICJsYWJlbCI6ICJTS1RfSXNzdWVyX0RlbW8ifQ=="
 }
 ```
+ 
+
+<div class="admonition note">
+<p class="admonition-title">note</p>
+<p> public=false로 생성한 invitation은 deeplink의 invitation parameter에 value로 보내면 된다<br> * 참고 : <a href="https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/">Deeplink 규격 </a></p>
+</div>
+
 <br>
 
 #### Webhook example
@@ -552,4 +560,4 @@ Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 �
 
 ### [Option] Delete Connection 
 
-`DELETE` `/connections/{conn_id}/remove`
+`DELETE` `/connections/{conn_id}`

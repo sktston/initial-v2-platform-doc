@@ -13,8 +13,11 @@ initial App2App Deeplink Spec
 initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니다.<br>
 아래와 같은 scheme으로 동작합니다.
 
+#### initial & 모바일지갑 공통
 - Scheme : initial://reqService?**<span style="color:red">{{Parameter}}</span>**
 
+#### 모바일지갑 전용
+- Scheme : initial://mwpService?**<span style="color:red">{{Parameter}}</span>**
 
 #### 1. Deeplink Parameters
 
@@ -24,15 +27,15 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
   ynCloud | 필수 | String | Y <br>N | Cloud Agent 기관 여부 (Y/N)
   orgName | 필수 | string | 기관명 | 표시하기 원하는 기관명
   oUldUrl | process= 'O' or 'F'가 포함일 경우 필수 | String | http://127.0.0.1/initial/upload.do | OCR 촬영서류 및 기타서류를 제출하기 위한 URL
-  seq | 필수 | String | 고객구분자 | 고객구분자 / 신청번호
+  seq | 옵션 | String | 고객구분자 | 고객구분자 / 신청번호
   svcPublicDID | process='V' or 'I' 포함일 경우 필수 | String | did:ssw:{{did}}| 기관의 PublicDID
-  nonce | process='V' or 'I' 포함일 경우 필수 | String | a123456789b | Issuer or verifier의 nonce
+  nonce | 옵션 | String | a123456789b | Issuer or verifier의 nonce
   credDefId | process= 'I'  포함일 경우 필수 | String | cred_def_id | 증명서 ID
   credName | ynCloud=Y 이며 process='V' or 'I' 포함일 경우 필수 | string | 기관명 | 표시하기 원하는 증명서명
   issueCredName | ynCloud=Y 이며 process='K' 일 경우 필수	 | string | 기관명 | 발급 증명서 명
   verifyCredName | ynCloud=Y 이며 process='K' 일 경우 필수	 | string | 기관명 | 검증 증명서 명
-  invitationUrl | 필수* | URL | URL | 등록된 invitation url
-  invitation | 옵션 | string | invitation json | create-invitation으로 생성된 json
+  invitationUrl | invitationUrl 혹은 invitation 둘중 하나 필수 | URL | URL | 등록된 invitation url
+  invitation | invitationUrl 혹은 invitation 둘중 하나 필수 | string | invitation json | create-invitation으로 생성된 json. <br> `/connections​/create-invitation` 에서 `public=false` 로 생성한 경우 사용
   ocrDocs | process='O' 포함 일 경우 필수 | string | 90000000011 | OCR문서 목록 (별도 코드표 요청) <br> 1개이상 제출시 "_" 로 구분
   govDocs | process='E' 포함 일 경우 필수 | String | 90000000011 | 전자정부 문서 목록 (별도 코드표 요청) <br> 1개이상 제출시 "_" 로 구분
   govWalletAdd | process='E' 포함 일 경우 필수 | String | 지갑 주소 | 제출할 곳의 전자정부 지갑 주소
@@ -42,11 +45,15 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
   callback | 옵션 | String | URL |제출완료 후 복귀할 deeplink URL
 
 
-  - sample : 발급요청 / Cloud Agent 기관 / Public DID / 발행할 Cree_Def_ID / invitation
+  - sample : 검증요청 / Cloud Agent 기관 / Public DID / 발행할 Cree_Def_ID / invitation-url
+    * 각 parameter value는 urlencoding 해야 함
 
 
-`initial://reqService?process=I&ynCloud=Y&orgName=샘플기관&credName=샘플증명서&svcPublicDID=did:ssw:DrLbXFSao4Vo8gMfjxPxU1&credDefId=DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd&invitationUrl=https://dev-console.myinitial.io/invitation-url`
+```
+initial://reqService?process=V&ynCloud=Y&orgName=SKT&credName=%ED%98%81%EC%8B%A0%EA%B3%B5%EC%9C%A0%EB%8C%80%ED%95%99&svcPublicDID=did:ssw:39twDfvgTg5ifaPzTQqUxQ&invitationUrl=https%3A%2F%2Fdev-console.myinitial.io%2Fivp%2Fsessions%2F1f288d76-8974-4620-9f5c-fc5f17755135%2Finvitation
+```
 
+<br>
 
 #### Parameter 상세 설명 및 예시 
 
@@ -58,11 +65,10 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
 ##### ynCloud
 
 - ynCloud=Y : Cloud Agent 사용 기관임을 명시
-- ynCloud=N : Cloud Agent 사용 기관과 다른 방식으로 동작
 
 ##### orgName
 
-- orgName=skt : 회사명
+- orgName=SKT : 회사명
 
 ##### svcPublicDID
 
@@ -112,17 +118,41 @@ connection에 사용하기 위한 invitation-url을 전달한다.
 
 invitationUrl=https://issue.sktelecom.com/invitation-url
 
+실제 Deeplink 생성시에는 URL-encoded format으로 생성해야 한다
+
+```invitationUrl=https%3A%2F%2Fissue.sktelecom.com%2Finvitation-url```
+
 ##### invitation
 
-invitation-url통해서 생성된 값을 전달한다. invitation-url public open이 불가능한 기관에서 사용할 수 있다.
+`/connections​/create-invitation` 에서 `public=false` 로 생성한 경우 사용한다
+```
+{
+  "connection_id": "30cbd096-0fc9-4d12-b668-ad045345485e",
+  "invitation": {
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
+    "@id": "8f215dba-072b-4ccc-b908-0e95ac4ce98c",
+    "recipientKeys": [
+      "EjD1ieKnuetMQ8E76pXczHKZYfBbmrXrZUTSAP3nmn9F"
+    ],
+    "serviceEndpoint": "https://dev-console.myinitial.io/agent/endpoint",
+    "imageUrl": "https://kr.object.ncloudstorage.com/dev-image-file/d41d8cd9_cdf0a7c0_1624540317",
+    "label": "SKT_Issuer_Demo"
+  },
+  "alias": "a123456789b", //기관이 특정 사용자를 지칭하기 위해 사용하는 key 값
+  "invitation_url": "https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiOGYyMTVkYmEtMDcyYi00Y2NjLWI5MDgtMGU5NWFjNGNlOThjIiwgInJlY2lwaWVudEtleXMiOiBbIkVqRDFpZUtudWV0TVE4RTc2cFhjekhLWllmQmJtclhyWlVUU0FQM25tbjlGIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cHM6Ly9kZXYtY29uc29sZS5teWluaXRpYWwuaW8vYWdlbnQvZW5kcG9pbnQiLCAiaW1hZ2VVcmwiOiAiaHR0cHM6Ly9rci5vYmplY3QubmNsb3Vkc3RvcmFnZS5jb20vZGV2LWltYWdlLWZpbGUvZDQxZDhjZDlfY2RmMGE3YzBfMTYyNDU0MDMxNyIsICJsYWJlbCI6ICJTS1RfSXNzdWVyX0RlbW8ifQ=="
+}
+```
 
-`invitationUrl=https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiNWQ5NDI5MTgtMDNjNC00ZTQyLTljMDgtMzZiNGM1YTY0ZDMxIiwgImRpZCI6ICJkaWQ6c3N3OkRyTGJYRlNhbzRWbzhnTWZqeFB4VTEiLCAiaW1hZ2VVcmwiOiAiaHR0cHM6Ly9rci5vYmplY3QubmNsb3Vkc3RvcmFnZS5jb20vZGV2LWltYWdlLWZpbGUvZDQxZDhjZDlfYTMyODYxZTdfMTYyNzg2NjUzMiIsICJsYWJlbCI6ICIoXHVjMGQ4XHVkNTBjKSBTS1QgXHVkMWEwXHVjNzc1XHVjMTMxXHVjODAxIFx1Yzk5ZFx1YmE4NVx1YzExYyJ9`
+위 response는 `public=false` 생성한 Sample이고, 위 `invitation-url` key의 value 값인 `https://dev-console.myini.........` 부분을 아래 invitation parameter를 통해서 전달한다. 
+
+`invitation=https%3A%2F%2Fdev-console.myinitial.io%2Fagent%2Fendpoint%3Fc_i%3DeyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiOGYyMTVkYmEtMDcyYi00Y2NjLWI5MDgtMGU5NWFjNGNlOThjIiwgInJlY2lwaWVudEtleXMiOiBbIkVqRDFpZUtudWV0TVE4RTc2cFhjekhLWllmQmJtclhyWlVUU0FQM25tbjlGIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cHM6Ly9kZXYtY29uc29sZS5teWluaXRpYWwuaW8vYWdlbnQvZW5kcG9pbnQiLCAiaW1hZ2VVcmwiOiAiaHR0cHM6Ly9rci5vYmplY3QubmNsb3Vkc3RvcmFnZS5jb20vZGV2LWltYWdlLWZpbGUvZDQxZDhjZDlfY2RmMGE3YzBfMTYyNDU0MDMxNyIsICJsYWJlbCI6ICJTS1RfSXNzdWVyX0RlbW8ifQ%3D%3D`
 
 ##### callback
 
-발행/검증 완료 후 복귀한 url 주소이다.
+발행/검증 완료 후 복귀한 url 주소이다.(URL encoding 필요)
 
 - callback=initial://mainPage
+
 
 
 #### 2. 이미지 전송

@@ -289,5 +289,6 @@ Webhook으로 전달되는 event의 서버 log 예제
 - 약관/동의서 전달 상세 내용은 [Verify](/open_api_proof/#step-1-verifier-holder-verification-request) API 참조.
 
 
-### 8. initial 개발앱 요청
+### 8. 개발검증 방법
 - Test를 진행하기 위해 initial 개발앱을 별도로 요청해야 한다.
+- deeplink를 생성하여 개발하면서 검증이 가능하다(deeplink 가이드 참고)
