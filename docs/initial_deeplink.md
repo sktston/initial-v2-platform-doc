@@ -38,11 +38,12 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
   invitation | invitationUrl 혹은 invitation 둘중 하나 필수 | string | invitation json | create-invitation으로 생성된 json. <br> `/connections​/create-invitation` 에서 `public=false` 로 생성한 경우 사용
   ocrDocs | process='O' 포함 일 경우 필수 | string | 90000000011 | OCR문서 목록 (별도 코드표 요청) <br> 1개이상 제출시 "_" 로 구분
   govDocs | process='E' 포함 일 경우 필수 | String | 90000000011 | 전자정부 문서 목록 (별도 코드표 요청) <br> 1개이상 제출시 "_" 로 구분
-  govWalletAdd | process='E' 포함 일 경우 필수 | String | 지갑 주소 | 제출할 곳의 전자정부 지갑 주소
+  govWalletAddr | process='E' 포함 일 경우 필수 | String | 지갑 주소 | 제출할 곳의 전자정부 지갑 주소
   etcDocs | process='F' 포함 일 경우 필수 | String | 지갑 주소 | 기타 서류 (카메라 촬영에 의한 서류 – 코드표 참조)<br> 1개이상 제출시 "_" 로 구분
   masking | 필수 | String | Y <br>N | 마스킹 처리 여부
   submitUrl | process= 'E' or 'O' or 'F'가 포함일 경우 필수 | url | http://127.0.0.1/initial/submit.do | 제출 완료를 위한 URL
-  callback | 옵션 | String | URL |제출완료 후 복귀할 deeplink URL
+  callback | 옵션 | String | URL | 제출완료 후 복귀할 deeplink URL
+  govIssue | 필수 | String | Y <br>N | "Y"일 경우 발급 후 제출
 
 
   - sample : 검증요청 / Cloud Agent 기관 / Public DID / 발행할 Cree_Def_ID / invitation-url
