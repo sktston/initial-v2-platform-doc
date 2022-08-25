@@ -36,10 +36,10 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 <p></p>
 
 
-- Connection 진행동안 State는 아래와 같이 변경되면 진행 된다.
+- Connection 진행동안 State는 아래와 같이 변경되면서 진행 된다.
+- State는 Webhook을 통해 기관에게 모두 전달된다.
 
-    기관(issuer/verifier) : request → response → active<br>
-    Holder : invitation → request → response → active<br>
+    기관(issuer/verifier) state : request → response → active<br>
 
     Topic | State | rfc23_state | Description
     --- | :---: | :---: | ---
@@ -48,13 +48,17 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
     Connection | response | response-received |Connection accept
     Connection | **<span style="color:red">active</span>** | completed | <span style="color:red">Connection 완료 </span>
 
+    - (참고) initial 및 client 사용자에게는 아래와 같은 state가 전달된다.
+      
+        사용자App(Holder) state : invitation → request → response → active<br>
+
 <p></p>
 
 - Connection ID Data Model & Example
 
-    connection_id는 앞으로 사용자와 모든 통신에서 사용되는 중요한 identifier 입니다. 사용자는 기관에 발급/검증 요청할때 해당 id로 항상 요청한다.
+    connection_id는 앞으로 사용자와 모든 통신에서 사용되는 중요한 identifier 이다. (`public=true`로 invitation 생성한 경우)사용자는 기관에 발급/검증 요청할때 해당 id로 항상 요청한다. 
   
-    다만 사용자가 모바일단말을 교체하거나, 앱을 재설치할경우 해당 connection_id는 사용할 수 없고, 새로운 connection_id가 생성된다.
+    다만 `public=false`로 생성한 경우, 사용자가 모바일단말을 교체하거나, 앱을 재설치할 경우 해당 connection_id는 재사용할 수 없고, 새로운 connection_id가 생성된다.
 
     Item | description | example
     --- | --- |
@@ -102,11 +106,11 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <br>
 
-### STEP 1. <font color=green>[Mandatory]</font> 기관 → 사용자(Holder) : create & send invitation.
+### STEP 1. <font color=green>[필수]</font> 기관 → 사용자(Holder) : create & send invitation.
 
 #### Method and Resource
 
-  `POST` `/connections​/create-invitation` 새로운 초대장 생성
+  `POST` `/connections​/create-invitation` 새로운 invitation 생성
 <p></p>
 
 * Swagger Document
@@ -120,10 +124,10 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
      KEY | Value | Required | Description 
      --- | :---: | :---: | ---
-     alias | string |  | Connection 별칭 지정 (e.g 김증명_대학제증명연결)
+     alias | string |  | Connection 별칭 지정 (e.g. 1234-1234-1234-1234). <br>아래 `public=false` 일때 사용 가능
      auto_accept | <span style="color:red">true</span>/false | O | 사용자가 초대장 수락 시 자동 connection 설정.
      multi_use | true/<span style="color:red">false</span> | O | 초대장 다회 사용여부 선택. `public:true` 세팅 시 자동 multi로 활성화. 
-     public | <span style="color:red">**true**</span>/false | O | Public DID를 기반으로 초대장 생성.<br>connection_id 마다 alias 설정을 위해서는 false 선택
+     public | <span style="color:red">**true**</span>/false | O | Public DID를 기반으로 초대장 생성 유무.<br>connection_id 마다 alias 설정을 위해서는 false 선택
 
 <p></p>
 
@@ -140,9 +144,9 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 {} // no data
 ```
 <br>
-#### a. "public=ture" Invitation Request Example 
+#### A. "public=ture" Invitation Request Example 
 
-일반적인 invitation 초대는 public=true로 생성한다. 
+일반적인 invitation 초대는 public=true로 생성한다. public으로 생성한 connection id는 재사용이 가능하다.
 
 * Curl
 
@@ -150,7 +154,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 curl -X 'POST' \
   'https://dev-console.myinitial.io/agent/api/connections/create-invitation?alias=connection%20sample&auto_accept=true&multi_use=false&public=true' \
   -H 'accept: application/json' \
-  -H 'Authorization: bearer 4dd1f97a-1234-1234-1234-9ed8cd2cfb6d' \
+  -H 'Authorization: Bearer 4dd1f97a-1234-1234-1234-9ed8cd2cfb6d' \
   -H 'Content-Type: application/json' \
   -d '{}'
 ```
@@ -159,7 +163,7 @@ curl -X 'POST' \
 
 * Response body
 
-public=true로 생성한 invitation은 "connection_id"가 생성되지 않아 여러번 재사용 가능하다
+public=true로 생성한 invitation은 여러번 재사용 가능하다
 
 
 ```json
@@ -180,7 +184,7 @@ public=true로 생성한 invitation은 "connection_id"가 생성되지 않아 �
 <br>
 
 <br>
-#### b. "public=false" Invitation Request Example 
+#### B. "public=false" Invitation Request Example 
 
 connection_id를 기관의 특정한 key 값과 mapping하여 관리를 원한다면 public=false를 설정하고, alias에 unique값을 부여한다.
 
@@ -190,7 +194,7 @@ connection_id를 기관의 특정한 key 값과 mapping하여 관리를 원한�
 curl -X 'POST' \
   'https://dev-console.myinitial.io/agent/api/connections/create-invitation?alias=a123456789b&auto_accept=true&public=false' \
   -H 'accept: application/json' \
-  -H 'Authorization: bearer 4dd1f97a-1234-1234-1234-9ed8cd2cfb6d' \
+  -H 'Authorization: Bearer 4dd1f97a-1234-1234-1234-9ed8cd2cfb6d' \
   -H 'Content-Type: application/json' \
   -d '{}'
 ```
@@ -233,7 +237,7 @@ curl -X 'POST' \
 
 <br><br>
 
-### STEP 1-1. <font color=green>[Mandatory]</font> 기관 → 사용자(Holder) : Invitation 전달
+### STEP 1-1. <font color=green>[필수]</font> 기관 → 사용자(Holder) : Invitation 전달
 
 1. [initial default] **invitation_url**을 전달할 수 있는 API 개발
 
@@ -477,7 +481,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 ```
 <br><br>    
 
-### STEP 3. <font color=green>[Mandatory]</font> 기관(Issuer/Verifier) : Webhook Message 확인 및 Connection 정보 관리 
+### STEP 3. <font color=green>[필수]</font> 기관(Issuer/Verifier) : Webhook Message 확인 및 Connection 정보 관리 
 
 - 연결(Connection)이 완료되면 Webhook Event을 통해 아래 Message가 전달 된다.
   
@@ -535,6 +539,12 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
     - body의 `"state":"active"` 일 경우 연결이 완료 되었기 때문에, their_did(사용자 DID), connection_id(사용자와 communication 필요할때 사용하는 id)등을 확인/기록 하면 된다.
     - `their_did(사용자 DID)`는 정책상 Privacy 보호를 위해 수시로 변경(앱재설치등)되기 때문에, 고객 식별자로 사용 불가능 하다. 
     - `alias`는 특정 사용자를 구분 및 사용자 mapping을 위해 사용 가능하다
+    - `their_label`은 서비스를 구분할 수 있다. `agency`(initial App 사용자), `mwp` (모바일지갑 사용자)
+
+<div class="admonition warning">
+<p class="admonition-title">important</p>
+<p> `their_label`을 통해 initial App, 모바일지갑으로 부터 요청을 구분할 수 있습니다. 해당값에 따라 Verify(검증기관)에서 구분해서 이용 동의를 받아야 합니다.</p>
+</div>
   
 
 <div class="admonition note">
@@ -561,3 +571,24 @@ Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 �
 ### [Option] Delete Connection 
 
 `DELETE` `/connections/{conn_id}`
+
+<br><br>
+
+
+### [Option] 기관에서 사용하는 사용자ID와 connection_id mappling 방법
+
+- 모바일지갑에서 제공하는 이름/전화번호/생년월일 기반으로 사용자 관리가 어려운 기관에서 생성한 invitation을 기관에서 관리하는 특정 id와 mapping 하여 관리하는 방법입니다.
+
+<div class="admonition note">
+<p class="admonition-title">note</p>
+<p> 발급기관(Issuer)는 불가능하고, deeplink 기반 검증기관(Verifier)만 사용 가능합니다. </p>
+</div>
+
+STEP1에서 "public=false" Invitation 생성 방법에 대한 설명이 있다. 이때 alias 입력을 통해 기관사용자의 특정 key 값을 넣을 수 있다.
+이 alias를 활용하기 위해서는 [5. 연결 요청 API 개발 안내](https://initial-v2-platform.readthedocs.io/ko/master/web_console_guide/#invitation-url-api-request) 가이드에서 아래와 같이 추가 개발하시면 됩니다.
+
+```https://{{ 기관 도메인 }}/invitation-url?alias={key}```
+
+invitation-url위에 query parameter로 alias를 생성하여 holder에게 전달하고, api로 전달된 alias를 create-invitation 할때 활용하시면 됩니다.
+
+이방법은 invitation-url를 기관에서 직접 생성할때 유효한 방법으로 주로 deeplink 기반 검증기관에서 활용하시면 됩니다.

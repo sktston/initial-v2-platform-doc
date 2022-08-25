@@ -18,8 +18,8 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능하�
 2. 요청형식 (Header)
       - ** Content-Type : application/json **
       - ** Accept: application/json **
-      - ** Authorization: {{bearer token}} **
-      - e.g. `curl -X POST "https://dev-console.myinitial.io/agent/api/connections/create-invitation" -H "accept: application/json" -H "Authorization: bearer 2ca4dd8a-1234-1234-1234-c5fb0286f2cc" -H "Content-Type: application/json" -d "{}"`
+      - ** Authorization: {{Bearer token}} **
+      - e.g. `curl -X POST "https://dev-console.myinitial.io/agent/api/connections/create-invitation" -H "accept: application/json" -H "Authorization: Bearer 2ca4dd8a-1234-1234-1234-c5fb0286f2cc" -H "Content-Type: application/json" -d "{}"`
 3. 응답형식 (Header)
       - Content-Type : application/json; charset=utf-8
 

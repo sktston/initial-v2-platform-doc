@@ -172,6 +172,55 @@ OCR 인식 정보 및 촬영 된 이미지 전송은 multipart 형식으로 파�
 
 ![encryption](img/cloud_agent_encryption.png)
 
+##### 암호화/복호화 Sample Code
+
+```java
+@SneakyThrows
+public static byte[] encrypt(ContentAlgorithm alg, String content, byte[] key, byte[] iv) {
+        byte[] encoded = Base64.encode(content.getBytes(), Base64.NO_WRAP);
+        switch (alg) {
+            case AES256GCM:
+                return encrypt(ContentAlgorithm.AES256GCM, encoded, key, iv);
+            default:
+                throw new IllegalArgumentException("this algorithm type hasn't defined.");
+        }
+    }
+
+@SneakyThrows
+public static byte[] encrypt(ContentAlgorithm alg, byte[] content, byte[] key, byte[] iv) {
+    if (key == null || iv == null) {
+        throw new IllegalArgumentException("key or iv is null.");
+    }
+    switch (alg) {
+        case AES256GCM:
+            Key secretKey = new SecretKeySpec(key, "AES");
+            AlgorithmParameterSpec ivSpec = new IvParameterSpec(iv);
+            Cipher cipher = Cipher.getInstance("AES_256/GCM/NoPadding");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
+            return cipher.doFinal(content);
+        default:
+            throw new IllegalArgumentException("this algorithm type hasn't defined.");
+    }
+}
+
+@SneakyThrows
+public static String decrypt(ContentAlgorithm alg, String encryptedContent, byte[] key, byte[] iv) {
+    if (key == null || iv == null) {
+        throw new IllegalArgumentException("key or iv is null.");
+    }
+    switch (alg) {
+        case AES256GCM:
+            Key secretKey = new SecretKeySpec(key, "AES");
+            AlgorithmParameterSpec ivSpec = new IvParameterSpec(iv);
+            Cipher cipher = Cipher.getInstance("AES_256/GCM/NoPadding");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
+            return new String(Base64.decode(cipher.doFinal(Base64.decode(encryptedContent, Base64.NO_WRAP)), Base64.NO_WRAP));
+       default:
+            throw new IllegalArgumentException("this algorithm type hasn't defined.");
+    }
+}
+```
+
 ##### Request (multipart)
 
 POST { oUldUrl }
@@ -272,6 +321,24 @@ curl --location --request GET 'https://dev-console.myinitial.io/agent/api/connec
             "invitation_key": "81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P"
         }
     ]
+}
+```
+
+- did는 22byte로 32byte를 만들기 위해 뒤에 0으로 padding 합니다.
+- 복호화 key 샘플코드
+
+```java
+public static byte[] createKey(String did) {
+    byte[] encodedDid = did.getBytes();
+    byte[] key32Byte = new byte[32];
+    if (encodedDid.length < 32) {
+        System.arraycopy(encodedDid, 0, key32Byte,0, encodedDid.length);
+    } else if (encodedDid.length > 32) {
+        System.arraycopy(encodedDid, 0, key32Byte,0, key32Byte.length);
+    } else {
+        key32Byte = encodedDid;
+    }
+    return key32Byte;
 }
 ```
 

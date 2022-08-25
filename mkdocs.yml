@@ -30,9 +30,9 @@ nav:
       - 'Open API list & Method': 'open_api_list.md'
 #      - 'Wallet & DID' : 'open_api_wallet.md'
       - 'Connection': 'open_api_auto_connection.md'
-      - 'Verify': 'open_api_proof.md'
+      - 'Verify (검증기관)': 'open_api_proof.md'
       - 'Message': 'open_api_message.md'
-      - 'Issue': 'open_api_auto_credential.md'
+      - 'Issue (발급기관)': 'open_api_auto_credential.md'
             #      - 'Manual Connection': 'open_api_manual_connection.md'
 #      - 'Router Connection': 'open_api_router_connection.md'
       - 'Schema & Credential ID 등록': 'open_api_schema_creddef.md'
@@ -70,4 +70,4 @@ theme:
   hljs_style : github
 
 extra:
-  version: 2.2.4
+  version: 2.3.1

@@ -25,7 +25,7 @@ present_proof State 및 Webhook event 전달 항목
 Topic | State | Description
 --- | --- | ---
 present_proof | <font color=red>proposal_received<br><b>(Webhook event 전달) | (verifier) proof 제안을 받은 상태
-present_proof | request_sent | (verifier)proof presentation 요청한 상태 
+present_proof | <font color=red>request_sent<br><b>(Webhook event 전달) | (verifier)proof presentation 요청한 상태 
 present_proof | request_received | (holder)proof presentation 요청을 받은 상태
 present_proof | presentation_sent | (holder) proof를 presentation 한 상태
 present_proof | <font color=red>presentation_received<br><b>(Webhook event 전달) | (verifier) Proof를 받은 상태 
@@ -34,11 +34,11 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
 <br><br>
 
-### STEP 0. <font color=green>[Mandatory]</font> Holder(사용자) → Verifier(검증기관) : Proof Proposal
+### STEP 0. <font color=green>[필수]</font> Holder(사용자) → Verifier(검증기관) : Proof Proposal
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> STEP0는 initial app(Holder)에서 요청합니다. 검증기관은 Webhook을 통해 전달되는 Message를 확인하면 됩니다. 발행기관(issuer)의 경우 Issue Proposal이 별도로 있기 때문에 현재 STEP0이 필요 없습니다.</p>
+<p> STEP0는 initial app(Holder)에서 검증기관에게 요청합니다. 검증기관은 Webhook을 통해 전달되는 Message를 확인하여 이후 절차 진행을 준비하면 됩니다.</p>
 </div>
 
 #### Method and Resource 
@@ -91,14 +91,14 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
 * Curl
 
-```curl
+```
 curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-proposal' \
 -H 'Content-Type: application/json' \
 -H 'Authorization: Bearer 5dd1e041-505a-468f-ba92-96616886ece4' \
 --data-raw '{
     "connection_id": "9ac517e7-4381-44ba-8890-d2feacb484df",
     "presentation_proposal": {
-        "attributes": [
+        "attributes": [ // attributes 항목은 포함되지 않을 수도 있습니다.
             {
                 "name": "favourite_drink",
                 "cred_def_id": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag"
@@ -185,16 +185,16 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
 
 1. <b>topic</b> : `present_proof` >> VC 검증 요청 event
 2. <b>state</b> : `proposal_received` >> Proposal 상태
-3. `presentation_proposal_dict.presentation_proposal.attributes.cred_def_id` >> 검증 제안 VC (추후 변경 가능)
+3. `presentation_proposal_dict.presentation_proposal.attributes.cred_def_id` : 검증요청 VC 정보. 해당 정보는 Holder에서 optional 하게 제공하는 값으로 정보가 없을 수도 있습니다.
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> Verifier는 3번의 `cred_def_id`를 확인 후 STEP1의 Verification Request 요청에 사용할 verification_template_id을 선택해야 합니다. </p>
+<p> 만약 3번의 항목이 제공된다면 `cred_def_id`를 확인 후 STEP1의 Verification Request 요청에 사용할 verification_template_id을 선택해야 합니다. </p>
 </div>
 
 <br><br>
 
-### STEP 1. <font color=green>[Mandatory]</font> Verifier → Holder : Verification Request
+### STEP 1. <font color=green>[필수]</font> Verifier → Holder : Verification Request
 
 * Method and Resource
 
@@ -247,8 +247,15 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
-<p> 중요!! 검증기관은 사용자 개인정보를 취득하고, intial platform을 통한 정보 전달을 위해 아래와 같은 약관을 사용자에게 전달해야 한다. 동의서 본문은 아래와 같이 json 규격을 만족해야 한다. </p>
+<p> 중요!! 검증기관은 사용자 개인정보를 취득하고, intial platform을 통한 정보 전달을 위해 아래와 같은 약관을 법무팀 검토 후 사용자에게 전달해야 한다. 동의서 본문은 아래와 같이 json 규격을 만족해야 한다. </p>
 </div>
+
+<div class="admonition warning">
+<p class="admonition-title">important</p>
+<p> 중요!! 현재 VC관련 사용자 서비스는 initial App과 모바일지갑 Web 두가지가 존재합니다. 기관은 사용자 요청 서비스를 구분하여 약관 표시 내용을 변경해야 합니다. 요청 서비스 구분은 connection_id의 `their_label`로 구분 가능 </p>
+</div>
+
+      - 아래 `initial서비스`는 사용자 서비스에 따라 `모바일지갑서비스`로 표시 될 수 있도록 개발해야 합니다.
 
 ```json
 {
@@ -781,7 +788,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
 
 <br><br>
 
-### STEP 4. <font color=green>[Mandatory]</font> Verifier : Presentation 검증 결과 확인.
+### STEP 4. <font color=green>[필수]</font> Verifier : Presentation 검증 결과 확인.
 
 Cloud Agent에서 검증이 완료되면 아래와 같은 Webhook Event가 전달 됩니다.
 
@@ -963,7 +970,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
 
 ### STEP 5. [Option] 고급 증명양식 검증(Verify)의 다양한 기법
 
-아래 검증양식 예제는 검증에 대한 다양한 방법의 참고 자료로, 기관 사용자는 사용하지 않습니다.
+아래 검증양식 예제는 검증에 대한 다양한 방법의 참고 자료로, 기관 사용자는 직접 설정할 수 없습니다. 다양한 검증 방식이 필요할 때 관리자에게 요청하시면 됩니다.
 
 ##### Proof Request Data Model
 
