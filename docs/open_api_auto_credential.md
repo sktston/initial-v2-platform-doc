@@ -99,7 +99,8 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
   "state": "proposal_received",
   "updated_at": "2021-05-18 10:10:43.082572Z",
   "thread_id": "03e19631-26a0-4c06-9a29-35c95766a692",
-  "topic": "issue_credential"
+  "topic": "issue_credential",
+  "comment": { "free-issue": true }
 }
 ```
 * Issuer는 아래 정보를 확인 해야 함.
@@ -109,6 +110,7 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
 3. `"cred_def_id":"CB1f9WKGAJDwUKCT2XEx7o:3:CL:1617870264:9f714e9d-4dfb-4d9f-8c8f-60281c729745"` >> 사용자가 요청한 VC 정보
 4. `"connection_id":"0844ebf0-c88f-49cf-9ed0-d0b57cfd9ec8"` >> 사용자 연결 정보
 5. `"credential_exchange_id": "148b673e-d506-431a-8063-a70aebdaadfe"` >> VC발급 관련 모든 정보를 담고 있는 ID
+6. `"comment": { "free-issue": true }` >> event등 처리를 위해 특정 정보를 전달. 
 <br><br>
 
 <div class="admonition Note">
