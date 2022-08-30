@@ -174,49 +174,177 @@ OCR 인식 정보 및 촬영 된 이미지 전송은 multipart 형식으로 파�
 
 ##### 암호화/복호화 Sample Code
 
+원본 문서
+```
+{"docId":"30000100001","ocrInfo":null,"reqDocId":"30000100001","seq":"kordi_00001"}
+```
+
+Key & IV
+```
+KEY : did:ssw:9RKZ1Vngjy7iXYWDyQU1mV
+IV : 76e2454d232e4aa85744b95b
+```
+암복호화 JAVA Sample 코드
+
 ```java
-@SneakyThrows
-public static byte[] encrypt(ContentAlgorithm alg, String content, byte[] key, byte[] iv) {
-        byte[] encoded = Base64.encode(content.getBytes(), Base64.NO_WRAP);
-        switch (alg) {
-            case AES256GCM:
-                return encrypt(ContentAlgorithm.AES256GCM, encoded, key, iv);
-            default:
-                throw new IllegalArgumentException("this algorithm type hasn't defined.");
+package com.skt.ssi.demo.server.ssi.controller;
+​
+import org.junit.Test;
+​
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
+​
+public class DocumentControllerTest {
+    public static final int AES_KEY_SIZE = 256;
+    public static final int GCM_IV_LENGTH = 12;
+    public static final int GCM_TAG_LENGTH = 16;
+​
+​
+    @Test
+    public void sampleTest2() throws  Exception {
+        String hello = "{\"docId\":\"30000100001\",\"ocrInfo\":null,\"reqDocId\":\"30000100001\",\"seq\":\"kordi_00001\"}";
+        String keyString = "did:ssw:9RKZ1Vngjy7iXYWDyQU1mV";
+​
+        // 키 역할을 하는 did가 32보다 짧아서 32로 만들어주고 키 생성
+        SecretKey originalKey = new SecretKeySpec(createKey(keyString), 0, 32, "AES");
+​
+        //hex string인 IV 벡터를 byte array 로 변환
+        byte [] decodedIv = hexStringToByteArray("76e2454d232e4aa85744b95b");
+​
+        //암호화하려는 문자열을 base64 encoding
+        byte [] encodedHello = Base64.getEncoder().encode(hello.getBytes());
+​
+        //암호화
+        byte[] cipherText = encrypt(encodedHello, originalKey, decodedIv);
+​
+        //암호화된 결과를 hex string으로 변환
+        String hexedEncryptedEncoded = bytesToHexString(cipherText);
+​
+        System.out.println("Hexed Encrypted Encoded Text : " + hexedEncryptedEncoded);
+​
+        //전달받은 (암호화된)hex 문자열을 byte로 변환
+        byte [] cipherBytes = hexStringToByteArray(hexedEncryptedEncoded);
+​
+        //복호화
+        String plainText = decrypt(cipherBytes, originalKey, decodedIv);
+​
+        //성공
+        System.out.println("plainText : " + plainText);
+​
+​
+        //샘플 문자열을 복호화 시도
+        String hexString = "234bd7d480b73ad6203483d08f7d85e1a64402fcef7a4c41fbb202fcefedf8a0132999aa0bfa685d9f891aa544ec535e224f340f4050d560205a78e55ec9d3ae5f628bd301180dc0e246a9eb6e9886b6422b7c3055d694338f6bf27af158bf114d9b4d390b89484f584cfc823a1243160fec85898169acb4c228aab2dee4e3ec";
+​
+        //전달받은 (암호화된)hex 문자열을 byte로 변환
+        byte [] secretByte = hexStringToByteArray(hexString);
+        System.out.println("hex test :" + bytesToHexString(secretByte));
+​
+        //복호화
+        String decryptedText = decrypt(secretByte, originalKey, decodedIv);
+​
+        //base64 decode
+        byte [] decodedDecrypted = Base64.getDecoder().decode(decryptedText);
+​
+        //성공
+        System.out.println("decodedDecrypted :" + new String(decodedDecrypted));
+    }
+​
+    byte[] encrypt(byte[] plaintext, SecretKey key, byte[] IV) throws Exception {
+        // Get Cipher Instance
+        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+​
+        // Create SecretKeySpec
+        SecretKeySpec keySpec = new SecretKeySpec(key.getEncoded(), "AES");
+​
+        // Create GCMParameterSpec
+        GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(GCM_TAG_LENGTH * 8, IV);
+​
+        // Initialize Cipher for ENCRYPT_MODE
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec, gcmParameterSpec);
+​
+        // Perform Encryption
+        byte[] cipherText = cipher.doFinal(plaintext);
+​
+        return cipherText;
+    }
+​
+    String decrypt(byte[] cipherText, SecretKey key, byte[] IV) throws Exception
+    {
+        // Get Cipher Instance
+        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+​
+        // Create SecretKeySpec
+        SecretKeySpec keySpec = new SecretKeySpec(key.getEncoded(), "AES");
+​
+        // Create GCMParameterSpec
+        GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(GCM_TAG_LENGTH * 8, IV);
+​
+        // Initialize Cipher for DECRYPT_MODE
+        cipher.init(Cipher.DECRYPT_MODE, keySpec, gcmParameterSpec);
+​
+        // Perform Decryption
+        byte[] decryptedText = cipher.doFinal(cipherText);
+​
+        return new String(decryptedText);
+    }
+​
+    public String bytesToHexString(byte[] bytes) {
+        if (bytes != null && bytes.length != 0) {
+            StringBuilder builder = new StringBuilder();
+            byte[] var2 = bytes;
+            int var3 = bytes.length;
+​
+            for (int var4 = 0; var4 < var3; ++var4) {
+                byte b = var2[var4];
+                builder.append(String.format("%02x", b));
+            }
+​
+            return builder.toString();
+        } else {
+            return null;
         }
     }
-
-@SneakyThrows
-public static byte[] encrypt(ContentAlgorithm alg, byte[] content, byte[] key, byte[] iv) {
-    if (key == null || iv == null) {
-        throw new IllegalArgumentException("key or iv is null.");
+​
+    public String convertHexStringToString(String hex) {
+        if (hex != null && hex.length() != 0) {
+            StringBuilder output = new StringBuilder();
+​
+            for (int i = 0; i < hex.length(); i += 2) {
+                String str = hex.substring(i, i + 2);
+                output.append((char) Integer.parseInt(str, 16));
+            }
+​
+            return output.toString();
+        } else {
+            return hex;
+        }
     }
-    switch (alg) {
-        case AES256GCM:
-            Key secretKey = new SecretKeySpec(key, "AES");
-            AlgorithmParameterSpec ivSpec = new IvParameterSpec(iv);
-            Cipher cipher = Cipher.getInstance("AES_256/GCM/NoPadding");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
-            return cipher.doFinal(content);
-        default:
-            throw new IllegalArgumentException("this algorithm type hasn't defined.");
+​
+    public static byte[] createKey(String did) {
+        byte[] encodedDid = did.getBytes();
+        byte[] key32Byte = new byte[32];
+        if (encodedDid.length < 32) {
+            System.arraycopy(encodedDid, 0, key32Byte,0, encodedDid.length);
+        } else if (encodedDid.length > 32) {
+            System.arraycopy(encodedDid, 0, key32Byte,0, key32Byte.length);
+        } else {
+            key32Byte = encodedDid;
+        }
+        return key32Byte;
     }
-}
-
-@SneakyThrows
-public static String decrypt(ContentAlgorithm alg, String encryptedContent, byte[] key, byte[] iv) {
-    if (key == null || iv == null) {
-        throw new IllegalArgumentException("key or iv is null.");
-    }
-    switch (alg) {
-        case AES256GCM:
-            Key secretKey = new SecretKeySpec(key, "AES");
-            AlgorithmParameterSpec ivSpec = new IvParameterSpec(iv);
-            Cipher cipher = Cipher.getInstance("AES_256/GCM/NoPadding");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
-            return new String(Base64.decode(cipher.doFinal(Base64.decode(encryptedContent, Base64.NO_WRAP)), Base64.NO_WRAP));
-       default:
-            throw new IllegalArgumentException("this algorithm type hasn't defined.");
+​
+​
+    public byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                + Character.digit(s.charAt(i+1), 16));
+        }
+        return data;
     }
 }
 ```
@@ -325,22 +453,8 @@ curl --location --request GET 'https://dev-console.myinitial.io/agent/api/connec
 ```
 
 - did는 22byte로 32byte를 만들기 위해 뒤에 0으로 padding 합니다.
-- 복호화 key 샘플코드
+- 암복호화 샘플코드 참조
 
-```java
-public static byte[] createKey(String did) {
-    byte[] encodedDid = did.getBytes();
-    byte[] key32Byte = new byte[32];
-    if (encodedDid.length < 32) {
-        System.arraycopy(encodedDid, 0, key32Byte,0, encodedDid.length);
-    } else if (encodedDid.length > 32) {
-        System.arraycopy(encodedDid, 0, key32Byte,0, key32Byte.length);
-    } else {
-        key32Byte = encodedDid;
-    }
-    return key32Byte;
-}
-```
 
 #### 4. 문서 제출 완료 
 
