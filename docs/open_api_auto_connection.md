@@ -74,7 +74,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
     rfc23_state | state와 동일하나 RFC23 protocol spec 적용 | State 상세내용 참조
     routing_state | 라우팅 기능 사용 시 state. 현재 지원 안함  | `none`
     their_did | 사용자가 연결을 위해 생성한 pairwise did | 아래 Example 참조
-    their_label | 사용자의 label | `agency` 고정
+    their_label | 사용자의 label | `agency` : 이니셜 App <br> `mwp` : 모바일지갑
     their_role | 사용자 Role | 아래 Example 참조
     updated_at | Time of last record update | 아래 Example 참조
 

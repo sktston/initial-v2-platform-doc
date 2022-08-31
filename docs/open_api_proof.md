@@ -255,7 +255,7 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
 <p> 중요!! 현재 VC관련 사용자 서비스는 initial App과 모바일지갑 Web 두가지가 존재합니다. 기관은 사용자 요청 서비스를 구분하여 약관 표시 내용을 변경해야 합니다. 요청 서비스 구분은 connection_id의 `their_label`로 구분 가능 </p>
 </div>
 
-      - 아래 `initial서비스`는 사용자 서비스에 따라 `모바일지갑서비스`로 표시 될 수 있도록 개발해야 합니다.
+  - 아래 `initial서비스`는 사용자 서비스에 따라 `모바일지갑서비스`로 표시 될 수 있도록 개발해야 합니다.
 
 ```json
 {
