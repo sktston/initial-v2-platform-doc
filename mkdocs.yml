@@ -70,4 +70,4 @@ theme:
   hljs_style : github
 
 extra:
-  version: 2.3.3
+  version: 2.3.4

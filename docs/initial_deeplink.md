@@ -24,26 +24,29 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
   Parameter | M / O | Type | Value |  Description
   --- | :---: | :---: | :---: | ---
   process | 필수 | string | I <br> V <br> E <br> O <br> F | I - Issue, Credential 발급<br> V - Verify, Credential 제출/검증<br> S - Sign, 전자서명 <br> E - 행안부 전자문서 제출 <br> O - OCR scan 문서 제출 <br> F - 추가서류 제출 <br> K – 코스콤 전자서명 전용
-  ynCloud | 필수 | String | Y <br>N | Cloud Agent 기관 여부 (Y/N)
+  ynCloud | 필수 | string | Y | Cloud Agent 기관 여부 (Y/N)
   orgName | 필수 | string | 기관명 | 표시하기 원하는 기관명
   oUldUrl | process= 'O' or 'F'가 포함일 경우 필수 | String | http://127.0.0.1/initial/upload.do | OCR 촬영서류 및 기타서류를 제출하기 위한 URL
-  seq | 옵션 | String | 고객구분자 | 고객구분자 / 신청번호
-  svcPublicDID | process='V' or 'I' 포함일 경우 필수 | String | did:ssw:{{did}}| 기관의 PublicDID
-  nonce | 옵션 | String | a123456789b | Issuer or verifier의 nonce
-  credDefId | process= 'I'  포함일 경우 필수 | String | cred_def_id | 증명서 ID
+  seq | 옵션 | string | 고객구분자 | 고객구분자 / 신청번호
+  svcPublicDID | process='V' or 'I' 포함일 경우 필수 | string | did:ssw:{{did}}| 기관의 PublicDID
+  nonce | 옵션 | string | a123456789b | Issuer or verifier의 nonce
+  credDefId | process= 'I'  포함일 경우 필수 | string | cred_def_id | 증명서 ID
   credName | ynCloud=Y 이며 process='V' or 'I' 포함일 경우 필수 | string | 기관명 | 표시하기 원하는 증명서명
   issueCredName | ynCloud=Y 이며 process='K' 일 경우 필수	 | string | 기관명 | 발급 증명서 명
   verifyCredName | ynCloud=Y 이며 process='K' 일 경우 필수	 | string | 기관명 | 검증 증명서 명
   invitationUrl | invitationUrl 혹은 invitation 둘중 하나 필수 | URL | URL | 등록된 invitation url
   invitation | invitationUrl 혹은 invitation 둘중 하나 필수 | string | invitation json | create-invitation으로 생성된 json. <br> `/connections​/create-invitation` 에서 `public=false` 로 생성한 경우 사용
   ocrDocs | process='O' 포함 일 경우 필수 | string | 90000000011 | OCR문서 목록 (별도 코드표 요청) <br> 1개이상 제출시 "_" 로 구분
-  govDocs | process='E' 포함 일 경우 필수 | String | 90000000011 | 전자정부 문서 목록 (별도 코드표 요청) <br> 1개이상 제출시 "_" 로 구분
+  govDocs | process='E' 포함 일 경우 필수 | string | 90000000011 | 전자정부 문서 목록 (별도 코드표 요청) <br> 1개이상 제출시 "_" 로 구분
   govWalletAddr | process='E' 포함 일 경우 필수 | String | 지갑 주소 | 제출할 곳의 전자정부 지갑 주소
-  etcDocs | process='F' 포함 일 경우 필수 | String | 지갑 주소 | 기타 서류 (카메라 촬영에 의한 서류 – 코드표 참조)<br> 1개이상 제출시 "_" 로 구분
-  masking | 필수 | String | Y <br>N | 마스킹 처리 여부
-  submitUrl | 옵션 | url | http://127.0.0.1/initial/submit.do | 제출 완료를 위한 URL
-  callback | 옵션 | String | URL | 제출완료 후 복귀할 deeplink URL
-  govIssue | 필수 | String | Y <br>N | "Y"일 경우 발급 후 제출
+  etcDocs | process='F' 포함 일 경우 필수 | string | 지갑 주소 | 기타 서류 (카메라 촬영에 의한 서류 – 코드표 참조)<br> 1개이상 제출시 "_" 로 구분
+  masking | process= 'E' or 'O' or 'F'가 포함일 경우 필수 | string | Y <br>N | 마스킹 처리 여부
+  submitUrl | process= 'E' or 'O' or 'F'가 포함일 경우 필수 | URL | http://127.0.0.1/initial/submit.do | 제출 완료를 위한 URL
+  callback | 옵션 | string | URL | 제출완료 후 복귀할 deeplink URL
+  govIssue | process='E' 포함 일 경우 필수 | string | Y <br>N | "Y"일 경우 발급 후 제출
+  eventType | 옵션 | string | { "free-issue": true } | 진행되는 이벤트 타입
+  reservedCallback | 옵션 <br> process= 'V' 인 경우 사용 가능 <br> callback이 없는 경우 사용 가능 | string |  | 
+  verifyVC | 옵션 <br> process= 'V' 인 경우 사용 가능 <br> 검증 시 증명서 없을 경우 발급받아야 하는 VC 정보 | string | [상세 정보](#verifyvc)| 모바일지갑 전용(mwpService)
 
 
   - sample : 검증요청 / Cloud Agent 기관 / Public DID / 발행할 Cree_Def_ID / invitation-url
@@ -154,7 +157,37 @@ invitationUrl=https://issue.sktelecom.com/invitation-url
 
 - callback=initial://mainPage
 
+##### reservedCallback
 
+발행/검증 실패등으로 callback이 불가능한 경우 사용 하는 주소.(URL encoding 필요)
+
+- callback=initial://mainPage
+
+
+##### eventType
+
+특별한 event를 처리하기 위한 custom 규격. 규격은 사전 협의 필요 함.
+
+
+##### verifyVC
+
+증명서 검증 시 사용자가 해당 증명서를 보유하고 있지않으면, 자동으로 발급을 안내하기 위한 값
+
+- 특정 증명서(VC) 경우 credDefId를 요청
+
+```
+{ "credDefId": "2V2mrEScqL3BttkNprYwfd:3:CL:1920787080:1a5bea28-3d94-4773-9c9e-b72bccee7fbd" }
+```
+
+- 특정 증명서(VC) 아닌 경우 schemaId를 요청
+
+```
+{ "schemaId": "N6r4nLwAkcYUX8c8Kb8Ufu:2:InnovationUniversityID:2.0 " }
+```
+
+
+<br>
+<br>
 
 #### 2. 이미지 전송
 
