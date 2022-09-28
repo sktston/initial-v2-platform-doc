@@ -29,9 +29,10 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 - Auto Connection Sequence 
 
     1. 기관(Issuer/Verifier) : /connections/create-invitation (invitation 생성 API 호출)
-    2. 사용자(개인/Holder) : invitation 수락
-    3. 기관 : connection request 자동 실행
-    4. 사용자 : accept connection request 자동 실행
+    2. 기관에서 별도의 API(invitation-url)로 invitation을 사용자(holder)에게 전달
+    3. 사용자(개인/Holder) : invitation 수락
+    4. 기관 : connection request 자동 실행
+    5. 사용자 : accept connection request 자동 실행
 
 <p></p>
 
@@ -54,32 +55,32 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <p></p>
 
-- Connection ID Data Model & Example
+##### Connection ID Data Model & Example
 
-    connection_id는 앞으로 사용자와 모든 통신에서 사용되는 중요한 identifier 이다. (`public=true`로 invitation 생성한 경우)사용자는 기관에 발급/검증 요청할때 해당 id로 항상 요청한다. 
-  
-    다만 `public=false`로 생성한 경우, 사용자가 모바일단말을 교체하거나, 앱을 재설치할 경우 해당 connection_id는 재사용할 수 없고, 새로운 connection_id가 생성된다.
+  connection_id는 앞으로 사용자와 모든 통신에서 사용되는 중요한 identifier 이다. (`public=true`로 invitation 생성한 경우)사용자는 기관에 발급/검증 요청할때 해당 id로 항상 요청한다. 
 
-    Item | description | example
-    --- | --- |
-    connection_id | Connection identifier (Unique ID) | 아래 Example 참조
-    accept | 자동 Connection 동작 설정  | manual / `auto`
-    alias | 향후 재사용을 위한 별칭 설정 <br> Query Parameters의 public = false 에서만 동작 | 설명
-    created_at | connection_id 생성 시간 | 아래 Example 참조
-    invitation_key | invitation을 위해 사용한 Public key | 아래 Example 참조
-    invitation_mode | invitation mode 설정. | `once` / multi / static
-    my_did | connection을 위해 생성한 나의 pairwise did | 아래 Example 참조
-    request_id | Connection request identifier | 아래 Example 참조
-    state | Current state.  | request → response → active <br> 순으로 상태 변경됨
-    rfc23_state | state와 동일하나 RFC23 protocol spec 적용 | State 상세내용 참조
-    routing_state | 라우팅 기능 사용 시 state. 현재 지원 안함  | `none`
-    their_did | 사용자가 연결을 위해 생성한 pairwise did | 아래 Example 참조
-    their_label | 사용자의 label | `agency` : 이니셜 App <br> `mwp` : 모바일지갑
-    their_role | 사용자 Role | 아래 Example 참조
-    updated_at | Time of last record update | 아래 Example 참조
+  다만 `public=false`로 생성한 경우, 사용자가 모바일단말을 교체하거나, 앱을 재설치할 경우 해당 connection_id는 재사용할 수 없고, 새로운 connection_id가 생성된다.
+
+  Item | description | example
+  --- | --- |
+  connection_id | Connection identifier (Unique ID) | 아래 Example 참조
+  accept | 자동 Connection 동작 설정  | manual / `auto`
+  alias | 향후 재사용을 위한 별칭 설정 <br> Query Parameters의 public = false 에서만 동작 | 설명
+  created_at | connection_id 생성 시간 | 아래 Example 참조
+  invitation_key | invitation을 위해 사용한 Public key | 아래 Example 참조
+  invitation_mode | invitation mode 설정. | `once` / multi / static
+  my_did | connection을 위해 생성한 나의 pairwise did | 아래 Example 참조
+  request_id | Connection request identifier | 아래 Example 참조
+  state | Current state.  | request → response → active <br> 순으로 상태 변경됨
+  rfc23_state | state와 동일하나 RFC23 protocol spec 적용 | State 상세내용 참조
+  routing_state | 라우팅 기능 사용 시 state. 현재 지원 안함  | `none`
+  their_did | 사용자가 연결을 위해 생성한 pairwise did | 아래 Example 참조
+  their_label | 사용자의 label | `agency` : 이니셜 App <br> `mwp` : 모바일지갑
+  their_role | 사용자 Role | 아래 Example 참조
+  updated_at | Time of last record update | 아래 Example 참조
 
 
-    <br>Connection Record Example
+  <br>Connection Record Example
 
 
 ```json
@@ -118,7 +119,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
     [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_create_invitation)
 <p></p>
 
-#### Parameters
+#### Request Parameters
 
 * Query Parameters
 
@@ -136,19 +137,42 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
      KEY | Value | Required | Description 
      --- | --- | --- | ---
 
+<p></p>
+
 * Body 
 
     Parameter content type `application/json`
 
 ```json
-{} // no data
+  {} // no data
 ```
-<br>
-#### A. "public=ture" Invitation Request Example 
+
+#### Response Parameters
+
+* Body Parameters
+
+     KEY | Value | Description 
+     --- | :---: | ---
+     connection_id | string | unique connecton identifier. <br> e.g. 30cbd096-0fc9-4d12-b668-ad045345485e <br> `public=ture` 일때 생성되지 않음.
+     invitation | json  | invitation 내용
+     invitation_url | string | 위 invitation을 base64 encoding 한 값. invitation-url 생성할때 사용 하는 값 
+
+
+#### Webhook
+
+* Body Parameters
+
+      create-invitation은 별도의 webhook event가 없습니다. Request의 Response data를 Holder에게 전달해 주시면 됩니다.
+
+<br><br><br>
+
+#### Example
+
+##### A. "public=ture" Invitation Request Example 
 
 일반적인 invitation 초대는 public=true로 생성한다. public으로 생성한 connection id는 재사용이 가능하다.
 
-* Curl
+* Curl Request
 
 ```
 curl -X 'POST' \
@@ -159,6 +183,7 @@ curl -X 'POST' \
   -d '{}'
 ```
 <br>
+
 ##### "public=ture" Invitation Response example
 
 * Response body
@@ -184,7 +209,8 @@ public=true로 생성한 invitation은 여러번 재사용 가능하다
 <br>
 
 <br>
-#### B. "public=false" Invitation Request Example 
+
+##### B. "public=false" Invitation Request Example 
 
 connection_id를 기관의 특정한 key 값과 mapping하여 관리를 원한다면 public=false를 설정하고, alias에 unique값을 부여한다.
 
@@ -199,7 +225,8 @@ curl -X 'POST' \
   -d '{}'
 ```
 <br>
-##### Public Invitation Response example
+
+##### "public=false" Invitation Response example
 
 * Response body
 
@@ -231,7 +258,7 @@ curl -X 'POST' \
 
 <br>
 
-#### Webhook example
+##### Webhook example
 
 - create-invitation은 별도의 webhook event가 없습니다. Request의 Response data를 Holder에게 전달해 주시면 됩니다.
 
@@ -272,6 +299,18 @@ curl -X 'POST' \
     Cloud Agent에서 자동으로 처리되기 때문에, 정보는 참고만 하면 되고 다른 action은 필요 없다. 
 
 <p></p>
+
+#### Webhook Parameters
+
+* Body Parameters
+
+    Webhook으로 전달되는 Data Model은 아래 링크를 참고 
+
+    [Connection ID Data Model](#connection-id-data-model-example)
+
+<br><br>
+
+#### Webhook Samples
 
 - <b>topic : `connections`
 - state : `request` </b>
