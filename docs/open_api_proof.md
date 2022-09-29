@@ -20,7 +20,8 @@ curl --location --request GET 'http://localhost/wallet/did'\
 ![verify sequence diagram](img/verify_diagram.png)
 [PlantUML 상세보기](http://www.plantuml.com/plantuml/uml/TPH1JzjA4CVl-ob6d1o4UNT44EXTthjLFN2jJB9fBOpjsciaRW6CH0jIQKj4W3WAhG1H1IaDDCsX_KBUpNVeh3s9XLKa99BT_ypE_7ypMGs55OXeos7S5RROWMqUs0sR1s25CBTEN-Qcjr58DsglhoxkLFV4-CzpwdYuvlkLcSmEmuY4_-kFc82nQXNyW0VyRMI7jk1GhJ96GdCboxm4w__AGISTlmDr7iklnsnMpJ99O0bgdkloch0zrr1dWtGug90wU-95uFbUQ3c6vsj99Nic2lD7A9tEaWwRwYO1rUkef6tu55LXheUb1VRhDuBDvngIJ1DNGEuzOk_ppCplvU0oVUY1EXgff8aTC5D7Z3gJLll9EIQ1IUjUVhi35VSc-maAfow2V1Yh1FyUGTtkgjv7agZUBaopzIXQ9J6LpSoyISk1T3oGxwzLvvUywe3QJsJt1wI39fujCdEvuRa2VNEyeBhXH7nbUMF5TcrXOw3b-nW5KmCWBmbhLsTzAEfJ5wTgU8_lnlAeluYSww2TAW2PJ-qjHngvLnMOdBUmqGpLInm57WemjYotRWalsCbf5Ka9Ue6BaWLv9D5oU6C6goIOiSgdL2Ce4yyyxnvgw-uU8VqvbiTDRI9YLQqOvEUElEcdtmTohxt0Sehgou6yRYyG3sJNJ8U_5zJe51qdrncOU1shm_RJYdZzbIL4O6z4WeSLhLBjNNNRL4S9DL2MuyxKxPf5Sap_QJOYtGFPkmOZv4v3PytqcMZouGG70WdAKHCCrtFDW6zxctXRaADjuI7khAMdgCo1jcR6WCmdImdaywkLZotwNBnGtgvdP0KrIggvbT4Noq2LmEGofbrXHluVDBRH54cvztMTVAVKD3tvJ4_KStdgwDmWVRrem2mMWMhJ0FLn9yQnKLS4oH11nFzfM4x8YpB_jWThjKssYWBynVu3)
 
-present_proof State 및 Webhook event 전달 항목 
+- present_proof State 및 Webhook event 전달 항목 
+- 붉은 색이 기관에게 전달되는 Webhook 정보 이다
 
 Topic | State | Description
 --- | --- | ---
@@ -34,11 +35,91 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
 <br><br>
 
-### STEP 0. <font color=green>[필수]</font> Holder(사용자) → Verifier(검증기관) : Proof Proposal
+## STEP 0. <font color=green>[필수]</font> Proposal 요청 확인
+
+- <font color=blue>[Previous Condition] : </font> **topic** `connection`의 **state** `active`
+- <font color=blue>[Action] : </font>개발 필요 
+- <font color=blue>[Development] : </font> webhook으로 전달되는 `proposal_received` state 확인 후 `STEP 1` 진행
+
+#### Cloud Agent(플랫폼) → 기관(Issuer/Verifier)으로 Webhook Event 전달
+
+기관에서는 아래 Webhook이 도착하면 증명서 제출 요청(STEP 1)을 진행할 준비하면 된다
+
+#### Webhook Parameters
+
+* Body Parameters
+
+    Webhook으로 전달되는 Data Model
+
+  Item | description | example
+  --- | --- |
+  presentation_exchange_id | Presentation exchange identifier | 아래 Example 참조
+  presentation_proposal_dict | proposal 본문 | 아래 Example 참조
+  connection_id | Connection identifier | 검증 요청한 사용자의 connection_id
+  created_at | presentation_exchange_id 생성 시간 | 아래 Example 참조
+  thread_id | Thread identifier | -
+  role | prover or verifier | `verifier`
+  state | Current state.  | present_proof state 설명 별도 참고
+  auto_present | 자동 검증 기능  | `true`
+  initiator | self or external | `external`
+  updated_at | Time of last record update | -
+  topic | Time of last record update | 아래 Example 참조
+  trace | Time of last record update | 아래 Example 참조
+
+  
+<p></p>
+
+#### Webhook example
+
+```json
+{
+	"presentation_exchange_id": "cf11111c-f944-44c6-a9d0-fb401a5833f9",
+	"presentation_proposal_dict": {
+		"@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/propose-presentation",
+		"@id": "60b43378-582e-450f-8d7a-69adfc55168b",
+		"comment": "검증 제안 Sample",
+		"presentation_proposal": {
+			"@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/presentation-preview",
+			"attributes": [{
+				"name": "favourite_drink",
+				"cred_def_id": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag"
+			}],
+			"predicates": []
+		}
+	},
+	"connection_id": "b7ee2e6b-1bc3-4c23-93ac-416c857d4daa",
+	"created_at": "2021-07-23 01:27:26.783346Z",
+	"thread_id": "60b43378-582e-450f-8d7a-69adfc55168b",
+	"role": "verifier",
+	"auto_present": false,
+	"updated_at": "2021-07-23 01:27:26.783346Z",
+	"initiator": "external",
+	"state": "proposal_received",
+	"trace": false,
+	"topic": "present_proof"
+}
+```
+<p></p>
+<p></p>
+
+#### 기관(Issuer/Verifier) 개발 내용 확인
+
+* Webhook Event 내용중 아래 정보를 확인 하고 STEP1 을 진행해야 함
+
+<p></p>
+
+1. <b>topic</b> : `present_proof` >> VC 검증 요청 event
+2. <b>state</b> : `proposal_received` >> Proposal 상태
+3. (Option) `presentation_proposal_dict.presentation_proposal.attributes.cred_def_id` : 검증요청 VC 정보. 해당 정보는 Holder에서 optional 하게 제공하는 값으로 정보가 없을 수도 있습니다. 만약 3번의 항목이 제공된다면 `cred_def_id`를 확인 후 STEP1의 Verification Request 요청에 사용할 `verification_template_id`를 선택해야 합니다.
+
+
+<br><br>
+
+### [참고][Cloud Wallet Holder 전용] Verify Proposal 요청하기
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> STEP0는 initial app(Holder)에서 검증기관에게 요청합니다. 검증기관은 Webhook을 통해 전달되는 Message를 확인하여 이후 절차 진행을 준비하면 됩니다.</p>
+<p> 다음 API는 initial app(Holder)에서 사용합니다. 검증기관은 아래 API 내용은 Skip 하시면 됩니다.</p>
 </div>
 
 #### Method and Resource 
@@ -145,56 +226,17 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
     }
 }
 ```
-<p></p><p></p>
-
-#### Webhook example
-
-```json
-{
-	"presentation_exchange_id": "cf11111c-f944-44c6-a9d0-fb401a5833f9",
-	"presentation_proposal_dict": {
-		"@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/propose-presentation",
-		"@id": "60b43378-582e-450f-8d7a-69adfc55168b",
-		"comment": "검증 제안 Sample",
-		"presentation_proposal": {
-			"@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/presentation-preview",
-			"attributes": [{
-				"name": "favourite_drink",
-				"cred_def_id": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag"
-			}],
-			"predicates": []
-		}
-	},
-	"connection_id": "b7ee2e6b-1bc3-4c23-93ac-416c857d4daa",
-	"created_at": "2021-07-23 01:27:26.783346Z",
-	"thread_id": "60b43378-582e-450f-8d7a-69adfc55168b",
-	"role": "verifier",
-	"auto_present": false,
-	"updated_at": "2021-07-23 01:27:26.783346Z",
-	"initiator": "external",
-	"state": "proposal_received",
-	"trace": false,
-	"topic": "present_proof"
-}
-```
-<p></p>
-
-* Verifier 위 Webhook Event 아래 정보를 확인 해야 함.
-
-<p></p>
-
-1. <b>topic</b> : `present_proof` >> VC 검증 요청 event
-2. <b>state</b> : `proposal_received` >> Proposal 상태
-3. `presentation_proposal_dict.presentation_proposal.attributes.cred_def_id` : 검증요청 VC 정보. 해당 정보는 Holder에서 optional 하게 제공하는 값으로 정보가 없을 수도 있습니다.
-
-<div class="admonition Note">
-<p class="admonition-title">Note</p>
-<p> 만약 3번의 항목이 제공된다면 `cred_def_id`를 확인 후 STEP1의 Verification Request 요청에 사용할 verification_template_id을 선택해야 합니다. </p>
-</div>
-
 <br><br>
 
-### STEP 1. <font color=green>[필수]</font> Verifier → Holder : Verification Request
+
+
+## STEP 1. <font color=green>[필수]</font> 제출/검증 요청
+
+- <font color=blue>[Previous Condition] : </font> **topic** `issue_credential` 혹은 `present_proof`의 **state** `proposal_received`
+- <font color=blue>[Action] : </font>개발 필요 
+- <font color=blue>[Development] : </font> Verification Request API 요청 개발
+
+API요청을 받은 Cloud Agent가 사용자(Verifier)에게 Verification Request를 요청
 
 * Method and Resource
 
@@ -205,7 +247,7 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
     [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/present-proof%20v1.0/post_present_proof_send_verification_request)
 <p></p>
 
-#### Parameters
+#### Request Parameters
 
 * Query Parameters
 
@@ -233,17 +275,16 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
  
 <p></p>
 
-  verification_template_id : 검증양식ID는 아래 initial Console에서 생성 가능함.
+* verification_template_id : 검증양식ID는 아래 initial Console에서 생성 가능함.
 
 ![webconsole 1](img/web_console_create_verification_templete_id.png)
 
-  검증양식ID는 아래 initial Console에서 확인 가능함.
+* 검증양식ID는 아래 initial Console에서 확인 가능함.
 
 ![webconsole 1](img/web_console_verification_templete_id.png)
 
 <p></p>
 
-- agreement : 동의서 본문 Sample
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
@@ -252,10 +293,10 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
-<p> 중요!! 현재 VC관련 사용자 서비스는 initial App과 모바일지갑 Web 두가지가 존재합니다. 기관은 사용자 요청 서비스를 구분하여 약관 표시 내용을 변경해야 합니다. 요청 서비스 구분은 connection_id의 `their_label`로 구분 가능 </p>
+<p> 중요!! 현재 VC관련 사용자 서비스는 initial App과 모바일지갑 Web 두가지가 존재합니다. 기관은 서비스명을 표시할때 사용자 요청 서비스를 구분하여 약관 표시 내용을 변경해야 합니다. 요청 서비스 구분은 connection_id의 `their_label`로 구분 가능합니다. <br> e.g. 아래 약관 규격 내용에서 `initial서비스`는 사용자 서비스에 따라 `모바일지갑서비스`로 표시 될 수 있도록 개발해야 합니다 </p>
 </div>
 
-  - 아래 `initial서비스`는 사용자 서비스에 따라 `모바일지갑서비스`로 표시 될 수 있도록 개발해야 합니다.
+  - 이니셜 약관 & 동의서 본문 Templete Spec
 
 ```json
 {
@@ -342,12 +383,10 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
 
 <p></p>
 
-* initial app 실제 이용약관 및 개인정보 수집 표시 화면
-
-![동의서](./img/agreement.png)
 
 
-- 실제 Body Sample
+
+- 약관&동의서 본문을 포함한 Request Body Sample
 
 ```json
 {
@@ -440,7 +479,7 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
 ```
 <p></p>
 
-#### Request Example 
+#### Request API Example 
 
 * Curl
 
@@ -602,7 +641,15 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
 
 <p></p>
 
-#### Webhook Example 
+#### Webhook Event 확인 
+
+- STEP 1의 요청이 사용자에게 정상적으로 전달 완료되면 Webhook Event을 통해 아래 Message가 전달 된다.
+<p></p>
+1. <b>topic</b> : `present_proof` >> VC 검증 요청 event
+2. <b>state</b> : `request_sent` >> VC 제출 요청 완료
+<p></p>
+
+- Webhook Example 
 
 ```json
 {
@@ -679,29 +726,27 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
    "topic":"present_proof"
 }
 ```
-1. <b>topic</b> : `present_proof` >> VC 검증 요청 event
-2. <b>state</b> : `request_sent` >> VC 제출 요청
 
-<br><br>
-
-### STEP 2. Holder :  Verification Request 및 약관/동의 내용 확인. 
-
-<div class="admonition Note">
-<p class="admonition-title">Note</p>
-<p> STEP2는 initial app(Holder) SDK에서 자동으로 처리됩니다. </p>
-</div>
+##### [참고] initial app에 실제 표시되는 이용약관 및 개인정보 수집 화면
 
 ![동의서](./img/agreement.png)
 
+
 <br><br>
 
 
-### STEP 3. Holder → Verifier(검증기관) : send presentation 
+## STEP 2. 검증 과정 확인
+
+- <font color=blue>[Previous Condition] : </font> **topic** `present_proof`의 **state** `request_sent`
+- <font color=blue>[Action] : </font> webhook으로 전달되는 event 확인 
+- <font color=blue>[Development] : </font> 없음
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> STEP2는 initial app(Holder)의 경우 SDK에서 자동으로 처리 됩니다. 아래 Guide는 Cloud Wallet Holder의 경우 참고 하시면 됩니다. </p>
+<p> STEP2는 initial app(Holder)에서 자동으로 처리 됩니다. 기관 사용자는 Webhook으로 전달되는 event 참고만 하시면 되고, 아래 API는 Cloud Wallet Holder의 경우 참고 하시면 됩니다. </p>
 </div>
+
+### [참고][Cloud Wallet Holder 전용] 검증항목 보내기
 
 #### Method and Resource 
 
@@ -788,7 +833,11 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
 
 <br><br>
 
-### STEP 4. <font color=green>[필수]</font> Verifier : Presentation 검증 결과 확인.
+## STEP 3. <font color=green>[필수]</font> 검증 결과 확인
+
+- <font color=blue>[Previous Condition] : </font> **topic** `present_proof`의 **state** `verified`
+- <font color=blue>[Action] : </font> 검증 결과를 확인
+- <font color=blue>[Development] : </font> 검증 결과 확인 후 기관 서버에 결과를 저장하거나, 발급기관은 Issue(발급)을 진행
 
 Cloud Agent에서 검증이 완료되면 아래와 같은 Webhook Event가 전달 됩니다.
 
@@ -968,7 +1017,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
   ![verify_webhook](img/verify_topic2.png)
 
 
-### STEP 5. [Option] 고급 증명양식 검증(Verify)의 다양한 기법
+### [참고] 고급 증명양식 검증(Verify)의 다양한 기법
 
 아래 검증양식 예제는 검증에 대한 다양한 방법의 참고 자료로, 기관 사용자는 직접 설정할 수 없습니다. 다양한 검증 방식이 필요할 때 관리자에게 요청하시면 됩니다.
 

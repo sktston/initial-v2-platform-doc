@@ -37,7 +37,7 @@ nav:
 #      - 'Router Connection': 'open_api_router_connection.md'
       - 'Schema & Credential ID 등록': 'open_api_schema_creddef.md'
 #      - 'Manual Credential Issue': 'm_credential.md'
-      - 'Revocation': 'open_api_revocation.md'
+      - 'Revocation (폐기)': 'open_api_revocation.md'
       - 'initial Deeplink' : 'initial_deeplink.md'
       - '' : 'open_api_mobilewallet.md'
   - 'Reference - Demo Samples' :
@@ -70,4 +70,4 @@ theme:
   hljs_style : github
 
 extra:
-  version: 2.3.5
+  version: 2.4.0

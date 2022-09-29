@@ -14,22 +14,22 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
-### Connection Intro
+## Connection 소개 
 
 - **기관**(Issuer/Verifier)과 **사용자**(Holder/개인)의 Connection(연결) concept
 
 ![did connections](img/connections.png)
 
 
-Connection이란 기관과 사용자가 Pairwise DID 및 PKI(Public Key Infrastructure) 기반으로 인증 체널을 생성하는 동작이다.
-Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 상호 연결을 완료한다.
+Connection이란 기관(Issuer/Verifier)과 사용자(Holder)가 Pairwise DID 및 PKI(Public Key Infrastructure) 기반으로 인증 체널을 생성하는 동작이다.
+Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 상호 연결(connection)을 완료한다.
 <p></p>
 
 
 - Auto Connection Sequence 
 
     1. 기관(Issuer/Verifier) : /connections/create-invitation (invitation 생성 API 호출)
-    2. 기관에서 별도의 API(invitation-url)로 invitation을 사용자(holder)에게 전달
+    2. 기관 : 별도의 API(invitation-url)를 제공하여 invitation을 사용자(holder)에게 전달
     3. 사용자(개인/Holder) : invitation 수락
     4. 기관 : connection request 자동 실행
     5. 사용자 : accept connection request 자동 실행
@@ -40,7 +40,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 - Connection 진행동안 State는 아래와 같이 변경되면서 진행 된다.
 - State는 Webhook을 통해 기관에게 모두 전달된다.
 
-    기관(issuer/verifier) state : request → response → active<br>
+    기관(issuer/verifier)이 받는 state : `request` → `response` → `active` <br>
 
     Topic | State | rfc23_state | Description
     --- | :---: | :---: | ---
@@ -55,11 +55,12 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <p></p>
 
-##### Connection ID Data Model & Example
+### Connection ID Data Model & Example
 
-  connection_id는 앞으로 사용자와 모든 통신에서 사용되는 중요한 identifier 이다. (`public=true`로 invitation 생성한 경우)사용자는 기관에 발급/검증 요청할때 해당 id로 항상 요청한다. 
-
-  다만 `public=false`로 생성한 경우, 사용자가 모바일단말을 교체하거나, 앱을 재설치할 경우 해당 connection_id는 재사용할 수 없고, 새로운 connection_id가 생성된다.
+  connection_id는 앞으로 사용자와 모든 통신에서 사용되는 connection 과정을 통해 생성되는 중요한 identifier 이다.
+  `public=true`로 connection을 생성한 기관은 발급/검증 요청할때 항상 같은 connection_id로 항상 요청한다. 
+  
+  다만 `public=false`로 생성하거나, `public=false` 이더라도 사용자가 모바일단말을 교체하거나, 앱을 재설치하여 기존 connection_id 정보가 삭제된 경우 새로운 connection_id가 생성된다.
 
   Item | description | example
   --- | --- |
@@ -107,9 +108,16 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <br>
 
-### STEP 1. <font color=green>[필수]</font> 기관 → 사용자(Holder) : create & send invitation.
+## STEP 1. <font color=green>[필수]</font> Invitation 생성
 
-#### Method and Resource
+- <font color=blue>[Previous Condition] : </font> 없음
+- <font color=blue>[Action] : </font>개발 필요 
+- <font color=blue>[Development] : </font> 기관(Issuer/Verifier) 서버 → Cloud Agent(플랫폼) API 요청
+
+<p></p>
+
+
+#### API Method and Resource
 
   `POST` `/connections​/create-invitation` 새로운 invitation 생성
 <p></p>
@@ -264,7 +272,15 @@ curl -X 'POST' \
 
 <br><br>
 
-### STEP 1-1. <font color=green>[필수]</font> 기관 → 사용자(Holder) : Invitation 전달
+## STEP 1-1. <font color=green>[필수]</font> Invitation 전달
+
+- <font color=blue>[Previous Condition] : </font> create invitation 생성 완료
+- <font color=blue>[Action] : </font>  개발 필요
+- <font color=blue>[Development] : </font> 사용자(Holder)에게 `STEP 1`의 Response(invitation) 직접 전달
+
+
+<p></p>
+
 
 1. [initial default] **invitation_url**을 전달할 수 있는 API 개발
 
@@ -277,12 +293,19 @@ curl -X 'POST' \
     - [initial Deeplink Guide](https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/) 참조  
 
 3. [QR code] 
-    - 위 Deeplink를 QR code 생성하여 사용자 scan
+    - 2번의 Deeplink를 QR code 생성하여 사용자 scan
 
 <br>
 <br>
 
-### STEP 2. 사용자(Holder) → 기관 : receive invitation & request connection.
+## STEP 2. Connection Webhook 확인
+
+- <font color=blue>[Previous Condition] : </font> invitation 전달 정상 완료
+- <font color=blue>[Action] : </font>  Webhook Topic, State 확인
+- <font color=blue>[Development] : </font> 없음 
+
+#### Cloud Agent(플랫폼) → 기관(Issuer/Verifier)으로 Webhook Event 전달
+
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
@@ -308,7 +331,7 @@ curl -X 'POST' \
 
     [Connection ID Data Model](#connection-id-data-model-example)
 
-<br><br>
+<p></p>
 
 #### Webhook Samples
 
@@ -356,9 +379,12 @@ curl -X 'POST' \
 ```
 <br><br>   
 
+### [참고][Cloud Wallet 전용] Invitation 수락하기
+
+
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
-<p> 아래는 Cloud Wallet Holder를 위한 개발 가이드 입니다. 기관(Issuer/Verifier) 사용자는 Skip 하셔도 됩니다. </p>
+<p> 아래는 Cloud Wallet Holder(사용자)를 위한 개발 가이드 입니다. 기관(Issuer/Verifier) 사용자는 Skip 하셔도 됩니다. </p>
 </div>
 
 
@@ -520,7 +546,16 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 ```
 <br><br>    
 
-### STEP 3. <font color=green>[필수]</font> 기관(Issuer/Verifier) : Webhook Message 확인 및 Connection 정보 관리 
+## STEP 3. <font color=green>[필수]</font> Connection 완료
+
+- <font color=blue>[Previous Condition] : </font> **topic** `connection`, **state** `response`
+- <font color=blue>[Action] : </font>개발 필요 
+- <font color=blue>[Development] : </font> webhook으로 전달되는 connection_id 관리
+
+
+<p></p>
+
+##### Cloud Agent(플랫폼) → 기관(Issuer/Verifier)으로 Webhook Event 전달
 
 - 연결(Connection)이 완료되면 Webhook Event을 통해 아래 Message가 전달 된다.
   
@@ -529,7 +564,8 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 - <b> topic: `connections`
 - state : `active` </b>
 
-###### public=true example
+###### public=<font color=red>true</font> example
+
 ```json
 {
   "created_at":"2021-06-02 06:31:57.255177Z",
@@ -548,10 +584,11 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
   "topic":"connections"
 }
 ```
-<br><br>
-###### public=false example
+<br>
 
-기관이 설정한 alias가 포함되어 있다
+###### public=<font color=red>false</font> example
+
+기관이 설정한 `alias`가 포함되어 있다
 
 
 ```json
@@ -573,12 +610,15 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
   "connection_protocol": "connections/1.0"
 }
 ```
+<p></p>
+
+#### 기관(Issuer/Verifier) 개발 내용 확인
 
 - 기관 개발자는 body의 <b>topic</b> : `connections"`와 <b>state</b>: `active`를 확인 해야 한다.
     - body의 `"state":"active"` 일 경우 연결이 완료 되었기 때문에, their_did(사용자 DID), connection_id(사용자와 communication 필요할때 사용하는 id)등을 확인/기록 하면 된다.
-    - `their_did(사용자 DID)`는 정책상 Privacy 보호를 위해 수시로 변경(앱재설치등)되기 때문에, 고객 식별자로 사용 불가능 하다. 
+    - `their_did(사용자 DID)`는 정책상 Privacy 보호를 위해 수시로 변경(앱재설치등)되기 때문에, 고정된 고객 식별자로 사용 불가능 하다. 
     - `alias`는 특정 사용자를 구분 및 사용자 mapping을 위해 사용 가능하다
-    - `their_label`은 서비스를 구분할 수 있다. `agency`(initial App 사용자), `mwp` (모바일지갑 사용자)
+    - `their_label`은 PoC(Point of Contact) App을 구분할 수 있다. `agency`, `agent for ios`(initial App 사용자), `mwp` 및 기타 (모바일지갑 사용자)
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
@@ -594,7 +634,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 
 <br><br>
 
-### [Option] Connection 정보 확인
+## [선택] Connection 정보 확인
 
 Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 저장된다.<br>
 `connection_id`는 각 기관에서 관리하는 개인의 식별자(ID, uuid, CI등)에 mapping 하여 관리하면 된다.([참조](/cloud_agent_demo))
@@ -607,16 +647,16 @@ Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 �
 
 <br><br>
 
-### [Option] Delete Connection 
+## [선택] Delete Connection 
 
 `DELETE` `/connections/{conn_id}`
 
 <br><br>
 
 
-### [Option] 기관에서 사용하는 사용자ID와 connection_id mappling 방법
+## [선택] 기관 사용자 Key와 Mapping
 
-- 모바일지갑에서 제공하는 이름/전화번호/생년월일 기반으로 사용자 관리가 어려운 기관에서 생성한 invitation을 기관에서 관리하는 특정 id와 mapping 하여 관리하는 방법입니다.
+- 모바일지갑에서 제공하는 이름/전화번호/생년월일 기반으로 사용자 관리가 어려운 기관은, `public=false`와 `alias` 사용하여 기관에서 관리하는 사용자 Key와 mapping 하여 관리할 수 있다
 
 <div class="admonition note">
 <p class="admonition-title">note</p>
