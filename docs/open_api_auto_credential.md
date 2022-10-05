@@ -1313,12 +1313,17 @@ Revocation 사용을 위해서는 아래 [Option] 내용을 확인하고 추가 
 
 ## [참고] 발급 취소(Problem Report) 요청
 
-- <font color=blue>[Previous Condition] : </font> **topic** `issue_credential`, **state** `credential_acked`
-- <font color=blue>[Action] : </font> 사용자 증명서 폐기(무효화)
-- <font color=blue>[Development] : </font> 폐기 API 요청
+- <font color=blue>[Previous Condition] : </font> **topic** `issue_credential`, **state** `offer_sent`
+- <font color=blue>[Action] : </font> 증명서 발급 취소
+- <font color=blue>[Development] : </font> 발급 취소 API 요청
 
 증명서 발행 중 승인이 안된 사용자 이거나, 권한이 없는 사용자로 확인되어 발급 불가능하거나 반려를 해야하면 해당 API로 발급과정을 취소하고 사용자에게 정보를 전달한다.
 폐기된 증명서는 사용자에게 폐기 되었다고 표시가 되고, 검증이 불가능 하다.
+
+<div class="admonition warning">
+<p class="admonition-title">warning</p>
+<p> 앱의 비정상 종료, 네트워크 장애등으로 STEP 1 증명서 발행요청 이후 STEP 3이 2분 이내 완료가 되지 않으면, 해당 API로 발급을 취소하고 결제가 완료된 유료 증명서는 환불을 진행해야 한다</p>
+</div>
 
 
 #### Method and Resource
