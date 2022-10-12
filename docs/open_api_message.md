@@ -1,4 +1,4 @@
-Message
+**Message**
 ================
 
 **기관**(Issuer/Verifier)와 **사용자**(Holder/Prover)의 SMS 문자와 메신저와 같은 Basic Message 송/수신 예제.
@@ -16,7 +16,7 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
-### STEP 1. <font color=green>[Option]</font> initial message send (기관 ↔ 사용자)
+### **STEP 1. <font color=green>[Option]</font> initial message send (기관 ↔ 사용자)**
 
 - 발급 기관은 사용자로 부터 추가 정보 입력이 필요하거나 사용자가 선택이 필요한 리스트 내용이 있을 경우 Message 보내기를 통해 요청할 수 있고, initial app은 해당 web-view 화면을 출력 한다
 - initial App또한 특정 결과를 message 기능을 통해 기관 Webhook 으로 전달 한다 
@@ -58,7 +58,6 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 ```json
 {
-  // "content":"String" 의 형식을 지켜야 한다.
   "content":"String"
 }
 ```
@@ -69,11 +68,11 @@ curl --location --request GET 'http://localhost/wallet/did'\
 <p>  중요!! {"contents": "{{본문}}"} 형식에서 {{본문}}의 json 규격은 STEP 2의 initial 표준 가이드를 따라야 한다.</p>
 </div>
 
-Sample
+***Json Body의 String 변환 Sample***
 
 ```json
 {
-  // "content":"보내고 싶은 내용" 의 형식을 지켜야 한다.
+  // "content":"String" 의 형식을 지켜야 한다.
   "content":" {\"type\" : \"initial_web_view\" , \"content\" : { \"web_view_url\":\"https://www.sktelecom.com/test.php?their_did=UtArAzrfSaTF77mNJVcCrA\" }}"
 }
 ```
@@ -91,7 +90,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/conne
 
 <div class="admonition warning">
 <p class="admonition-title">important</p>
-<p>  중요!! {{본문}}이 json일 경우 본문내 "(Double quotation marks)는 \"(Backslash)를 포함 string으로 변환하여 Request를 보내야 한다. 위 Request Sample을 꼭 참조해야 한다.  </p>
+<p>  중요!! {{본문}}이 json일 경우 본문내 "(Double quotation marks)는 \"(Backslash)를 포함 string으로 변환하여 Request를 보내야 합니다. 위 Request Sample을 꼭 참조해야 합니다.  </p>
 </div>
 
 
@@ -116,7 +115,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/conne
 
 <br>
 
-### STEP 2. initial Content 본문 표준 규격 (Protocol)
+### **STEP 2. initial Content 본문 표준 Spec**
 
 initial은 basicmessage를 이용하여 initial app과 다양한 통신을 할 수 있다.<br>
 그중 이미 정의된 규격(Protocol)이 있다.
@@ -125,7 +124,6 @@ STEP1에서 설명한 {{본문 or String}}에 다음의 규격을 사용하면 A
 
 ```json
 {"contents": "{{본문}}"}
-
 ```
 
 <div class="admonition warning">
@@ -145,7 +143,7 @@ STEP1에서 설명한 {{본문 or String}}에 다음의 규격을 사용하면 A
 }
 ```
 
-##### Sample 화면
+***Sample 화면***
 
 ![webview](img/webview.jpg)
 
@@ -201,10 +199,8 @@ complete : function(){
 - Web view내 API의 동작 처리 시간이 오래 걸리는 경우 Modal등 화면을 이용하여 사용자에게 UI/UX 처리해야 함
 
 
-
-
-
 <br>
+
 #### 2. Popup 알림창 요청 본문 Spec (기관 → 사용자)
 
 - 기관(Issuer/Verifier) → Holder(initial App 혹은 Cloud Wallet등)에 알림창 표시를 위해 사용한다.
@@ -244,7 +240,7 @@ No | message_code | message_main | Description | Next Action
 8 | H0006 |	퇴근 등록이 완료되지 않았습니다 |	노인인력개발원 전용 | |
 8 | M0001 |로그인이 완료 되었습니다 |	로그인등 완료 후 현재 작업 종료 | 종료하고 Main으로 이동 |
 
-##### Sample 화면
+***Sample 화면***
 
 ![popup](img/popup.png)
 
@@ -281,7 +277,8 @@ No | message_code | message_main | Description | Next Action
 
 
 <br>
-#### 4. 문제제출 완료 Spec (사용자 → 기관)
+
+#### 4. 문서 제출 완료 Spec (사용자 → 기관)
 
 - Holder(initial App 혹은 Cloud Wallet등) → 기관(Issuer/Verifier)에 문서제출 완료를 위해 사용한다.
 - "type":"initial_summit_doc" 선언 후 정의된 message 본문 전송
@@ -355,9 +352,9 @@ No | message_code | message_main | Description | Next Action
 }
 ```
 
-기관이 받는 message sample
+***기관이 받는 message sample***
 
-```
+```json
 {
 
    "connection_id":"9ac517e7-4381-44ba-8890-d2feacb484df",

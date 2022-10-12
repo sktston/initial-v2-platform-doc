@@ -1,10 +1,10 @@
-Revocation
+**Revocation**
 ================
 
 사용자에게 발행된 증명서(VC)를 폐기(Revocation)
 <br>
 
-## STEP 1. <font color=green>[필수]</font> VC 정보 확인
+## **STEP 1. <font color=green>[필수]</font> VC 정보 확인**
 
 아래 가이드 문서를 참고하여, 폐기를 위한 정보를 가져온다
 
@@ -19,7 +19,7 @@ Revocation
 
 <br><br>
 
-## STEP 2. <font color=green>[필수]</font> VC 폐기(revoke)
+## **STEP 2. <font color=green>[필수]</font> VC 폐기(revoke)**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `issue_credential`, **state** `credential_acked`
 - <font color=blue>[Action] : </font> 사용자 증명서 폐기(무효화)

@@ -1,4 +1,4 @@
-Connection Workflow
+**Connection(연결)**
 ================
 
 <div class="admonition note">
@@ -14,7 +14,7 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
-## Connection 소개 
+## **Connection 소개**
 
 - **기관**(Issuer/Verifier)과 **사용자**(Holder/개인)의 Connection(연결) concept
 
@@ -55,7 +55,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <p></p>
 
-### Connection ID Data Model & Example
+#### Connection ID Data Model & Example
 
   connection_id는 앞으로 사용자와 모든 통신에서 사용되는 connection 과정을 통해 생성되는 중요한 identifier 이다.
   `public=true`로 connection을 생성한 기관은 발급/검증 요청할때 항상 같은 connection_id로 항상 요청한다. 
@@ -108,7 +108,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <br>
 
-## STEP 1. <font color=green>[필수]</font> Invitation 생성
+## **STEP 1. <font color=green>[필수]</font> Invitation 생성**
 
 - <font color=blue>[Previous Condition] : </font> 없음
 - <font color=blue>[Action] : </font>개발 필요 
@@ -174,9 +174,9 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <br><br><br>
 
-#### Example
+#### API 사용 Example
 
-##### A. "public=ture" Invitation Request Example 
+***A. 'public=ture' Invitation Request Example*** 
 
 일반적인 invitation 초대는 public=true로 생성한다. public으로 생성한 connection id는 재사용이 가능하다.
 
@@ -192,7 +192,7 @@ curl -X 'POST' \
 ```
 <br>
 
-##### "public=ture" Invitation Response example
+***'public=ture' Invitation Response example***
 
 * Response body
 
@@ -218,9 +218,14 @@ public=true로 생성한 invitation은 여러번 재사용 가능하다
 
 <br>
 
-##### B. "public=false" Invitation Request Example 
+***B. 'public=false' Invitation Request Example*** 
 
-connection_id를 기관의 특정한 key 값과 mapping하여 관리를 원한다면 public=false를 설정하고, alias에 unique값을 부여한다.
+<div class="admonition note">
+<p class="admonition-title">note</p>
+<p> public=false 및 동적 alias를 활용한 create-invitation은 deeplink를 활용한 검증기관만 사용 가능합니다. initial App에 기관 아이콘이 노출되는 경우 동적 alias를 사용할 수 없습니다.</a></p>
+</div>
+
+connection_id를 기관의 특정한 key 값과 mapping하여 관리를 원한다면 public=false를 설정하고, 동적 alias에 unique값을 부여한다.
 
 * Curl
 
@@ -234,7 +239,7 @@ curl -X 'POST' \
 ```
 <br>
 
-##### "public=false" Invitation Response example
+***'public=false' Invitation Response example***
 
 * Response body
 
@@ -259,20 +264,9 @@ curl -X 'POST' \
 ```
  
 
-<div class="admonition note">
-<p class="admonition-title">note</p>
-<p> public=false로 생성한 invitation은 deeplink의 invitation parameter에 value로 보내면 된다<br> * 참고 : <a href="https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/">Deeplink 규격 </a></p>
-</div>
-
-<br>
-
-##### Webhook example
-
-- create-invitation은 별도의 webhook event가 없습니다. Request의 Response data를 Holder에게 전달해 주시면 됩니다.
-
 <br><br>
 
-## STEP 1-1. <font color=green>[필수]</font> Invitation 전달
+## **STEP 1-1. <font color=green>[필수]</font> Invitation 전달**
 
 - <font color=blue>[Previous Condition] : </font> create invitation 생성 완료
 - <font color=blue>[Action] : </font>  개발 필요
@@ -298,13 +292,13 @@ curl -X 'POST' \
 <br>
 <br>
 
-## STEP 2. Connection Webhook 확인
+## **STEP 2. Connection Webhook 확인**
 
 - <font color=blue>[Previous Condition] : </font> invitation 전달 정상 완료
 - <font color=blue>[Action] : </font>  Webhook Topic, State 확인
 - <font color=blue>[Development] : </font> 없음 
 
-#### Cloud Agent(플랫폼) → 기관(Issuer/Verifier)으로 Webhook Event 전달
+***Cloud Agent(플랫폼) → 기관(Issuer/Verifier)으로 Webhook Event 전달***
 
 
 <div class="admonition Note">
@@ -546,7 +540,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 ```
 <br><br>    
 
-## STEP 3. <font color=green>[필수]</font> Connection 완료
+## **STEP 3. <font color=green>[필수]</font> Connection 완료**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `connection`, **state** `response`
 - <font color=blue>[Action] : </font>개발 필요 
@@ -555,7 +549,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 
 <p></p>
 
-##### Cloud Agent(플랫폼) → 기관(Issuer/Verifier)으로 Webhook Event 전달
+***Cloud Agent(플랫폼) → 기관(Issuer/Verifier)으로 Webhook Event 전달***
 
 - 연결(Connection)이 완료되면 Webhook Event을 통해 아래 Message가 전달 된다.
   
@@ -564,7 +558,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 - <b> topic: `connections`
 - state : `active` </b>
 
-###### public=<font color=red>true</font> example
+***public=<font color=red>true</font> example***
 
 ```json
 {
@@ -586,7 +580,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 ```
 <br>
 
-###### public=<font color=red>false</font> example
+***public=<font color=red>false</font> example***
 
 기관이 설정한 `alias`가 포함되어 있다
 
@@ -634,7 +628,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 
 <br><br>
 
-## [선택] Connection 정보 확인
+## **[선택] Connection 정보 확인**
 
 Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 저장된다.<br>
 `connection_id`는 각 기관에서 관리하는 개인의 식별자(ID, uuid, CI등)에 mapping 하여 관리하면 된다.([참조](/cloud_agent_demo))
@@ -647,14 +641,14 @@ Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 �
 
 <br><br>
 
-## [선택] Delete Connection 
+## **[선택] Delete Connection** 
 
 `DELETE` `/connections/{conn_id}`
 
 <br><br>
 
 
-## [선택] 기관 사용자 Key와 Mapping
+## **[선택] 기관 사용자 Key와 Mapping**
 
 - 모바일지갑에서 제공하는 이름/전화번호/생년월일 기반으로 사용자 관리가 어려운 기관은, `public=false`와 `alias` 사용하여 기관에서 관리하는 사용자 Key와 mapping 하여 관리할 수 있다
 

@@ -14,7 +14,7 @@ nav:
 #      - 'Release notes' : 'release_note.md'
 #      - '이용약관' : 'termsofuse.md'
 #      - '오픈소스고지문' : 'initial platform_v1.0_오픈소스고지문_20210325.htm'
-      - '오픈소스고지문' : 'opensource.md'
+#      - '오픈소스고지문' : 'opensource.md'
 #      - '개인정보수집/이용' : 'privacyuse.md'
 #  - 'Mobile Agency Service' :
 #      - 'Initial Agency' : 'agency.md'
@@ -27,17 +27,17 @@ nav:
 
 
   - 'initial DID Agent API Guide':
-      - 'Open API list & Method': 'open_api_list.md'
+      - 'Cloud Agent API list': 'open_api_list.md'
 #      - 'Wallet & DID' : 'open_api_wallet.md'
-      - 'Connection': 'open_api_auto_connection.md'
+      - 'Connection (연결)': 'open_api_auto_connection.md'
       - 'Verify (검증기관)': 'open_api_proof.md'
-      - 'Message': 'open_api_message.md'
       - 'Issue (발급기관)': 'open_api_auto_credential.md'
             #      - 'Manual Connection': 'open_api_manual_connection.md'
 #      - 'Router Connection': 'open_api_router_connection.md'
-      - 'Schema & Credential ID 등록': 'open_api_schema_creddef.md'
 #      - 'Manual Credential Issue': 'm_credential.md'
       - 'Revocation (폐기)': 'open_api_revocation.md'
+      - 'Message': 'open_api_message.md'
+      - 'Schema & Credential ID 등록': 'open_api_schema_creddef.md'
       - 'initial Deeplink' : 'initial_deeplink.md'
       - '' : 'open_api_mobilewallet.md'
   - 'Reference - Demo Samples' :
@@ -74,4 +74,4 @@ theme:
   collapse_navigation : true
 
 extra:
-  version: 2.4.2
+  version: 3.0.0

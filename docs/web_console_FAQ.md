@@ -1,4 +1,4 @@
-# 개발 FAQ
+# **개발 FAQ**
 
 <font color=blue>Q : 연결(Connection ID) 및 DID는 재사용 가능한가?</font>
 <br>A : 기술적으로 가능합니다. connection이 생성되면, 기관 사용자(issuer/verifier)는 같은 connection_id 기반으로 새로운 연결을 만들지 않고 재사용 가능합니다. 다만 이니셜앱의 정책상 이니셜앱 삭제등으로 기존 connection 정보가 삭제되면 새롭게 생성 됩니다.
@@ -11,4 +11,4 @@
 <br>A : 폐기되지 않습니다. VC삭제 시 사용자 Wallet에서 사라질 뿐입니다. 사용자가 Wallet을 백업하지 않았다면 복구는 불가능 합니다. 사용자가 VC를 삭제해도 발급기관은 폐기가 가능합니다. 폐기는 검증 기관이 확인할 수 있도록 블록체인 원장에 기록을 하는 행위 입니다.
 
 <font color=blue>Q : 발급/검증 시 기관에서 특정 Nonce를 사용하여 mapping 관리 가능한지?</font>
-<br>A : 가능합니다. Invitation 생성 시 connection_id 당 alias를 지정할 수 있습니다. 자세한 내용은 connection 가이드를 참고하시면 됩니다.
+<br>A : 가능합니다. Invitation 생성 시 public=false 옵션을 사용하면 connection_id 당 alias를 지정할 수 있습니다. 자세한 내용은 connection 가이드를 참고하시면 됩니다.

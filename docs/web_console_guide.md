@@ -1,38 +1,40 @@
-<p>initial Platform DID Agent API 이용 개발 안내</p>
+# **Web Console 개발 Guide**
+
+initial Platform DID Agent API 이용 개발 안내
 
 ![platform arch](img/initial_platform_architecture.png)
 
-## 기관 참여자 구현/개발이 필요 항목 
-기관은 위 그림을 참고하여 Cloud Agent와 연동을 위한 Controller 개발이 필요하다.
+## **기관 참여자 구현/개발이 필요 항목 **
+기관은 위 그림을 참고하여 Cloud Agent와 연동을 위한 Controller 개발이 필요합니다.
 
 1. initial App과 최초 통신을 위한 연결(Connection)요청 API
 2. Cloud Agent API 사용위한 Controller
 3. Event 수신 Webhook controller
 
-### 1. initial Console 가입 및 기관 생성
+#### 1. initial Console 가입/기관 생성
 - initial console 가입을 진행하고, Master 권한 신청 및 기관 생성을 진행한다.
 - [가입 및 기관 생성](https://initial-v2-platform.readthedocs.io/ko/master/web_console_signup/#1)
 
-### 2. 기본양식(Schema ID) 확인 및 신규 생성
-- initial Console에 접속하여 `디렉토리` - `기본양식 리스트`에 사용하기 원하는 양식(Schema) 있는지 확인.
+#### 2. 기본양식 확인 및 신규 생성
+- initial Console에 접속하여 `디렉토리` - `기본양식 리스트`에 기관에서 사용하기 원하는 양식(Schema ID) 있는지 확인.
 - 사용하고자 하는 양식이 있으면 그대로 사용 가능하고, 없다면 신규 생성을 요청해야 한다.
 - 신규 양식 생성은 initial 관리자만 생성 가능함으로 [Schema 등록](https://initial-v2-platform.readthedocs.io/ko/master/open_api_schema_creddef/) 참고하여 신청해야 한다.
 
-### 3. 발행양식 및 검증양식 생성 
-- 아래 링크를 참고하여 발행양식과 검증양식을 생성한다. 이부분은 현재 단계에서 skip 가능하다.
+#### 3. 발행양식 및 검증양식 생성 
+- 아래 링크를 참고하여 발행양식과 검증양식을 생성한다. 이부분은 최초 기관생성 단계에서 skip 가능하다.
 - [발행양식 생성](https://initial-v2-platform.readthedocs.io/ko/master/web_console_signup/#4)
 - [검증양식 생성](https://initial-v2-platform.readthedocs.io/ko/master/web_console_signup/#6)
 
-### 4. API 및 Sample Code 확인
+#### 4. API 및 Sample Code 확인
 - 개발하기 전 아래 참고 사이트를 확인 한다.
 - Open API [[Click]](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/)
 - Issuer/Verifier JAVA Demo 소스코드 [[Click]](https://github.com/sktston/initial-controller-java)
 - Issuer Demo Sequence Diagram [[Click]](https://plantuml.com/plantuml/uml/pLTTQnj75xxVNt782o-xO5dtHX9nugJrLKFI3tebrhiZQ_1gLvrTAGrfm4sLagA0dSQkvLGoBiLk4rogsY8uuFwPNcf7_w5dDAFT4IktSagXlj7ipfoFyvppFBE-7aOsYnerpo1-HAC7i1g63SB03k6QN5wRxDZhk1XltFI2XWlBuZdP_IYSMFaqehO7wb2zdXoXQaUSYb__7FTtUEzYsD_a1q_uSIz-_IJkTuVdtrmp3ADOX3eZZ7pMe26D21IBXZ4npvN6mPRWBtmOVe1MGPEmITI5iL7Y1FC2_lY4ltm5lDq5tXl4lvw3D8wtE_ox0V23f-9dj3k8ssyXtjhd1yzvRnDVjFZB7U1xN_FUiqKmD3JW_S1p2HDULqWjY8ykW7TRw44PZNQxoX5Yue98qZ0KubYMMYr1eHAWCoVm0bPSyngaL5WhtIThrI3O2FFKRzB8ZcZWm_ATLHZskvZs6BARWUyJPxmZ01C5wsv5pTJ1JSUZpWOMkwLRO7hyz1TJ3ys8AoB3NUm32IDuxzQ7yF2X6zHiwZzwf2MIQp3FCcnqrBGZeW9gXSdHcLsNYKLOUIT99CmxZA2NNEe-yImT6T9TJaTCfAO1i-fNC4knD6yXqFM0-j72dSOQ5WuhgokBYujMafwS9mbxflQx9AnZJaHtJj4vazubneMSLYEYvH3QdBBuVm9XMYUO-k3mWsqS3E2ddVZunCfME1kxJ-HC06cAu_cfTkwtuX-VWHa5TUgWkGRm0eIO5y6NOro9PRXa6k5vPp9rMgOkJhkY51Q31RN6n6htuhCMyCFT-6mG_z25bHluW7GzciGeQFWNa5NzuMa_oHvx1SkDg6f1gQHdgIRCq7WkNocQZpejVd22mGmDSEh25nhl16Ma5TnXGJq8RK_GHjZhCxiiTOMtkaeU9aoXOzEwDDN7Nrh-x_Rj6_ZthgsKYSbGQHV7CSiE3YVnfQgfLYPvb9aSFpV3noIZURkByF5U9-sfRA8vrNIBxsrFuu9FtwDCQhYP8j-oIohY_5XsqWBAv7EdQllh1FTGohxblPQQZwlt5hGuwYaR91q040Cm-n9HfUI7fvluebYyafJL6GdnJ0ux4bJok7HpM0EjK4Tg9PDIa6tFYiqsxjbUBIDu-bOoJvVVWX9rXB7BttJJhco9gmSRYdjvlllxSB29Hrfn-mHCSVqTj_BuEDhVYK-VZZhdyOlVB5EgafNXnD_4dEdmdKLDDa59WgX3N7cyTwv49IM70huy1ZvbXWGV2J7lt6iYbYr30nA5QdXsONvg2UMROeKW1LuGJfNwwtZrT_ZUYIPywixGioXS3gait_nOLF70KZ3CbCECZFzB5CADP98WVZn0iEGh7HDy8z73XOvVoZzaNrPS4wuby2ob0gGwFckwygad2uRd_RZV4JzYo17uUyHcJbLvJYxh9J0_g8lI4TKtEuYxyW-8Vtnu13Y8JKhkGuDvbzCTfZvT7ee7XEYHv7sDX266-cTKJvYE-O0e-DL04TUKQKzblG2yVIZWUZk8NuZfwICd1Pd136InsJ6HzDOHr-58L4Bk8fWC1qhSvVodB_dXSs3g6ydAZcGMyijraugZkNJa_jXiInI3IeMmGdwjLCWBuz9z6bKl6Kq5MK7xgEEjmz5NFVpopWwRqhUvbGbcNzAIalDSqbhIjhD1t6mlvhwSPGMoGrVKdsoNLD3fJx4CN9hs_1UL1HzbdjZh9FN4oMXh6_KW-O-iEz4IHffbHjOn-08k0yTM45gGAjLrN3Lgtfy0)
-    - 기본 동작 개념 : 연결(DID 교환) → 모바일가입증명 검증 & 신원 확인(Verify) → 신규 VC 발행(Issue)
+    - 기본 동작 개념 : 연결(Connection/DID 교환) → 모바일가입증명 검증 & 신원 확인(Verify) → 신규 VC 발행(Issue)
 - Verifier Sequence Diagram [[Click]](https://plantuml.com/plantuml/uml/dLLVQnj747-_Jp6uK7HWMUz14d7ifDLR26rAdyJvRcKlaMwlUtTgGnemuL9I78XBhLeE9z5IOjgWKbKMnGNt2sbNtw5pjwlJEXBD7xre_-pyPkOtyvkx6KOEZ-9Eso9-HAE7q0Z3c71mGjYuJpXjKS8t5dVEFYxogvqsYptOplR5xUUXjcluDA9E6_IZ82YUK7sJlHAlVnFZ4pcuceqFvV2fF1-8rq_5E9rTVhzXMLQj1W4dd7mLqv1616erorgOb-kvinlmFnYMpz2ATGbVUDtCZGeGZ0laav5y-Jl8enJaO2h-l0HbB8xxygSfoE6px6_UcugZVq2yE9F37-JW40yI-V84vEbtSl1y2oo33VYKjJt2CzHTqc7YrHN8D444RJJlfHe8EV4W2zAoDEUObbxTW6gB8PZBsepNzjengLVtwb-JlGF67eGLwdTfv4IK-R1zjm6pSOfXvvJjCDydRdQJ4vObRC9cELCNBzqsTHzWiYzC2mnFJluecQuvyJBFS0_hGC88Fhdz6JnwvB6EG_t7Zur0oZ5lsvQ3G5qd8jgXaPXgdVLvbJ09k-8MWOGLbnD4AI_X2sG5P2cuiibO5ff1JCDliKw-BDr6eWD6_MZpRho7YSDkOtThQyikmjFzX21hShz7mW1Z8YOuHN2kq1N7rRAH8xBb4jgzPl5nGU4oJoYPZIE7nzWO82TzSJwoLpDSpzqNgYU0TBFdbMlbF4l4hy-X5B60kcXk4Bm98SP5y33dbTYMHzvW-1rxSWdQf1vskvOK9eC99RcmZWRY8W7vSqzSJCKlAUpUmWtAzTN2HzNWlugg6iycuo9wh1Linz613VMwZjBiCClGkJhICf_t4paSeJFB89nwyAsXEyWrewQ6J5AOJGvnKyhdtaCR1PGXcTsx_UPRhHbj0W5d0GiTKmdAzACxTsxXxqEhgk6LisL50qv2VD14jwnLrBI8eibL7tehmbp4yru2rTxAkRSABhroDukBkce2SDNWbf6acjBtTx3WgVmxNII0SoSVWeC-CbcHlNzdqqDyaeYZ4PIoGNoUL70xFpiHasVp_gNuyI-xfFHXhzIaG5zh-i52qlNLROWHPsDM3Yvr8x-r28eQugsHrhjgov3IQc86YIYNsSLLwKixqzyrGShJOy0nvHvGVn_clRuy7HdoqvFBZAAw-abTBmvDp5fHlhycmUN4QtgarInsI1J55YRVk0UElq_KHT4q89vCaHjrP5A09ueiN9XqBLL_4rTnf_qV)
-    - 기본 동작 개념 : 연결(DID 교환) → 필요한 VC 검증 (Verify)
+    - 기본 동작 개념 : 연결(Connection/DID 교환) → 필요한 VC 검증 (Verify)
 
-### 5. 연결 요청 API 개발 안내
+#### 5. 연결 요청 API 개발 안내
 
 ![invitation flow](img/invitation_flow.png)
 
@@ -44,15 +46,16 @@
 - 연결요청 Open API 참고 : [Connection](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/)
 - 개발 참고 JAVA 예제 :  [Create Invitation Url java code](https://github.com/sktston/initial-controller-java/blob/master/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java)
 
+<br>
 
-invitation_url process sequence diagram
+** *invitation_url process sequence diagram* **
 
 [이미지 크게보기](http://www.plantuml.com/plantuml/png/dLHVQzDG57-_d-Amvys-5oihsnW5sGPMV9JONhfWbyGaBSeOP3E8SuLDN5qwcg6e7OCEOgtGX_bbVCmz_GxUUzDaTt7WdwSskUVypk_FkLbqNCrsMrjDGWrNTr-0rk1_G7DWRgbfjkfGbi_bZSfSMc7Q3NcEqGHFXl4aYiSUw4PRTpLNDus5bjtCQbiEjMLnnT1TNMj2sRAoGws-fHloL4zFnPivGaebi6ngqsSjtT5T2gKI8MBimhrPKp4t4F13btqRyn-V7Go162RlCjlK5cpdanw2mMiyw6FFWpZgOUW9LUpB5N_giwW_xGPS3c0uPXV765wnTrynz67wwlkqEuQKeOJ2awDur9aDkqFeSstBQb9EQjDrBQTOA6nl9xQmGv-TVyPmihDJk45Os5q7mP8G2VbdQSaf-dqsye550GQxG9HkQNKHPdbWr-TAy4S0qxTzhbgrHBQGMwTmEt8Zk2tiWa-tB0o3Ms0p7IAq7APbcpNgE38-GK_G534MONMb-Yzc9UHjlR7f4jmRuka5dXsnDySgdzqn6rmgYV58uyb-8HvvE0W1JuznT4co68KSxxTseOY_OsS1yB5fq_-bMdFrjkPIcKls9EHdconlLX4srXzKeL0p3OFM193pqpier6pAonUkuLKBPXaBAeFXp0dbjegWrYrgYFrEDVpT423uSXVz2TiRSu-5GvMrIhLIlW_BbMKehwwiLINewiFAyeeOivG1WlWSV8mo1pB9YKwIgCqMGCoK8s_UN5AdkJxXbhBUrrmVSx_PUGSipNPqem79_Krn520nCTk_st6WJcjcNK5HtUnv83m-x06UHF4e0Zptf-_tPv1tbIHpvuA2kWGv3xBodiy-TG2x7JQuKg-fg9wNx1_H9vkc-VHwktEzjCrBK-bP0ely7_-o_m80)  
 ![invitation_url](http://www.plantuml.com/plantuml/png/dLHVQzDG57-_d-Amvys-5oihsnW5sGPMV9JONhfWbyGaBSeOP3E8SuLDN5qwcg6e7OCEOgtGX_bbVCmz_GxUUzDaTt7WdwSskUVypk_FkLbqNCrsMrjDGWrNTr-0rk1_G7DWRgbfjkfGbi_bZSfSMc7Q3NcEqGHFXl4aYiSUw4PRTpLNDus5bjtCQbiEjMLnnT1TNMj2sRAoGws-fHloL4zFnPivGaebi6ngqsSjtT5T2gKI8MBimhrPKp4t4F13btqRyn-V7Go162RlCjlK5cpdanw2mMiyw6FFWpZgOUW9LUpB5N_giwW_xGPS3c0uPXV765wnTrynz67wwlkqEuQKeOJ2awDur9aDkqFeSstBQb9EQjDrBQTOA6nl9xQmGv-TVyPmihDJk45Os5q7mP8G2VbdQSaf-dqsye550GQxG9HkQNKHPdbWr-TAy4S0qxTzhbgrHBQGMwTmEt8Zk2tiWa-tB0o3Ms0p7IAq7APbcpNgE38-GK_G534MONMb-Yzc9UHjlR7f4jmRuka5dXsnDySgdzqn6rmgYV58uyb-8HvvE0W1JuznT4co68KSxxTseOY_OsS1yB5fq_-bMdFrjkPIcKls9EHdconlLX4srXzKeL0p3OFM193pqpier6pAonUkuLKBPXaBAeFXp0dbjegWrYrgYFrEDVpT423uSXVz2TiRSu-5GvMrIhLIlW_BbMKehwwiLINewiFAyeeOivG1WlWSV8mo1pB9YKwIgCqMGCoK8s_UN5AdkJxXbhBUrrmVSx_PUGSipNPqem79_Krn520nCTk_st6WJcjcNK5HtUnv83m-x06UHF4e0Zptf-_tPv1tbIHpvuA2kWGv3xBodiy-TG2x7JQuKg-fg9wNx1_H9vkc-VHwktEzjCrBK-bP0ely7_-o_m80)
 
 
 
-##### invitation-url API Request 
+** *invitation-url API Request* **
 
 - initial App에서 실제 요청하는 invitation-url http request sample
 
@@ -77,7 +80,7 @@ curl --location --request GET 'http://{{ 기관 도메인 }}/invitation-url'
     }
 ```
 
-##### invitation-url API Response
+** *invitation-url API Response* **
 
 - invitation-url API Response는 아래와 같은 양식으로 제공해야 한다.
 
@@ -101,7 +104,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 - invitation-url의 개발은 OPEN API의 [Connection](/open_api_auto_connection/)을 참고.
 
-### 5. DID Agent Controller 개발 안내 
+#### 5. DID Agent Controller 개발 안내 
 - 기관사용자는 DID Agent REST API를 사용하기 위해 controller 서버를 개발해야 한다.
 - Webhook 서버를 통해 전달된 Event에 따라 다음 Service Logic을 구현해야 한다.
 - 자세한 API 내용은 initial DID Agent API Guide 및 reference code 참조
@@ -110,7 +113,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 <br>
   
-### 6. Webhook controller 개발 안내 
+#### 6. Webhook controller 개발 안내 
 - initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식으로 기관, 사용자는 Event를 받을 수 있는 Webhook API를 개발하고 url 등록해아 한다.
 - 처리결과를 받기 위한 기관 사용자의 Webhook URL은 기관정보에 필수 등록해야 합니다. e.g)https://domain.com/webhooks
 - Webhook 서버의 API Key는 보안 강화를 위한 선택 사항입니다. https://domain.com/webhooks#org-api-key 와 같이 입력하시면 header의 x-api-key 항목에 값으로 "org-api-key"를 함께 전송합니다.
@@ -123,7 +126,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 
 
-#### 6-1. Webhook url API 개발
+** *6-1. Webhook url API 개발* **
 
 - initial DID platform에서 처리 결과를 webhook으로 전달다.
 - 기관은 Webhook으로 event를 받을 수 있는 API를 제공해야 한다.
@@ -169,7 +172,7 @@ body: {
 ```
 body의 `topic`의 `state`는 event 수신 후 다음 action을 위해 중요하게 활용. 
 
-#### 6-2. Webhook Controller 개발 
+***6-2. Webhook Controller 개발***
 
 - webhook으로 전달된 event에 따른 biz logic 처리를 위해 controller를 개발해야 한다.
 
@@ -179,11 +182,11 @@ body의 `topic`의 `state`는 event 수신 후 다음 action을 위해 중요하
 
 topic | state 종류 | description | next action
 --- | --- | --- | ---
-connections | invitation,request,response,active | 연결 | connection state `active` 까지 자동 진행 됨. 기관 개발자는 connection_id를 저장하고, 발행기관은 Holder로 부터 발행 요청이 올때까지 대기한다. 검증기관은 개인정보수집을 위한 동의서를 요청을 진행한다.
+connections | invitation<br>request<br>response<br>active | 연결 | connection state `active` 까지 자동 진행 됨. 기관 개발자는 connection_id를 저장하고, 발행기관은 Holder로 부터 발행 요청이 올때까지 대기한다. 검증기관은 개인정보수집을 위한 동의서를 요청을 진행한다.
 basicmessages | received | Message 수신 완료 | message를 display 하거나, 정책에 따라 VC 발행이나 검증을 진행한다. <br>e.g. send-offer,send-request 
-issue_credential | offer_sent, request_received, credential_issued, credential_acked | 발행 | issue_credential state `credential_acked`까지 자동 진행 됨. 
+issue_credential | offer_sent<br>request_received<br>credential_issued<br>credential_acked | 발행 | issue_credential state `credential_acked`까지 자동 진행 됨. 
 issuer_cred_rev | issued | revocation registry update  | revocation 관련 정보 저장  |
-present_proof | request_sent, presentation_received,verified | 검증 | state:verified까지 자동으로 진행. 검증 결과를 확인하거나, 필요 시 저장 하면 됨. 
+present_proof | request_sent<br>presentation_received<br>verified | 검증 | state:verified까지 자동으로 진행. 검증 결과를 확인하거나, 필요 시 저장 하면 됨. 
 revocation_registry | posted | RevocationRegistry record 생성 완료 | 블록체인에 자동으로 생성 완료. 개발자는 별도로 진행할 필요 없음.
 problem_report | | | 에러 확인 
 
@@ -283,12 +286,12 @@ Webhook으로 전달되는 event의 서버 log 예제
 2021-05-14 10:19:28 [INFO ] [GlobalService.java]handleEvent(116) : Web View is not used -> sendCredentialOffer
 2021-05-14 10:19:28 [INFO ] [GlobalService.java]handleEvent(66) : handleEvent >>> topic:issue_credential, state:offer_sent, body:{"initiator":"self","credential_definition_id":"DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd","created_at":"2021-05-14 01:19:28.449637Z","credential_offer_dict":{"@type":"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/offer-credential","@id":"14f835a6-9184-48b6-9957-400db54bb0d8","~thread":{},"offers~attach":[{"@id":"libindy-cred-offer-0","mime-type":"application/json","data":{"base64":"eyJzY2hlbWFfaWQiOiAiTjZyNG5Md0FrY1lVWDhjOEtiOFVmdToyOkNlcnRpZmljYXRlT2ZUT0VJQzo0LjAiLCAiY3JlZF9kZWZfaWQiOiAiRHJMYlhGU2FvNFZvOGdNZmp4UHhVMTozOkNMOjE2MTc2OTgyMzg6ODFkZjAwMTAtNjJiNC00NWIxLWJkMDAtOGQwYWQ3NDc2MmZkIiwgImtleV9jb3JyZWN0bmVzc19wcm9vZiI6IHsiYyI6ICIxMTUzMDkyMDc2NjU0Mjg0MDYxNzk1NDU5OTQzNzM5MTIxODEyODI4MzE1NDUxMTg1NDAwMTQyMjk5NjcyNzE3MDc4OTYyMjQ5MzE1NTAiLCAieHpfY2FwIjogIjEwNTU1NzI3Njk4NjI2NjM0NjM3MDk5MzQyMDQ2MDE5NTQwODA0ODM4OTg4MjYwMzA4Nzk1OTU5NzkwNzQ5NzEwMDQyMDY4NTkzOTM3ODI2NTU1OTkzMjQxNDA5MTM5MDI2NTM2NTAz
 ```
-### 7. 참여사 개인정보 수집 및 이용 약관 조회 전달 구현 안내 
+#### 7. 참여사 개인정보 수집 및 이용 약관 조회 전달 구현 안내 
 - 모바일 initial App에서 참여사에게 본인확인증명을 제출하기 전 개인정보 수집 및 이용 동의를 받기 위해, 동의서 전달이 필요하다.
 - 동의서는 해당기관 법무팀의 검토를 받아야 한다.
 - 약관/동의서 전달 상세 내용은 [Verify](/open_api_proof/#step-1-verifier-holder-verification-request) API 참조.
 
 
-### 8. 개발검증 방법
+#### 8. 개발검증 방법
 - Test를 진행하기 위해 initial 개발앱을 별도로 요청해야 한다.
-- deeplink를 생성하여 개발하면서 검증이 가능하다(deeplink 가이드 참고)
+- deeplink를 생성하여 개발하면서 검증이 가능하다 [deeplink 가이드 참고](/initial_deeplink/)

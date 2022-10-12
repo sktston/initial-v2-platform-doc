@@ -1,4 +1,4 @@
-Auto Credential Issue
+**Auto Credential Issue**
 ================
 
 <div class="admonition note">
@@ -14,18 +14,18 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
-## 발급과정(Issue) 소개
+## **발급과정(Issue) Workflow**
 
-##### **기관**(Issuer/Verifier)과 **사용자**(Holder/Prover)의 VC발급 workflow
+***기관(Issuer/Verifier)과 사용자(Holder/Prover)의 VC발급 workflow***
 
 ![issue_diagram](img/issue_diagram.png)
-[PlantUML](http://www.plantuml.com/plantuml/uml/TLF1RX9H5Ds_hxXXDTCmVe01KkD6TyQ5ssRAF9A9qtdZp63I7I8crJPHOucq3WGrQ30q6G6HHVsXURV_uEMzWL882GjoS-uvSywvRp-AxJ2k7tcC-x4R7qCzuY7O4HImESBB8VO-68-4vz3mGH2OXINCZQ9w3doi_XOOO-Ko124F-Okw6xanXtAPiHnOiYgQ-ZvKXU_pQkmAty3FQJPEJS2Bbln-fWYUX28GaUqP8bX0J4MYDeb1an67J9Di_XQmds2tOmJvZibyGRBY9G-L6DlJk1osf3P1DgVaROzPAvCW9tFiqcyA-FCLzZ-In9TiqWSydM6t0SyUoi4rB8MOfOatCRlcf0utxIlvQqYqxtDvzVMpX5dQgUr1Da_bkm4cr_9h0lYwAtj_84iRDBl7h59D-365vucmVEZLUQLqM75zDtPfqGw2XT1TsMh8dGE7rmvSXwHQydH4vJcmY6ZPYhMUwMqMU7cEuoj3Up7Xvg9DqQXsHAr6MEF8zXqx5k6nhcT5fphUwATzOgYjzN8qVhsU5MhLZRuwIcwhPS3UoIAauHIoltDvrbZ4HTwntGBvAP4_HjdlL3OxHQQJnszlvA1JN3KmQMJZVqMSdLEsURwtoIYRJ-c4UHHl6TLtk6KpxrFdjEjOyr13JMrg8VLsDbHsfMcekRdDZ_q6zWRw3HbszJbtJBPFXkXL_mS0)
+[PlantUML 확인하기](http://www.plantuml.com/plantuml/uml/TLF1RX9H5Ds_hxXXDTCmVe01KkD6TyQ5ssRAF9A9qtdZp63I7I8crJPHOucq3WGrQ30q6G6HHVsXURV_uEMzWL882GjoS-uvSywvRp-AxJ2k7tcC-x4R7qCzuY7O4HImESBB8VO-68-4vz3mGH2OXINCZQ9w3doi_XOOO-Ko124F-Okw6xanXtAPiHnOiYgQ-ZvKXU_pQkmAty3FQJPEJS2Bbln-fWYUX28GaUqP8bX0J4MYDeb1an67J9Di_XQmds2tOmJvZibyGRBY9G-L6DlJk1osf3P1DgVaROzPAvCW9tFiqcyA-FCLzZ-In9TiqWSydM6t0SyUoi4rB8MOfOatCRlcf0utxIlvQqYqxtDvzVMpX5dQgUr1Da_bkm4cr_9h0lYwAtj_84iRDBl7h59D-365vucmVEZLUQLqM75zDtPfqGw2XT1TsMh8dGE7rmvSXwHQydH4vJcmY6ZPYhMUwMqMU7cEuoj3Up7Xvg9DqQXsHAr6MEF8zXqx5k6nhcT5fphUwATzOgYjzN8qVhsU5MhLZRuwIcwhPS3UoIAauHIoltDvrbZ4HTwntGBvAP4_HjdlL3OxHQQJnszlvA1JN3KmQMJZVqMSdLEsURwtoIYRJ-c4UHHl6TLtk6KpxrFdjEjOyr13JMrg8VLsDbHsfMcekRdDZ_q6zWRw3HbszJbtJBPFXkXL_mS0)
 
 <p></p>
 
 <br>
 
-##### Issue Flow
+***Issue Flow***
 
 ![connection flow](img/webconsole_issue_flow.png)
 
@@ -50,7 +50,7 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
 
 <br>
 
-##### Credential_exchange_id Data Model(Example)
+#### Credential_exchange_id Data Model(Example)
 
   - issue_credential 관리를 위해 별도의 identifier인 credential_exchange_id를 제공한다.
   - credential_exchange_id는 아래와 같이 connection_id를 포함하여 발급 관련 모든 정보를 포함하고 있다
@@ -78,7 +78,7 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
 ```
 <br><br>
 
-## STEP 0. <font color=green>[필수]</font> Proposal 요청 확인
+## **STEP 0. <font color=green>[필수]</font> Proposal 요청 확인**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `connection`, **state** `active`
 - <font color=blue>[Action] : </font>개발 필요 
@@ -124,7 +124,7 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
 
 
 
-#### [참고][Cloud Wallet Holder 전용] Proposal 요청
+## [참고][Cloud Wallet Holder 전용] Proposal 요청
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
@@ -242,7 +242,7 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/issue-credential/sen
 <br><br>
 
 
-## STEP 1. <font color=green>[필수]</font> 증명서 발급
+## **STEP 1. <font color=green>[필수]</font> 증명서 발급**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `issue_credential`, **state** `proposal_received` <br> 혹은 `present_proof`, **state** `verified`
 - <font color=blue>[Action] : </font>개발 필요 
@@ -604,7 +604,7 @@ Send-offer가 Holder에서 정상적으로 처리되었을 경우 아래와 같�
 <br>
 
 
-##### [참고] 발급요청이 정상 처리되었을 경우 사용자에게 실제 표시되는 화면
+***[참고] 발급요청이 정상 처리되었을 경우 사용자에게 실제 표시되는 화면***
 
 
 <div class="admonition Note">
@@ -617,13 +617,10 @@ Send-offer가 Holder에서 정상적으로 처리되었을 경우 아래와 같�
 
 <p></p>
 
-#### Webhook example
-
-Webhook 없음.
 
 <br>
 
-## STEP 2. 발급 과정 확인
+## **STEP 2. 발급 과정 확인**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `issue_credential`, **state** `offer_sent`
 - <font color=blue>[Action] : </font> webhook으로 전달되는 event 확인 
@@ -877,7 +874,7 @@ Webhook 없음.
       "attributes":[
         {
           "name":"date_of_birth",
-          "value":"null"
+          "value":""
         },
         {
           "name":"date_of_test",
@@ -893,11 +890,11 @@ Webhook 없음.
         },
         {
           "name":"korean_name",
-          "value":"null"
+          "value":""
         },
         {
           "name":"registration_number",
-          "value":"null"
+          "value":""
         },
         {
           "name":"score_of_listening",
@@ -982,7 +979,7 @@ Webhook 없음.
       "attributes":[
         {
           "name":"date_of_birth",
-          "value":"null"
+          "value":""
         },
         {
           "name":"date_of_test",
@@ -998,11 +995,11 @@ Webhook 없음.
         },
         {
           "name":"korean_name",
-          "value":"null"
+          "value":""
         },
         {
           "name":"registration_number",
-          "value":"null"
+          "value":""
         },
         {
           "name":"score_of_listening",
@@ -1059,7 +1056,7 @@ Webhook 없음.
 
 <br>
 
-## STEP 3. [필수] 발급완료 확인
+## **STEP 3. [필수] 발급완료 확인**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `issue_credential`, **state** `credential_acked`
 - <font color=blue>[Action] : </font> webhook으로 전달되는 event 확인 후 발급 기록 저장
@@ -1116,7 +1113,7 @@ Webhook 없음.
       "attributes":[
         {
           "name":"date_of_birth",
-          "value":"null"
+          "value":""
         },
         {
           "name":"date_of_test",
@@ -1132,11 +1129,11 @@ Webhook 없음.
         },
         {
           "name":"korean_name",
-          "value":"null"
+          "value":""
         },
         {
           "name":"registration_number",
-          "value":"null"
+          "value":""
         },
         {
           "name":"score_of_listening",
@@ -1179,7 +1176,7 @@ Webhook 없음.
       "attributes":[
         {
           "name":"date_of_birth",
-          "value":"null"
+          "value":""
         },
         {
           "name":"date_of_test",
@@ -1195,11 +1192,11 @@ Webhook 없음.
         },
         {
           "name":"korean_name",
-          "value":"null"
+          "value":""
         },
         {
           "name":"registration_number",
-          "value":"null"
+          "value":""
         },
         {
           "name":"score_of_listening",
@@ -1286,7 +1283,7 @@ Revocation 사용을 위해서는 아래 [Option] 내용을 확인하고 추가 
 <br><br>
 
 
-#### [참고] 폐기(Revocation) 처리를 위한 정보 기록 
+***[참고] 폐기(Revocation) 처리를 위한 정보 기록*** 
 
 기한만료, 자격증명상실등의 이유로 증명서(VC)의 폐기할 경우를 대비하여 `topic:issue_credential`, `state:credential_acked` 으로 전달된 event 중 폐기에 필요한 필수 3가지 값을 기록해야 함. 
 만약 김증명에게 VC를 발행했다면 아래 예시와 같이 기록 필요
@@ -1297,16 +1294,16 @@ Revocation 사용을 위해서는 아래 [Option] 내용을 확인하고 추가 
 
 <p></p>
 
-* 발급내역 기록 예시
+* 발급내역 저장을 위한 예시
 
     항목 | 예제 내용
      --- | ---
-    기관 unique id | 김증명 CI 혹은 connection_id등 기관에서 구분값
+    기관 unique id | 김증명 CI 혹은 connection_id등 기관에서 사용하는 고유의 구분값
     rev_reg_id | DrLbXFSao4Vo8gMfjxPxU1:4:DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd:CL_ACCUM:0fb34de2-af15-4a12-96b4-617df0604620
     revocation_id | 13
     credential_exchange_id | 2aa723e2-16f8-45ff-9c29-0b88ce6dbf09
 
-    <br>Revocation(폐기) API 상세 동작 방법은 [Revocation page](https://initial-v2-platform.readthedocs.io/ko/master/open_api_revocation/) 별도 가이드 참조
+    <br>Revocation(폐기) API 상세 동작 방법은 [Revocation page](/open_api_revocation/) 별도 가이드 참조
     
 <br><br>
 
