@@ -1,12 +1,12 @@
 <p>initial Platform DID Agent API Documents</p>
 
 ### DID Agent 안내 
-- 기관사용자는 아래의 DID API를 사용하여 Legacy 시스템(ERP, HR시스템 등)과 연동 및 증명서를 손쉽게 발생할 수 있다.
-- initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식이기 때문에 기관 사용자는 Webhook 서버를 준비하고 url 등록해아 한다.
+- 기관사용자는 아래의 DID API를 사용하여 Legacy 시스템(ERP, HR시스템 등)과 연동 및 증명서를 손쉽게 발생할 수 있습니다.
+- initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식이기 때문에 기관 사용자는 Webhook 서버를 준비하고 url 등록해아 합니다.
 
 ### DID Cloud Agent Open API Swagger page
 
-initial console 가입 Master 회원은, 아래 사이트에서 Test 가능하다.  
+initial console 가입 Master 회원은, 아래 사이트에서 Test 가능합니다.  
 
 [Open API Swagger Site 이동](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/)
 
@@ -29,7 +29,7 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능하�
 
    Method  | Resource | Description | Swagger 
   :---: | --- | --- | :---:
-  `POST` | ** [/connections/create-invitation](/open_api_auto_connection/#step-1-faberissuerverifier-aliceholder-create-invitation-send-invitation) ** | 새로운 초대장 만들어서 연결하기 |  [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_create_invitation)
+  `POST` | ** [/connections/create-invitation](/open_api_auto_connection/#step-1-faberissuerverifier-aliceholder-create-invitation-send-invitation) ** | 새로운 (invitation) 초대장 만들어서 연결하기 |  [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_create_invitation)
   `POST` | ** [/connections/{conn_id}/send-message](/open_api_message) ** | 연결된 사용자에게 Message(개인정보 이용 동의서등) | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/basicmessage/post_connections__conn_id__send_message)
   `POST` | ** [/issue-credential/send-offer](open_api_auto_credential/#step-1-1-faber-aliceholder-proposal-credential_exchange_id-credential) ** | 발행자(issuer)가 사용자(holder)에게 VC 발행 | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/issue-credential%20v1.0/post_issue_credential_send_offer)
   `POST` | ** /issue-credential/records/{cred_ex_id}/send-offer ** | 사용자에게 받은 proposal 기반 발행자(issuer)가 사용자(holder)에게 VC 발행 | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/issue-credential%20v1.0/post_issue_credential_records__cred_ex_id__send_offer)

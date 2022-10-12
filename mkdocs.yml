@@ -63,11 +63,15 @@ markdown_extensions:
   - footnotes
 
 theme:
-  name: readthedocs
-  nav_style: light
+  #name: readthedocs
+  name: material
+  #custom_dir: 'cinder'
+  nav_style: dark
   navigation_depth : 2
   highlightjs : true
   hljs_style : github
+  include_homepage_in_sidebar : true
+  collapse_navigation : true
 
 extra:
-  version: 2.4.1
+  version: 2.4.2
