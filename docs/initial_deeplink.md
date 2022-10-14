@@ -17,16 +17,16 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
 - Scheme : initial://reqService?**<span style="color:red">{{Parameter}}</span>**
 
 #### 모바일지갑 전용
-- Scheme : initial://mwpService?**<span style="color:red">{{Parameter}}</span>**
+- Scheme : scheme://mwpService?**<span style="color:red">{{Parameter}}</span>**
 
-#### 1. Deeplink Parameters
+## **1. Deeplink Parameters**
 
   Parameter | M / O | Type | Value |  Description
   --- | :---: | :---: | :---: | ---
   process | 필수 | string | I <br> V <br> E <br> O <br> F | I - Issue, Credential 발급<br> V - Verify, Credential 제출/검증<br> S - Sign, 전자서명 <br> E - 행안부 전자문서 제출 <br> O - OCR scan 문서 제출 <br> F - 추가서류 제출 <br> K – 코스콤 전자서명 전용
   ynCloud | 필수 | string | Y | Cloud Agent 기관 여부 (Y/N)
   orgName | 필수 | string | 기관명 | 표시하기 원하는 기관명
-  oUldUrl | process= 'O' or 'F'가 포함일 경우 필수 | String | http://127.0.0.1/initial/upload.do | OCR 촬영서류 및 기타서류를 제출하기 위한 URL
+  oUldUrl | process= 'O' or 'F'가 포함일 경우 필수 | String | [상세 정보](#ouldurl) | OCR 촬영서류 및 기타서류를 제출하기 위한 URL
   seq | 옵션 | string | 고객구분자 | 고객구분자 / 신청번호
   svcPublicDID | process='V' or 'I' 포함일 경우 필수 | string | did:ssw:{{did}}| 기관의 PublicDID
   nonce | 옵션 | string | a123456789b | Issuer or verifier의 nonce
@@ -41,25 +41,35 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
   govWalletAddr | process='E' 포함 일 경우 필수 | String | 지갑 주소 | 제출할 곳의 전자정부 지갑 주소
   etcDocs | process='F' 포함 일 경우 필수 | string | 지갑 주소 | 기타 서류 (카메라 촬영에 의한 서류 – 코드표 참조)<br> 1개이상 제출시 "_" 로 구분
   masking | process= 'E' or 'O' or 'F'가 포함일 경우 필수 | string | Y <br>N | 마스킹 처리 여부
-  submitUrl | process= 'E' or 'O' or 'F'가 포함일 경우 필수 | URL | http://127.0.0.1/initial/submit.do | 제출 완료를 위한 URL
+  ~submitUrl~ | deprecated | URL | [상세 정보](#submiturl-deprecated) | deprecated
   callback | 옵션 | string | URL | 제출완료 후 복귀할 deeplink URL
   govIssue | process='E' 포함 일 경우 필수 | string | Y <br>N | "Y"일 경우 발급 후 제출
   eventType | 옵션 | string | { "free-issue": true } | 진행되는 이벤트 타입
   reservedCallback | 옵션 <br> process= 'V' 인 경우 사용 가능 <br> callback이 없는 경우 사용 가능 | string |  | 
-  verifyVC | 옵션 <br> process= 'V' 인 경우 사용 가능 <br> 검증 시 증명서 없을 경우 발급받아야 하는 VC 정보 | string | [상세 정보](#verifyvc)| 모바일지갑 전용(mwpService)
+
+### **모바일지갑 전용 Deeplink Parameters**
+
+scheme://mwpService? 와 같이 모바일지갑 전용으로 사용되는 규격 입니다.
+
+  Parameter | M / O | Type | Value |  Description
+  --- | :---: | :---: | :---: | ---
+  verifyVC <br> (지원 예정)| 옵션 <br> process= 'V' 인 경우 사용 가능 <br> 검증 시 증명서 없을 경우 발급받아야 하는 VC 정보 | string | [상세 정보](#verifyvc)| 모바일지갑 전용(mwpService)
+  intService<br> (지원 예정) | 옵션  | string | credential<br>government<br>[상세 정보](#intservice)| 모바일지갑 전용(mwpService)
+
 
 
   - sample : 검증요청 / Cloud Agent 기관 / Public DID / 발행할 Cree_Def_ID / invitation-url
     * 각 parameter value는 urlencoding 해야 함
 
 
+ 
 ```
 initial://reqService?process=V&ynCloud=Y&orgName=SKT&credName=%ED%98%81%EC%8B%A0%EA%B3%B5%EC%9C%A0%EB%8C%80%ED%95%99&svcPublicDID=did:ssw:39twDfvgTg5ifaPzTQqUxQ&invitationUrl=https%3A%2F%2Fdev-console.myinitial.io%2Fivp%2Fsessions%2F1f288d76-8974-4620-9f5c-fc5f17755135%2Finvitation
 ```
 
 <br>
 
-#### Parameter 상세 설명 및 예시 
+***Parameter 상세 설명 및 예시*** 
 
 ##### process 
 
@@ -73,6 +83,13 @@ initial://reqService?process=V&ynCloud=Y&orgName=SKT&credName=%ED%98%81%EC%8B%A0
 ##### orgName
 
 - orgName=SKT : 회사명
+
+##### oUldUrl
+
+- OCR 촬영서류 및 기타서류를 제출하기 위한 URL로 연동 파트너가 직접 API를 구현해야 함.
+- [참고 가이드](#2)
+- example : http://127.0.0.1/initial/upload.do
+
 
 ##### svcPublicDID
 
@@ -111,9 +128,10 @@ initial://reqService?process=V&ynCloud=Y&orgName=SKT&credName=%ED%98%81%EC%8B%A0
 
 - masking=Y
 
-##### submitUrl
+##### submitUrl (deprecated)
 
-제출 완료 되면 message를 webhook으로 전달 한다. 상세 문서는 아래 참조
+Cloud Agent 기관은 submitUrl parameter를 더이상 사용하지 않습니다.
+Cloud Agent 기관은 basic message를 통해 전달 받는다. 상세 문서는 아래 참조
 - https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/#4
 
 ##### invitationUrl
@@ -185,27 +203,31 @@ invitationUrl=https://issue.sktelecom.com/invitation-url
 { "schemaId": "N6r4nLwAkcYUX8c8Kb8Ufu:2:InnovationUniversityID:2.0 " }
 ```
 
+##### intService
+
+모바일지갑 서비스를 이동하기 위한 parameter.
+현재 credential과 government 지원
 
 <br>
 <br>
 
-#### 2. 이미지 전송
+## **2. 이미지 전송**
 
 OCR 인식 정보 및 촬영 된 이미지 전송은 multipart 형식으로 파일을 전송합니다.
 
 현재 파일의 용량은 최대 10MB로 제한합니다. 검증 서버 성능에 따라서 최대 용량은 더 낮아 질 수 있습니다.
 
-##### 암호화(클라이언트)
+#### 암호화(클라이언트)
 
 - AES Symmetric Encryption 사용. 암호화 Key는 Holder의 Pairwise DID를 사용. Encrypted Data와 함께 기관의 Pairwise DID를 제공함.
 
-##### 복호화(서버)
+#### 복호화(서버)
 
 - AES Library 함수를 이용 복호화. 복호화 Key는 Cloud Agent의 API를 통해서 확인.
 
 ![encryption](img/cloud_agent_encryption.png)
 
-##### 암호화/복호화 Sample Code
+#### 암호화/복호화 Sample Code
 
 원본 문서
 ```
@@ -382,7 +404,7 @@ public class DocumentControllerTest {
 }
 ```
 
-##### Request (multipart)
+#### Request (multipart)
 
 POST { oUldUrl }
 
@@ -402,9 +424,9 @@ Content-Disposition:form-data; name="file" filename={fileName} Content-Type: ima
 -- documents --
 ```
 
-##### Document Info
+#### Document Info
 
-###### Body Parameter
+##### Body Parameter
 
 Field name | Value | Description
 --- | --- | --- 
@@ -413,7 +435,7 @@ iv |	String	| "iv" : initial vector를 Base64인코딩한 문자열
 encType | String | 암호화 Type. 기본 AES256/GCM
 encData | String | 하기의 <암호화 대상 Object>를 String 으로 변환 후 Base64 인코딩 후 암호화 적용된 byte[] 를 Hex String으로 변환 (Verify, Issue와 동일 로직)
 
-###### 암호화 대상 Object
+##### 암호화 대상 Object
 
 Field name | Value | Description
 --- | --- | --- 
@@ -437,11 +459,11 @@ ocrInfo | String |	OCR 인식 정보 (OCR 전달 파라메터 참조) <br> 인�
 }
 ```
 
-###### {fileName} 파일명 : 명명 규칙
+##### {fileName} 파일명 : 명명 규칙
 fileName = seq + "" + reqDocId + "" + docId + 확장자
 
 
-#### 3. 기관 복호화 Key 획득 방법
+## **3. 기관 복호화 Key 획득 방법**
 
 기관은 Holder(사용자)가 보내온 암호화 data를 decryption  하기 위해 아래 API를 사용하여 key를 획득합니다.
 
