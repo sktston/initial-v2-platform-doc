@@ -524,8 +524,6 @@ Sample
 ```json
 { 
     "seq":"1038555586867",
-    "reqDocId":"10000000001",
-    "docId":"90000000011",
     "govDocs":{
         "bundleId":"999388811455",
         "reqDocId":[
@@ -599,7 +597,7 @@ Client에서 위의 결과값을 전달하면 기관은 아래와 같은 Event�
 
    "message_id":"64635b43-cc6b-4dc0-a8ce-40cad4c5cd27",
 
-   "content":"{\"type\":\"initial_summit_doc\",\"content\":{\"seq\":\"1038555586867\",\"reqDocId\":\"10000000001\",\"docId\":\"90000000011\",\"govDocs\":{\"bundleId\":\"999388811455\",\"reqDocId\":[10000000001],\"pinCode\":\"099998\",\"walletAddr\":\"1DF34115DA312141\",\"masking\":\"Y\",\"verify\":\"Y\"},\"ocrDocs\":[{\"seq\":\"1038555586867\",\"reqDocId\":\"10000000001\",\"docId\":\"90000000011\",\"fileName\":\"1038555586867_10000000001_189057378234.tiff\",\"masking\":\"Y\",\"verify\":\"Y\",\"ocrInfo\":{\"name\":\"\ud64d\uae38\ub3d9\",\"idNo\":\"111111-1\",\"issueDate\":\"20201117\",\"authority\":\"\uc11c\uc6b8\ud2b9\ubcc4\uc2dc \uc911\uad6c\uccad\uc7a5\"}},{\"seq\":\"1038555586867\",\"reqDocId\":\"10000000001\",\"docId\":\"90000000022\",\"fileName\":\"1038555586867_10000000001_189057378235.tiff\",\"masking\":\"Y\",\"verify\":\"Y\",\"ocrInfo\":{\"name\":\"\ud64d\uae38\ub3d9\",\"idNo\":\"111111-1\",\"issueDate\":\"20201117\",\"authority\":\"\uc11c\uc6b8\ud2b9\ubcc4\uc2dc \uc911\uad6c\uccad\uc7a5\"}}],\"etcDocs\":[{\"seq\":\"1038555586867\",\"reqDocId\":\"10000000001\",\"masking\":\"N\",\"verify\":\"Y\",\"fileName\":\"1038555586867_10000000001_189057378245.jpeg\",\"docId\":\"90000000011\"},{\"seq\":\"1038555586867\",\"reqDocId\":\"10000000001\",\"docId\":\"90000000012\",\"masking\":\"N\",\"verify\":\"Y\",\"fileName\":\"1038555586867_10000000001_189057378255.jpeg\"}]}}",
+   "content":"{\"type\":\"initial_summit_doc\",\"content\":{\"seq\":\"1038555586867\",\"govDocs\":{\"bundleId\":\"999388811455\",\"reqDocId\":[10000000001],\"pinCode\":\"099998\",\"walletAddr\":\"1DF34115DA312141\",\"masking\":\"Y\",\"verify\":\"Y\"},\"ocrDocs\":[{\"seq\":\"1038555586867\",\"reqDocId\":\"10000000001\",\"docId\":\"90000000011\",\"fileName\":\"1038555586867_10000000001_189057378234.tiff\",\"masking\":\"Y\",\"verify\":\"Y\",\"ocrInfo\":{\"name\":\"\ud64d\uae38\ub3d9\",\"idNo\":\"111111-1\",\"issueDate\":\"20201117\",\"authority\":\"\uc11c\uc6b8\ud2b9\ubcc4\uc2dc \uc911\uad6c\uccad\uc7a5\"}},{\"seq\":\"1038555586867\",\"reqDocId\":\"10000000001\",\"docId\":\"90000000022\",\"fileName\":\"1038555586867_10000000001_189057378235.tiff\",\"masking\":\"Y\",\"verify\":\"Y\",\"ocrInfo\":{\"name\":\"\ud64d\uae38\ub3d9\",\"idNo\":\"111111-1\",\"issueDate\":\"20201117\",\"authority\":\"\uc11c\uc6b8\ud2b9\ubcc4\uc2dc \uc911\uad6c\uccad\uc7a5\"}}],\"etcDocs\":[{\"seq\":\"1038555586867\",\"reqDocId\":\"10000000001\",\"masking\":\"N\",\"verify\":\"Y\",\"fileName\":\"1038555586867_10000000001_189057378245.jpeg\",\"docId\":\"90000000011\"},{\"seq\":\"1038555586867\",\"reqDocId\":\"10000000001\",\"docId\":\"90000000012\",\"masking\":\"N\",\"verify\":\"Y\",\"fileName\":\"1038555586867_10000000001_189057378255.jpeg\"}]}}",
 
    "state":"received",
 

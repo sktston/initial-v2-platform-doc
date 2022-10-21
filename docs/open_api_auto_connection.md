@@ -36,6 +36,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <p></p>
 
+#### Connection State
 
 - Connection 진행동안 State는 아래와 같이 변경되면서 진행 된다.
 - State는 Webhook을 통해 기관에게 모두 전달된다.
@@ -55,12 +56,12 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <p></p>
 
-#### Connection ID Data Model & Example
+#### Connection_id Data Model
 
   connection_id는 앞으로 사용자와 모든 통신에서 사용되는 connection 과정을 통해 생성되는 중요한 identifier 이다.
-  `public=true`로 connection을 생성한 기관은 발급/검증 요청할때 항상 같은 connection_id로 항상 요청한다. 
+  `public=true`로 connection을 생성한 기관은 항상 같은 connection_id를 사용할 수 있다.
   
-  다만 `public=false`로 생성하거나, `public=false` 이더라도 사용자가 모바일단말을 교체하거나, 앱을 재설치하여 기존 connection_id 정보가 삭제된 경우 새로운 connection_id가 생성된다.
+  다만 `public=false`로 생성하거나 `public=true` 로 생성했더라도, 사용자가 모바일기기를 교체하거나 앱을 재설치하여 기존 wallet의 data가 모두 삭제된 경우 connection_id 정보도 같이 삭제되기 때문에 같은 사용자라도 새로운 connection_id가 생성된다.
 
   Item | description | example
   --- | --- |
@@ -81,7 +82,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
   updated_at | Time of last record update | 아래 Example 참조
 
 
-  <br>Connection Record Example
+  <br>`connection_id` Record Example
 
 
 ```json
@@ -124,7 +125,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 * Swagger Document
   
-    [Link Click](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_create_invitation)
+    [<u>Link Click</u>](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_create_invitation)
 <p></p>
 
 #### Request Parameters
@@ -133,10 +134,10 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
      KEY | Value | Required | Description 
      --- | :---: | :---: | ---
-     alias | string |  | Connection 별칭 지정 (e.g. 1234-1234-1234-1234). <br>아래 `public=false` 일때 사용 가능
-     auto_accept | <span style="color:red">true</span>/false | O | 사용자가 초대장 수락 시 자동 connection 설정.
-     multi_use | true/<span style="color:red">false</span> | O | 초대장 다회 사용여부 선택. `public:true` 세팅 시 자동 multi로 활성화. 
-     public | <span style="color:red">**true**</span>/false | O | Public DID를 기반으로 초대장 생성 유무.<br>connection_id 마다 alias 설정을 위해서는 false 선택
+     alias | string |  | Connection 별칭 지정 (e.g. 1234-1234-1234-1234). <br>parameter `public=false` 일때만 사용 가능.
+     auto_accept | <span style="color:red">true</span>/false | O | connection 과정을 자동으로 진행. default `true`.
+     multi_use | true/<span style="color:red">false</span> | O | 초대장 다회 사용여부 선택. `public=true` 세팅 시 자동 `multi_use=true`로 활성화. 
+     public | <span style="color:red">**true**</span>/false | O | Public DID를 기반으로 초대장 생성.<br>connection_id 마다 alias 설정을 위해서는 false 선택
 
 <p></p>
 
@@ -176,7 +177,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 #### API 사용 Example
 
-***A. 'public=ture' Invitation Request Example*** 
+***A. <font color=red>'public=ture'</font> Invitation Request Example*** 
 
 일반적인 invitation 초대는 public=true로 생성한다. public으로 생성한 connection id는 재사용이 가능하다.
 
@@ -184,7 +185,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 ```
 curl -X 'POST' \
-  'https://dev-console.myinitial.io/agent/api/connections/create-invitation?alias=connection%20sample&auto_accept=true&multi_use=false&public=true' \
+  'https://dev-console.myinitial.io/agent/api/connections/create-invitation&auto_accept=true&public=true' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer 4dd1f97a-1234-1234-1234-9ed8cd2cfb6d' \
   -H 'Content-Type: application/json' \
@@ -192,11 +193,11 @@ curl -X 'POST' \
 ```
 <br>
 
-***'public=ture' Invitation Response example***
+*** <font color=red>'public=ture'</font> Invitation Response example***
 
 * Response body
 
-public=true로 생성한 invitation은 여러번 재사용 가능하다
+public=true로 생성한 invitation은 `connection_id`를 포함하고 있지 않기 때문에 재사용 가능합니다.
 
 
 ```json
@@ -218,7 +219,7 @@ public=true로 생성한 invitation은 여러번 재사용 가능하다
 
 <br>
 
-***B. 'public=false' Invitation Request Example*** 
+***B. <font color=red>'public=false'</font> Invitation Request Example*** 
 
 <div class="admonition note">
 <p class="admonition-title">note</p>
@@ -239,7 +240,7 @@ curl -X 'POST' \
 ```
 <br>
 
-***'public=false' Invitation Response example***
+*** <font color=red>'public=false'</font> Invitation Response example***
 
 * Response body
 
@@ -306,14 +307,14 @@ curl -X 'POST' \
 <p> STEP2는 STEP1에서 auto_accept=true 설정하였다면 initial app(Holder)과 자동으로 처리 하기 때문에, 전달되는 Webhook event만 확인 하시면 됩니다. </p>
 </div>
 
-* STEP2 실제 과정 참고
+* STEP2 실제 동작 과정 참고
     * [Cloud Agent ← **<span style="color:red">모바일</span>**] `receive invitation` 진행 후 `request connection` 전송
     * [**<span style="color:red">Cloud Agent </span>** → 모바일] `request connection` 받고 자동으로 `request connection` 전송
     * [Cloud Agent ← **<span style="color:red">모바일</span>**] `request connection`을 받고 자동으로 `response` 전송
     * [**<span style="color:red">Cloud Agent </span>** → 모바일] `response`를 받고 자동으로 `response` 전송
     
-    <br> 위와 같은 process로 인해 기관의 Webhook 서버로 두번의 Webhook event(`request` → `response`) 결과가 전달 된다.
-    Cloud Agent에서 자동으로 처리되기 때문에, 정보는 참고만 하면 되고 다른 action은 필요 없다. 
+    <br> 위와 같은 work flow 인해 기관의 Webhook 서버로 두번의 Webhook event(`request` → `response`) 결과가 전달 됩니다.
+    Cloud Agent에서 자동으로 처리되기 때문에, 정보는 참고만 하면 되고 다른 action은 필요 없습니다.
 
 <p></p>
 
@@ -330,7 +331,7 @@ curl -X 'POST' \
 #### Webhook Samples
 
 - <b>topic : `connections`
-- state : `request` </b>
+- state : [<u>`request`</u>](#connection-state) </b>
 ```json
 {
   "created_at":"2021-06-02 06:31:57.255177Z",
@@ -352,7 +353,7 @@ curl -X 'POST' \
 <br>
 
 - <b>topic : `connections`
-- state : `response` </b>
+- state : [<u>`response`</u>](#connection-state) </b>
 ```json
 {
 "created_at":"2021-06-02 06:31:57.255177Z",
@@ -373,7 +374,7 @@ curl -X 'POST' \
 ```
 <br><br>   
 
-### [참고][Cloud Wallet 전용] Invitation 수락하기
+### <font color=green>[참고][Holder 전용] Invitation 수락하기 </font>
 
 
 <div class="admonition Note">
@@ -470,7 +471,7 @@ Webhook을 사용하는 경우 Holder에게는 아래 3번의 event가 순차적
 Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한다. (별도 안내)
 
 - <b>topic : `connections`
-- state : `invitation` </b>
+- state : [<u>`invitation`</u>](#connection-state) </b>
 ```json
 {
    "state":"invitation",
@@ -492,7 +493,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 <br>
 
 - <b>topic : `connections`
-- state : `request` </b>
+- state : [<u>`request`</u>](#connection-state) </b>
 ```json
 {
    "state":"request",
@@ -516,7 +517,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 <br>
 
 - <b>topic : `connections`
-- state : `response` </b>
+- state : [<u>`response`</u>](#connection-state) </b>
 ```json
 {
    "state":"response",
@@ -556,9 +557,9 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 #### Webhook example
 
 - <b> topic: `connections`
-- state : `active` </b>
+- state : [<u>`active`</u>](#connection-state) </b>
 
-***public=<font color=red>true</font> example***
+***public=<font color=red>true</font> webhook example***
 
 ```json
 {
@@ -580,9 +581,9 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 ```
 <br>
 
-***public=<font color=red>false</font> example***
+***public=<font color=red>false</font> webhook example***
 
-기관이 설정한 `alias`가 포함되어 있다
+기관이 설정한 [<u>`alias`</u>](#connection_id-data-model)가 포함되어 있다
 
 
 ```json
@@ -606,9 +607,9 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 ```
 <p></p>
 
-#### 기관(Issuer/Verifier) 개발 내용 확인
+#### 기관 개발 항목
 
-- 기관 개발자는 body의 <b>topic</b> : `connections"`와 <b>state</b>: `active`를 확인 해야 한다.
+- 기관 개발자는 webhook의 <b>topic</b> : `connections`와 <b>state</b>: `active`를 확인 해야 한다.
     - body의 `"state":"active"` 일 경우 연결이 완료 되었기 때문에, their_did(사용자 DID), connection_id(사용자와 communication 필요할때 사용하는 id)등을 확인/기록 하면 된다.
     - `their_did(사용자 DID)`는 정책상 Privacy 보호를 위해 수시로 변경(앱재설치등)되기 때문에, 고정된 고객 식별자로 사용 불가능 하다. 
     - `alias`는 특정 사용자를 구분 및 사용자 mapping을 위해 사용 가능하다

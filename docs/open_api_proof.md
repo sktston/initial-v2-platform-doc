@@ -20,6 +20,8 @@ curl --location --request GET 'http://localhost/wallet/did'\
 ![verify sequence diagram](img/verify_diagram.png)
 [PlantUML 상세보기](http://www.plantuml.com/plantuml/uml/TPH1JzjA4CVl-ob6d1o4UNT44EXTthjLFN2jJB9fBOpjsciaRW6CH0jIQKj4W3WAhG1H1IaDDCsX_KBUpNVeh3s9XLKa99BT_ypE_7ypMGs55OXeos7S5RROWMqUs0sR1s25CBTEN-Qcjr58DsglhoxkLFV4-CzpwdYuvlkLcSmEmuY4_-kFc82nQXNyW0VyRMI7jk1GhJ96GdCboxm4w__AGISTlmDr7iklnsnMpJ99O0bgdkloch0zrr1dWtGug90wU-95uFbUQ3c6vsj99Nic2lD7A9tEaWwRwYO1rUkef6tu55LXheUb1VRhDuBDvngIJ1DNGEuzOk_ppCplvU0oVUY1EXgff8aTC5D7Z3gJLll9EIQ1IUjUVhi35VSc-maAfow2V1Yh1FyUGTtkgjv7agZUBaopzIXQ9J6LpSoyISk1T3oGxwzLvvUywe3QJsJt1wI39fujCdEvuRa2VNEyeBhXH7nbUMF5TcrXOw3b-nW5KmCWBmbhLsTzAEfJ5wTgU8_lnlAeluYSww2TAW2PJ-qjHngvLnMOdBUmqGpLInm57WemjYotRWalsCbf5Ka9Ue6BaWLv9D5oU6C6goIOiSgdL2Ce4yyyxnvgw-uU8VqvbiTDRI9YLQqOvEUElEcdtmTohxt0Sehgou6yRYyG3sJNJ8U_5zJe51qdrncOU1shm_RJYdZzbIL4O6z4WeSLhLBjNNNRL4S9DL2MuyxKxPf5Sap_QJOYtGFPkmOZv4v3PytqcMZouGG70WdAKHCCrtFDW6zxctXRaADjuI7khAMdgCo1jcR6WCmdImdaywkLZotwNBnGtgvdP0KrIggvbT4Noq2LmEGofbrXHluVDBRH54cvztMTVAVKD3tvJ4_KStdgwDmWVRrem2mMWMhJ0FLn9yQnKLS4oH11nFzfM4x8YpB_jWThjKssYWBynVu3)
 
+#### present_proof States
+
 - present_proof State 및 Webhook event 전달 항목 
 - 붉은 색이 기관에게 전달되는 Webhook 정보 이다
 
@@ -53,18 +55,18 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
   Item | description | example
   --- | --- |
-  presentation_exchange_id | Presentation exchange identifier | 아래 Example 참조
+  <font color=red>**presentation_exchange_id**</font> | Presentation exchange identifier | 아래 Example 참조
   presentation_proposal_dict | proposal 본문 | 아래 Example 참조
-  connection_id | Connection identifier | 검증 요청한 사용자의 connection_id
+  <font color=red>**connection_id**</font> | Connection identifier | 검증 요청한 사용자의 connection_id
   created_at | presentation_exchange_id 생성 시간 | 아래 Example 참조
   thread_id | Thread identifier | -
   role | prover or verifier | `verifier`
-  state | Current state.  | present_proof state 설명 별도 참고
+  <font color=red>**state**</font> | Current state.  | [present_proof state](#present_proof-states) 상세 내용
   auto_present | 자동 검증 기능  | `true`
   initiator | self or external | `external`
   updated_at | Time of last record update | -
-  topic | Time of last record update | 아래 Example 참조
-  trace | Time of last record update | 아래 Example 참조
+  <font color=red>**topic**</font> | Topic | `present_proof`
+  trace | Record trace information, based on agent configuration | 아래 Example 참조
 
   
 <p></p>
