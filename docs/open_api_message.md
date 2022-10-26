@@ -286,69 +286,71 @@ No | message_code | message_main | Description | Next Action
 
 
 ```json
-{ 
-    "seq":"1038555586867",
-    "reqDocId":"10000000001",
-    "docId":"90000000011",
-    "govDocs":{
-        "bundleId":"999388811455",
-        "reqDocId":[
-            "10000000001"
+{
+  "type":"initial_summit_doc",
+  "content":
+    { 
+        "seq":"1038555586867",
+        "govDocs":{
+            "bundleId":"999388811455",
+            "reqDocId":[
+                "10000000001"
+            ],
+            "pinCode":"099998",
+            "walletAddr":"1DF34115DA312141",
+            "masking":"Y",
+            "verify":"Y"
+        },
+        "ocrDocs":[
+            {
+                "seq":"1038555586867",
+                "reqDocId":"10000000001",
+                "docId":"90000000011",
+                "fileName":"1038555586867_10000000001_189057378234.tiff",
+                "masking":"Y",
+                "verify":"Y",
+                "ocrInfo":{
+                    "name":"홍길동",
+                    "idNo":"111111-1",
+                    "issueDate":"20201117",
+                    "authority":"서울특별시 중구청장"
+                }
+            },
+            {
+                "seq":"1038555586867",
+                "reqDocId":"10000000001",
+                "docId":"90000000022",
+                "fileName":"1038555586867_10000000001_189057378235.tiff",
+                "masking":"Y",
+                "verify":"Y",
+                "ocrInfo":{
+                    "name":"홍길동",
+                    "idNo":"111111-1",
+                    "issueDate":"20201117",
+                    "authority":"서울특별시 중구청장"
+                }
+            }
         ],
-        "pinCode":"099998",
-        "walletAddr":"1DF34115DA312141",
-        "masking":"Y",
-        "verify":"Y"
-    },
-    "ocrDocs":[
-        {
-            "seq":"1038555586867",
-            "reqDocId":"10000000001",
-            "docId":"90000000011",
-            "fileName":"1038555586867_10000000001_189057378234.tiff",
-            "masking":"Y",
-            "verify":"Y",
-            "ocrInfo":{
-                "name":"홍길동",
-                "idNo":"111111-1",
-                "issueDate":"20201117",
-                "authority":"서울특별시 중구청장"
+        "etcDocs":[
+            {
+                "seq":"1038555586867",
+                "reqDocId":"10000000001",
+                "masking":"N",
+                "verify":"Y",
+                "fileName":"1038555586867_10000000001_189057378245.jpeg",
+                "docId":"90000000011"
+            },
+            {
+                "seq":"1038555586867",
+                "reqDocId":"10000000001",
+                "docId":"90000000012",
+                "masking":"N",
+                "verify":"Y",
+                "fileName":"1038555586867_10000000001_189057378255.jpeg",
             }
-        },
-        {
-            "seq":"1038555586867",
-            "reqDocId":"10000000001",
-            "docId":"90000000022",
-            "fileName":"1038555586867_10000000001_189057378235.tiff",
-            "masking":"Y",
-            "verify":"Y",
-            "ocrInfo":{
-                "name":"홍길동",
-                "idNo":"111111-1",
-                "issueDate":"20201117",
-                "authority":"서울특별시 중구청장"
-            }
-        }
-    ],
-    "etcDocs":[
-        {
-            "seq":"1038555586867",
-            "reqDocId":"10000000001",
-            "masking":"N",
-            "verify":"Y",
-            "fileName":"1038555586867_10000000001_189057378245.jpeg",
-            "docId":"90000000011"
-        },
-        {
-            "seq":"1038555586867",
-            "reqDocId":"10000000001",
-            "docId":"90000000012",
-            "masking":"N",
-            "verify":"Y",
-            "fileName":"1038555586867_10000000001_189057378255.jpeg",
-        }
-    ]
-
+        ]
+    
+    }
 }
 ```
 
