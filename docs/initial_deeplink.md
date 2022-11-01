@@ -243,141 +243,150 @@ IV : 76e2454d232e4aa85744b95b
 
 ```java
 package com.skt.ssi.demo.server.ssi.controller;
-​
+
 import org.junit.Test;
-​
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.math.BigInteger;
 import java.util.Base64;
-​
-public class DocumentControllerTest {
+
+public class DocumentControllerTestNew {
     public static final int AES_KEY_SIZE = 256;
     public static final int GCM_IV_LENGTH = 12;
     public static final int GCM_TAG_LENGTH = 16;
-​
-​
     @Test
     public void sampleTest2() throws  Exception {
-        String hello = "{\"docId\":\"30000100001\",\"ocrInfo\":null,\"reqDocId\":\"30000100001\",\"seq\":\"kordi_00001\"}";
-        String keyString = "did:ssw:9RKZ1Vngjy7iXYWDyQU1mV";
-​
+        String origianlText = "{\"docId\":\"30000100001\",\"ocrInfo\":null,\"reqDocId\":\"30000100001\",\"seq\":\"kordi_00001\"}";
+        String didKeyString = "did:ssw:BhCCHbK4kMSCoetowegawq"; //기관에서 획득한 복호화 Key(their did)
+        String originalIv = "44d4a562a656b42a1ec24abb"; //AES Encryption에서 사용한 원본 GCM IV 12Byte
+
+        // ** AES Encoding Example **
         // 키 역할을 하는 did가 32보다 짧아서 32로 만들어주고 키 생성
-        SecretKey originalKey = new SecretKeySpec(createKey(keyString), 0, 32, "AES");
-​
+        SecretKey originalKey = new SecretKeySpec(createKey(didKeyString), 0, 32, "AES");
+
         //hex string인 IV 벡터를 byte array 로 변환
-        byte [] decodedIv = hexStringToByteArray("76e2454d232e4aa85744b95b");
-​
+        byte [] byteArrayIv = hexStringToByteArray(originalIv);
+
         //암호화하려는 문자열을 base64 encoding
-        byte [] encodedHello = Base64.getEncoder().encode(hello.getBytes());
-​
+        byte [] encodedHello = Base64.getEncoder().encode(origianlText.getBytes());
+
         //암호화
-        byte[] cipherText = encrypt(encodedHello, originalKey, decodedIv);
-​
+        byte[] cipherText = encrypt(encodedHello, originalKey, byteArrayIv);
+
         //암호화된 결과를 hex string으로 변환
         String hexedEncryptedEncoded = bytesToHexString(cipherText);
-​
-        System.out.println("Hexed Encrypted Encoded Text : " + hexedEncryptedEncoded);
-​
+        System.out.println("기관에게 실제 전달되는 encData : " + hexedEncryptedEncoded);
+
+        //Base64 encoding한 iv를 기관에게 전달
+        String encodedIv = Base64.getEncoder().encodeToString(byteArrayIv);
+        System.out.println("기관에게 실제 전달되는 base64 encoded iv : " + encodedIv);
+
         //전달받은 (암호화된)hex 문자열을 byte로 변환
         byte [] cipherBytes = hexStringToByteArray(hexedEncryptedEncoded);
-​
+
         //복호화
-        String plainText = decrypt(cipherBytes, originalKey, decodedIv);
-​
+        String plainText = decrypt(cipherBytes, originalKey, byteArrayIv);
+
         //성공
-        System.out.println("plainText : " + plainText);
-​
-​
-        //샘플 문자열을 복호화 시도
-        String hexString = "234bd7d480b73ad6203483d08f7d85e1a64402fcef7a4c41fbb202fcefedf8a0132999aa0bfa685d9f891aa544ec535e224f340f4050d560205a78e55ec9d3ae5f628bd301180dc0e246a9eb6e9886b6422b7c3055d694338f6bf27af158bf114d9b4d390b89484f584cfc823a1243160fec85898169acb4c228aab2dee4e3ec";
-​
-        //전달받은 (암호화된)hex 문자열을 byte로 변환
+        //System.out.println("plainText : " + plainText);
+
+
+        // ** AES Decoding Example **
+        // 전달 받은 encData 샘플 문자열을 복호화 시도
+        String hexString = hexedEncryptedEncoded;
+        System.out.println("Received encData :" + hexString);
+
+        // 전달받은 (암호화된)hex 문자열을 byte로 변환
         byte [] secretByte = hexStringToByteArray(hexString);
-        System.out.println("hex test :" + bytesToHexString(secretByte));
-​
-        //복호화
-        String decryptedText = decrypt(secretByte, originalKey, decodedIv);
-​
-        //base64 decode
+        //System.out.println("encData base64 decoding :" + bytesToHexString(secretByte));
+
+        // 전달 받은 iv(Base64)를 Hex String 으로 변환
+        String iv = encodedIv;
+        System.out.println("Received iv " + iv);
+        byte[] decoded = Base64.getDecoder().decode(iv);
+
+        String decodedIv = String.format("%x", new BigInteger(1, decoded));
+        System.out.println("Received iv hex 변환" + decodedIv);
+
+        //복호화 후 base64 decode
+        String decryptedText = decrypt(secretByte, originalKey, decoded);
         byte [] decodedDecrypted = Base64.getDecoder().decode(decryptedText);
-​
+
         //성공
-        System.out.println("decodedDecrypted :" + new String(decodedDecrypted));
+        System.out.println("복호화 최종 결과 :" + new String(decodedDecrypted));
+
     }
-​
     byte[] encrypt(byte[] plaintext, SecretKey key, byte[] IV) throws Exception {
         // Get Cipher Instance
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-​
         // Create SecretKeySpec
         SecretKeySpec keySpec = new SecretKeySpec(key.getEncoded(), "AES");
-​
+
         // Create GCMParameterSpec
         GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(GCM_TAG_LENGTH * 8, IV);
-​
+
         // Initialize Cipher for ENCRYPT_MODE
         cipher.init(Cipher.ENCRYPT_MODE, keySpec, gcmParameterSpec);
-​
+
         // Perform Encryption
         byte[] cipherText = cipher.doFinal(plaintext);
-​
+
         return cipherText;
     }
-​
+
     String decrypt(byte[] cipherText, SecretKey key, byte[] IV) throws Exception
     {
         // Get Cipher Instance
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-​
+
         // Create SecretKeySpec
         SecretKeySpec keySpec = new SecretKeySpec(key.getEncoded(), "AES");
-​
+
         // Create GCMParameterSpec
         GCMParameterSpec gcmParameterSpec = new GCMParameterSpec(GCM_TAG_LENGTH * 8, IV);
-​
+
         // Initialize Cipher for DECRYPT_MODE
         cipher.init(Cipher.DECRYPT_MODE, keySpec, gcmParameterSpec);
-​
+
         // Perform Decryption
         byte[] decryptedText = cipher.doFinal(cipherText);
-​
+
         return new String(decryptedText);
     }
-​
+
     public String bytesToHexString(byte[] bytes) {
         if (bytes != null && bytes.length != 0) {
             StringBuilder builder = new StringBuilder();
             byte[] var2 = bytes;
             int var3 = bytes.length;
-​
             for (int var4 = 0; var4 < var3; ++var4) {
                 byte b = var2[var4];
                 builder.append(String.format("%02x", b));
             }
-​
+
             return builder.toString();
         } else {
             return null;
         }
     }
-​
+
     public String convertHexStringToString(String hex) {
         if (hex != null && hex.length() != 0) {
             StringBuilder output = new StringBuilder();
-​
+
             for (int i = 0; i < hex.length(); i += 2) {
                 String str = hex.substring(i, i + 2);
                 output.append((char) Integer.parseInt(str, 16));
             }
-​
+
             return output.toString();
         } else {
             return hex;
         }
     }
-​
+
     public static byte[] createKey(String did) {
         byte[] encodedDid = did.getBytes();
         byte[] key32Byte = new byte[32];
@@ -390,18 +399,20 @@ public class DocumentControllerTest {
         }
         return key32Byte;
     }
-​
-​
+
+
     public byte[] hexStringToByteArray(String s) {
         int len = s.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
             data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                + Character.digit(s.charAt(i+1), 16));
+                    + Character.digit(s.charAt(i+1), 16));
         }
         return data;
     }
 }
+
+
 ```
 
 #### Request (multipart)
@@ -430,7 +441,7 @@ Content-Disposition:form-data; name="file" filename={fileName} Content-Type: ima
 
 Field name | Value | Description
 --- | --- | --- 
-rcvPairwiseDid	| String |	기관의 Pairwise DID. 암호화 Key를 찾기 위해 사용
+rcvPairwiseDid	| String |	기관의 Pairwise DID. 암호화 Key를 찾기 위해 사용. <br> Ex) did:ssw:9RKZ1Vngjy7iXYWDyQU1mV
 iv |	String	| "iv" : initial vector를 Base64인코딩한 문자열
 encType | String | 암호화 Type. 기본 AES256/GCM
 encData | String | 하기의 <암호화 대상 Object>를 String 으로 변환 후 Base64 인코딩 후 암호화 적용된 byte[] 를 Hex String으로 변환 (Verify, Issue와 동일 로직)
@@ -465,19 +476,19 @@ fileName = seq + "" + reqDocId + "" + docId + 확장자
 
 ## **3. 기관 복호화 Key 획득 방법**
 
-기관은 Holder(사용자)가 보내온 암호화 data를 decryption  하기 위해 아래 API를 사용하여 key를 획득합니다.
+기관은 Holder(사용자)가 보내온 암호화 data를 decryption 하기 위해 아래 API를 사용하여 key를 획득합니다.
 
 Cloud Agent pairwise DID 조회 API
 
-- 상세 API는 링크 참조 https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#option-connection
+- 상세 API는 링크 참조 : [https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#connection_2](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#connection_2)
 
 
 ##### Sample Request
 
-- parameter my_did에는 전달 받은 rcvPairwiseDid 입력
+- parameter my_did에는 전달 받은 rcvPairwiseDid에서 `did:ssw`를 제외하고 입력
 
 ```curl
-curl --location --request GET 'https://dev-console.myinitial.io/agent/api/connections?my_did={rcvPairwiseDid}&state=active' \
+curl --location --request GET 'https://dev-console.myinitial.io/agent/api/connections?my_did=QgbxVtztGEcUrGbx5aEpHZ&state=active' \
 --header 'Authorization: Bearer 2ca4dd8a-xxx-421c-bf2b-c5fb0286f2cc'
 ```
 

@@ -640,7 +640,82 @@ Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 �
     - 특정 connection 정보 확인 : `GET` `/connections/{conn_id}` 
     * <b>[Swagger Document Link ](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/get_connections__conn_id_)</b>
 
-<br><br>
+<br>
+
+#### API Method and Resource
+
+  `GET` `/connections​` connection의 정보를 가져온다
+<p></p>
+
+* Swagger Document
+  
+    [<u>Link Click</u>](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/get_connections)
+<p></p>
+
+#### Request Parameters
+
+* Query Parameters
+
+     KEY | Value | Required | Description 
+     --- | :---: | :---: | ---
+     alias | string |  | 기관에서 지정한 Connection 별칭 지정 (e.g. 1234-1234-1234-1234)
+     my_did | did | O | 기관의 pairwised did. 
+     state | active | O | connection state 
+     their_did | did |  | Holder의 pairwised did. 복호화 key로 사용.
+
+<p></p>
+
+* Path Variables
+
+     KEY | Value | Required | Description 
+     --- | --- | --- | ---
+
+<p></p>
+
+* Body 
+
+    Parameter content type `application/json`
+
+```json
+  {} // no data
+```
+
+<br>
+
+#### Response Parameters
+
+* Body Parameters
+
+     KEY | Value | Description 
+     --- | :---: | ---
+     connection_id | string | unique connecton identifier. <br> e.g. 30cbd096-0fc9-4d12-b668-ad045345485e
+     their_did | string  | holder의 did
+     state | string | connection 상태
+
+#### Response Sample ####
+```json
+{
+    "results": [
+        {
+            "created_at": "2021-05-13 01:28:01.013419Z",
+            "rfc23_state": "completed",
+            "accept": "auto",
+            "state": "active",
+            "their_label": "agency",
+            "connection_id": "72d709d7-1a8c-4f26-a32c-b700b937e25b",
+            "updated_at": "2021-05-13 01:28:05.039245Z",
+            "their_role": "inviter",
+            "routing_state": "none",
+            "their_did": "D7rV3GxtbXuGgzKqUCbAk9", // 복호화 Key
+            "invitation_mode": "once",
+            "my_did": "QgbxVtztGEcUrGbx5aEpHZ",
+            "invitation_key": "81Ebj8szfy9mKbhRtNVypb7NJ2YmTDN7cdm8Xg8wLW7P"
+        }
+    ]
+}
+```
+
+
 
 ## **[선택] Delete Connection** 
 
