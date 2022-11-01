@@ -236,8 +236,8 @@ OCR 인식 정보 및 촬영 된 이미지 전송은 multipart 형식으로 파�
 
 Key & IV
 ```
-KEY : did:ssw:9RKZ1Vngjy7iXYWDyQU1mV
-IV : 76e2454d232e4aa85744b95b
+KEY : did:ssw:BhCCHbK4kMSCoetowegawq
+IV : RNSlYqZWtCoewkq7(76e2454d232e4aa85744b95b)
 ```
 암복호화 JAVA Sample 코드
 
