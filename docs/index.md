@@ -1,4 +1,4 @@
-Document version : v3.0.4 (last updated 2022-11-01)
+Document version : v3.0.5 (last updated 2022-11-30)
 
 **Welcome to initial DID Platform Developer Site**
 ===============

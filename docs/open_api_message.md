@@ -208,7 +208,7 @@ complete : function(){
 
    Field | 필수 | Value | Description 
    --- | :---: | :---: | ---
-   button | 필수 | [confirm] <br> [cancel] | confirm : 확인버튼 표시(성공 시 사용. main으로 이동 <br> cancel : 취소버튼 표시(실패 시 사용. main으로 이동)
+   button | 필수 | ["확인"] <br> ["취소"] | 확인 : 확인버튼 표시(성공 시 사용. main으로 이동 <br> 취소 : 취소버튼 표시(실패 시 정의 된 action으로 이동)
    message_code |	필수	| 별도 Spec 참고 | e.g. D0004 = 승인되지 않았음
    message_main |	필수	| 사용자 정의 | 화면에 표시하고 싶은 Main Title
    message_sub	| X	| 사용자 정의 |	화면에 표시하고 싶은 Sub Title
@@ -228,17 +228,17 @@ complete : function(){
 
 Predefined code & message
 
-No | message_code | message_main | Description | Next Action
---- | :---: | --- | --- | ---
-1 | 0000 | 성공하였습니다 | | 종료하고 Main으로 이동 |
-2 | 0001 | 실패하였습니다 | | 종료하고 Main으로 이동 |
-3 | H0001 |	출근 등록이 정상적으로 완료되었습니다 |	노인인력개발원 전용 | |
-4 | H0002 |	퇴근 등록이 정상적으로 완료되었습니다 |	노인인력개발원 전용|	|
-5 | H0003 |	출근 등록이 완료된 상태입니다	 | 노인인력개발원 전용	| |
-6 | H0004 |	퇴근 등록이 완료된 상태입니다 |	노인인력개발원 전용	| |
-7 | H0005 |	출근 등록이 완료되지 않았습니다 |	노인인력개발원 전용 | |	
-8 | H0006 |	퇴근 등록이 완료되지 않았습니다 |	노인인력개발원 전용 | |
-8 | M0001 |로그인이 완료 되었습니다 |	로그인등 완료 후 현재 작업 종료 | 종료하고 Main으로 이동 |
+| No| code  | message_main | 확인 Action | 실패 Action |
+|---| :---: | -------------| ---------- | ---------- |
+| 1 | 0000  | 성공하였습니다   | 종료하고 Main으로 이동 | |
+| 2 | 0001  | 실패하였습니다   | 재시도 | 종료하고 Main으로 이동|
+| 3 | H0001 |	출근 등록이 정상적으로 완료되었습니다 | | |
+| 4 | H0002 |	퇴근 등록이 정상적으로 완료되었습니다 |	| |
+| 5 | H0003 |	출근 등록이 완료된 상태입니다	 	| | |
+| 6 | H0004 |	퇴근 등록이 완료된 상태입니다 	| | |
+| 7 | H0005 |	출근 등록이 완료되지 않았습니다  | |	 |
+| 8 | H0006 |	퇴근 등록이 완료되지 않았습니다  | | |
+| 8 | M0001 | 로그인이 완료 되었습니다 | 종료하고 Main으로 이동 | |
 
 ***Sample 화면***
 
@@ -371,3 +371,33 @@ No | message_code | message_main | Description | Next Action
 
 }
 ```
+
+<br>
+
+#### 5. 서버 메시지 Spec (사용자 → 기관)
+
+- Holder(initial App 혹은 Cloud Wallet등) → 기관(Issuer/Verifier)에 메시지 전달 위해 사용한다.
+- "type":"initial_message_server" 선언 후 정의된 message 본문 전송
+
+
+Predefined code & message
+
+No | message_code | message_main | message_sub |Description | Next Action
+--- | :---: | --- | --- | --- | ---
+1 | H0001 | 사용자 이름 | 사용자 전화 번호 | | 노인인력개발원 전용 |
+2 | H0002 | 사용자 이름 | 사용자 전화 번호 | | 노인인력개발원 전용 |
+
+
+
+```json
+{
+  "type":"initial_message_server",
+  "content":{
+    "message_code":"H0001",
+    "message_main":"김증명",
+    "message_sub":"01012345678",
+    "button":""
+  }
+}
+```
+

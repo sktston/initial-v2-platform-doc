@@ -13,28 +13,32 @@ initial App2App Deeplink Spec
 initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니다.<br>
 아래와 같은 scheme으로 동작합니다.
 
-#### initial & 모바일지갑 공통
+***initial & 모바일지갑***
+
 - Scheme : initial://reqService?**<span style="color:red">{{Parameter}}</span>**
 
-#### 모바일지갑 전용
+***모바일지갑 전용***
+
 - Scheme : scheme://mwpService?**<span style="color:red">{{Parameter}}</span>**
 
 ## **1. Deeplink Parameters**
+
+#### **공통 Parameters**
 
   Parameter | M / O | Type | Value |  Description
   --- | :---: | :---: | :---: | ---
   process | 필수 | string | I <br> V <br> E <br> O <br> F | I - Issue, Credential 발급<br> V - Verify, Credential 제출/검증<br> S - Sign, 전자서명 <br> E - 행안부 전자문서 제출 <br> O - OCR scan 문서 제출 <br> F - 추가서류 제출 <br> K – 코스콤 전자서명 전용
   ynCloud | 필수 | string | Y | Cloud Agent 기관 여부 (Y/N)
-  orgName | 필수 | string | 기관명 | 표시하기 원하는 기관명
-  oUldUrl | process= 'O' or 'F'가 포함일 경우 필수 | String | [상세 정보](#ouldurl) | OCR 촬영서류 및 기타서류를 제출하기 위한 URL
+  orgName | 필수 | string | 기관명 | 표시하기 원하는 기관명. (urlencoding 필수)
+  oUldUrl | process= 'O' or 'F'가 포함일 경우 필수 | String | [상세 정보](#ouldurl) | OCR 촬영서류 및 기타서류를 제출하기 위한 URL (urlencoding 필수)
   seq | 옵션 | string | 고객구분자 | 고객구분자 / 신청번호
   svcPublicDID | process='V' or 'I' 포함일 경우 필수 | string | did:ssw:{{did}}| 기관의 PublicDID
   nonce | 옵션 | string | a123456789b | Issuer or verifier의 nonce
   credDefId | process= 'I'  포함일 경우 필수 | string | cred_def_id | 증명서 ID
-  credName | ynCloud=Y 이며 process='V' or 'I' 포함일 경우 필수 | string | 기관명 | 표시하기 원하는 증명서명
-  issueCredName | ynCloud=Y 이며 process='K' 일 경우 필수	 | string | 기관명 | 발급 증명서 명
-  verifyCredName | ynCloud=Y 이며 process='K' 일 경우 필수	 | string | 기관명 | 검증 증명서 명
-  invitationUrl | invitationUrl 혹은 invitation 둘중 하나 필수 | URL | URL | 등록된 invitation url
+  credName | ynCloud=Y 이며 process='V' or 'I' 포함일 경우 필수 | string | 기관명 | 표시하기 원하는 증명서명 (urlencoding 필수)
+  issueCredName | ynCloud=Y 이며 process='K' 일 경우 필수	 | string | 기관명 | 발급 증명서 명 (urlencoding 필수)
+  verifyCredName | ynCloud=Y 이며 process='K' 일 경우 필수	 | string | 기관명 | 검증 증명서 명 (urlencoding 필수)
+  invitationUrl | invitationUrl 혹은 invitation 둘중 하나 필수 | URL | URL | 등록된 invitation url (urlencoding 필수)
   invitation | invitationUrl 혹은 invitation 둘중 하나 필수 | string | invitation json | create-invitation으로 생성된 json. <br> `/connections​/create-invitation` 에서 `public=false` 로 생성한 경우 사용
   ocrDocs | process='O' 포함 일 경우 필수 | string | 90000000011 | OCR문서 목록 (별도 코드표 요청) <br> 1개이상 제출시 "_" 로 구분
   govDocs | process='E' 포함 일 경우 필수 | string | 90000000011 | 전자정부 문서 목록 (별도 코드표 요청) <br> 1개이상 제출시 "_" 로 구분
@@ -42,12 +46,11 @@ initial의 deeplink는 등록된 기관 및 증명서에 한해서 동작합니�
   etcDocs | process='F' 포함 일 경우 필수 | string | 지갑 주소 | 기타 서류 (카메라 촬영에 의한 서류 – 코드표 참조)<br> 1개이상 제출시 "_" 로 구분
   masking | process= 'E' or 'O' or 'F'가 포함일 경우 필수 | string | Y <br>N | 마스킹 처리 여부
   ~submitUrl~ | deprecated | URL | [상세 정보](#submiturl-deprecated) | deprecated
-  callback | 옵션 | string | URL | 제출완료 후 복귀할 deeplink URL
+  callback | 옵션 | string | URL | 제출완료 후 복귀할 deeplink URL (urlencoding 필수)
   govIssue | process='E' 포함 일 경우 필수 | string | Y <br>N | "Y"일 경우 발급 후 제출
-  eventType | 옵션 | string | { "free-issue": true } | 진행되는 이벤트 타입
-  reservedCallback | 옵션 <br> process= 'V' 인 경우 사용 가능 <br> callback이 없는 경우 사용 가능 | string |  | 
+  eventType | 옵션 | string | { "free-issue": true } | 진행되는 이벤트 타입 (urlencoding 필수)
 
-### **모바일지갑 전용 Deeplink Parameters**
+#### **모바일지갑 전용 Parameters**
 
 scheme://mwpService? 와 같이 모바일지갑 전용으로 사용되는 규격 입니다.
 
@@ -71,43 +74,46 @@ initial://reqService?process=V&ynCloud=Y&orgName=SKT&credName=%ED%98%81%EC%8B%A0
 
 ***Parameter 상세 설명 및 예시*** 
 
-##### process 
+**<font color=green>process</font>**
 
-- process=VE : 연결 완료되면 Verify를 요청하고, 완료되면 행안부 전자문서를 제출 요청
-- process=I : 연결 완료 후 발행 요청
+- deeplink를 통해 실행해야 하는 actions를 정의
+- ex) process=VE : 연결 완료되면 검증(Verify)를 요청하고, 완료되면 행안부 전자문서를 제출 요청
+- ex) process=I : 연결 완료 후 발행 요청
+- ex) process=VEO : 연결 완료 후 자격증명 검증(Verify) 요청하고, 완료되면 행안부 전자문서 및 OCR 스캔 요청
 
-##### ynCloud
+
+**<font color=green>ynCloud</font>**
 
 - ynCloud=Y : Cloud Agent 사용 기관임을 명시
 
-##### orgName
+**<font color=green>orgName</font>**
 
 - orgName=SKT : 회사명
 
-##### oUldUrl
+**<font color=green>oUldUrl</font>**
 
 - OCR 촬영서류 및 기타서류를 제출하기 위한 URL로 연동 파트너가 직접 API를 구현해야 함.
 - [참고 가이드](#2)
 - example : http://127.0.0.1/initial/upload.do
 
 
-##### svcPublicDID
+**<font color=green>svcPublicDID</font>**
 
 해당 기관의 public DID를 did:ssw method를 포함해서 입력
 
 - svcPublicDID=did:ssw:DrLbXFSao4Vo8gMfjxPxU1
 
-##### credDefId
+**<font color=green>credDefId</font>**
 
 발급/검증을 위한 target cred_def_id를 입력
 
 - credDefId=DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd
 
-##### seq
+**<font color=green>seq</font>**
 
 - seq=1038555586867
 
-##### govDocs
+**<font color=green>govDocs</font>**
 
 전자정부 문서 제출 목록. 1개 이상 제출 시 "_"로 구분
 
@@ -115,26 +121,26 @@ initial://reqService?process=V&ynCloud=Y&orgName=SKT&credName=%ED%98%81%EC%8B%A0
 
 문서 코드표 (update 예정)
 
-##### govWalletAdd
+**<font color=green>govWalletAdd</font>**
 
 기관의 수취용 전자정부 지갑 주소
 
 - govWalletAdd=2V3mcLB7ieZ1Y7XcdBW3rYPcvu6sfEupULzqKaN
 
 
-##### govWalletAdd
+**<font color=green>govWalletAdd</font>**
 
 민감정보 마스킹
 
 - masking=Y
 
-##### submitUrl (deprecated)
+**<font color=green>submitUrl (deprecated)</font>**
 
 Cloud Agent 기관은 submitUrl parameter를 더이상 사용하지 않습니다.
 Cloud Agent 기관은 basic message를 통해 전달 받는다. 상세 문서는 아래 참조
 - https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/#4
 
-##### invitationUrl
+**<font color=green>invitationUrl</font>**
 
 connection에 사용하기 위한 invitation-url을 전달한다.
 
@@ -144,7 +150,7 @@ invitationUrl=https://issue.sktelecom.com/invitation-url
 
 ```invitationUrl=https%3A%2F%2Fissue.sktelecom.com%2Finvitation-url```
 
-##### invitation
+**<font color=green>invitation</font>**
 
 `/connections​/create-invitation` 에서 `public=false` 로 생성한 경우 사용한다
 ```
@@ -169,25 +175,25 @@ invitationUrl=https://issue.sktelecom.com/invitation-url
 
 `invitation=https%3A%2F%2Fdev-console.myinitial.io%2Fagent%2Fendpoint%3Fc_i%3DeyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiOGYyMTVkYmEtMDcyYi00Y2NjLWI5MDgtMGU5NWFjNGNlOThjIiwgInJlY2lwaWVudEtleXMiOiBbIkVqRDFpZUtudWV0TVE4RTc2cFhjekhLWllmQmJtclhyWlVUU0FQM25tbjlGIl0sICJzZXJ2aWNlRW5kcG9pbnQiOiAiaHR0cHM6Ly9kZXYtY29uc29sZS5teWluaXRpYWwuaW8vYWdlbnQvZW5kcG9pbnQiLCAiaW1hZ2VVcmwiOiAiaHR0cHM6Ly9rci5vYmplY3QubmNsb3Vkc3RvcmFnZS5jb20vZGV2LWltYWdlLWZpbGUvZDQxZDhjZDlfY2RmMGE3YzBfMTYyNDU0MDMxNyIsICJsYWJlbCI6ICJTS1RfSXNzdWVyX0RlbW8ifQ%3D%3D`
 
-##### callback
+**<font color=green>callback</font>**
 
 발행/검증 완료 후 복귀한 url 주소이다.(URL encoding 필요)
 
 - callback=initial://mainPage
 
-##### reservedCallback
+**<font color=green>reservedCallback</font>**
 
 발행/검증 실패등으로 callback이 불가능한 경우 사용 하는 주소.(URL encoding 필요)
 
 - callback=initial://mainPage
 
 
-##### eventType
+**<font color=green>eventType</font>**
 
 특별한 event를 처리하기 위한 custom 규격. 규격은 사전 협의 필요 함.
 
 
-##### verifyVC
+**<font color=green>verifyVC</font>**
 
 증명서 검증 시 사용자가 해당 증명서를 보유하고 있지않으면, 자동으로 발급을 안내하기 위한 값
 
@@ -203,7 +209,7 @@ invitationUrl=https://issue.sktelecom.com/invitation-url
 { "schemaId": "N6r4nLwAkcYUX8c8Kb8Ufu:2:InnovationUniversityID:2.0 " }
 ```
 
-##### intService
+**<font color=green>intService</font>**
 
 모바일지갑 서비스를 이동하기 위한 parameter.
 현재 credential과 government 지원
@@ -217,11 +223,11 @@ OCR 인식 정보 및 촬영 된 이미지 전송은 multipart 형식으로 파�
 
 현재 파일의 용량은 최대 10MB로 제한합니다. 검증 서버 성능에 따라서 최대 용량은 더 낮아 질 수 있습니다.
 
-#### 암호화(클라이언트)
+***암호화(클라이언트)***
 
 - AES Symmetric Encryption 사용. 암호화 Key는 Holder의 Pairwise DID를 사용. Encrypted Data와 함께 기관의 Pairwise DID를 제공함.
 
-#### 복호화(서버)
+***복호화(서버)***
 
 - AES Library 함수를 이용 복호화. 복호화 Key는 Cloud Agent의 API를 통해서 확인.
 
