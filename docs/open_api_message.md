@@ -1,6 +1,8 @@
 **Message**
 ================
 
+## **Basic Message 소개**
+
 **기관**(Issuer/Verifier)와 **사용자**(Holder/Prover)의 SMS 문자와 메신저와 같은 Basic Message 송/수신 예제.
 
 <div class="admonition note">
@@ -16,7 +18,7 @@ curl --location --request GET 'http://localhost/wallet/did'\
 
 <br><br>
 
-### **STEP 1. <font color=green>[Option]</font> initial message send (기관 ↔ 사용자)**
+## **STEP 1. Basic Message 보내기 **
 
 - 발급 기관은 사용자로 부터 추가 정보 입력이 필요하거나 사용자가 선택이 필요한 리스트 내용이 있을 경우 Message 보내기를 통해 요청할 수 있고, initial app은 해당 web-view 화면을 출력 한다
 - initial App또한 특정 결과를 message 기능을 통해 기관 Webhook 으로 전달 한다 
@@ -115,7 +117,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/conne
 
 <br>
 
-### **STEP 2. initial Content 본문 표준 Spec**
+## **STEP 2. Content(본문) Spec**
 
 initial은 basicmessage를 이용하여 initial app과 다양한 통신을 할 수 있다.<br>
 그중 이미 정의된 규격(Protocol)이 있다.
@@ -133,7 +135,15 @@ STEP1에서 설명한 {{본문 or String}}에 다음의 규격을 사용하면 A
 
 
 <br>
-#### 1. Webview 화면 요청 본문 Spec
+
+## **- Webview 화면 요청 **
+
+- <font color=blue>[Previous Condition] : </font> 사용자로 부터 추가 정보 필요할 경우 (발급 증명서 선택, 결제화면 등)
+- <font color=blue>[Action] : </font> 사용자에게 기관의 Web Page 주소를 Basic Message로 전달하고, 해당 화면을 WebView 실행 요청
+- <font color=blue>[Development] : </font> 기관(Issuer/Verifier) 서버 → Cloud Agent(플랫폼) API 요청
+
+*** Contents Json Sample ***
+
 ```json
 {
   "type":"initial_web_view",
@@ -149,6 +159,7 @@ STEP1에서 설명한 {{본문 or String}}에 다음의 규격을 사용하면 A
 
 
 <br>
+
 #### [Option] Web_view내 닫기(취소) 버튼 개발 Guide
 
 - 취소 버튼 Java Script Guide
@@ -201,18 +212,14 @@ complete : function(){
 
 <br>
 
-#### 2. Popup 알림창 요청 본문 Spec (기관 → 사용자)
+## ** - Popup 알림창 요청  **
 
-- 기관(Issuer/Verifier) → Holder(initial App 혹은 Cloud Wallet등)에 알림창 표시를 위해 사용한다.
-- "type":"initial_message_popup" 선언 후 정의된 message 본문 전송
+- <font color=blue>[Previous Condition] : </font>  기관(Issuer/Verifier) → Holder(initial App 혹은 Cloud Wallet등)에 알림창 표시를 위해 사용한다.
+- <font color=blue>[Action] : </font> "type":"initial_message_popup" 선언 후 정의된 message 본문 전송
+- <font color=blue>[Development] : </font> 기관(Issuer/Verifier) 서버 → Cloud Agent(플랫폼) API 요청
+<p></p>
 
-   Field | 필수 | Value | Description 
-   --- | :---: | :---: | ---
-   button | 필수 | ["확인"] <br> ["취소"] | 확인 : 확인버튼 표시(성공 시 사용. main으로 이동 <br> 취소 : 취소버튼 표시(실패 시 정의 된 action으로 이동)
-   message_code |	필수	| 별도 Spec 참고 | e.g. D0004 = 승인되지 않았음
-   message_main |	필수	| 사용자 정의 | 화면에 표시하고 싶은 Main Title
-   message_sub	| X	| 사용자 정의 |	화면에 표시하고 싶은 Sub Title
-
+*** Contents Json Sample ***
 
 ```json
 {
@@ -226,7 +233,18 @@ complete : function(){
 }
 ```
 
-Predefined code & message
+*** Contents Attribute List ***
+
+
+   Field | 필수 | Value | Description 
+   --- | :---: | :---: | ---
+   button | 필수 | ["확인"] <br> ["취소"] | 확인 : 확인버튼 표시(성공 시 사용. main으로 이동 <br> 취소 : 취소버튼 표시(실패 시 정의 된 action으로 이동)
+   message_code |	필수	| 별도 Spec 참고 | e.g. D0004 = 승인되지 않았음
+   message_main |	필수	| 사용자 정의 | 화면에 표시하고 싶은 Main Title
+   message_sub	| X	| 사용자 정의 |	화면에 표시하고 싶은 Sub Title
+
+
+*** Predefined code & message ***
 
 | No| code  | message_main | 확인 Action | 실패 Action |
 |---| :---: | -------------| ---------- | ---------- |
@@ -246,16 +264,17 @@ Predefined code & message
 
 
 <br>
-#### 3. Toast 알림창 요청 본문 Spec (기관 → 사용자)
 
-- 기관(Issuer/Verifier) → Holder(initial App 혹은 Cloud Wallet등)에 Toast 알림창 표시를 위해 사용한다.
-- "type":"initial_message_toast" 선언 후 정의된 message 본문 전송
+## **- Toast 알림창 요청**
 
-   Field | 필수 | Value | Description 
-   --- | :---: | :---: | ---
-   message_code |	필수	| 별도 Spec 참고 | e.g. D0004 = 승인되지 않았음
-   message_main |	필수	| 사용자 정의 | 화면에 표시하고 싶은 Main Title
+- <font color=blue>[Previous Condition] : </font>  기관(Issuer/Verifier) → Holder(initial App 혹은 Cloud Wallet등)에 Toast 알림창 표시를 위해 사용한다.
+- <font color=blue>[Action] : </font> "type":"initial_message_toast" 선언 후 정의된 message 본문 전송
+- <font color=blue>[Development] : </font> 기관(Issuer/Verifier) 서버 → Cloud Agent(플랫폼) API 요청
+<p></p>
 
+
+
+*** Contents Json Sample ***
 
 ```json
 {
@@ -266,8 +285,14 @@ Predefined code & message
   }
 }
 ```
+*** Contents Attribute List ***
 
-Predefined code & message
+   Field | 필수 | Value | Description 
+   --- | :---: | :---: | ---
+   message_code |	필수	| 별도 Spec 참고 | e.g. D0004 = 승인되지 않았음
+   message_main |	필수	| 사용자 정의 | 화면에 표시하고 싶은 Main Title
+
+*** Predefined code & message ***
 
 No | message_code | message_main | Description | Next Action
 --- | :---: | --- | --- | ---
@@ -278,12 +303,17 @@ No | message_code | message_main | Description | Next Action
 
 <br>
 
-#### 4. 문서 제출 완료 Spec (사용자 → 기관)
+## **- 문서 제출 완료 수신 **
 
-- Holder(initial App 혹은 Cloud Wallet등) → 기관(Issuer/Verifier)에 문서제출 완료를 위해 사용한다.
-- "type":"initial_summit_doc" 선언 후 정의된 message 본문 전송
-- 상세 내용 : https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/#4
+- <font color=blue>[Previous Condition] : </font>  Holder(initial App 혹은 Cloud Wallet등) → 기관(Issuer/Verifier)에 문서제출 완료를 수신하기 위해 사용한다.
+- <font color=blue>[Action] : </font> "type":"initial_summit_doc" 선언 후 정의된 message 본문 전송
+- <font color=blue>[Development] : </font> 기관(Issuer/Verifier) 서버 → Cloud Agent(플랫폼) API 요청
 
+<p></p>
+
+- 상세 내용 : <https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/#4>
+
+*** Contents Json Sample ***
 
 ```json
 {
@@ -374,13 +404,15 @@ No | message_code | message_main | Description | Next Action
 
 <br>
 
-#### 5. 서버 메시지 Spec (사용자 → 기관)
+## ** - 서버 메시지 수신 **
 
-- Holder(initial App 혹은 Cloud Wallet등) → 기관(Issuer/Verifier)에 메시지 전달 위해 사용한다.
-- "type":"initial_message_server" 선언 후 정의된 message 본문 전송
+- <font color=blue>[Previous Condition] : </font>  Holder(initial App 혹은 Cloud Wallet등) → 기관(Issuer/Verifier)에 메시지 전달 위해 사용한다.
+- <font color=blue>[Action] : </font> "type":"initial_message_server" 선언 후 정의된 message 본문 전송
+- <font color=blue>[Development] : </font> 기관(Issuer/Verifier) 서버 → Cloud Agent(플랫폼) API 요청
 
 
-Predefined code & message
+
+*** Predefined code & message ***
 
 No | message_code | message_main | message_sub |Description | Next Action
 --- | :---: | --- | --- | --- | ---
@@ -388,6 +420,7 @@ No | message_code | message_main | message_sub |Description | Next Action
 2 | H0002 | 사용자 이름 | 사용자 전화 번호 | | 노인인력개발원 전용 |
 
 
+*** Contents Json Sample ***
 
 ```json
 {
