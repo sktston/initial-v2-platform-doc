@@ -10,7 +10,7 @@
     - 발행/검증 관련 모든 통계 data 제공
     - 사용자 추가 초대 기능 제공
 
-## **2. 기관(Enterprise) 이용자를 위한 Open API Services**
+## **2. Open API Services**
 - REST API 기반 Wallet 생성 및 VC 발행/검증 지원 
   
     - 기존 Legacy system과 REST APIs를 통한 손쉬운 개발 지원

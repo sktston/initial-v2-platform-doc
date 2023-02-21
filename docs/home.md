@@ -22,7 +22,7 @@ DID를 통해 신분증/자격증명을 효과적으로 전달할 수 있다면 
 
 <br>
 
-## **2. W3C DID/VC Specification Support**
+## **2. W3C Specification Support**
 
 - initial은 W3C DID 표준을 준수하고, did:ssw: method는 W3C DID에 공식 등록 되어 있습니다.
     - W3C Decentralized Identifiers (DIDs) v1.0 : https://www.w3.org/TR/did-core/

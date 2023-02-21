@@ -7,12 +7,13 @@ repo_url: https://github.com/sktston/initial-v2-platform-doc
 repo_name: initial console guide
 
 
-site_name: initial Platform
+site_name: initial Platform Guide
 nav:
+
   - 'initial Platform' :
-      - 'Introduction' : 'index.md'
-#      - 'Terms' : 'terms.md'
-      - 'Services': 'services.md'
+    #- 'initial Platform' : 'index.md'
+    - 'Introduction' : 'home.md'
+    - 'Services': 'services.md'
 #      - 'Release notes' : 'release_note.md'
 #      - '이용약관' : 'termsofuse.md'
 #      - '오픈소스고지문' : 'initial platform_v1.0_오픈소스고지문_20210325.htm'
@@ -21,7 +22,8 @@ nav:
 #  - 'Mobile Agency Service' :
 #      - 'Initial Agency' : 'agency.md'
 #      - 'Agency Protocols' : 'agency_protocol.md'
-  - 'Getting Started' :
+
+  - 'Getting Started' : 
       - 'Web Console 소개' : 'web_console.md'
       - 'Web Console 이용방법' : 'web_console_signup.md'
       - 'Web Console 개발 Guide': 'web_console_guide.md'
@@ -80,7 +82,7 @@ theme:
         icon: material/brightness-7 
         name: Switch to dark mode 
       primary: blue   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#primary-color
-      #accent: red     # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#accent-color
+      accent: red     # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#accent-color
     # Palette toggle for dark mode
     - scheme: slate
       toggle:
@@ -96,8 +98,8 @@ theme:
   features:
     - navigation.instant      # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading
     - navigation.tracking
-    - navigation.tabs
-    - navigation.tabs.sticky  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs
+    #- navigation.tabs
+    #- navigation.tabs.sticky  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs
     - navigation.sections     # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections
     - navigation.expand       
     - toc.follow              # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-following
@@ -111,9 +113,13 @@ extra:
   version:
     provider: mike
     default: stable
-  versioning: v3.1.0
+  versioning: v3.2.0
   #homepage: https://www.initial.id/
   #alternate:
   #  - name: Korean    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language-selector
   #    link: /ko/
   #    lang: ko
+
+
+extra_css:
+  - stylesheets/extra.css

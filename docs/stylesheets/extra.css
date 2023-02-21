@@ -1,0 +1,15 @@
+:root {
+    /*--md-primary-fg-color:        #EE0F0F;
+    --md-primary-fg-color--light: #ECB7B7;
+    --md-primary-fg-color--dark:  #90030C;*/
+    --md-nav__item: red;
+
+  }
+
+.md-nav__item--section>.md-nav__link[for] {
+    color: #ea0d0d
+}
+
+.md-nav__title {
+    color: #033ff58a;
+}
