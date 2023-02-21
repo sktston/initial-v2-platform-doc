@@ -36,7 +36,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <p></p>
 
-#### Connection State
+*** Connection State 종류***
 
 - Connection 진행동안 State는 아래와 같이 변경되면서 진행 된다.
 - State는 Webhook을 통해 기관에게 모두 전달된다.
@@ -56,7 +56,7 @@ Auto Connection은 최소한의 API를 사용하여 Key 생성 및 교환으로 
 
 <p></p>
 
-#### Connection_id Data Model
+*** Connection_id Data Model ***
 
   connection_id는 앞으로 사용자와 모든 통신에서 사용되는 connection 과정을 통해 생성되는 중요한 identifier 이다.
   `public=true`로 connection을 생성한 기관은 항상 같은 connection_id를 사용할 수 있다.
@@ -267,7 +267,7 @@ curl -X 'POST' \
 
 <br><br>
 
-## **STEP 1-1. <font color=green>[필수]</font> Invitation 전달**
+## **STEP 2. <font color=green>[필수]</font> Invitation 전달**
 
 - <font color=blue>[Previous Condition] : </font> create invitation 생성 완료
 - <font color=blue>[Action] : </font>  개발 필요
@@ -293,7 +293,7 @@ curl -X 'POST' \
 <br>
 <br>
 
-## **STEP 2. Connection Webhook 확인**
+## **STEP 3. Webhook 확인**
 
 - <font color=blue>[Previous Condition] : </font> invitation 전달 정상 완료
 - <font color=blue>[Action] : </font>  Webhook Topic, State 확인
@@ -541,7 +541,7 @@ Webhookd을 사용하지 않으면, Polling API를 사용하여 확인해야 한
 ```
 <br><br>    
 
-## **STEP 3. <font color=green>[필수]</font> Connection 완료**
+## **STEP 4. <font color=green>[필수]</font> Connection 완료**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `connection`, **state** `response`
 - <font color=blue>[Action] : </font>개발 필요 
@@ -724,7 +724,7 @@ Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 �
 <br><br>
 
 
-## **[선택] 기관 사용자 Key와 Mapping**
+## **[선택] 사용자 Key Mapping**
 
 - 모바일지갑에서 제공하는 이름/전화번호/생년월일 기반으로 사용자 관리가 어려운 기관은, `public=false`와 `alias` 사용하여 기관에서 관리하는 사용자 Key와 mapping 하여 관리할 수 있다
 
@@ -734,7 +734,7 @@ Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 �
 </div>
 
 STEP1에서 "public=false" Invitation 생성 방법에 대한 설명이 있다. 이때 alias 입력을 통해 기관사용자의 특정 key 값을 넣을 수 있다.
-이 alias를 활용하기 위해서는 [5. 연결 요청 API 개발 안내](https://initial-v2-platform.readthedocs.io/ko/master/web_console_guide/#invitation-url-api-request) 가이드에서 아래와 같이 추가 개발하시면 됩니다.
+이 alias를 활용하기 위해서는 [5. 연결 요청 API 개발 안내](https://initial-v2-platform.readthedocs.io/ko/master/web_console_guide/#invitation-url-api-request) 가이드에서 아래와 같이 추가 개발하면 됩니다.
 
 ```https://{{ 기관 도메인 }}/invitation-url?alias={key}```
 

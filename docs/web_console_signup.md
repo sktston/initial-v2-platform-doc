@@ -157,7 +157,7 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 
 * 발행/검증 통계를 제공한다.
 
-##### Web 화면기준 
+##### - Web 화면 items
 
 항목(화면) | 설명
 --- | ---
@@ -172,7 +172,7 @@ credDefId | 발행/검증에 사용한 증명서ID
 claims | 발행/검증에 사용한 attribute 항목들
 Time stamp | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.
 
-##### 엑셀 다운로드 기준
+##### - Excel file items
 
 항목(화면) | 설명
 --- | ---
@@ -187,9 +187,7 @@ credentials | 발행/검증에 사용한 증명서의 종류와(credDefId)오 �
 timestamp | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.
 
 
-##### * 참고사항 
-
-###### Excel unixtime to datatime 으로 변경하기
+*** Excel unixtime to datatime 으로 변경하기 ***
 
 예제) 엑셀 J열의 timestamp ```1652943167393``` 변환하는 예시
 
@@ -205,7 +203,7 @@ timestamp | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.
 
 
 
-###### Holder did(사용자) 확인 방법
+*** Holder did(사용자) 확인 방법 ***
 
 <https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#option-connection>
 

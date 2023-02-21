@@ -6,13 +6,13 @@
 - 기관사용자는 아래의 DID API를 사용하여 Legacy 시스템(ERP, HR시스템 등)과 연동 및 증명서를 손쉽게 발생할 수 있습니다.
 - initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식이기 때문에 기관 사용자는 Webhook 서버를 준비하고 url 등록해아 합니다.
 
-### **DID Cloud Agent Open API Swagger page**
+### **Open API Page**
 
 initial console 가입 Master 회원은, 아래 사이트에서 Test 가능합니다.  
 
 [Open API Swagger Site 이동](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/)
 
-### **DID Agent REST API Method**
+### **REST API Method**
 
 1. 기본 URI : 
       - {domain}/Resorce/Method
@@ -25,9 +25,9 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능합�
 3. 응답형식 (Header)
       - Content-Type : application/json; charset=utf-8
 
-### **DID Agent API 지원 List**
+### **API List**
 
-#### Mandatory(필수) APIs
+#### - Mandatory(필수) APIs
 
    Method  | Resource | Description | Swagger 
   :---: | --- | --- | :---:
@@ -39,7 +39,7 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능합�
 
 <br>
 
-#### Optional Service APIs
+#### - Optional APIs
 
    Method  | Resource | Description | Swagger
   :---: | --- | --- | :---:

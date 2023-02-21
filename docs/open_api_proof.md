@@ -37,7 +37,7 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
 <br><br>
 
-## **STEP 0. <font color=green>[필수]</font> Proposal 요청 확인**
+## **STEP 0. <font color=green>[필수]</font> Proposal 확인**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `connection`의 **state** `active`
 - <font color=blue>[Action] : </font>개발 필요 
@@ -117,7 +117,7 @@ present_proof | presentation_acked | (holder) Proof verified 응답을 받은 �
 
 <br><br>
 
-## [참고][Cloud Wallet Holder 전용] Verify Proposal 요청하기
+### [참고][Cloud Wallet Holder 전용] Verify Proposal 요청하기
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
@@ -232,7 +232,7 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/present-proof/send-p
 
 
 
-## **STEP 1. <font color=green>[필수]</font> 제출/검증 요청**
+## **STEP 1. <font color=green>[필수]</font> VP 제출 요청**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `issue_credential` 혹은 `present_proof`의 **state** `proposal_received`
 - <font color=blue>[Action] : </font>개발 필요 
@@ -738,7 +738,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
 <br><br>
 
 
-## **STEP 2. 검증 과정 확인**
+## **STEP 2. Webhook 확인**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `present_proof`의 **state** `request_sent`
 - <font color=blue>[Action] : </font> webhook으로 전달되는 event 확인 
@@ -749,7 +749,7 @@ curl --location --request POST 'https://dev-console.myinitial.io/agent/api/prese
 <p> STEP2는 initial app(Holder)에서 자동으로 처리 됩니다. 기관 사용자는 Webhook으로 전달되는 event 참고만 하시면 되고, 아래 API는 Cloud Wallet Holder의 경우 참고 하시면 됩니다. </p>
 </div>
 
-## [참고][Cloud Wallet Holder 전용] 검증항목 보내기
+### [참고][Cloud Wallet Holder 전용] 검증항목 보내기
 
 #### Method and Resource 
 
@@ -1020,7 +1020,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
   ![verify_webhook](img/verify_topic2.png)
 
 
-## [참고] 고급 검증(Verify)
+### **[참고] 고급 검증(Verify) 소개**
 
 아래 검증양식 예제는 검증에 대한 다양한 방법의 참고 자료로, 기관 사용자는 직접 설정할 수 없습니다. 다양한 검증 방식이 필요할 때 관리자에게 요청하시면 됩니다.
 

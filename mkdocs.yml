@@ -1,13 +1,15 @@
 site_author: SKT 주재현
 site_description: initial Platform
 site_url: https://initial-v2-platform.readthedocs.io/
-google_analytics: ['UA-171779938-1', 'https://initial-v2-platform.readthedocs.io/']
+#google_analytics: ['UA-171779938-1', 'https://initial-v2-platform.readthedocs.io/']
 
 repo_url: https://github.com/sktston/initial-v2-platform-doc
+repo_name: initial console guide
+
 
 site_name: initial Platform
 nav:
-  - 'Initial Platform' :
+  - 'initial Platform' :
       - 'Introduction' : 'index.md'
 #      - 'Terms' : 'terms.md'
       - 'Services': 'services.md'
@@ -19,14 +21,14 @@ nav:
 #  - 'Mobile Agency Service' :
 #      - 'Initial Agency' : 'agency.md'
 #      - 'Agency Protocols' : 'agency_protocol.md'
-  - 'Web Console Service' :
+  - 'Getting Started' :
       - 'Web Console 소개' : 'web_console.md'
       - 'Web Console 이용방법' : 'web_console_signup.md'
       - 'Web Console 개발 Guide': 'web_console_guide.md'
       - 'FAQ': 'web_console_FAQ.md'
 
 
-  - 'initial DID Agent API Guide':
+  - 'API Guide':
       - 'Cloud Agent API list': 'open_api_list.md'
 #      - 'Wallet & DID' : 'open_api_wallet.md'
       - 'Connection (연결)': 'open_api_auto_connection.md'
@@ -54,24 +56,64 @@ nav:
 
 plugins:
   - search
+  - tags
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: date
 markdown_extensions:
-  - meta
+  #- meta
   - toc:
       permalink: true
-      baselevel: 1
+      toc_depth: 2        # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#+toc.toc_depth
+      #baselevel: 1
   - admonition
   - footnotes
 
 theme:
   #name: readthedocs
   name: material
-  #custom_dir: 'cinder'
-  nav_style: dark
-  navigation_depth : 2
-  highlightjs : true
-  hljs_style : github
-  include_homepage_in_sidebar : true
-  collapse_navigation : true
+  #custom_dir: overrides
+  palette:
+    # Palette toggle for light mode
+    - scheme: default # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-scheme
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode 
+      primary: blue   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#primary-color
+      #accent: red     # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#accent-color
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto      # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/#regular-font
+    code: Roboto Mono # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/#monospaced-font
+  language: ko        # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language
+  icon:
+    logo: material/library    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant      # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs
+    - navigation.sections     # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections
+    - navigation.expand       
+    - toc.follow              # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-following
+    - toc.integrate
+    - navigation.top
+    - header.autohide         # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding
+    - navigation.footer       # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#navigation
+    - navigation.indexes      # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages
 
 extra:
-  version: 3.0.5
+  version:
+    provider: mike
+    default: stable
+  versioning: v3.1.0
+  #homepage: https://www.initial.id/
+  #alternate:
+  #  - name: Korean    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language-selector
+  #    link: /ko/
+  #    lang: ko

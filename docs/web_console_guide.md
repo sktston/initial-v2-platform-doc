@@ -4,7 +4,9 @@ initial Platform DID Agent API 이용 개발 안내
 
 ![platform arch](img/initial_platform_architecture.png)
 
-## **기관 참여자 구현/개발이 필요 항목 **
+
+** 기관 참여자 구현/개발이 필요 항목 **
+
 기관은 위 그림을 참고하여 Cloud Agent와 연동을 위한 Controller 개발이 필요합니다.
 
 1. initial App과 최초 통신을 위한 연결(Connection)요청 API
@@ -34,7 +36,7 @@ initial Platform DID Agent API 이용 개발 안내
 - Verifier Sequence Diagram [[Click]](https://plantuml.com/plantuml/uml/dLLVQnj747-_Jp6uK7HWMUz14d7ifDLR26rAdyJvRcKlaMwlUtTgGnemuL9I78XBhLeE9z5IOjgWKbKMnGNt2sbNtw5pjwlJEXBD7xre_-pyPkOtyvkx6KOEZ-9Eso9-HAE7q0Z3c71mGjYuJpXjKS8t5dVEFYxogvqsYptOplR5xUUXjcluDA9E6_IZ82YUK7sJlHAlVnFZ4pcuceqFvV2fF1-8rq_5E9rTVhzXMLQj1W4dd7mLqv1616erorgOb-kvinlmFnYMpz2ATGbVUDtCZGeGZ0laav5y-Jl8enJaO2h-l0HbB8xxygSfoE6px6_UcugZVq2yE9F37-JW40yI-V84vEbtSl1y2oo33VYKjJt2CzHTqc7YrHN8D444RJJlfHe8EV4W2zAoDEUObbxTW6gB8PZBsepNzjengLVtwb-JlGF67eGLwdTfv4IK-R1zjm6pSOfXvvJjCDydRdQJ4vObRC9cELCNBzqsTHzWiYzC2mnFJluecQuvyJBFS0_hGC88Fhdz6JnwvB6EG_t7Zur0oZ5lsvQ3G5qd8jgXaPXgdVLvbJ09k-8MWOGLbnD4AI_X2sG5P2cuiibO5ff1JCDliKw-BDr6eWD6_MZpRho7YSDkOtThQyikmjFzX21hShz7mW1Z8YOuHN2kq1N7rRAH8xBb4jgzPl5nGU4oJoYPZIE7nzWO82TzSJwoLpDSpzqNgYU0TBFdbMlbF4l4hy-X5B60kcXk4Bm98SP5y33dbTYMHzvW-1rxSWdQf1vskvOK9eC99RcmZWRY8W7vSqzSJCKlAUpUmWtAzTN2HzNWlugg6iycuo9wh1Linz613VMwZjBiCClGkJhICf_t4paSeJFB89nwyAsXEyWrewQ6J5AOJGvnKyhdtaCR1PGXcTsx_UPRhHbj0W5d0GiTKmdAzACxTsxXxqEhgk6LisL50qv2VD14jwnLrBI8eibL7tehmbp4yru2rTxAkRSABhroDukBkce2SDNWbf6acjBtTx3WgVmxNII0SoSVWeC-CbcHlNzdqqDyaeYZ4PIoGNoUL70xFpiHasVp_gNuyI-xfFHXhzIaG5zh-i52qlNLROWHPsDM3Yvr8x-r28eQugsHrhjgov3IQc86YIYNsSLLwKixqzyrGShJOy0nvHvGVn_clRuy7HdoqvFBZAAw-abTBmvDp5fHlhycmUN4QtgarInsI1J55YRVk0UElq_KHT4q89vCaHjrP5A09ueiN9XqBLL_4rTnf_qV)
     - 기본 동작 개념 : 연결(Connection/DID 교환) → 필요한 VC 검증 (Verify)
 
-#### 5. 연결 요청 API 개발 안내
+#### 5. 연결 요청 API 개발
 
 ![invitation flow](img/invitation_flow.png)
 
@@ -104,7 +106,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 - invitation-url의 개발은 OPEN API의 [Connection](/open_api_auto_connection/)을 참고.
 
-#### 5. DID Agent Controller 개발 안내 
+#### 5. DID Agent Controller 개발
 - 기관사용자는 DID Agent REST API를 사용하기 위해 controller 서버를 개발해야 한다.
 - Webhook 서버를 통해 전달된 Event에 따라 다음 Service Logic을 구현해야 한다.
 - 자세한 API 내용은 initial DID Agent API Guide 및 reference code 참조
@@ -113,7 +115,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 <br>
   
-#### 6. Webhook controller 개발 안내 
+#### 6. Webhook controller 개발
 - initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식으로 기관, 사용자는 Event를 받을 수 있는 Webhook API를 개발하고 url 등록해아 한다.
 - 처리결과를 받기 위한 기관 사용자의 Webhook URL은 기관정보에 필수 등록해야 합니다. e.g)https://domain.com/webhooks
 - Webhook 서버의 API Key는 보안 강화를 위한 선택 사항입니다. https://domain.com/webhooks#org-api-key 와 같이 입력하시면 header의 x-api-key 항목에 값으로 "org-api-key"를 함께 전송합니다.
@@ -126,7 +128,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 
 
-** *6-1. Webhook url API 개발* **
+***6-1. Webhook url API 개발***
 
 - initial DID platform에서 처리 결과를 webhook으로 전달다.
 - 기관은 Webhook으로 event를 받을 수 있는 API를 제공해야 한다.
@@ -176,7 +178,7 @@ body의 `topic`의 `state`는 event 수신 후 다음 action을 위해 중요하
 
 - webhook으로 전달된 event에 따른 biz logic 처리를 위해 controller를 개발해야 한다.
 
-##### Webhook으로 전달되는 topic의 종류 및 biz logic 예시 
+##### - Webhook topic example 
 
 현재 7가지 종류의 topic이 전달 됨. 
 
@@ -191,7 +193,8 @@ revocation_registry | posted | RevocationRegistry record 생성 완료 | 블록�
 problem_report | | | 에러 확인 
 
 <br> 
-##### Webhook Controller Sample code
+
+##### - Webhook Sample code
 
 ```java
 public void handleEvent(String body) {
@@ -286,7 +289,7 @@ Webhook으로 전달되는 event의 서버 log 예제
 2021-05-14 10:19:28 [INFO ] [GlobalService.java]handleEvent(116) : Web View is not used -> sendCredentialOffer
 2021-05-14 10:19:28 [INFO ] [GlobalService.java]handleEvent(66) : handleEvent >>> topic:issue_credential, state:offer_sent, body:{"initiator":"self","credential_definition_id":"DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd","created_at":"2021-05-14 01:19:28.449637Z","credential_offer_dict":{"@type":"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/offer-credential","@id":"14f835a6-9184-48b6-9957-400db54bb0d8","~thread":{},"offers~attach":[{"@id":"libindy-cred-offer-0","mime-type":"application/json","data":{"base64":"eyJzY2hlbWFfaWQiOiAiTjZyNG5Md0FrY1lVWDhjOEtiOFVmdToyOkNlcnRpZmljYXRlT2ZUT0VJQzo0LjAiLCAiY3JlZF9kZWZfaWQiOiAiRHJMYlhGU2FvNFZvOGdNZmp4UHhVMTozOkNMOjE2MTc2OTgyMzg6ODFkZjAwMTAtNjJiNC00NWIxLWJkMDAtOGQwYWQ3NDc2MmZkIiwgImtleV9jb3JyZWN0bmVzc19wcm9vZiI6IHsiYyI6ICIxMTUzMDkyMDc2NjU0Mjg0MDYxNzk1NDU5OTQzNzM5MTIxODEyODI4MzE1NDUxMTg1NDAwMTQyMjk5NjcyNzE3MDc4OTYyMjQ5MzE1NTAiLCAieHpfY2FwIjogIjEwNTU1NzI3Njk4NjI2NjM0NjM3MDk5MzQyMDQ2MDE5NTQwODA0ODM4OTg4MjYwMzA4Nzk1OTU5NzkwNzQ5NzEwMDQyMDY4NTkzOTM3ODI2NTU1OTkzMjQxNDA5MTM5MDI2NTM2NTAz
 ```
-#### 7. 참여사 개인정보 수집 및 이용 약관 조회 전달 구현 안내 
+#### 7. 개인정보 수집 및 이용 약관 개발 
 - 모바일 initial App에서 참여사에게 본인확인증명을 제출하기 전 개인정보 수집 및 이용 동의를 받기 위해, 동의서 전달이 필요하다.
 - 동의서는 해당기관 법무팀의 검토를 받아야 한다.
 - 약관/동의서 전달 상세 내용은 [Verify](/open_api_proof/#step-1-verifier-holder-verification-request) API 참조.

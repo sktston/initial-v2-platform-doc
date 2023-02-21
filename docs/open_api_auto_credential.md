@@ -78,7 +78,7 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
 ```
 <br><br>
 
-## **STEP 0. <font color=green>[필수]</font> Proposal 요청 확인**
+## **STEP 0. <font color=green>[필수]</font> Proposal 확인**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `connection`, **state** `active`
 - <font color=blue>[Action] : </font>개발 필요 
@@ -124,7 +124,7 @@ issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)
 
 
 
-## [참고][Cloud Wallet Holder 전용] Proposal 요청
+### [참고][Cloud Wallet Holder 전용] Proposal 요청
 
 <div class="admonition Note">
 <p class="admonition-title">Note</p>
@@ -620,7 +620,7 @@ Send-offer가 Holder에서 정상적으로 처리되었을 경우 아래와 같�
 
 <br>
 
-## **STEP 2. 발급 과정 확인**
+## **STEP 2. Webhook 확인**
 
 - <font color=blue>[Previous Condition] : </font> **topic** `issue_credential`, **state** `offer_sent`
 - <font color=blue>[Action] : </font> webhook으로 전달되는 event 확인 
@@ -1308,7 +1308,7 @@ Revocation 사용을 위해서는 아래 [Option] 내용을 확인하고 추가 
 <br><br>
 
 
-## [참고] 발급 취소(Problem Report) 요청
+## [참고] 발급 취소 요청
 
 - <font color=blue>[Previous Condition] : </font> **topic** `issue_credential`, **state** `offer_sent`
 - <font color=blue>[Action] : </font> 증명서 발급 취소
