@@ -57,9 +57,9 @@ nav:
 plugins:
   - search
   - tags
-  - git-revision-date-localized:
-      enable_creation_date: true
-      type: date
+  #- git-revision-date-localized:
+  #    enable_creation_date: true
+  #    type: date
 markdown_extensions:
   #- meta
   - toc:
