@@ -1020,7 +1020,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
   ![verify_webhook](img/verify_topic2.png)
 
 
-### **[참고] 고급 검증(Verify) 소개**
+## **[참고] 고급 검증(Verify) 소개**
 
 아래 검증양식 예제는 검증에 대한 다양한 방법의 참고 자료로, 기관 사용자는 직접 설정할 수 없습니다. 다양한 검증 방식이 필요할 때 관리자에게 요청하시면 됩니다.
 
@@ -1052,7 +1052,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
 
 <br>
 
-##### Example #1 
+***Example #1***
 시나리오 : 모바일가입증명의 cred_def_id가 정확히 일치하는 증명서의 이름,생일,전화번호 요청
 
  - restriction 1 : 현재시간(unixtime : 1623124667) 기준 revocation이 되지 않은 VC
@@ -1109,7 +1109,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
 <br>
 
 
-##### Example #2
+***Example #2***
 시나리오 : 모바일가입증명의 스키마를 사용하고, SKT initial 기관에서 발급한 증명서의 이름,생일,전화번호 요청
 
 - restriction 1 : 발급 기관의 DID(issuer_did)는 SKT initial(3fZJD68zkyJwzsME3rDk7e) VC
@@ -1159,7 +1159,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
 ```
 <br>
 
-##### Example #3
+***Example #3***
 시나리오 :  모바일가입증명의 스키마를 사용하고, SKT initial 기관 혹은 B기관에서 발급한 증명서의 전화번호 요청
 
 - restriction 1 : 발급 기관의 DID(issuer_did)는 SKT initial(3fZJD68zkyJwzsME3rDk7e) 혹은 B기관(DrLbXFSao4Vo8gMfjxPxU1) VC
@@ -1197,7 +1197,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
 
 <br>
 
-##### Example #4
+***Example #4***
 시나리오 :  서로 다른 VC의 항목을 요청. 
 - restriction 1 : 모바일가입증명 VC의 생일 
 - restriction 2 : 대학 재학증명서 VC의 학번
@@ -1241,7 +1241,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
 <br>
 
 
-##### Example #5
+***Example #5***
 시나리오 : 나이를 공개하지 않고, 영지식증명을 이용하여 성인 인증 
 - restriction 1 : 모바일가입증명 VC의 생일
 - restriction 2 : 대학 재학증명서 VC의 학번
@@ -1274,7 +1274,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
 ```
 <br>
 
-##### Example #6
+***Example #6***
 시나리오 : 복합 
 
 ```json
@@ -1333,7 +1333,7 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
 ```
 <br>
 
-##### Example #7 (지원 예정)
+***Example #7 (지원 예정)***
 시나리오 : 사용자가 값을 직접 입력 
 
 - self_attested_attributes 이용하여, 사용자가 직접 값을 입력할 수 있게 할 수 있음.

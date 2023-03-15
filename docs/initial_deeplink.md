@@ -153,7 +153,8 @@ invitationUrl=https://issue.sktelecom.com/invitation-url
 **<font color=green>invitation</font>**
 
 `/connections​/create-invitation` 에서 `public=false` 로 생성한 경우 사용한다
-```
+
+```json
 {
   "connection_id": "30cbd096-0fc9-4d12-b668-ad045345485e",
   "invitation": {
@@ -199,13 +200,14 @@ invitationUrl=https://issue.sktelecom.com/invitation-url
 
 - 특정 증명서(VC) 경우 credDefId를 요청
 
-```
+```json
 { "credDefId": "2V2mrEScqL3BttkNprYwfd:3:CL:1920787080:1a5bea28-3d94-4773-9c9e-b72bccee7fbd" }
 ```
 
+
 - 특정 증명서(VC) 아닌 경우 schemaId를 요청
 
-```
+```json
 { "schemaId": "N6r4nLwAkcYUX8c8Kb8Ufu:2:InnovationUniversityID:2.0 " }
 ```
 
@@ -417,14 +419,12 @@ public class DocumentControllerTestNew {
         return data;
     }
 }
-
-
 ```
 
 #### Request (multipart)
 
 POST { oUldUrl }
-
+ 
 ```
 Content-Type: multipart/form-data; boundary=documents
 -- documents
@@ -639,30 +639,47 @@ Client에서 위의 결과값을 전달하면 기관은 아래와 같은 Event�
 성공했을 경우 예시 (message code : 0000)
 
 ```json
+// "button":["확인"] 고정됨
 {
   "type":"initial_message_popup",
   "content":{
     "message_code":"0000",
-    "message_main":"제출이 완료되었습니다.",
-    "message_sub":"확인 버튼을 누르세요",
-    "button":["확인","취소"]
+    "message_main":"서류 제출이 완료되었습니다.",
+    "message_sub":""
   }
 }
 ```
 
-실패했을 경우 예시 (message code : 0001)
+
+실패하고 재시도가 필요한 경우 예시 (message code : 0001)
 
 ```json
+// "button":["재시도","종료"] 고정됨
 {
   "type":"initial_message_popup",
   "content":{
     "message_code":"0001",
-    "message_main":"필요한 서류가 제출되지 않았습니다.",
-    "message_sub":"확인 버튼을 누르세요",
-    "button":["확인","취소"]
+    "message_main":"구비서류 제출 실패",
+    "message_sub":"제출이 실패하였습니다. 다시 시도해 주세요"
   }
 }
 ```
+
+
+실패하고 재시도가 필요없는 경우 예시 (message code : 0002)
+
+```json
+// "button":["종료"] 고정됨
+{
+  "type":"initial_message_popup",
+  "content":{
+    "message_code":"0002",
+    "message_main":"구비서류 제출 실패",
+    "message_sub":"명의자와 제출자 성명 불일치",
+  }
+}
+```
+
 
 ## 6. 문서코드
 

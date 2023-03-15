@@ -113,7 +113,7 @@ extra:
   version:
     provider: mike
     default: stable
-  versioning: v3.2.0
+  versioning: v3.2.1
   #homepage: https://www.initial.id/
   #alternate:
   #  - name: Korean    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language-selector
