@@ -70,6 +70,13 @@ markdown_extensions:
       #baselevel: 1
   - admonition
   - footnotes
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
 theme:
   #name: readthedocs
@@ -113,7 +120,7 @@ extra:
   version:
     provider: mike
     default: stable
-  versioning: v3.2.1
+  versioning: v3.3.1
   #homepage: https://www.initial.id/
   #alternate:
   #  - name: Korean    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language-selector

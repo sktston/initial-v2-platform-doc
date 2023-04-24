@@ -271,17 +271,24 @@ API요청을 받은 Cloud Agent가 사용자(Verifier)에게 Verification Reques
 
     KEY | value |required |Description 
     --- | --- | :---: | ---
-    connection_id | | O | 사용자와 connection 정보
-    verification_template_id | | O | 사용하고자 하는 검증양식ID(verifTplId) 
-    agreement | | O | (String)개인정보 수집 및 이용 동의서 / 제3자 정보제공 동의서
+    connection_id | 상세정보 참고| O | 사용자와 connection 정보
+    verification_template_id |상세정보 참고 | O | 사용하고자 하는 검증양식ID (verifTplId) 
+    agreement |상세정보 참고 | O | 개인정보 수집 및 이용 동의서 / 제3자 정보제공 동의서
+    self_attr_hint |상세정보 참고 | | self attested attribute 사용 기관의 추가 정보 요청 내용
  
 <p></p>
 
-* verification_template_id : 검증양식ID는 아래 initial Console에서 생성 가능함.
+####Body parameter 상세 정보
+
+  ***- connection_id*** : [참고](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#step-4-connection)
+
+  ***- verification_template_id :*** 검증양식ID는 아래 initial Console에서 생성 및 확인 가능함.
+  * 검증양식 생성
+
 
 ![webconsole 1](img/web_console_create_verification_templete_id.png)
 
-* 검증양식ID는 아래 initial Console에서 확인 가능함.
+* 검증 양식 ID(verifTplId)는 아래 initial Console에서 확인 가능함.
 
 ![webconsole 1](img/web_console_verification_templete_id.png)
 
@@ -298,7 +305,7 @@ API요청을 받은 Cloud Agent가 사용자(Verifier)에게 Verification Reques
 <p> 중요!! 현재 VC관련 사용자 서비스는 initial App과 모바일지갑 Web 두가지가 존재합니다. 기관은 서비스명을 표시할때 사용자 요청 서비스를 구분하여 약관 표시 내용을 변경해야 합니다. 요청 서비스 구분은 connection_id의 `their_label`로 구분 가능합니다. <br> e.g. 아래 약관 규격 내용에서 `initial서비스`는 사용자 서비스에 따라 `모바일지갑서비스`로 표시 될 수 있도록 개발해야 합니다 </p>
 </div>
 
-  - 이니셜 약관 & 동의서 본문 Templete Spec
+  ***- agreement :*** 이니셜 약관 & 동의서 본문 Templete Spec
 
 ```json
 {
@@ -385,10 +392,39 @@ API요청을 받은 Cloud Agent가 사용자(Verifier)에게 Verification Reques
 
 <p></p>
 
+  ***- self_attr_hint :*** 이니셜 약관 & 동의서 본문 Templete Spec
+
+```json
+  {
+    "self_attr_hint": [
+      {
+        "attr": "animnal_id",
+        "hintText": "동물등록번호을 입력해주세요.", // nullable, null 일 경우 힌트 없음
+        "tooltip": { // nullable, null 일 경우 툴팁 없음
+          "title": "동물등록정보를 잊어버리셨나요?",
+          "content": "동물보호관리시스템(https://www.animal.go.kr)\\nMyPage -> 회원정보수정 .........",
+          "linkButton": { // nullable, null 일 경우 툴팁 하단 링크 버튼이 없음
+            "text": "자세히보기",
+            "url": "https://www.animal.go.kr"
+          }
+        }
+      },
+      {
+        // ...
+      }
+    ]
+  }
+```
+
+#### 약관 및 추가 정보 요청 샘플 화면
+
+![webconsole 1](img/self_attested_attr.png)
 
 
+<p></p>
 
-- 약관&동의서 본문을 포함한 Request Body Sample
+
+#### 약관&동의서 본문을 포함한 Request Body Sample
 
 ```json
 {
@@ -1333,21 +1369,67 @@ Webhook message에서 사용자 data를 확인 하기 위해서는 아래 json �
 ```
 <br>
 
-***Example #7 (지원 예정)***
-시나리오 : 사용자가 값을 직접 입력 
+***Example #7***
 
-- self_attested_attributes 이용하여, 사용자가 직접 값을 입력할 수 있게 할 수 있음.
+시나리오 : VC에 없는 정보를 사용자가 직접 값을 입력하여 제출할 수 있도록 요청하기 
+
+- self_attested_attributes 이용하여, 사용자가 직접 값을 입력할 수 있게 할 수 있음
+- restrictions 이 없으면 self_attested_attributes 로 동작
+
 
 ```json
 {
-  "connection_id": "836b3c81-062e-4270-b4cc-03725802bf9c",
-  "proof_request": {
-    "name": "SKT 입사지원을 위한 검증",
-    "version": "1.0",
-    "self_attested_attributes": {
-                  "address": "내가직접 입력"
-    }
-  }
+   "proof_request":{
+      "name":"샘플토익 모바일가입증명 검증",
+      "requested_attributes":{
+         "모바일 가입증명 (1.0) 검증":{
+            "names":[
+               "date_of_birth",
+               "mobile_num",
+               "person_name"
+            ],
+            "restrictions":[
+               {
+                  "cred_def_id":"TmisnEAGBPeVVDjtAXPdYt:3:CL:0:v01"
+               },
+               {
+                  "cred_def_id":"TBz5HEP6gzwqDDMw3Ci7BU:3:CL:1618987943:4224f310-cd2b-4836-843b-07b666c2bf6b"
+               }
+            ]
+         },
+         "학번":{
+            "name":"school_id"
+         }
+      },
+      "requested_predicates":{
+         
+      }
+   }
 }
 ```
 
+- 기관에게 전달되는 Webhook 정보는 아래와 같습니다.
+- 사용자가 입력한 값은 `self_attested_attributes` 를 통해서 전달 됩니다
+
+```json
+{
+  "requested_attributes": {
+    "date_of_birth": {
+      "cred_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "revealed": true
+    },
+    "mobile_num": {
+      "cred_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "revealed": true
+    },
+    "person_name": {
+      "cred_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "revealed": true
+    }
+  }
+  "self_attested_attributes": {
+    "school_id": "111111"
+  },
+  "trace": false
+}
+```
