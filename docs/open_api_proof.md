@@ -395,25 +395,27 @@ API요청을 받은 Cloud Agent가 사용자(Verifier)에게 Verification Reques
   ***- self_attr_hint :*** 이니셜 약관 & 동의서 본문 Templete Spec
 
 ```json
-  {
-    "self_attr_hint": [
+{
+   "self_attested_attrs":[
       {
-        "attr": "animnal_id",
-        "hintText": "동물등록번호을 입력해주세요.", // nullable, null 일 경우 힌트 없음
-        "tooltip": { // nullable, null 일 경우 툴팁 없음
-          "title": "동물등록정보를 잊어버리셨나요?",
-          "content": "동물보호관리시스템(https://www.animal.go.kr)\\nMyPage -> 회원정보수정 .........",
-          "linkButton": { // nullable, null 일 경우 툴팁 하단 링크 버튼이 없음
-            "text": "자세히보기",
-            "url": "https://www.animal.go.kr"
-          }
-        }
-      },
-      {
-        // ...
+         "type":"hint",
+         "content":[
+            {
+               "attr":"school_id",
+               "hintText":"학번을 입력해주세요.",
+               "tooltip":{
+                  "title":"동물등록정보를 잊어버리셨나요?",
+                  "content":"동물보호관리시스템(https://www.animal.go.kr).........",
+                  "linkButton":{
+                     "text":"자세히보기",
+                     "url":"https://www.animal.go.kr"
+                  }
+               }
+            }
+         ]
       }
-    ]
-  }
+   ]
+}
 ```
 
 #### 약관 및 추가 정보 요청 샘플 화면
