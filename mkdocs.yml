@@ -120,8 +120,8 @@ theme:
 extra:
   version:
     provider: mike
-    default: stable
-  versioning: v3.4.0
+    default: master
+  versioning: v3.4.1
   #homepage: https://www.initial.id/
   #alternate:
   #  - name: Korean    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language-selector
