@@ -16,7 +16,13 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능합�
 
 1. 기본 URI : 
       - {domain}/Resorce/Method
-      - e.g. `https://dev-console.myinitial.io/agent/api/connections/create-invitation`
+        - e.g. `https://dev-console.myinitial.io/agent/api/connections/create-invitation`
+      - **개발망**
+        - API Version V1 : [https://dev-console.myinitial.io/agent/api](#)
+        - API Version V2 : [https://dev-console.myinitial.io/agent/v2/api](#)
+      - **운영망**
+        - API Version V1 : [https://console.myinitial.io/agent/api](#)
+        - API Version V2 : [https://console.myinitial.io/agent/v2/api](#)
 2. 요청형식 (Header)
       - ** Content-Type : application/json **
       - ** Accept: application/json **

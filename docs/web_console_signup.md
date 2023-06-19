@@ -61,6 +61,17 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
 
 <br><br>
 
+#### 3-2. 암호화 송수신 사용 하기
+
+* 민감 Data(개인정보등) 송수신을 위한 API 암호화 기능을 제공
+* Console에서 key 및 IV 확인 가능 (AES256 사용)
+* 암복호화 샘플 코드 : [https://github.com/sktston/initial-controller-java/blob/main/src/main/java/com/sktelecom/initial/controller/utils/Aes256Util.java](https://github.com/sktston/initial-controller-java/blob/main/src/main/java/com/sktelecom/initial/controller/utils/Aes256Util.java)
+
+![webconsole enc](img/web_console_enc.png)
+
+<br><br>
+
+
 #### 4. 발행양식 생성하기 
 
 * 증명서 발행을 위해서는 각 기관마다 발행양식(Credential Definition ID) 생성이 필요하다. 발행양식은 기본양식(Schema ID)기반으로 폐기지원여부, 증명서이름, 증명서발행개수등 설정값을 추가하여 생성이 가능하다. initial은 재직증명서, 재학증명서등 기본양식을 미리 제공한다.

@@ -14,6 +14,7 @@ nav:
     #- 'initial Platform' : 'index.md'
     - 'Introduction' : 'home.md'
     - 'Services': 'services.md'
+    - 'Version History' : 'changelog.md'
 #      - 'Release notes' : 'release_note.md'
 #      - '이용약관' : 'termsofuse.md'
 #      - '오픈소스고지문' : 'initial platform_v1.0_오픈소스고지문_20210325.htm'
@@ -120,7 +121,7 @@ extra:
   version:
     provider: mike
     default: stable
-  versioning: v3.3.2
+  versioning: v3.4.0
   #homepage: https://www.initial.id/
   #alternate:
   #  - name: Korean    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language-selector
