@@ -35,25 +35,28 @@ initial console 가입 Master 회원은, 아래 사이트에서 Test 가능합�
 
 #### - Mandatory(필수) APIs
 
-   Method  | Resource | Description | Swagger 
-  :---: | --- | --- | :---:
-  `POST` | ** [/connections/create-invitation](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#step-1-invitation) ** | 새로운 (invitation) 초대장 만들어서 연결하기 |  [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_create_invitation)
-  `POST` | ** [/connections/{conn_id}/send-message](https://initial-v2-platform.readthedocs.io/ko/master/open_api_message) ** | 연결된 사용자에게 Message(개인정보 이용 동의서등) | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/basicmessage/post_connections__conn_id__send_message)
-  `POST` | ** [/issue-credential/records/{cred_ex_id}/send-offer](https://initial-v2-platform.readthedocs.io/ko/master/open_api_proof/#step-1) ** | 발행자(issuer)가 사용자(holder)에게 VC 발행 | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/issue-credential%20v1.0/post_issue_credential_records__cred_ex_id__send_offer)
-  `POST` | ** [/present-proof/send-verification-request](https://initial-v2-platform.readthedocs.io/ko/master/open_api_proof/#step-1) ** | 검증자(verifier)가 사용자(holder)에게 VC 검증 요청하기 | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/present-proof%20v1.0/post_present_proof_send_verification_request)
-  `POST` | [/revocation/revoke](https://initial-v2-platform.readthedocs.io/ko/master/open_api_revocation/#step-2-vc-revoke) | 발행자(issuer)가 사용자(holder)에게 발행한 VC 폐기 | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/revocation/post_revocation_revoke)
+
+|   Category   | Method | Resource                                                                                                            | Description                             |                                                                                Swagger                                                                                 |
+|:------------:|:------:|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|  Connection  | `POST` | ** [/connections/create-invitation](/open_api_auto_connection/#step-1-invitation) **                                | 신규 초대장(invitation) 생성                   |                 [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/post_connections_create_invitation)                 |
+|    Issue     | `POST` | ** [/issue-credential/records/{cred_ex_id}/send-offer](/open_api_proof/#step-1) **                                  | 발행자(issuer)가 사용자(holder)에게 VC 발행        | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/issue-credential%20v1.0/post_issue_credential_records__cred_ex_id__send_offer) |
+|    Issue     | `POST` | [/revocation/revoke](https://initial-v2-platform.readthedocs.io/open_api_revocation/#step-2-vc-revoke)              | 발행자(issuer)가 사용자(holder)에게 발행한 VC 폐기    |                       [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/revocation/post_revocation_revoke)                       |
+| *Issue(enc)* | `POST` | ** [/enc/issue-credential/records/{cred_ex_id}/send-offer](/open_api_proof/#step-1) **                              | (암호화)발행자(issuer)가 사용자(holder)에게 VC 발행   | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/issue-credential%20v1.0/post_issue_credential_records__cred_ex_id__send_offer) |
+|    Verify    | `POST` | ** [/present-proof/send-verification-request](https://initial-v2-platform.readthedocs.io/open_api_proof/#step-1) ** | 검증자(verifier)가 사용자(holder)에게 VC 검증 요청하기 |       [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/present-proof%20v1.0/post_present_proof_send_verification_request)       |
+|   Message    | `POST` | ** [/connections/{conn_id}/send-message](/open_api_message) **                                                      | 연결된 사용자에게 Message(개인정보 이용 동의서등) 보내기     |             [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/basicmessage/post_connections__conn_id__send_message)              |
 
 <br>
 
 #### - Optional APIs
 
-   Method  | Resource | Description | Swagger
-  :---: | --- | --- | :---:
-  `GET` | /connections | 모든 연결(connections) list 확인 | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/get_connections)
-  `GET` | /connections/{conn_id} | 특정 connection ID 정보 확인 | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/get_connections__conn_id_)
-  `GET` | /issue-credential/records | credential 발급관련 모든 기록 확인
-  `GET` | /present-proof/records | 모든 Verify(present-proof) 기록 확인
-  `GET` | /resolver/resolve/{did} | W3C DID Doc 가져오기
-  `POST` | /issue-credential/records/{cred_ex_id}/problem-report | 발급 과정 취소
-  `POST` | /present-proof/records/{pres_ex_id}/problem-report | 검증/제출 과정 취소
+|  Category  | Method | Resource                                              | Description                    |                                                            Swagger                                                            |
+|:----------:|:------:|-------------------------------------------------------|--------------------------------|:-----------------------------------------------------------------------------------------------------------------------------:|
+| Connection | `GET`  | /connections                                          | 모든 연결(connections) list 확인     |      [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/get_connections)      |
+| Connection | `GET`  | /connections/{conn_id}                                | 특정 connection ID 정보 확인         | [TEST](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/connection/get_connections__conn_id_) |
+|   Issue    | `GET`  | /issue-credential/records                             | credential 발급관련 모든 기록 확인       |                                                                                                                               |
+|   Verify   | `GET`  | /present-proof/records                                | 모든 Verify(present-proof) 기록 확인 |                                                                                                                               |
+|    DID     | `GET`  | /resolver/resolve/{did}                               | W3C DID Doc 가져오기               |                                                                                                                               |
+|   Issue    | `POST` | /issue-credential/records/{cred_ex_id}/problem-report | 발급 과정 취소                       |                                                                                                                               |
+|   Verify   | `POST` | /present-proof/records/{pres_ex_id}/problem-report    | 검증/제출 과정 취소                    |                                                                                                                               |
+
 

@@ -280,7 +280,7 @@ API요청을 받은 Cloud Agent가 사용자(Verifier)에게 Verification Reques
 
 ####Body parameter 상세 정보
 
-  ***- connection_id*** : [참고](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#step-4-connection)
+  ***- connection_id*** : [참고](https://initial-v2-platform.readthedocs.io/open_api_auto_connection/#step-4-connection)
 
   ***- verification_template_id :*** 검증양식ID는 아래 initial Console에서 생성 및 확인 가능함.
   * 검증양식 생성

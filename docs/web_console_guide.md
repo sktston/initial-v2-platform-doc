@@ -15,17 +15,17 @@ initial Platform DID Agent API 이용 개발 안내
 
 #### 1. initial Console 가입/기관 생성
 - initial console 가입을 진행하고, Master 권한 신청 및 기관 생성을 진행한다.
-- [가입 및 기관 생성](https://initial-v2-platform.readthedocs.io/ko/master/web_console_signup/#1)
+- [가입 및 기관 생성](https://initial-v2-platform.readthedocs.io/web_console_signup/#1)
 
 #### 2. 기본양식 확인 및 신규 생성
 - initial Console에 접속하여 `디렉토리` - `기본양식 리스트`에 기관에서 사용하기 원하는 양식(Schema ID) 있는지 확인.
 - 사용하고자 하는 양식이 있으면 그대로 사용 가능하고, 없다면 신규 생성을 요청해야 한다.
-- 신규 양식 생성은 initial 관리자만 생성 가능함으로 [Schema 등록](https://initial-v2-platform.readthedocs.io/ko/master/open_api_schema_creddef/) 참고하여 신청해야 한다.
+- 신규 양식 생성은 initial 관리자만 생성 가능함으로 [Schema 등록](https://initial-v2-platform.readthedocs.io/open_api_schema_creddef/) 참고하여 신청해야 한다.
 
 #### 3. 발행양식 및 검증양식 생성 
 - 아래 링크를 참고하여 발행양식과 검증양식을 생성한다. 이부분은 최초 기관생성 단계에서 skip 가능하다.
-- [발행양식 생성](https://initial-v2-platform.readthedocs.io/ko/master/web_console_signup/#4)
-- [검증양식 생성](https://initial-v2-platform.readthedocs.io/ko/master/web_console_signup/#6)
+- [발행양식 생성](https://initial-v2-platform.readthedocs.io/web_console_signup/#4)
+- [검증양식 생성](https://initial-v2-platform.readthedocs.io/web_console_signup/#6)
 
 #### 4. API 및 Sample Code 확인
 - 개발하기 전 아래 참고 사이트를 확인 한다.
@@ -45,7 +45,7 @@ initial Platform DID Agent API 이용 개발 안내
 - 유일하게 모바일에서 접근하는 영역이므로 해당 API의 방화벽은 `any open` 이어야 한다.(이후에는 Cloud Agent 서버와 통신)
 - initial app의 기관 icon 클릭 시 invitation-url에서 초대장을 받아 연결을 시도 한다.
 - invitation-url API 개발 완료 후 Web Console의 '기관정보'에 입력해야 한다.
-- 연결요청 Open API 참고 : [Connection](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/)
+- 연결요청 Open API 참고 : [Connection](https://initial-v2-platform.readthedocs.io/open_api_auto_connection/)
 - 개발 참고 JAVA 예제 :  [Create Invitation Url java code](https://github.com/sktston/initial-controller-java/blob/master/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java)
 
 <br>
@@ -110,7 +110,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 - 기관사용자는 DID Agent REST API를 사용하기 위해 controller 서버를 개발해야 한다.
 - Webhook 서버를 통해 전달된 Event에 따라 다음 Service Logic을 구현해야 한다.
 - 자세한 API 내용은 initial DID Agent API Guide 및 reference code 참조
-- Open API 참고 : [Open APIs](https://initial-v2-platform.readthedocs.io/ko/master/open_api_list/)
+- Open API 참고 : [Open APIs](https://initial-v2-platform.readthedocs.io/open_api_list/)
 - 개발 참고 JAVA 예제 :  [Create Invitation Url java code](https://github.com/sktston/initial-controller-java/blob/master/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java)
 
 <br>

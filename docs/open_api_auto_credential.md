@@ -37,16 +37,16 @@ curl --location --request GET 'http://localhost/wallet/did'\
     - 기관(issuer/verifier) : `proposal_received` → `offer_sent` → `request_received` → `credential_issued` → `credential_acked`<br>
     - Holder : `proposal_sent` → `offer_received` → `request_sent` → `credential_received` → `credential_acked`<br>
 
-Topic | State | Description
---- | --- | ---
-issue_credential | <font color=red>proposal_received<br><b>(Webhook event 전달) | (issuer)credential proposal 받은 상태
-issue_credential | <font color=red>offer_sent<br><b>(Webhook event 전달) | (issuer)credential offer 한 상태
-issue_credential | offer_received | (holder)offer를 받은 상태
-issue_credential | request_sent | (holder) credential을 요청 한 상태
-issue_credential | <font color=red>request_received<br><b>(Webhook event 전달) | (issuer) Credential 요청을 받은 상태 
-issue_credential | <font color=red>credential_issued<br><b>(Webhook event 전달) | (issuer) Credential을 issue  
-issue_credential | credential_received | (holder) Credential을 받은 상태 
-issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달) | (holder/issuer) Credential 수취 완료
+| Topic            | State                                                      | Description                       |
+|------------------|------------------------------------------------------------|-----------------------------------|
+| issue_credential | <font color=red>proposal_received<br><b>(Webhook event 전달) | (issuer)credential proposal 받은 상태 |
+| issue_credential | <font color=red>offer_sent<br><b>(Webhook event 전달)        | (issuer)credential offer 한 상태     |
+| issue_credential | offer_received                                             | (holder)offer를 받은 상태              |
+| issue_credential | request_sent                                               | (holder) credential을 요청 한 상태      |
+| issue_credential | <font color=red>request_received<br><b>(Webhook event 전달)  | (issuer) Credential 요청을 받은 상태     |
+| issue_credential | <font color=red>credential_issued<br><b>(Webhook event 전달) | (issuer) Credential을 issue        |
+| issue_credential | credential_received                                        | (holder) Credential을 받은 상태        |
+| issue_credential | <font color=red>credential_acked<br><b>(Webhook event 전달)  | (holder/issuer) Credential 수취 완료  |
 
 <br>
 
@@ -248,6 +248,7 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/issue-credential/sen
 - <font color=blue>[Action] : </font>개발 필요 
 - <font color=blue>[Development] : </font> Send offer API 요청 개발
 - Step 0의 Holder로 부터 받은 Proposal의 `credential_exchange_id` 필요
+- <font color=red class="admonition danger">**Data 암호화 송수신 기능 제공**</font>
 
 
 <br>
@@ -285,17 +286,24 @@ curl -L -X POST 'https://dev-console.myinitial.io/agent/api/issue-credential/sen
 
     Parameter content type `application/json`
 
-    <div class="admonition warning ">
-    <p class="admonition-title">important</p>
-    <p> 모든 attribute의 값을 입력해야(발행할 값이 없으면 공백문자 입력) 오류가 발행하지 않음. `null`값을 입력하거나 혹은 Attribute를 선언하지 않으면 오류가 발생함 </p>
+    <div class="admonition danger highlight blink ">
+    <p class="admonition-title">attribute 작성 시 주의 사항</p>
+    <p> 모든 attribute의 값을 입력(발행할 값이 없으면 공백문자 입력) 하지 않으면 Error 발생. `null`값을 입력하거나 혹은 Attribute를 선언하지 않으면 오류가 발생함 </p>
     </div>
 
     <div class="admonition warning ">
-    <p class="admonition-title">important</p>
-    <p> 유효기간은 schema의 attribute 명칭이 exp_date로 생성해야 함. <br> 모든 날짜는 YYYYMMDD(20000101) 형식으로 해야 오류가 발행하지 않음. <br>YYYY-MM-DD 혹은 YYYY.MM.DD 형식을 사용하면 안됨 </p>
+    <p class="admonition-title">날짜 입력 시 포맷 주의 사항</p>
+    <p> 모든 날짜는 YYYYMMDD(20000101) 형식으로 해야 오류가 발행하지 않음. <br>YYYY-MM-DD 혹은 YYYY.MM.DD 형식을 사용하면 안됨 </p>
     </div>
 
-
+    <div class="admonition note ">
+    <p class="admonition-title">암호화 지원</p>
+    <p> 개인정보가 포함되는 API 이기 때문에 Body 값을 암호화 요청이 가능. [사용방법](/web_console_signup/#3-2) <br> 아래 json data를 Encrytion 후 <br>
+        ```{
+              encode_data:"[[encrypted data]]"
+            }``` 
+    형태로 API 요청해야 함</p>
+    </div>
 ```json
 {
   "counter_proposal":{

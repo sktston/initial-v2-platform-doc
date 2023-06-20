@@ -279,13 +279,13 @@ curl -X 'POST' \
 
 1. [initial default] **invitation_url**을 전달할 수 있는 API 개발
 
-     [Web Console 개발 Guide](https://initial-v2-platform.readthedocs.io/ko/master/web_console_guide/#5-api) 참조
+     [Web Console 개발 Guide](https://initial-v2-platform.readthedocs.io/web_console_guide/#5-api) 참조
 
 2. [deeplink] App to App 요청 
 
      Scheme : initial://reqService?**<span style="color:red">{{Parameter}}</span>**
 
-    - [initial Deeplink Guide](https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/) 참조  
+    - [initial Deeplink Guide](https://initial-v2-platform.readthedocs.io/initial_deeplink/) 참조  
 
 3. [QR code] 
     - 2번의 Deeplink를 QR code 생성하여 사용자 scan
@@ -734,7 +734,7 @@ Connection 정보는 사용자와 통신을 위한 기본 정보로 Wallet에 �
 </div>
 
 STEP1에서 "public=false" Invitation 생성 방법에 대한 설명이 있다. 이때 alias 입력을 통해 기관사용자의 특정 key 값을 넣을 수 있다.
-이 alias를 활용하기 위해서는 [5. 연결 요청 API 개발 안내](https://initial-v2-platform.readthedocs.io/ko/master/web_console_guide/#invitation-url-api-request) 가이드에서 아래와 같이 추가 개발하면 됩니다.
+이 alias를 활용하기 위해서는 [5. 연결 요청 API 개발 안내](https://initial-v2-platform.readthedocs.io/web_console_guide/#invitation-url-api-request) 가이드에서 아래와 같이 추가 개발하면 됩니다.
 
 ```https://{{ 기관 도메인 }}/invitation-url?alias={key}```
 

@@ -5,7 +5,7 @@
     - 참고 : 2021년 2월 현재 사업자등록번호를 가진 기관사용자만 이용 가능 (추후 개인 사용자 확대 예정)  
 
 
-#### 1. 회원 가입
+## **1. 회원 가입**
 
  - E-mail기반 회원 가입 진행.
  - 회원가입 후 개인 email에서 인증을 거쳐야만 로그인 가능합니다.
@@ -16,7 +16,7 @@
 <br><br>
 
 
-#### 2. Master 신청
+## **2. Master 신청**
 Master는 기관을 생성하고 증명서 양식을 생성하거나 검증할 수 있는 권한이 부여 되고, Member를 기관에 초대할 수 있음. 
 
 Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 가능(읽기권한만 부여)
@@ -29,7 +29,7 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
 
 <br><br>
 
-#### 3. 기관생성하기 
+## **3. 기관생성하기** 
 
 * Master는 '기관 생성하기' 버튼을 클릭하여 기관(Organization)을 여러개 생성 가능
     * 2021.02 현재 최대 5개까지 기관 생성 허용
@@ -51,7 +51,7 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
 
 <br>
 
-#### 3-1. 기관정보 확인 하기
+### ***3-1. 기관정보 확인 하기***
 
 * 기관 생성후 아래의 Access Token은 기관에서 안전하게 관리해야 한다. 
 해당 Token이 노출되면 악용되거나, 추가적인 과금이 발생할 수 있다.
@@ -61,10 +61,15 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
 
 <br><br>
 
-#### 3-2. 암호화 송수신 사용 하기
+### ***3-2. 암호화 송수신 사용 하기***
 
 * 민감 Data(개인정보등) 송수신을 위한 API 암호화 기능을 제공
-* Console에서 key 및 IV 확인 가능 (AES256 사용)
+
+     * 현재 암호화 제공하는 API는 아래와 같습니다.
+     * 증명서 발행 : [/enc/issue-credential/records/{cred_ex_id}/send-offer](/open_api_auto_credential/#step-1)
+     * 기관으로 전달하는 모든 Webhook data
+     
+* Console에서 Secrete key 및 IV 확인 가능 (AES256 사용)
 * 암복호화 샘플 코드 : [https://github.com/sktston/initial-controller-java/blob/main/src/main/java/com/sktelecom/initial/controller/utils/Aes256Util.java](https://github.com/sktston/initial-controller-java/blob/main/src/main/java/com/sktelecom/initial/controller/utils/Aes256Util.java)
 
 ![webconsole enc](img/web_console_enc.png)
@@ -72,7 +77,7 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
 <br><br>
 
 
-#### 4. 발행양식 생성하기 
+## **4. 발행양식 생성하기** 
 
 * 증명서 발행을 위해서는 각 기관마다 발행양식(Credential Definition ID) 생성이 필요하다. 발행양식은 기본양식(Schema ID)기반으로 폐기지원여부, 증명서이름, 증명서발행개수등 설정값을 추가하여 생성이 가능하다. initial은 재직증명서, 재학증명서등 기본양식을 미리 제공한다.
 
@@ -85,7 +90,7 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
 
 <br>
 
-#### 4-1. 발행양식 관리 
+### ***4-1. 발행양식 관리***
 
 * 아래와 같이 발행양식 관리에서 생성된 증명서ID(Credential Definition ID) 확인 가능 합니다. 해당 증명서ID는 생성기관만 사용하여 발행 할 수 있습니다.
 
@@ -93,17 +98,17 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
 
  <br><br>
 
-#### 5. 발행하기 
+## **5. 발행하기**
 
 VC발행을 위해서는 Open API를 사용하여 진행.
 
 * Open API 사용하기 위해서는 기관의 API Access Token과 증명서ID(Credential Definition ID)가 필요합니다.
-* 상세 내용은 Open API의 ['Issue'](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_credential/) Page 참고
+* 상세 내용은 Open API의 ['Issue'](/open_api_auto_credential/) Page 참고
 
 <br><br>
 
 
-#### 6. 검증양식 생성하기 
+## **6. 검증양식 생성하기** 
 
 증명서 검증을 위해서는 제출 받을 증명서양식(Verification Template ID) 생성이 필요하다.<br>
 
@@ -129,14 +134,14 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 <br><br>
 
 
-#### 7. 검증하기 
+## **7. 검증하기** 
 
 * VC발행을 위해서는 Open API를 사용하여 진행.
 * Open API 사용하기 위해서는 기관의 API Access Token과 Verification Template ID 필요함
-* 상세 내용은 Open API의 ['Verify'](https://initial-v2-platform.readthedocs.io/ko/master/open_api_proof/) Page 참고
+* 상세 내용은 Open API의 ['Verify'](https://initial-v2-platform.readthedocs.io/open_api_proof/) Page 참고
 <br><br>
 
-#### 8. initial App 연동하기
+## **8. initial App 연동하기**
 
 <div class="admonition warning">
 <p class="admonition-title">warning</p>
@@ -162,7 +167,7 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 * 개발 진행 중에는 기관공개를 `비공개`로 하거나, App표시를 `미사용`으로 해야 한다.  
 
 
-#### 9. 통계분석하기
+## 9. 통계분석하기
 
 ![webconsole 1](img/console_statistics.png)
 
@@ -170,33 +175,32 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 
 ##### - Web 화면 items
 
-항목(화면) | 설명
---- | ---
-No. | 번호
-From | 통계 Data를 보낸 주체. Issuer 혹은 Verifier 만 표시됨
-Txn ID | 통계 정보를 기록한 블록체인의 트랜잭션 ID 
-Org did | 발행/검증을 진행한 기관의 Public DID
-Holder did | 증명서 발행/검증한 사용자의 Pairwised DID
-TxReulst | 검증/발행의 성공/실패 여부
-VCs | 검증에 사용한 증명서의 개수
-credDefId | 발행/검증에 사용한 증명서ID
-claims | 발행/검증에 사용한 attribute 항목들
-Time stamp | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.
+| 항목(화면)     | 설명                                       |
+|------------|------------------------------------------|
+| No.        | 번호                                       |
+| From       | 통계 Data를 보낸 주체. Issuer 혹은 Verifier 만 표시됨 |
+| Txn ID     | 통계 정보를 기록한 블록체인의 트랜잭션 ID                 |
+| Org did    | 발행/검증을 진행한 기관의 Public DID                |
+| Holder did | 증명서 발행/검증한 사용자의 Pairwised DID            |
+| TxReulst   | 검증/발행의 성공/실패 여부                          |
+| VCs        | 검증에 사용한 증명서의 개수                          |
+| credDefId  | 발행/검증에 사용한 증명서ID                         |
+| claims     | 발행/검증에 사용한 attribute 항목들                 |
+| Time stamp | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.           |
 
 ##### - Excel file items
 
-항목(화면) | 설명
---- | ---
-txnType | 통계 Data를 보낸 주체. Issuer(0) 혹은 Verifier(1) 만 표시됨
-txnId | 통계 정보를 기록한 블록체인의 트랜잭션 ID 
-result | 검증/발행의 성공/실패 여부
-sPublicDid | 발행/검증을 진행한 기관의 Public DID
-sPairwiseDid | 기관에서 생성한 Pairwised DID
-cPairwiseDid | 증명서 발행/검증한 사용자(client)의 Pairwised DID(Holder DID) 
-verifTplId | 검증양식 ID
-credentials | 발행/검증에 사용한 증명서의 종류와(credDefId)오 항목들(claims)
-timestamp | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.
-
+| 항목(화면)       | 설명                                                |
+|--------------|---------------------------------------------------|
+| txnType      | 통계 Data를 보낸 주체. Issuer(0) 혹은 Verifier(1) 만 표시됨    |
+| txnId        | 통계 정보를 기록한 블록체인의 트랜잭션 ID                          |
+| result       | 검증/발행의 성공/실패 여부                                   |
+| sPublicDid   | 발행/검증을 진행한 기관의 Public DID                         |
+| sPairwiseDid | 기관에서 생성한 Pairwised DID                            |
+| cPairwiseDid | 증명서 발행/검증한 사용자(client)의 Pairwised DID(Holder DID) |
+| verifTplId   | 검증양식 ID                                           |
+| credentials  | 발행/검증에 사용한 증명서의 종류와(credDefId)오 항목들(claims)       |
+| timestamp    | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.                    |
 
 *** Excel unixtime to datatime 으로 변경하기 ***
 
@@ -216,7 +220,7 @@ timestamp | 이벤트 시간. 엑셀에서는 unixtime으로 제공된다.
 
 *** Holder did(사용자) 확인 방법 ***
 
-<https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#option-connection>
+<https://initial-v2-platform.readthedocs.io/open_api_auto_connection/#option-connection>
 
 기관에서 실제 사용자와 매핑하여 보관하고 있는 ```connection_id```로 위 API를 호출하면 sPairwiseDid, cPairwiseDid 를 확인할 수 있다.
 

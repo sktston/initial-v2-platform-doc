@@ -138,7 +138,7 @@ initial://reqService?process=V&ynCloud=Y&orgName=SKT&credName=%ED%98%81%EC%8B%A0
 
 Cloud Agent 기관은 submitUrl parameter를 더이상 사용하지 않습니다.
 Cloud Agent 기관은 basic message를 통해 전달 받는다. 상세 문서는 아래 참조
-- https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/#4
+- https://initial-v2-platform.readthedocs.io/initial_deeplink/#4
 
 **<font color=green>invitationUrl</font>**
 
@@ -486,7 +486,7 @@ fileName = seq + "" + reqDocId + "" + docId + 확장자
 
 Cloud Agent pairwise DID 조회 API
 
-- 상세 API는 링크 참조 : [https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#connection_2](https://initial-v2-platform.readthedocs.io/ko/master/open_api_auto_connection/#connection_2)
+- 상세 API는 링크 참조 : [https://initial-v2-platform.readthedocs.io/open_api_auto_connection/#connection_2](https://initial-v2-platform.readthedocs.io/open_api_auto_connection/#connection_2)
 
 
 ##### Sample Request
@@ -634,7 +634,7 @@ Client에서 위의 결과값을 전달하면 기관은 아래와 같은 Event�
 
 연동기관은 4번의 message를 받고, 즉시 사용자에게 message를 보내야 최종 종료 된다.
 
-[참고 : 응답 메시지 보내기 API 규격](https://initial-v2-platform.readthedocs.io/ko/master/open_api_message/#2-popup-spec)
+[참고 : 응답 메시지 보내기 API 규격](https://initial-v2-platform.readthedocs.io/open_api_message/#2-popup-spec)
 
 성공했을 경우 예시 (message code : 0000)
 

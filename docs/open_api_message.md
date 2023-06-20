@@ -312,7 +312,7 @@ No | message_code | message_main | Description | Next Action
 
 <p></p>
 
-- 상세 내용 : <https://initial-v2-platform.readthedocs.io/ko/master/initial_deeplink/#4>
+- 상세 내용 : <https://initial-v2-platform.readthedocs.io/initial_deeplink/#4>
 
 *** Contents Json Sample ***
 
