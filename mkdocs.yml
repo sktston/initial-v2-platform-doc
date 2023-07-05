@@ -10,46 +10,46 @@ repo_name: initial console guide
 site_name: initial Platform Guide
 nav:
 
-  - 'initial Platform' :
-    #- 'initial Platform' : 'index.md'
-    - 'Introduction' : 'home.md'
-    - 'Services': 'services.md'
-    - 'Version History' : 'changelog.md'
-#      - 'Release notes' : 'release_note.md'
-#      - '이용약관' : 'termsofuse.md'
-#      - '오픈소스고지문' : 'initial platform_v1.0_오픈소스고지문_20210325.htm'
-#      - '오픈소스고지문' : 'opensource.md'
-#      - '개인정보수집/이용' : 'privacyuse.md'
-#  - 'Mobile Agency Service' :
-#      - 'Initial Agency' : 'agency.md'
-#      - 'Agency Protocols' : 'agency_protocol.md'
+- 'initial Platform':
+  #- 'initial Platform' : 'index.md'
+  - 'Introduction': 'home.md'
+  - 'Services': 'services.md'
+  - 'Version History': 'changelog.md'
+    #      - 'Release notes' : 'release_note.md'
+    #      - '이용약관' : 'termsofuse.md'
+    #      - '오픈소스고지문' : 'initial platform_v1.0_오픈소스고지문_20210325.htm'
+    #      - '오픈소스고지문' : 'opensource.md'
+    #      - '개인정보수집/이용' : 'privacyuse.md'
+    #  - 'Mobile Agency Service' :
+    #      - 'Initial Agency' : 'agency.md'
+    #      - 'Agency Protocols' : 'agency_protocol.md'
 
-  - 'Getting Started' : 
-      - 'Web Console 소개' : 'web_console.md'
-      - 'Web Console 이용방법' : 'web_console_signup.md'
-      - 'Web Console 개발 Guide': 'web_console_guide.md'
-      - 'FAQ': 'web_console_FAQ.md'
+- 'Getting Started':
+  - 'Web Console 소개': 'web_console.md'
+  - 'Web Console 이용방법': 'web_console_signup.md'
+  - 'Web Console 개발 Guide': 'web_console_guide.md'
+  - 'FAQ': 'web_console_FAQ.md'
 
 
-  - 'API Guide':
-      - 'Cloud Agent API list': 'open_api_list.md'
-#      - 'Wallet & DID' : 'open_api_wallet.md'
-      - 'Connection (연결)': 'open_api_auto_connection.md'
-      - 'Verify (검증기관)': 'open_api_proof.md'
-      - 'Issue (발급기관)': 'open_api_auto_credential.md'
-            #      - 'Manual Connection': 'open_api_manual_connection.md'
-#      - 'Router Connection': 'open_api_router_connection.md'
-#      - 'Manual Credential Issue': 'm_credential.md'
-      - 'Revocation (폐기)': 'open_api_revocation.md'
-      - 'Message': 'open_api_message.md'
-      - 'Schema & Credential ID 등록': 'open_api_schema_creddef.md'
-      - 'initial Deeplink' : 'initial_deeplink.md'
-      - '' : 'open_api_mobilewallet.md'
-  - 'Reference - Demo Samples' :
-#      - 'DID VCX Java Demo' : 'demo.md'
-#      - 'DID VCX NodeJS Demo': 'node_demo.md'
-      - 'Open API Demo' : 'cloud_agent_demo.md'
-      - 'Swagger' : 'https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/'
+- 'API Guide':
+  - 'Cloud Agent API list': 'open_api_list.md'
+    #      - 'Wallet & DID' : 'open_api_wallet.md'
+  - 'Connection (연결)': 'open_api_auto_connection.md'
+  - 'Verify (검증기관)': 'open_api_proof.md'
+  - 'Issue (발급기관)': 'open_api_auto_credential.md'
+    #      - 'Manual Connection': 'open_api_manual_connection.md'
+  - 'Revocation (폐기)': 'open_api_revocation.md'
+    #      - 'Router Connection': 'open_api_router_connection.md'
+    #      - 'Manual Credential Issue': 'm_credential.md'
+  - 'Message': 'open_api_message.md'
+  - 'Schema & Credential ID 등록': 'open_api_schema_creddef.md'
+  - 'initial Deeplink': 'initial_deeplink.md'
+  - '': 'open_api_mobilewallet.md'
+- 'Reference - Demo Samples':
+  #      - 'DID VCX Java Demo' : 'demo.md'
+  #      - 'DID VCX NodeJS Demo': 'node_demo.md'
+  - 'Open API Demo': 'cloud_agent_demo.md'
+  - 'Swagger': 'https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/'
 #  - 'SDK API' :
 #      - 'Java APIs' : 'java_api/java_api.md'
 #      - 'iOS APIs' : 'ios_api/ios_api.md'
@@ -58,70 +58,70 @@ nav:
 
 
 plugins:
-  - search
-  #- tags
-  #- git-revision-date-localized:
-  #    enable_creation_date: true
-  #    type: date
+- search
+#- tags
+#- git-revision-date-localized:
+#    enable_creation_date: true
+#    type: date
 markdown_extensions:
-  #- meta
-  - toc:
-      permalink: true
-      toc_depth: 2        # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#+toc.toc_depth
-      #baselevel: 1
-  - admonition
-  - footnotes
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
+#- meta
+- toc:
+    permalink: true
+    toc_depth: 2 # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#+toc.toc_depth
+    #baselevel: 1
+- admonition
+- footnotes
+- pymdownx.highlight:
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: true
+- pymdownx.inlinehilite
+- pymdownx.snippets
+- pymdownx.superfences
 
 theme:
   #name: readthedocs
   name: material
   #custom_dir: overrides
   palette:
-    # Palette toggle for light mode
-    - scheme: default # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-scheme
-      toggle:
-        icon: material/brightness-7 
-        name: Switch to dark mode 
-      primary: blue   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#primary-color
-      accent: red     # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#accent-color
-    # Palette toggle for dark mode
-    - scheme: slate
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+  # Palette toggle for light mode
+  - scheme: default # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-scheme
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+    primary: blue # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#primary-color
+    accent: red # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#accent-color
+  # Palette toggle for dark mode
+  - scheme: slate
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
   font:
-    text: Roboto      # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/#regular-font
+    text: Roboto # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/#regular-font
     code: Roboto Mono # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/#monospaced-font
-  language: ko        # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language
+  language: ko # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language
   icon:
-    logo: material/library    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
+    logo: material/library # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
     repo: fontawesome/brands/github
   features:
-    - navigation.instant      # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading
-    - navigation.tracking
-    #- navigation.tabs
-    #- navigation.tabs.sticky  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs
-    - navigation.sections     # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections
-    - navigation.expand       
-    - toc.follow              # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-following
-    - toc.integrate
-    - navigation.top
-    - header.autohide         # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding
-    - navigation.footer       # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#navigation
-    - navigation.indexes      # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages
+  - navigation.instant # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading
+  - navigation.tracking
+  #- navigation.tabs
+  #- navigation.tabs.sticky  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs
+  - navigation.sections # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections
+  - navigation.expand
+  - toc.follow # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-following
+  - toc.integrate
+  - navigation.top
+  - header.autohide # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding
+  - navigation.footer # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#navigation
+  - navigation.indexes # https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages
 
 extra:
   version:
     provider: mike
     default: master
-  versioning: v3.4.2
+  versioning: v3.4.3
   #homepage: https://www.initial.id/
   #alternate:
   #  - name: Korean    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/#site-language-selector
@@ -130,4 +130,4 @@ extra:
 
 
 extra_css:
-  - stylesheets/extra.css
+- stylesheets/extra.css

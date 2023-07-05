@@ -13,21 +13,21 @@ initial Platform DID Agent API 이용 개발 안내
 2. Cloud Agent API 사용위한 Controller
 3. Event 수신 Webhook controller
 
-#### 1. initial Console 가입/기관 생성
+## **1. initial Console 가입/기관 생성**
 - initial console 가입을 진행하고, Master 권한 신청 및 기관 생성을 진행한다.
-- [가입 및 기관 생성](https://initial-v2-platform.readthedocs.io/web_console_signup/#1)
+- [가입 및 기관 생성](/web_console_signup/#1)
 
-#### 2. 기본양식 확인 및 신규 생성
+## **2. 기본양식 확인 및 신규 생성**
 - initial Console에 접속하여 `디렉토리` - `기본양식 리스트`에 기관에서 사용하기 원하는 양식(Schema ID) 있는지 확인.
 - 사용하고자 하는 양식이 있으면 그대로 사용 가능하고, 없다면 신규 생성을 요청해야 한다.
-- 신규 양식 생성은 initial 관리자만 생성 가능함으로 [Schema 등록](https://initial-v2-platform.readthedocs.io/open_api_schema_creddef/) 참고하여 신청해야 한다.
+- 신규 양식 생성은 initial 관리자만 생성 가능함으로 [Schema 등록](/open_api_schema_creddef/) 참고하여 신청해야 한다.
 
-#### 3. 발행양식 및 검증양식 생성 
+## **3. 발행양식 및 검증양식 생성**
 - 아래 링크를 참고하여 발행양식과 검증양식을 생성한다. 이부분은 최초 기관생성 단계에서 skip 가능하다.
-- [발행양식 생성](https://initial-v2-platform.readthedocs.io/web_console_signup/#4)
-- [검증양식 생성](https://initial-v2-platform.readthedocs.io/web_console_signup/#6)
+- [발행양식 생성](/web_console_signup/#4)
+- [검증양식 생성](/web_console_signup/#6)
 
-#### 4. API 및 Sample Code 확인
+## **4. API 및 Sample Code 확인**
 - 개발하기 전 아래 참고 사이트를 확인 한다.
 - Open API [[Click]](https://app.swaggerhub.com/apis-docs/khujin1/initial_Cloud_Agent_Open_API/1.0.4#/)
 - Issuer/Verifier JAVA Demo 소스코드 [[Click]](https://github.com/sktston/initial-controller-java)
@@ -36,7 +36,7 @@ initial Platform DID Agent API 이용 개발 안내
 - Verifier Sequence Diagram [[Click]](https://plantuml.com/plantuml/uml/dLLVQnj747-_Jp6uK7HWMUz14d7ifDLR26rAdyJvRcKlaMwlUtTgGnemuL9I78XBhLeE9z5IOjgWKbKMnGNt2sbNtw5pjwlJEXBD7xre_-pyPkOtyvkx6KOEZ-9Eso9-HAE7q0Z3c71mGjYuJpXjKS8t5dVEFYxogvqsYptOplR5xUUXjcluDA9E6_IZ82YUK7sJlHAlVnFZ4pcuceqFvV2fF1-8rq_5E9rTVhzXMLQj1W4dd7mLqv1616erorgOb-kvinlmFnYMpz2ATGbVUDtCZGeGZ0laav5y-Jl8enJaO2h-l0HbB8xxygSfoE6px6_UcugZVq2yE9F37-JW40yI-V84vEbtSl1y2oo33VYKjJt2CzHTqc7YrHN8D444RJJlfHe8EV4W2zAoDEUObbxTW6gB8PZBsepNzjengLVtwb-JlGF67eGLwdTfv4IK-R1zjm6pSOfXvvJjCDydRdQJ4vObRC9cELCNBzqsTHzWiYzC2mnFJluecQuvyJBFS0_hGC88Fhdz6JnwvB6EG_t7Zur0oZ5lsvQ3G5qd8jgXaPXgdVLvbJ09k-8MWOGLbnD4AI_X2sG5P2cuiibO5ff1JCDliKw-BDr6eWD6_MZpRho7YSDkOtThQyikmjFzX21hShz7mW1Z8YOuHN2kq1N7rRAH8xBb4jgzPl5nGU4oJoYPZIE7nzWO82TzSJwoLpDSpzqNgYU0TBFdbMlbF4l4hy-X5B60kcXk4Bm98SP5y33dbTYMHzvW-1rxSWdQf1vskvOK9eC99RcmZWRY8W7vSqzSJCKlAUpUmWtAzTN2HzNWlugg6iycuo9wh1Linz613VMwZjBiCClGkJhICf_t4paSeJFB89nwyAsXEyWrewQ6J5AOJGvnKyhdtaCR1PGXcTsx_UPRhHbj0W5d0GiTKmdAzACxTsxXxqEhgk6LisL50qv2VD14jwnLrBI8eibL7tehmbp4yru2rTxAkRSABhroDukBkce2SDNWbf6acjBtTx3WgVmxNII0SoSVWeC-CbcHlNzdqqDyaeYZ4PIoGNoUL70xFpiHasVp_gNuyI-xfFHXhzIaG5zh-i52qlNLROWHPsDM3Yvr8x-r28eQugsHrhjgov3IQc86YIYNsSLLwKixqzyrGShJOy0nvHvGVn_clRuy7HdoqvFBZAAw-abTBmvDp5fHlhycmUN4QtgarInsI1J55YRVk0UElq_KHT4q89vCaHjrP5A09ueiN9XqBLL_4rTnf_qV)
     - 기본 동작 개념 : 연결(Connection/DID 교환) → 필요한 VC 검증 (Verify)
 
-#### 5. 연결 요청 API 개발
+## 5. 연결 요청 API 개발
 
 ![invitation flow](img/invitation_flow.png)
 
@@ -106,16 +106,16 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 - invitation-url의 개발은 OPEN API의 [Connection](/open_api_auto_connection/)을 참고.
 
-#### 5. DID Agent Controller 개발
+## **6. DID Agent Controller 개발**
 - 기관사용자는 DID Agent REST API를 사용하기 위해 controller 서버를 개발해야 한다.
 - Webhook 서버를 통해 전달된 Event에 따라 다음 Service Logic을 구현해야 한다.
 - 자세한 API 내용은 initial DID Agent API Guide 및 reference code 참조
-- Open API 참고 : [Open APIs](https://initial-v2-platform.readthedocs.io/open_api_list/)
+- Open API 참고 : [Open APIs](/open_api_list/)
 - 개발 참고 JAVA 예제 :  [Create Invitation Url java code](https://github.com/sktston/initial-controller-java/blob/master/src/main/java/com/sktelecom/initial/controller/issuer/GlobalService.java)
 
 <br>
   
-#### 6. Webhook controller 개발
+## **7. Webhook controller 개발**
 - initial DID Platform의 DID Agent는 Event Driven(이벤트 구동형) 방식으로 기관, 사용자는 Event를 받을 수 있는 Webhook API를 개발하고 url 등록해아 한다.
 - 처리결과를 받기 위한 기관 사용자의 Webhook URL은 기관정보에 필수 등록해야 합니다. e.g)https://domain.com/webhooks
 - Webhook 서버의 API Key는 보안 강화를 위한 선택 사항입니다. https://domain.com/webhooks#org-api-key 와 같이 입력하시면 header의 x-api-key 항목에 값으로 "org-api-key"를 함께 전송합니다.
@@ -128,7 +128,7 @@ https://dev-console.myinitial.io/agent/endpoint?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6
 
 
 
-***6-1. Webhook url API 개발***
+***7-1. Webhook url API 개발***
 
 - initial DID platform에서 처리 결과를 webhook으로 전달다.
 - 기관은 Webhook으로 event를 받을 수 있는 API를 제공해야 한다.
@@ -174,7 +174,7 @@ body: {
 ```
 body의 `topic`의 `state`는 event 수신 후 다음 action을 위해 중요하게 활용. 
 
-***6-2. Webhook Controller 개발***
+***7-2. Webhook Controller 개발***
 
 - webhook으로 전달된 event에 따른 biz logic 처리를 위해 controller를 개발해야 한다.
 
@@ -289,12 +289,82 @@ Webhook으로 전달되는 event의 서버 log 예제
 2021-05-14 10:19:28 [INFO ] [GlobalService.java]handleEvent(116) : Web View is not used -> sendCredentialOffer
 2021-05-14 10:19:28 [INFO ] [GlobalService.java]handleEvent(66) : handleEvent >>> topic:issue_credential, state:offer_sent, body:{"initiator":"self","credential_definition_id":"DrLbXFSao4Vo8gMfjxPxU1:3:CL:1617698238:81df0010-62b4-45b1-bd00-8d0ad74762fd","created_at":"2021-05-14 01:19:28.449637Z","credential_offer_dict":{"@type":"did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/offer-credential","@id":"14f835a6-9184-48b6-9957-400db54bb0d8","~thread":{},"offers~attach":[{"@id":"libindy-cred-offer-0","mime-type":"application/json","data":{"base64":"eyJzY2hlbWFfaWQiOiAiTjZyNG5Md0FrY1lVWDhjOEtiOFVmdToyOkNlcnRpZmljYXRlT2ZUT0VJQzo0LjAiLCAiY3JlZF9kZWZfaWQiOiAiRHJMYlhGU2FvNFZvOGdNZmp4UHhVMTozOkNMOjE2MTc2OTgyMzg6ODFkZjAwMTAtNjJiNC00NWIxLWJkMDAtOGQwYWQ3NDc2MmZkIiwgImtleV9jb3JyZWN0bmVzc19wcm9vZiI6IHsiYyI6ICIxMTUzMDkyMDc2NjU0Mjg0MDYxNzk1NDU5OTQzNzM5MTIxODEyODI4MzE1NDUxMTg1NDAwMTQyMjk5NjcyNzE3MDc4OTYyMjQ5MzE1NTAiLCAieHpfY2FwIjogIjEwNTU1NzI3Njk4NjI2NjM0NjM3MDk5MzQyMDQ2MDE5NTQwODA0ODM4OTg4MjYwMzA4Nzk1OTU5NzkwNzQ5NzEwMDQyMDY4NTkzOTM3ODI2NTU1OTkzMjQxNDA5MTM5MDI2NTM2NTAz
 ```
-#### 7. 개인정보 수집 및 이용 약관 개발 
+## **8. 개인정보 수집 및 이용 약관 개발**
 - 모바일 initial App에서 참여사에게 본인확인증명을 제출하기 전 개인정보 수집 및 이용 동의를 받기 위해, 동의서 전달이 필요하다.
 - 동의서는 해당기관 법무팀의 검토를 받아야 한다.
 - 약관/동의서 전달 상세 내용은 [Verify](/open_api_proof/#step-1-verifier-holder-verification-request) API 참조.
 
 
-#### 8. 개발검증 방법
+## **9. 개발검증 방법**
 - Test를 진행하기 위해 initial 개발앱을 별도로 요청해야 한다.
 - deeplink를 생성하여 개발하면서 검증이 가능하다 [deeplink 가이드 참고](/initial_deeplink/)
+
+## **10. v2 API 전환 개발**
+- 처리 성능 향상된 신규 API를 제공합니다. 기존 V1 API를 사용하는 기관은 아래 방법으로 migration 이 가능합니다.
+  
+
+#### ** 현재 Agent API version 확인**
+
+Web Console 로그인 - 기관 선택 - 기관관리 - 기관 정보 - `Agent Service API URL` 확인
+
+- v1 API 사용 기관 : https://dev-console.myinitial.io/agent/api
+- v2 API 사용 기관 : https://dev-console.myinitial.io/agent/v2/api
+
+v1 API 사용시 아래와 같은 순서로 V2 전환 가능합니다.
+
+
+** A. 신규 기관 생성 **
+
+- Web Console 로그인 - `기관 생성하기` 클릭 [[기관 생성 가이드 참고](/web_console_signup/#3)]
+- 기존 기관과 동일한 정보를 입력합니다. (기관설명/도메인/Webhook/Invintation-url등)
+- <font color=red>***기관명은 중복시 오류 발생. 꼭 기존과 다르게 설정 필요 (예:기존 SKT --> 신규 SKT v2)***</font>
+- Agent Version 에서 <font color=red>**version2**</font> 선택합니다.
+- 암호화 송수신 필요 시 선택합니다.
+
+** B. 발행양식 생성 (발급 기관만 해당) **
+
+-  Web Console 로그인 - 발행관리 - 발행 양식 생성 [[발행양식 생성 가이드 참고](/web_console_signup/#4)]
+-  기존과 동일한 기본 양식을 선택하여 생성한다
+-  발행 양식 관리에서 신규 생성된 <font color=red>**증명서 ID**</font>를 확인한다
+-  Web Console 로그인 - 발행관리 - 발행 양식 관리 - 증명서 발행 설정 - 증명서 공개 클릭
+
+
+** C. 검증양식 생성 **
+
+-  Web Console 로그인 - 검증관리 - 검증 양식 생성 - 고급 검증양식 생성 선택 [[검증양식 생성 가이드 참고](/web_console_signup/#6)]
+-  기존과 동일한 기본 양식을 선택하여 생성한다
+-  검증 양식 관리에서 신규 생성된 <font color=red>**검증 양식 ID**</font>를 확인한다
+
+** D. 현재 기관 사용 중지 (발급기관)**
+
+발급 기관만 해당됩니다.
+
+- initial 관리자측에 요청하여 기존 기관 App 노출 비활성화를 요청
+- intitial admin에서 노출에 대한 설정 권한을 가지고 있습니다.
+
+
+** E. 기존 서버에 신규 properties 값을 적용**
+
+변경되는 값은 아래와 같습니다. 아래 정보를 적용 후 서버 재시작
+
+- Access Token
+- Agent Service API URL
+- 증명서 ID(CredDefId) : 발급 기관만 해당
+- 검증 양식 ID (verifTplId)	
+
+
+** F. 신규 기관 활성화 및 이름 변경**
+
+-  Web Console 로그인 - 기관관리 - 기관정보에서 기관 공개 및 App표시 활성화 하기
+-  기관명은 기존과 동일하게 수정 가능 (예: SKT v2 --> SKT)
+
+** G. App 노출 설정(발급기관)**
+
+발급 기관만 해당됩니다.
+
+- initial 관리자측에 요청하여 신규 기관 App 노출 활성화를 요청
+- intitial admin에서 노출에 대한 설정 권한을 가지고 있습니다.
+
+** H. 테스트 진행**
+
+정상 동작 여부 확인
