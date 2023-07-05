@@ -37,15 +37,14 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
 
 * 기관마다 독립된 Public DID와 Private/Public Key/API Access Token이 생성됩니다.
 * 기관 생성을 위해서는 아래와 같은 정보가 필요합니다.
-    * 기관 명 : 예시) SK텔레콤 모바일사원증
+    * 기관 명 : 예시) SK텔레콤
     * 기관 설명 : 예시) 구성원 모바일사원증 발급을 위한 기관
     * 도메인 URL : 예시) https://www.skt.com
     * Webhook URL : Cloud Agent의 처리 결과를 받기 위한 주소
     * Invitation URL : initial App에 초대장을 전송하기 위한 주소
     * 기관구분 : Issuer | Verifier 중 택1
     * App Type : Android | iOS 선택
-    * App 노출 : initial App 사용 여부 (현재 지원 안함)
-    * 기관 공개 : Web Console에 기관 공개. 다른 기관에서 증명서 검색 가능
+
 
 ![webconsole 1](img/web_console_org_create.png)
 
@@ -71,8 +70,6 @@ Master 권한이 필요없는 일반 User는 초대를 통해서 console 사용 
      
 * Console에서 Secrete key 및 IV 확인 가능 (AES256 사용)
 * 암복호화 샘플 코드 : [https://github.com/sktston/initial-controller-java/blob/main/src/main/java/com/sktelecom/initial/controller/utils/Aes256Util.java](https://github.com/sktston/initial-controller-java/blob/main/src/main/java/com/sktelecom/initial/controller/utils/Aes256Util.java)
-
-![webconsole enc](img/web_console_enc.png)
 
 <br><br>
 
@@ -141,33 +138,8 @@ initial에서 제공하는 증명서 양식 기반으로 제출 받을 내용을
 * 상세 내용은 Open API의 ['Verify'](https://initial-v2-platform.readthedocs.io/open_api_proof/) Page 참고
 <br><br>
 
-## **8. initial App 연동하기**
 
-<div class="admonition warning">
-<p class="admonition-title">warning</p>
-<p> initial App 연동은 사용자들에게 직접 영향을 주기 때문에 주의가 필요 </p>
-</div>
-
-* 기관 관리자는 Web Console을 통해 initial App의 기관 표시를 컨트롤 할 수 있다.
-* 실수를 방지하기 위해 아래 두단계를 활성화 해야 한다
-<p></p>
-
-* <b>기관관리</b>-<b>기관정보</b>에서 아래 두 항목을 활성화 해야 한다. webhook url과 invitation url 모두 개발 되어야 활성화 된다.
-    - <b>기관 공개</b> : `공개`로 설정. '비공개'로 설정하면 'App표시'는 자동으로 `미사용` 된다.
-    - <b>App표시</b> : '사용'으로 설정.
-
-![webconsole 1](img/initial_app_display_1.png)
-
-* <b>발행관리</b>-<b>발행양식관리</b>-<b>증명서상세보기</b>에서 아래 항목을 활성화 해야 한다
-    - <b>증명서 발행 설정</b> : '증명서공개'로 설정. 해당 증명서만 영향을 준다.
-![webconsole 1](img/initial_app_display_2.png)
-
-<br><br>
-
-* 개발 진행 중에는 기관공개를 `비공개`로 하거나, App표시를 `미사용`으로 해야 한다.  
-
-
-## 9. 통계분석하기
+## 8. 통계분석하기
 
 ![webconsole 1](img/console_statistics.png)
 
